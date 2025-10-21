@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konsep Bilangan - Latihan OSN</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm; /* Mengubah ukuran logo agar tidak terlalu besar */
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 38pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .soal-latihan {
+        margin-bottom: 25px;
+        break-inside: avoid;
+        padding-bottom: 10px;
+      }
+      .soal-latihan-n {
+        margin-bottom: 25px;
+        break-inside: avoid;
+        padding-bottom: 10px;
+      }
+      .soal-latihan b {
+        margin-bottom: 5px;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: inline;
+      }
+      .options {
+        padding-left: 0px;
+        margin-top: 10px;
+        display: block;
+      }
+      .options div {
+        margin-bottom: 5px;
+        padding-left: 20px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 18pt;
+        font-weight: 700;
+        margin: 20px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 10px 0;
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4caf50;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .image-description {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-style: italic;
+        color: #555;
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Ruangguru Privat Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">Konsep Bilangan<br />Latihan OSN</h1>
+        <p class="cover-subtitle">Jenjang SD/MI Sederajat</p>
+      </div>
+    </section>
+
+    <!-- Halaman Materi 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Konsep Bilangan</h1>
+        <div class="materi-konten" style="display: block; text-align: justify;">
+          <h2>1. Bilangan Cacah dan Bilangan Bulat</h2>
+          <p>
+            <b>Bilangan Cacah</b> adalah himpunan bilangan yang dimulai dari 0 dan
+            terus bertambah satu-satu. Contoh: $\{0, 1, 2, 3, 4, ...\}$.
+            Bilangan cacah tidak memiliki anggota negatif.
+          </p>
+          <p>
+            <b>Bilangan Bulat</b> adalah himpunan bilangan yang terdiri dari
+            bilangan cacah, dan lawan negatifnya. Himpunan ini mencakup
+            bilangan bulat negatif, nol, dan bilangan bulat positif. Contoh:
+            $\{..., -3, -2, -1, 0, 1, 2, 3, ...\}$.
+          </p>
+          <h3>Garis Bilangan</h3>
+          <p>
+            Garis bilangan adalah alat visual untuk memahami posisi dan hubungan
+            antar bilangan.
+          </p>
+          <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_6ldyxm_2738.png" alt="Garis Bilangan" style="width: 100%; max-width: 14cm; display: block; margin: 20px auto;">
+          <ul>
+            <li>Nol (0) berada di tengah.</li>
+            <li>Bilangan positif berada di sebelah kanan nol.</li>
+            <li>Bilangan negatif berada di sebelah kiri nol.</li>
+          </ul>
+          <p>
+            Semakin ke kanan, nilai bilangan semakin besar. Semakin ke kiri,
+            nilai bilangan semakin kecil. Misalnya, $-1$ lebih besar dari $-3$.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <h1>Materi: Konsep Bilangan</h1>
+            <div class="materi-konten" style="display: block; text-align: justify;">
+                <h2>2. Bilangan Rasional</h2>
+                <p>
+                    <b>Bilangan Rasional</b> adalah bilangan yang dapat dinyatakan dalam bentuk pecahan $\frac{a}{b}$, di mana $a$ (pembilang) dan $b$ (penyebut) adalah bilangan bulat, dan $b \neq 0$. Bilangan rasional mencakup bilangan bulat, pecahan, desimal terbatas, dan desimal berulang.
+                </p>
+                <h3>Bentuk-Bentuk Bilangan Rasional</h3>
+                <ul>
+                    <li>
+                        <b>Pecahan Biasa:</b> Terdiri dari pembilang dan penyebut, contoh: $\frac{1}{2}, \frac{3}{4}$.
+                    </li>
+                    <li>
+                        <b>Pecahan Campuran:</b> Terdiri dari bilangan bulat dan pecahan biasa, contoh: $1\frac{1}{2}$ (sama dengan $\frac{3}{2}$).
+                    </li>
+                     <li>
+                        <b>Desimal:</b> Bentuk bilangan dengan koma. Contoh: $0,5$ (sama dengan $\frac{1}{2}$), $0,75$ (sama dengan $\frac{3}{4}$).
+                    </li>
+                    <li>
+                        <b>Persen (%):</b> Bentuk pecahan dengan penyebut 100. Contoh: $50\%$ (sama dengan $\frac{50}{100}$ atau $0,5$).
+                    </li>
+                </ul>
+                <h3>Hubungan Antar Bentuk</h3>
+                <p>Semua bentuk di atas dapat diubah dari satu bentuk ke bentuk lainnya.</p>
+                <p>Contoh: $\frac{3}{5} = 0,6 = 60\%$</p>
+                <ul>
+                    <li>Untuk mengubah pecahan ke desimal: Bagi pembilang dengan penyebut. ($3 \div 5 = 0,6$)</li>
+                    <li>Untuk mengubah desimal ke persen: Kalikan dengan 100. ($0,6 \times 100 = 60\%$)</li>
+                    <li>Untuk mengubah persen ke pecahan: Jadikan per seratus, lalu sederhanakan. ($60\% = \frac{60}{100} = \frac{3}{5}$)</li>
+                </ul>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+            <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+    </section>
+    
+    <!-- Halaman Materi 3 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <h1>Materi: Konsep Lanjutan OSN</h1>
+            <div class="materi-konten" style="display: block; text-align: justify;">
+                <h2>3. Teori Bilangan Dasar</h2>
+                <p>
+                    <b>Keterbagian (Divisibility):</b> Sebuah bilangan $a$ habis dibagi oleh bilangan $b$ jika sisa pembagiannya adalah 0. Aturan keterbagian sangat penting dalam olimpiade.
+                </p>
+                 <ul>
+                    <li><b>Habis dibagi 2:</b> Jika angka satuannya genap (0, 2, 4, 6, 8).</li>
+                    <li><b>Habis dibagi 3:</b> Jika jumlah digit-digitnya habis dibagi 3.</li>
+                    <li><b>Habis dibagi 4:</b> Jika dua digit terakhirnya habis dibagi 4.</li>
+                    <li><b>Habis dibagi 5:</b> Jika angka satuannya 0 atau 5.</li>
+                    <li><b>Habis dibagi 9:</b> Jika jumlah digit-digitnya habis dibagi 9.</li>
+                </ul>
+                <h2>4. FPB dan KPK</h2>
+                 <p>
+                    <b>Faktor Persekutuan Terbesar (FPB)</b> adalah faktor terbesar yang sama dari dua bilangan atau lebih. Digunakan dalam soal pembagian barang yang sama rata.
+                </p>
+                 <p>
+                    <b>Kelipatan Persekutuan Terkecil (KPK)</b> adalah kelipatan terkecil yang sama dari dua bilangan atau lebih. Digunakan dalam soal jadwal atau kejadian berulang.
+                </p>
+                <h2>5. Pola Bilangan</h2>
+                <p>
+                    Banyak soal olimpiade melibatkan pencarian pola, seperti pola angka satuan pada bilangan berpangkat. Contoh: Angka satuan dari $2^n$ memiliki pola berulang (2, 4, 8, 6).
+                </p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+            <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+    </section>
+    
+    <!-- Halaman Soal Mudah 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Mudah</div>
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>1.</b> Bilangan yang terletak 3 satuan di sebelah kiri dari angka -2 pada garis bilangan adalah...</div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. -1</div>
+            <div>C. -5</div>
+            <div>D. 5</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>2.</b> Bentuk pecahan biasa yang paling sederhana dari $75\%$ adalah...</div>
+          <div class="options">
+            <div>A. $\frac{75}{100}$</div>
+            <div>B. $\frac{3}{4}$</div>
+            <div>C. $\frac{1}{4}$</div>
+            <div>D. $\frac{7}{5}$</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>3.</b> Urutan bilangan berikut dari yang terbesar adalah...<br>$0,6; \quad 55\%; \quad \frac{2}{3}; \quad 0,58$</div>
+          <div class="options">
+            <div>A. $0,6; 55\%; \frac{2}{3}; 0,58$</div>
+            <div>B. $\frac{2}{3}; 0,6; 0,58; 55\%$</div>
+            <div>C. $55\%; 0,58; 0,6; \frac{2}{3}$</div>
+            <div>D. $\frac{2}{3}; 0,58; 0,6; 55\%$</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>4.</b> Hasil dari $-15 + (-10) - (-5)$ adalah...</div>
+          <div class="options">
+            <div>A. -30</div>
+            <div>B. -20</div>
+            <div>C. -10</div>
+            <div>D. 0</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Mudah 2 -->
+    <section class="page">
+        <div class="content-wrapper">
+          <div class="kategori-soal">Soal Kategori Mudah (Lanjutan)</div>
+          <div class="soal-latihan">
+              <div class="soal-konten"><b>5.</b> Bilangan cacah pertama yang lebih besar dari 0 adalah...</div>
+              <div class="options">
+                <div>A. 0</div>
+                <div>B. 0,1</div>
+                <div>C. -1</div>
+                <div>D. 1</div>
+              </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+    <!-- Halaman Soal Sedang 1 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="kategori-soal">Soal Kategori Sedang</div>
+            <div class="soal-latihan">
+                <div class="soal-konten">
+                    <b>6.</b> Suhu di puncak gunung pada pagi hari adalah $-8^\circ$C. Siang harinya, suhu naik $15^\circ$C. Pada malam hari, suhu turun lagi sebesar $11^\circ$C. Suhu di puncak gunung pada malam hari adalah...
+                </div>
+                <div class="options">
+                    <div>A. $-4^\circ$C</div>
+                    <div>B. $4^\circ$C</div>
+                    <div>C. $18^\circ$C</div>
+                    <div>D. $-14^\circ$C</div>
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <div class="soal-konten">
+                    <b>7.</b> Ani memiliki pita sepanjang $5\frac{1}{4}$ meter. Ia menggunakan $2,5$ meter untuk menghias kado dan memberikan $\frac{3}{4}$ meter kepada adiknya. Sisa pita Ani adalah... meter.
+                </div>
+                <div class="options">
+                    <div>A. 1,5</div>
+                    <div>B. 1,75</div>
+                    <div>C. 2</div>
+                    <div>D. 2,25</div>
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <div class="soal-konten">
+                    <b>8.</b> Dalam sebuah kelas, $\frac{2}{5}$ siswanya adalah laki-laki. Jika jumlah siswa perempuan adalah 18 orang, maka jumlah seluruh siswa di kelas tersebut adalah...
+                </div>
+                <div class="options">
+                    <div>A. 25 orang</div>
+                    <div>B. 30 orang</div>
+                    <div>C. 35 orang</div>
+                    <div>D. 45 orang</div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-konten">
+                    <b>9.</b> Hasil dari $1,25 \div \frac{3}{4} \times 20\%$ adalah...
+                </div>
+                <div class="options">
+                    <div>A. $\frac{1}{3}$</div>
+                    <div>B. $\frac{1}{2}$</div>
+                    <div>C. $\frac{2}{3}$</div>
+                    <div>D. $\frac{3}{4}$</div>
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+            <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang 2 -->
+     <section class="page">
+        <div class="content-wrapper">
+            <div class="kategori-soal">Soal Kategori Sedang (Lanjutan)</div>
+            <div class="soal-latihan">
+                <div class="soal-konten">
+                    <b>10.</b> Lampu A berkedip setiap 4 detik, lampu B setiap 6 detik, dan lampu C setiap 9 detik. Jika ketiga lampu berkedip bersamaan pada pukul 10:00:00, kapan ketiganya akan berkedip bersamaan lagi?
+                </div>
+                <div class="options">
+                    <div>A. 10:00:18</div>
+                    <div>B. 10:00:24</div>
+                    <div>C. 10:00:36</div>
+                    <div>D. 10:01:00</div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-konten">
+                    <b>11.</b> Pak Anto akan membagikan 60 kg beras, 48 kg gula, dan 72 kg telur kepada tetangganya dalam bentuk paket sembako. Setiap paket berisi ketiga jenis barang dengan jumlah yang sama. Berapa paket paling banyak yang bisa dibuat?
+                </div>
+                <div class="options">
+                    <div>A. 6</div>
+                    <div>B. 8</div>
+                    <div>C. 12</div>
+                    <div>D. 24</div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-konten">
+                    <b>12.</b> Jika $k$ adalah bilangan bulat negatif. Manakah hasil operasi berikut yang nilainya paling besar?
+                </div>
+                <div class="options">
+                    <div>A. $k - 5$</div>
+                    <div>B. $k + 5$</div>
+                    <div>C. $5 \times k$</div>
+                    <div>D. $5 - k$</div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-konten">
+                    <b>13.</b> Dalam sebuah kompetisi matematika, setiap jawaban benar diberi skor 4, salah -2, dan tidak dijawab -1. Dari 40 soal, Budi menjawab 30 soal benar dan 6 soal salah. Skor yang diperoleh Budi adalah...
+                </div>
+                <div class="options">
+                    <div>A. 104</div>
+                    <div>B. 108</div>
+                    <div>C. 114</div>
+                    <div>D. 120</div>
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+            <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang 3 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="kategori-soal">Soal Kategori Sedang (Lanjutan)</div>
+             <div class="soal-latihan">
+                <div class="soal-konten">
+                    <b>14.</b> Ayah memiliki tanah seluas 800 $m^2$. Sebesar $35\%$ ditanami padi, $\frac{3}{8}$ bagian ditanami jagung, dan sisanya dibuat kolam. Luas kolam adalah... $m^2$.
+                </div>
+                <div class="options">
+                    <div>A. 220</div>
+                    <div>B. 280</div>
+                    <div>C. 300</div>
+                    <div>D. 580</div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-konten">
+                    <b>15.</b> Nilai dari $(1 - \frac{1}{3}) \times (1 - \frac{1}{4}) \times (1 - \frac{1}{5}) \times ... \times (1 - \frac{1}{50})$ adalah...
+                </div>
+                <div class="options">
+                    <div>A. $\frac{1}{25}$</div>
+                    <div>B. $\frac{1}{50}$</div>
+                    <div>C. $\frac{2}{49}$</div>
+                    <div>D. $\frac{49}{50}$</div>
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+            <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>16.</b> Tentukan angka satuan dari $3^{2023}$.
+          </div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 3</div>
+            <div>C. 7</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>17.</b> Sebuah bilangan jika dibagi 8 bersisa 5 dan jika dibagi 6 bersisa 3. Bilangan terkecil yang lebih besar dari 100 yang memenuhi sifat tersebut adalah...
+          </div>
+          <div class="options">
+            <div>A. 101</div>
+            <div>B. 107</div>
+            <div>C. 117</div>
+            <div>D. 123</div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>18.</b> Berapa banyak bilangan antara 1 dan 200 (inklusif) yang tidak habis dibagi 2 dan tidak habis dibagi 5?
+          </div>
+          <div class="options">
+            <div>A. 60</div>
+            <div>B. 80</div>
+            <div>C. 100</div>
+            <div>D. 120</div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+            <div class="soal-konten">
+              <b>19.</b> Jika $\frac{1}{a} + \frac{1}{b} = \frac{1}{5}$ dan $a,b$ adalah bilangan bulat positif yang berbeda, maka nilai terbesar yang mungkin untuk $a+b$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 25</div>
+              <div>B. 30</div>
+              <div>C. 36</div>
+              <div>D. 42</div>
+            </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+    
+    <!-- Halaman Soal Sulit 2 -->
+    <section class="page">
+        <div class="content-wrapper">
+          <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+            <div class="soal-konten">
+              <b>20.</b> Jumlah 50 bilangan asli ganjil pertama adalah...
+            </div>
+            <div class="options">
+              <div>A. 1275</div>
+              <div>B. 2500</div>
+              <div>C. 2525</div>
+              <div>D. 5000</div>
+            </div>
+        </div>
+          <div class="soal-latihan-n">
+            <div class="soal-konten">
+              <b>21.</b> Rata-rata dari 15 bilangan adalah 12. Jika bilangan 20 dan 28 ditambahkan ke dalam kumpulan bilangan tersebut, maka rata-rata barunya adalah...
+            </div>
+            <div class="options">
+              <div>A. 13</div>
+              <div>B. 13,4</div>
+              <div>C. 14</div>
+              <div>D. 14,2</div>
+            </div>
+          </div>
+          <div class="soal-latihan-n">
+            <div class="soal-konten">
+              <b>22.</b> Untuk menomori halaman sebuah buku dari halaman 1 sampai halaman 222, berapa kali angka 0 digunakan?
+            </div>
+            <div class="options">
+              <div>A. 32</div>
+              <div>B. 42</div>
+              <div>C. 43</div>
+              <div>D. 52</div>
+            </div>
+          </div>
+          <div class="soal-latihan-n">
+            <div class="soal-konten">
+              <b>23.</b> Diberikan empat bilangan bulat berurutan. Jika hasil kali bilangan pertama dan ketiga adalah 143, maka jumlah keempat bilangan tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 48</div>
+              <div>B. 50</div>
+              <div>C. 52</div>
+              <div>D. 54</div>
+            </div>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+    <!-- Halaman Soal Sulit 3 -->
+    <section class="page">
+        <div class="content-wrapper">
+          <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+          <div class="soal-latihan-n">
+              <div class="soal-konten">
+                <b>24.</b> Terdapat 5 titik yang tidak ada tiga titik yang segaris. Berapa banyak segitiga yang bisa dibentuk dari titik-titik tersebut?
+              </div>
+              <div class="options">
+                <div>A. 5</div>
+                <div>B. 8</div>
+                <div>C. 10</div>
+                <div>D. 15</div>
+              </div>
+          </div>
+          <div class="soal-latihan-n">
+              <div class="soal-konten">
+                <b>25.</b> Jumlah dari semua faktor positif dari 100 adalah...
+              </div>
+              <div class="options">
+                <div>A. 215</div>
+                <div>B. 216</div>
+                <div>C. 217</div>
+                <div>D. 225</div>
+              </div>
+          </div>
+          <div class="soal-latihan-n">
+            <div class="soal-konten">
+              <b>26.</b> Andi 4 tahun lebih tua dari Budi. Cici 2 tahun lebih muda dari Andi. Jika jumlah umur mereka bertiga adalah 45 tahun, maka umur Budi adalah...
+            </div>
+            <div class="options">
+              <div>A. 11 tahun</div>
+              <div>B. 13 tahun</div>
+              <div>C. 15 tahun</div>
+              <div>D. 17 tahun</div>
+            </div>
+          </div>
+          <div class="soal-latihan-n">
+            <div class="soal-konten">
+              <b>27.</b> Sebuah pekerjaan dapat diselesaikan oleh 12 orang dalam 15 hari. Jika pekerjaan tersebut ingin diselesaikan dalam 9 hari, berapa banyak tambahan pekerja yang dibutuhkan?
+            </div>
+            <div class="options">
+              <div>A. 6</div>
+              <div>B. 8</div>
+              <div>C. 15</div>
+              <div>D. 20 </div>
+            </div>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+    <!-- Halaman Soal Sulit 4 -->
+    <section class="page">
+        <div class="content-wrapper">
+          <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+          <div class="soal-latihan-n">
+            <div class="soal-konten">
+              <b>28.</b> Diberikan $A = \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16}$ dan $B = \frac{1}{3} + \frac{1}{9} + \frac{1}{27}$. Manakah pernyataan yang benar?
+            </div>
+            <div class="options">
+              <div>A. $A > B$</div>
+              <div>B. $A < B$</div>
+              <div>C. $A = B$</div>
+              <div>D. $A = 2B$</div>
+            </div>
+          </div>
+          <div class="soal-latihan-n">
+              <div class="soal-konten">
+                <b>29.</b> Tiga buah bilangan prima memiliki jumlah 100. Salah satu dari ketiga bilangan prima tersebut adalah...
+              </div>
+              <div class="options">
+                <div>A. 2</div>
+                <div>B. 41</div>
+                <div>C. 59</div>
+                <div>D. 67</div>
+              </div>
+          </div>
+          <div class="soal-latihan-n">
+              <div class="soal-konten">
+                <b>30.</b> Berapa banyak cara menyusun kata "OLIMPIAD" jika huruf vokal dan konsonan harus berselang-seling?
+              </div>
+              <div class="options">
+                <div>A. 144</div>
+                <div>B. 576</div>
+                <div>C. 1152</div>
+                <div>D. 2880</div>
+              </div>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+    <!-- Halaman Kunci Jawaban Mudah 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+            <b>1. Jawaban: C. -5</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Garis bilangan adalah sebuah garis lurus di mana setiap titiknya melambangkan sebuah bilangan. Angka nol (0) ada di tengah. Bilangan positif di sebelah kanan, dan bilangan negatif di sebelah kiri. Bergerak "ke kiri" berarti menuju bilangan yang lebih kecil (mengurangi). Bergerak "ke kanan" berarti menuju bilangan yang lebih besar (menambah).<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. Kita mulai dari posisi angka -2 pada garis bilangan.<br>
+                2. Perintahnya adalah bergerak "3 satuan di sebelah kiri". Ini artinya kita harus mengurangi posisi awal kita sebanyak 3.<br>
+                3. Operasi matematikanya adalah: $-2 - 3$.<br>
+                4. Hasil dari $-2 - 3$ adalah $-5$.<br>
+                Jadi, bilangan yang terletak 3 satuan di sebelah kiri dari -2 adalah -5.
+            </div>
+        </div>
+        <div class="soal-latihan">
+            <b>2. Jawaban: B. $\frac{3}{4}$</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Persen (simbol %) berarti "per seratus". Jadi, $x\%$ sama dengan $\frac{x}{100}$. Pecahan "paling sederhana" didapat dengan membagi pembilang (angka di atas) dan penyebut (angka di bawah) dengan Faktor Persekutuan Terbesar (FPB) mereka.<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. Ubah bentuk persen ke pecahan biasa: $75\% = \frac{75}{100}$.<br>
+                2. Cari FPB dari 75 dan 100. Faktor dari 75 adalah 1, 3, 5, 15, <b>25</b>, 75. Faktor dari 100 adalah 1, 2, 4, 5, 10, 20, <b>25</b>, 50, 100. FPB-nya adalah 25.<br>
+                3. Bagi pembilang dan penyebut dengan FPB: $\frac{75 \div 25}{100 \div 25} = \frac{3}{4}$.<br>
+                Pecahan $\frac{3}{4}$ sudah tidak bisa dibagi lagi dengan bilangan yang sama (selain 1), jadi ini adalah bentuk paling sederhana.
+            </div>
+        </div>
+         <div class="soal-latihan">
+            <b>3. Jawaban: B. $\frac{2}{3}; 0,6; 0,58; 55\%$</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Untuk bisa membandingkan dan mengurutkan bilangan yang bentuknya berbeda-beda (desimal, persen, pecahan), cara termudah adalah mengubah semua bilangan tersebut ke dalam satu bentuk yang sama. Bentuk desimal adalah yang paling umum dan mudah untuk dibandingkan.<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. <b>Ubah semua ke bentuk desimal:</b><br>
+                   - $0,6$ (sudah desimal)<br>
+                   - $55\% = \frac{55}{100} = 0,55$<br>
+                   - $\frac{2}{3} = 2 \div 3 = 0,666...$ (kita bisa tulis $0,67$ untuk perbandingan)<br>
+                   - $0,58$ (sudah desimal)<br>
+                2. <b>Bandingkan nilai desimalnya:</b><br>
+                   Sekarang kita punya: $0,6$; $0,55$; $0,67$; $0,58$.<br>
+                3. <b>Urutkan dari yang terbesar ke terkecil:</b><br>
+                   $0,67$ adalah yang terbesar, diikuti oleh $0,6$, lalu $0,58$, dan yang terkecil adalah $0,55$.<br>
+                   Urutannya: $0,67 > 0,6 > 0,58 > 0,55$.<br>
+                4. <b>Kembalikan ke bentuk aslinya:</b><br>
+                   Urutan yang benar adalah $\frac{2}{3}; 0,6; 0,58; 55\%$.
+            </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Mudah 2 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <h1>Kunci Jawaban & Pembahasan</h1>
+            <div class="kategori-soal">Kategori Mudah</div>
+             <div class="soal-latihan">
+                <b>4. Jawaban: B. -20</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Dalam operasi bilangan bulat, ada beberapa aturan penting:<br>
+                    - Menjumlahkan bilangan negatif ($+ (-x)$) sama dengan mengurangi ($ - x$).<br>
+                    - Mengurangi bilangan negatif ($- (-x)$) sama dengan menjumlahkan ($+ x$).<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. Lihat soal: $-15 + (-10) - (-5)$.<br>
+                    2. Sederhanakan operasinya berdasarkan aturan di atas: $-15 - 10 + 5$.<br>
+                    3. Kerjakan dari kiri ke kanan:
+                       - Pertama, hitung $-15 - 10$. Hasilnya adalah $-25$.<br>
+                       - Kemudian, hitung $-25 + 5$. Hasilnya adalah $-20$.<br>
+                    Jadi, hasil akhirnya adalah -20.
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <b>5. Jawaban: D. 1</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Bilangan Cacah adalah himpunan bilangan bulat yang tidak negatif. Artinya, bilangan ini dimulai dari 0 dan terus bertambah tanpa batas. Himpunan bilangan cacah adalah $\{0, 1, 2, 3, 4, ...\}$.<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. Kita tahu himpunan bilangan cacah adalah $\{0, 1, 2, 3, ...\}$.<br>
+                    2. Soal menanyakan bilangan cacah PERTAMA yang nilainya "lebih besar dari 0".<br>
+                    3. Angka 0 tidak lebih besar dari 0 (ia sama dengan 0).<br>
+                    4. Angka berikutnya dalam himpunan adalah 1. Angka 1 adalah bilangan cacah dan nilainya lebih besar dari 0.<br>
+                    Jadi, jawabannya adalah 1.
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+     <!-- Halaman Kunci Jawaban Sedang 1 -->
+    <section class="page">
+        <div class="content-wrapper">
+          <h1>Kunci Jawaban & Pembahasan</h1>
+          <div class="kategori-soal">Kategori Sedang</div>
+            <div class="soal-latihan">
+                <b>6. Jawaban: A. $-4^\circ$C</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Soal ini adalah aplikasi operasi penjumlahan dan pengurangan pada bilangan bulat dalam konteks suhu. "Suhu naik" berarti ditambah (+), dan "suhu turun" berarti dikurangi (-).<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. <b>Suhu Awal:</b> Suhu pada pagi hari adalah $-8^\circ$C.<br>
+                    2. <b>Suhu Siang Hari:</b> Suhu naik $15^\circ$C. Artinya, suhu awal ditambah 15.
+                       Operasi: $-8 + 15 = 7$. Jadi, suhu siang hari adalah $7^\circ$C.<br>
+                    3. <b>Suhu Malam Hari:</b> Suhu turun $11^\circ$C dari suhu siang hari. Artinya, suhu siang hari dikurangi 11.
+                       Operasi: $7 - 11 = -4$. Jadi, suhu pada malam hari adalah $-4^\circ$C.
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <b>7. Jawaban: C. 2</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Untuk menyelesaikan operasi hitung yang melibatkan berbagai bentuk bilangan rasional (pecahan campuran, desimal, pecahan biasa), kita harus mengubahnya ke satu bentuk yang sama. Mengubah ke bentuk desimal seringkali mempermudah perhitungan.<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. <b>Ubah semua bilangan ke bentuk desimal:</b>
+                       - Panjang pita awal: $5\frac{1}{4}$ meter. $\frac{1}{4}$ sama dengan $0,25$. Jadi, $5\frac{1}{4} = 5,25$ meter.<br>
+                       - Pita yang digunakan: $2,5$ meter.<br>
+                       - Pita yang diberikan: $\frac{3}{4}$ meter. $3 \div 4 = 0,75$ meter.<br>
+                    2. <b>Hitung sisa pita:</b> Sisa pita didapat dengan mengurangi panjang awal dengan total yang digunakan dan diberikan.
+                       Operasi: $5,25 - 2,5 - 0,75$.<br>
+                    3. <b>Lakukan pengurangan:</b>
+                       - $5,25 - 2,5 = 2,75$.<br>
+                       - $2,75 - 0,75 = 2$.<br>
+                    Jadi, sisa pita Ani adalah 2 meter.
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <b>8. Jawaban: B. 30 orang</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Pecahan dapat merepresentasikan bagian dari sebuah kelompok. Jika seluruh kelompok dianggap 1 (atau $\frac{5}{5}$ dalam kasus ini), kita bisa mencari bagian lainnya dengan operasi pengurangan. Jika kita tahu nilai dari suatu bagian, kita bisa mencari nilai totalnya.<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. <b>Cari bagian siswa perempuan:</b>
+                       - Seluruh siswa dianggap 1 bagian utuh.<br>
+                       - Siswa laki-laki adalah $\frac{2}{5}$ bagian.<br>
+                       - Maka, siswa perempuan adalah $1 - \frac{2}{5} = \frac{5}{5} - \frac{2}{5} = \frac{3}{5}$ bagian.<br>
+                    2. <b>Hubungkan bagian dengan jumlahnya:</b>
+                       - Kita tahu bahwa $\frac{3}{5}$ bagian dari total siswa adalah 18 orang.<br>
+                    3. <b>Cari jumlah seluruh siswa:</b>
+                       - Jika $\frac{3}{5} \rightarrow 18$ orang, maka $\frac{1}{5}$ bagian adalah $18 \div 3 = 6$ orang.<br>
+                       - Jumlah seluruh siswa adalah $\frac{5}{5}$ bagian, yaitu $5 \times 6 = 30$ orang.<br>
+                    Jadi, jumlah seluruh siswa di kelas tersebut adalah 30 orang.
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+       <!-- Halaman Kunci Jawaban Sedang 2 -->
+    <section class="page">
+        <div class="content-wrapper">
+          <h1>Kunci Jawaban & Pembahasan</h1>
+          <div class="kategori-soal">Kategori Sedang</div>
+            <div class="soal-latihan">
+                <b>9. Jawaban: A. $\frac{1}{3}$</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Dalam operasi hitung campuran, perkalian dan pembagian memiliki kekuatan yang sama dan dikerjakan dari kiri ke kanan. Untuk memudahkan, ubah semua bilangan ke satu bentuk yang sama (pecahan biasa). Ingat, membagi dengan pecahan sama dengan mengalikan dengan kebalikannya.<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. <b>Ubah semua ke bentuk pecahan biasa:</b>
+                       - $1,25 = \frac{125}{100} = \frac{5}{4}$.<br>
+                       - $\frac{3}{4}$ (sudah pecahan biasa).<br>
+                       - $20\% = \frac{20}{100} = \frac{1}{5}$.<br>
+                    2. <b>Tulis ulang soal dalam bentuk pecahan:</b> $\frac{5}{4} \div \frac{3}{4} \times \frac{1}{5}$.<br>
+                    3. <b>Kerjakan pembagian terlebih dahulu (dari kiri):</b>
+                       - $\frac{5}{4} \div \frac{3}{4}$ menjadi $\frac{5}{4} \times \frac{4}{3}$.<br>
+                       - $\frac{5 \times 4}{4 \times 3} = \frac{20}{12} = \frac{5}{3}$.<br>
+                    4. <b>Lanjutkan dengan perkalian:</b>
+                       - Hasil sebelumnya ($\frac{5}{3}$) dikalikan dengan $\frac{1}{5}$.<br>
+                       - $\frac{5}{3} \times \frac{1}{5} = \frac{5 \times 1}{3 \times 5} = \frac{5}{15} = \frac{1}{3}$.<br>
+                    Jadi, hasil akhirnya adalah $\frac{1}{3}$.
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <b>10. Jawaban: C. 10:00:36</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Soal ini menanyakan kapan suatu kejadian yang berulang akan terjadi secara bersamaan lagi. Ini adalah ciri khas dari soal yang penyelesaiannya menggunakan Kelipatan Persekutuan Terkecil (KPK). KPK dari beberapa bilangan adalah bilangan terkecil yang bisa dibagi habis oleh semua bilangan tersebut.<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. <b>Cari KPK dari 4, 6, dan 9.</b> Kita bisa menggunakan metode faktorisasi prima.<br>
+                       - $4 = 2 \times 2 = 2^2$<br>
+                       - $6 = 2 \times 3$<br>
+                       - $9 = 3 \times 3 = 3^2$<br>
+                    2. <b>Tentukan KPK:</b> Ambil semua faktor prima yang ada (yaitu 2 dan 3), dan gunakan pangkat tertinggi dari setiap faktor tersebut.
+                       - Faktor 2: pangkat tertingginya adalah $2^2$.<br>
+                       - Faktor 3: pangkat tertingginya adalah $3^2$.<br>
+                       - KPK = $2^2 \times 3^2 = 4 \times 9 = 36$.<br>
+                    3. <b>Artikan hasil KPK:</b> Hasil KPK adalah 36, artinya ketiga lampu akan berkedip bersamaan lagi setiap 36 detik.<br>
+                    4. <b>Tentukan waktunya:</b> Jika mereka berkedip bersama pada pukul 10:00:00, maka mereka akan berkedip bersama lagi 36 detik setelahnya, yaitu pada pukul 10:00:36.
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <b>11. Jawaban: C. 12</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Soal ini meminta kita untuk membagi beberapa barang yang jumlahnya berbeda ke dalam "paket" yang isinya sama, dan kita ingin mendapatkan jumlah paket "paling banyak". Ini adalah ciri khas dari soal yang penyelesaiannya menggunakan Faktor Persekutuan Terbesar (FPB). FPB adalah bilangan terbesar yang bisa membagi habis semua bilangan yang diberikan.<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. <b>Cari FPB dari 60, 48, dan 72.</b> Kita gunakan metode faktorisasi prima.<br>
+                       - $60 = 2 \times 30 = 2 \times 2 \times 15 = 2^2 \times 3 \times 5$<br>
+                       - $48 = 2 \times 24 = 2 \times 2 \times 12 = 2^4 \times 3$<br>
+                       - $72 = 2 \times 36 = 2 \times 2 \times 18 = 2^3 \times 3^2$<br>
+                    2. <b>Tentukan FPB:</b> Ambil hanya faktor prima yang sama (dimiliki oleh semua bilangan), dan gunakan pangkat terkecil dari setiap faktor tersebut.
+                       - Faktor yang sama adalah 2 dan 3.<br>
+                       - Faktor 2: pangkat terkecilnya adalah $2^2$.<br>
+                       - Faktor 3: pangkat terkecilnya adalah $3^1$.<br>
+                       - FPB = $2^2 \times 3 = 4 \times 3 = 12$.<br>
+                    3. <b>Artikan hasil FPB:</b> Hasil FPB adalah 12, artinya jumlah paket paling banyak yang bisa dibuat adalah 12 paket.
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sedang 3 -->
+    <section class="page">
+        <div class="content-wrapper">
+          <h1>Kunci Jawaban & Pembahasan</h1>
+          <div class="kategori-soal">Kategori Sedang</div>
+            <div class="soal-latihan">
+                <b>12. Jawaban: D. $5 - k$</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Bilangan bulat negatif adalah bilangan yang lebih kecil dari 0 (contoh: -1, -5, -100). Mengurangi suatu bilangan dengan bilangan negatif akan menghasilkan nilai yang lebih besar, karena sama dengan menjumlahkan. Contoh: $5 - (-10) = 5 + 10 = 15$.<br><br>
+                    <b>Langkah-langkah Penyelesaian (Metode Uji Coba):</b><br>
+                    1. Kita ambil sebuah contoh bilangan bulat negatif, misal $k = -10$.<br>
+                    2. Kita hitung nilai dari setiap pilihan:<br>
+                       A. $k - 5 = -10 - 5 = -15$<br>
+                       B. $k + 5 = -10 + 5 = -5$<br>
+                       C. $5 \times k = 5 \times (-10) = -50$<br>
+                       D. $5 - k = 5 - (-10) = 5 + 10 = 15$<br>
+                    3. Bandingkan hasilnya: 15 adalah nilai yang paling besar.<br>
+                    <b>Kesimpulan:</b> Operasi $5-k$ akan selalu menghasilkan nilai terbesar karena kita menjumlahkan 5 dengan nilai positif dari $k$.
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <b>13. Jawaban: A. 104</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Soal ini menguji kemampuan menghitung total skor dengan aturan yang berbeda untuk jawaban benar, salah, dan tidak dijawab. Kita harus menghitung jumlah skor dari masing-masing kategori lalu menjumlahkannya.<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. <b>Identifikasi jumlah soal per kategori:</b>
+                       - Soal Benar: 30 soal<br>
+                       - Soal Salah: 6 soal<br>
+                       - Soal Tidak Dijawab: Total Soal - (Benar + Salah) = $40 - (30 + 6) = 40 - 36 = 4$ soal.<br>
+                    2. <b>Hitung skor untuk setiap kategori:</b>
+                       - Skor Benar: $30 \times 4 = 120$<br>
+                       - Skor Salah: $6 \times (-2) = -12$<br>
+                       - Skor Tidak Dijawab: $4 \times (-1) = -4$<br>
+                    3. <b>Hitung total skor:</b>
+                       - Total Skor = $120 + (-12) + (-4) = 120 - 12 - 4 = 108 - 4 = 104$.<br>
+                    Jadi, skor yang diperoleh Budi adalah 104.
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <b>14. Jawaban: A. 220</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Soal ini adalah tentang menghitung bagian dari keseluruhan. Kita perlu menghitung luas masing-masing bagian yang sudah digunakan, lalu menguranginya dari luas total untuk menemukan sisa.<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. <b>Hitung luas tanah untuk padi:</b>
+                       - Bagian padi = $35\%$. Luasnya = $35\% \times 800 = \frac{35}{100} \times 800 = 35 \times 8 = 280$ $m^2$.<br>
+                    2. <b>Hitung luas tanah untuk jagung:</b>
+                       - Bagian jagung = $\frac{3}{8}$. Luasnya = $\frac{3}{8} \times 800 = 3 \times 100 = 300$ $m^2$.<br>
+                    3. <b>Hitung total luas yang sudah terpakai:</b>
+                       - Total terpakai = Luas Padi + Luas Jagung = $280 + 300 = 580$ $m^2$.<br>
+                    4. <b>Hitung luas sisa untuk kolam:</b>
+                       - Luas kolam = Luas Total - Total Terpakai = $800 - 580 = 220$ $m^2$.<br>
+                    Jadi, luas kolam adalah 220 $m^2$.
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sedang 4 -->
+    <section class="page">
+        <div class="content-wrapper">
+          <h1>Kunci Jawaban & Pembahasan</h1>
+          <div class="kategori-soal">Kategori Sedang</div>
+             <div class="soal-latihan">
+                <b>15. Jawaban: A. $\frac{1}{25}$</b>
+                <div class="pembahasan">
+                    <b>Teori Dasar:</b> Soal ini adalah contoh dari "perkalian teleskopik" (telescoping product). Saat kita mengalikan serangkaian pecahan, terkadang pembilang dari satu pecahan dapat membatalkan (mencoret) penyebut dari pecahan berikutnya, sehingga menyederhanakan perhitungan secara drastis.<br><br>
+                    <b>Langkah-langkah Penyelesaian:</b><br>
+                    1. <b>Sederhanakan setiap suku dalam kurung:</b>
+                       - $(1 - \frac{1}{3}) = \frac{3}{3} - \frac{1}{3} = \frac{2}{3}$<br>
+                       - $(1 - \frac{1}{4}) = \frac{4}{4} - \frac{1}{4} = \frac{3}{4}$<br>
+                       - $(1 - \frac{1}{5}) = \frac{5}{5} - \frac{1}{5} = \frac{4}{5}$<br>
+                       - ... dan seterusnya sampai suku terakhir...
+                       - $(1 - \frac{1}{50}) = \frac{50}{50} - \frac{1}{50} = \frac{49}{50}$<br>
+                    2. <b>Tulis ulang perkaliannya:</b>
+                       $\frac{2}{3} \times \frac{3}{4} \times \frac{4}{5} \times ... \times \frac{49}{50}$<br>
+                    3. <b>Perhatikan pola pembatalan:</b>
+                       Penyebut '3' dari suku pertama dicoret oleh pembilang '3' dari suku kedua. Penyebut '4' dari suku kedua dicoret oleh pembilang '4' dari suku ketiga, dan begitu seterusnya.<br>
+                       $\frac{2}{\cancel{3}} \times \frac{\cancel{3}}{\cancel{4}} \times \frac{\cancel{4}}{\cancel{5}} \times ... \times \frac{\cancel{49}}{50}$<br>
+                    4. <b>Identifikasi suku yang tersisa:</b>
+                       Hanya pembilang dari suku pertama (yaitu 2) dan penyebut dari suku terakhir (yaitu 50) yang tidak tercoret.<br>
+                       Hasilnya adalah $\frac{2}{50}$.<br>
+                    5. <b>Sederhanakan hasil akhir:</b>
+                       $\frac{2}{50}$ dapat disederhanakan dengan membagi keduanya dengan 2, menjadi $\frac{1}{25}$.
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+    <!-- Halaman Kunci Jawaban Sulit 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit</div>
+        <div class="soal-latihan">
+          <b>16. Jawaban: C. 7</b>
+          <div class="pembahasan">
+              <b>Teori Dasar:</b> Angka satuan dari hasil perpangkatan sebuah bilangan seringkali membentuk sebuah pola yang berulang (siklus). Untuk menemukan angka satuan dari bilangan berpangkat besar, kita tidak perlu menghitung hasilnya, cukup temukan polanya.<br><br>
+              <b>Langkah-langkah Penyelesaian:</b><br>
+              1. <b>Cari pola angka satuan dari perpangkatan 3:</b><br>
+                 - $3^1 = 3 \rightarrow$ Angka satuan: <b>3</b><br>
+                 - $3^2 = 9 \rightarrow$ Angka satuan: <b>9</b><br>
+                 - $3^3 = 27 \rightarrow$ Angka satuan: <b>7</b><br>
+                 - $3^4 = 81 \rightarrow$ Angka satuan: <b>1</b><br>
+                 - $3^5 = 243 \rightarrow$ Angka satuan: <b>3</b> (Pola mulai berulang)<br>
+              2. <b>Identifikasi pola:</b> Pola angka satuannya adalah (3, 9, 7, 1) dan berulang setiap 4 kali.<br>
+              3. <b>Hubungkan pangkat dengan pola:</b> Untuk mencari angka satuan dari $3^{2023}$, kita perlu tahu posisi keberapa dalam pola tersebut. Caranya adalah dengan membagi pangkat (2023) dengan panjang pola (4) dan melihat sisanya.<br>
+              4. <b>Hitung sisa pembagian:</b> $2023 \div 4$. Kita hanya perlu memeriksa dua digit terakhir: $23 \div 4 = 5$ sisa <b>3</b>.<br>
+              5. <b>Tentukan angka satuan:</b> Sisa 3 berarti angka satuannya sama dengan angka pada urutan ke-3 dalam pola, yaitu 7.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>17. Jawaban: C. 117</b>
+          <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini mencari sebuah bilangan yang memenuhi dua kondisi sisa pembagian. Kita dapat menyelesaikannya dengan mendaftar kelipatan dari salah satu pembagi lalu mencocokkannya dengan kondisi kedua.<br><br>
+              <b>Langkah-langkah Penyelesaian:</b><br>
+              1. <b>Tuliskan kondisi dalam bentuk matematika:</b>
+                 - Bilangan $N$ jika dibagi 8 bersisa 5, artinya $N = 8k + 5$ (suatu kelipatan 8 ditambah 5).<br>
+                 - Bilangan $N$ jika dibagi 6 bersisa 3, artinya $N = 6m + 3$.<br>
+              2. <b>Daftar bilangan yang memenuhi kondisi pertama (pembagi lebih besar):</b>
+                 Mari kita daftar beberapa bilangan yang jika dibagi 8 bersisa 5:
+                 $8(1)+5=13$, $8(2)+5=21$, $8(3)+5=29$, $8(4)+5=37$, dst.<br>
+              3. <b>Uji setiap bilangan dari daftar dengan kondisi kedua:</b>
+                 Cek manakah dari bilangan di atas yang jika dibagi 6 bersisa 3.<br>
+                 - $13 \div 6 = 2$ sisa 1 (Tidak cocok)<br>
+                 - $21 \div 6 = 3$ sisa 3 (<b>Cocok!</b>)<br>
+              4. <b>Temukan bilangan terkecil:</b> Bilangan terkecil yang memenuhi kedua syarat adalah 21.<br>
+              5. <b>Cari pola untuk bilangan berikutnya:</b> Bilangan berikutnya yang memenuhi kedua syarat akan bertambah sebesar KPK dari kedua pembagi. KPK(8, 6) = 24.<br>
+              6. <b>Buat barisan bilangan:</b> Barisannya adalah $21, 21+24=45, 45+24=69, 69+24=93, 93+24=117, ...$<br>
+              7. <b>Cari jawaban:</b> Soal meminta bilangan terkecil yang LEBIH BESAR DARI 100. Dari barisan di atas, bilangan itu adalah 117.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>18. Jawaban: B. 80</b>
+          <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini menggunakan Prinsip Inklusi-Eksklusi. Untuk mencari jumlah anggota yang tidak termasuk dalam kelompok A maupun kelompok B, kita hitung: Total - (Anggota A + Anggota B - Anggota A dan B).<br><br>
+              <b>Langkah-langkah Penyelesaian:</b><br>
+              1. <b>Total Bilangan:</b> Ada 200 bilangan dari 1 sampai 200.<br>
+              2. <b>Cari yang habis dibagi 2 ATAU 5.</b>
+                 - Banyak bilangan habis dibagi 2: $\lfloor 200 \div 2 \rfloor = 100$.<br>
+                 - Banyak bilangan habis dibagi 5: $\lfloor 200 \div 5 \rfloor = 40$.<br>
+                 - Banyak bilangan yang habis dibagi 2 dan 5 (yaitu habis dibagi KPK(2,5)=10) telah dihitung dua kali: $\lfloor 200 \div 10 \rfloor = 20$.<br>
+              3. <b>Gunakan Inklusi-Eksklusi:</b>
+                 Banyak bilangan yang habis dibagi 2 ATAU 5 adalah:
+                 (Habis dibagi 2) + (Habis dibagi 5) - (Habis dibagi 10) = $100 + 40 - 20 = 120$.<br>
+              4. <b>Cari yang TIDAK habis dibagi 2 dan TIDAK habis dibagi 5:</b>
+                 Ini adalah sisa dari total bilangan.
+                 Total Bilangan - (Yang habis dibagi 2 atau 5) = $200 - 120 = 80$.<br>
+              Jadi, ada 80 bilangan yang memenuhi syarat.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit 2-->
+    <section class="page">
+        <div class="content-wrapper">
+          <h1>Kunci Jawaban & Pembahasan</h1>
+          <div class="kategori-soal">Kategori Sulit</div>
+         <div class="soal-latihan">
+          <b>19. Jawaban: C. 36</b>
+          <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini adalah bentuk persamaan Diophantine, yaitu persamaan yang solusinya harus bilangan bulat. Kita dapat menyelesaikannya dengan manipulasi aljabar untuk menemukan faktor-faktor bilangan bulat.<br><br>
+              <b>Langkah-langkah Penyelesaian:</b><br>
+              1. <b>Samakan penyebut di ruas kiri:</b> $\frac{1}{a} + \frac{1}{b} = \frac{b+a}{ab}$.<br>
+              2. <b>Persamaan menjadi:</b> $\frac{a+b}{ab} = \frac{1}{5}$.<br>
+              3. <b>Lakukan perkalian silang:</b> $5(a+b) = ab \Rightarrow 5a + 5b = ab$.<br>
+              4. <b>Pindahkan semua suku ke satu ruas:</b> $ab - 5a - 5b = 0$.<br>
+              5. <b>Gunakan trik faktorisasi (SFFT):</b> $(a-5)(b-5) = ab - 5a - 5b + 25$. Agar sama dengan persamaan di atas, kita tambahkan 25 di kedua ruas: $ab - 5a - 5b + 25 = 25 \Rightarrow (a-5)(b-5) = 25$.<br>
+              6. <b>Cari faktor-faktor dari 25:</b> Faktor dari 25 adalah $(1, 25)$ dan $(5, 5)$.<br>
+              7. <b>Cari nilai a dan b:</b> Karena $a$ dan $b$ harus berbeda, kita tidak bisa menggunakan pasangan (5,5). Kita gunakan (1,25):
+                 - $a-5 = 1 \Rightarrow a = 6$.<br>
+                 - $b-5 = 25 \Rightarrow b = 30$.<br>
+              8. <b>Hitung nilai $a+b$:</b> $a+b = 6+30 = 36$.
+          </div>
+        </div>
+         <div class="soal-latihan">
+          <b>20. Jawaban: B. 2500</b>
+          <div class="pembahasan">
+              <b>Teori Dasar:</b> Ada sebuah rumus khusus yang sangat berguna dalam olimpiade: jumlah dari $n$ bilangan asli ganjil pertama adalah $n^2$. Bilangan ganjil pertama adalah 1, kedua adalah 3, ketiga adalah 5, dan seterusnya.<br><br>
+              <b>Langkah-langkah Penyelesaian:</b><br>
+              1. <b>Identifikasi nilai n:</b> Soal meminta jumlah dari "50 bilangan asli ganjil pertama". Ini berarti $n=50$.<br>
+              2. <b>Gunakan rumus:</b> Jumlah = $n^2$.<br>
+              3. <b>Substitusi dan hitung:</b> Jumlah = $50^2 = 50 \times 50 = 2500$.<br>
+              <b>Tanpa Rumus (Cara Deret Aritmetika):</b> Barisannya adalah 1, 3, 5, ..., suku ke-50. Suku ke-50 adalah $2n-1 = 2(50)-1 = 99$. Jumlah deretnya $S_{50} = \frac{n}{2}(a+U_n) = \frac{50}{2}(1+99) = 25 \times 100 = 2500$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+            <b>21. Jawaban: B. 13,4</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Rata-rata (rerata atau mean) dihitung dengan rumus: $\text{Rata-rata} = \frac{\text{Jumlah semua nilai}}{\text{Banyaknya data}}$. Dari rumus ini, kita juga bisa mencari jumlah semua nilai jika rata-rata dan banyaknya data diketahui: $\text{Jumlah nilai} = \text{Rata-rata} \times \text{Banyaknya data}$.<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. <b>Hitung jumlah nilai awal:</b>
+                   - Ada 15 bilangan dengan rata-rata 12.
+                   - Jumlah nilai awal = $15 \times 12 = 180$.<br>
+                2. <b>Hitung jumlah nilai yang baru:</b>
+                   - Jumlah awal ditambahkan dua bilangan baru (20 dan 28).
+                   - Jumlah nilai baru = $180 + 20 + 28 = 228$.<br>
+                3. <b>Hitung banyaknya data yang baru:</b>
+                   - Awalnya ada 15 bilangan, ditambah 2 bilangan baru.
+                   - Banyaknya data baru = $15 + 2 = 17$.<br>
+                4. <b>Hitung rata-rata baru:</b>
+                   - Rata-rata baru = $\frac{\text{Jumlah nilai baru}}{\text{Banyaknya data baru}} = \frac{228}{17}$.<br>
+                   - $228 \div 17 \approx 13,41$. Dibulatkan menjadi 13,4.
+            </div>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- Halaman Kunci Jawaban Sulit 3 -->
+      <section class="page">
+        <div class="content-wrapper">
+          <h1>Kunci Jawaban & Pembahasan</h1>
+          <div class="kategori-soal">Kategori Sulit</div>
+          <div class="soal-latihan">
+            <b>22. Jawaban: B. 42</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Untuk soal pencacahan digit seperti ini, cara paling sistematis adalah menghitung kemunculan angka yang ditanyakan di setiap posisi (satuan, puluhan, ratusan).<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                Kita hitung kemunculan angka '0' dari halaman 1 sampai 222.<br>
+                1. <b>Posisi Satuan:</b> Angka 0 muncul di halaman 10, 20, 30, ..., 90, 100, 110, ..., 220.
+                   - Dari 1-100, ada 10 kali (10, 20, ..., 100).
+                   - Dari 101-200, ada 10 kali (110, 120, ..., 200).
+                   - Dari 201-222, ada 2 kali (210, 220).
+                   - Total di posisi satuan = $10 + 10 + 2 = 22$ kali.<br>
+                2. <b>Posisi Puluhan:</b> Angka 0 muncul di halaman 100-109 dan 200-209.
+                   - Dari 100-109, ada 10 kali (100, 101, ..., 109).
+                   - Dari 200-209, ada 10 kali (200, 201, ..., 209).
+                   - Total di posisi puluhan = $10 + 10 = 20$ kali.<br>
+                3. <b>Posisi Ratusan:</b> Angka 0 tidak pernah muncul di posisi ratusan dalam rentang 1-222.<br>
+                4. <b>Jumlahkan Totalnya:</b>
+                   Total kemunculan angka 0 = (Total di Satuan) + (Total di Puluhan) = $22 + 20 = 42$ kali.
+            </div>
+          </div>
+          <div class="soal-latihan">
+            <b>23. Jawaban: B. 50</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Soal ini dapat diselesaikan dengan menggunakan aljabar untuk memodelkan hubungan antar bilangan. Kita akan membentuk sebuah persamaan kuadrat dan mencari solusinya.<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. <b>Misalkan bilangan-bilangannya:</b>
+                   Karena berurutan, kita bisa memisalkannya sebagai $n, n+1, n+2, n+3$.<br>
+                2. <b>Buat persamaan berdasarkan soal:</b>
+                   "Hasil kali bilangan pertama dan ketiga adalah 143".
+                   Persamaannya: $n \times (n+2) = 143$.<br>
+                3. <b>Selesaikan persamaan kuadrat:</b>
+                   - $n^2 + 2n = 143$
+                   - $n^2 + 2n - 143 = 0$
+                   - Kita perlu mencari dua bilangan yang jika dikalikan hasilnya -143 dan jika dijumlahkan hasilnya 2. Bilangan itu adalah 13 dan -11.
+                   - Faktorkan: $(n+13)(n-11) = 0$.<br>
+                4. <b>Tentukan nilai n:</b>
+                   Solusinya adalah $n = -13$ atau $n = 11$. Karena soal biasanya merujuk pada bilangan bulat positif dalam konteks SD, kita ambil $n=11$.<br>
+                5. <b>Tentukan keempat bilangan tersebut:</b>
+                   Jika $n=11$, maka bilangannya adalah 11, 12, 13, dan 14.<br>
+                6. <b>Hitung jumlahnya:</b>
+                   $11 + 12 + 13 + 14 = 50$.
+            </div>
+          </div>
+           <div class="soal-latihan">
+            <b>24. Jawaban: C. 10</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Soal ini adalah tentang Kombinasi, yaitu cara memilih beberapa objek dari sebuah himpunan tanpa memperhatikan urutan. Untuk membentuk segitiga, kita perlu memilih 3 titik. Urutan memilih titik tidak penting (segitiga ABC sama dengan segitiga CBA). Rumus kombinasi adalah $C(n,k) = \frac{n!}{k!(n-k)!}$, di mana $n$ adalah total objek dan $k$ adalah jumlah yang dipilih.<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. <b>Identifikasi n dan k:</b>
+                   - Total titik yang tersedia, $n=5$.
+                   - Jumlah titik yang dibutuhkan untuk membuat segitiga, $k=3$.<br>
+                2. <b>Masukkan ke dalam rumus kombinasi:</b>
+                   $C(5,3) = \frac{5!}{3!(5-3)!} = \frac{5!}{3!2!}$.<br>
+                3. <b>Hitung faktorialnya:</b>
+                   - $5! = 5 \times 4 \times 3 \times 2 \times 1 = 120$
+                   - $3! = 3 \times 2 \times 1 = 6$
+                   - $2! = 2 \times 1 = 2$<br>
+                4. <b>Selesaikan perhitungan:</b>
+                   $C(5,3) = \frac{120}{6 \times 2} = \frac{120}{12} = 10$.<br>
+                Jadi, ada 10 segitiga berbeda yang bisa dibentuk.
+            </div>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- Halaman Kunci Jawaban Sulit 4 -->
+      <section class="page">
+        <div class="content-wrapper">
+          <h1>Kunci Jawaban & Pembahasan</h1>
+          <div class="kategori-soal">Kategori Sulit</div>
+           <div class="soal-latihan">
+            <b>25. Jawaban: C. 217</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Untuk mencari jumlah dari semua faktor positif sebuah bilangan, kita dapat menggunakan rumus yang berasal dari faktorisasi primanya. Jika sebuah bilangan $N = p_1^{a_1} \times p_2^{a_2} \times ...$, maka jumlah faktornya adalah $(p_1^0 + p_1^1 + ... + p_1^{a_1}) \times (p_2^0 + p_2^1 + ... + p_2^{a_2}) \times ...$<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. <b>Cari faktorisasi prima dari 100:</b>
+                   $100 = 10 \times 10 = (2 \times 5) \times (2 \times 5) = 2^2 \times 5^2$.<br>
+                2. <b>Terapkan rumus jumlah faktor:</b>
+                   Jumlah = $(2^0 + 2^1 + 2^2) \times (5^0 + 5^1 + 5^2)$.<br>
+                3. <b>Hitung nilai dari setiap bagian dalam kurung:</b>
+                   - $(1 + 2 + 4) = 7$.<br>
+                   - $(1 + 5 + 25) = 31$.<br>
+                4. <b>Kalikan hasilnya:</b>
+                   Jumlah faktor = $7 \times 31 = 217$.<br>
+                <b>Cara Manual (untuk verifikasi):</b> Faktor dari 100 adalah 1, 2, 4, 5, 10, 20, 25, 50, 100. Jumlahnya: $1+2+4+5+10+20+25+50+100 = 217$.
+            </div>
+          </div>
+          <div class="soal-latihan">
+            <b>26. Jawaban: B. 13 tahun</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Soal cerita ini dapat diubah menjadi model matematika menggunakan aljabar. Kita tetapkan satu umur sebagai variabel (misalnya $B$ untuk umur Budi), lalu nyatakan umur yang lain dalam variabel tersebut.<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. <b>Buat pemisalan:</b>
+                   - Misalkan umur Budi = $B$.<br>
+                   - Andi 4 tahun lebih tua dari Budi, maka umur Andi = $B + 4$.<br>
+                   - Cici 2 tahun lebih muda dari Andi, maka umur Cici = (Umur Andi) - 2 = $(B+4) - 2 = B+2$.<br>
+                2. <b>Buat persamaan dari jumlah umur:</b>
+                   (Umur Budi) + (Umur Andi) + (Umur Cici) = 45.
+                   $B + (B+4) + (B+2) = 45$.<br>
+                3. <b>Selesaikan persamaan aljabar:</b>
+                   - Gabungkan suku-suku yang sejenis: $3B + 6 = 45$.<br>
+                   - Kurangi 6 dari kedua sisi: $3B = 45 - 6 \Rightarrow 3B = 39$.<br>
+                   - Bagi kedua sisi dengan 3: $B = 39 \div 3 \Rightarrow B = 13$.<br>
+                Karena $B$ adalah umur Budi, maka umur Budi adalah 13 tahun.
+            </div>
+          </div>
+          <div class="soal-latihan">
+            <b>27. Jawaban: B. 8 orang</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Ini adalah masalah perbandingan berbalik nilai. Semakin banyak pekerja, semakin sedikit waktu yang dibutuhkan. Artinya, hasil kali antara jumlah pekerja dan waktu pengerjaan adalah konstan (tetap). Konstanta ini bisa kita sebut sebagai "kapasitas kerja total".<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. <b>Hitung kapasitas kerja total:</b>
+                   Kapasitas = (Jumlah pekerja awal) $\times$ (Waktu awal)
+                   Kapasitas = $12 \text{ orang} \times 15 \text{ hari} = 180$ "orang-hari".<br>
+                2. <b>Hitung jumlah pekerja yang dibutuhkan untuk target waktu baru:</b>
+                   Jumlah pekerja baru = Kapasitas $\div$ (Waktu baru)
+                   Jumlah pekerja baru = $180 \div 9 \text{ hari} = 20$ orang.<br>
+                3. <b>Hitung tambahan pekerja:</b>
+                   Soal menanyakan "tambahan" pekerja, bukan total pekerja.
+                   Tambahan = (Jumlah pekerja baru) - (Jumlah pekerja awal)
+                   Tambahan = $20 - 12 = 8$ orang.
+            </div>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- Halaman Kunci Jawaban Sulit 5 -->
+      <section class="page">
+        <div class="content-wrapper">
+          <h1>Kunci Jawaban & Pembahasan</h1>
+          <div class="kategori-soal">Kategori Sulit</div>
+           <div class="soal-latihan">
+            <b>28. Jawaban: A. $A > B$</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Untuk membandingkan dua pecahan, cara yang paling pasti adalah dengan perkalian silang. Jika kita membandingkan $\frac{a}{b}$ dan $\frac{c}{d}$, kita hitung $a \times d$ dan $b \times c$. Jika $a \times d > b \times c$, maka $\frac{a}{b} > \frac{c}{d}$.<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. <b>Hitung nilai A:</b>
+                   $A = \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16}$. Samakan penyebut menjadi 16.
+                   $A = \frac{8}{16} + \frac{4}{16} + \frac{2}{16} + \frac{1}{16} = \frac{8+4+2+1}{16} = \frac{15}{16}$.<br>
+                2. <b>Hitung nilai B:</b>
+                   $B = \frac{1}{3} + \frac{1}{9} + \frac{1}{27}$. Samakan penyebut menjadi 27.
+                   $B = \frac{9}{27} + \frac{3}{27} + \frac{1}{27} = \frac{9+3+1}{27} = \frac{13}{27}$.<br>
+                3. <b>Bandingkan A dan B menggunakan perkalian silang:</b>
+                   Bandingkan $\frac{15}{16}$ dengan $\frac{13}{27}$.
+                   - Hitung $15 \times 27 = 405$.
+                   - Hitung $16 \times 13 = 208$.<br>
+                4. <b>Tarik kesimpulan:</b>
+                   Karena $405 > 208$, maka $\frac{15}{16} > \frac{13}{27}$, yang berarti $A > B$.
+            </div>
+          </div>
+           <div class="soal-latihan">
+            <b>29. Jawaban: A. 2</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Bilangan prima adalah bilangan asli lebih dari 1 yang hanya bisa dibagi oleh 1 dan dirinya sendiri. Sifat penting bilangan prima: satu-satunya bilangan prima yang genap adalah 2. Semua bilangan prima lainnya adalah ganjil.<br>
+                <b>Sifat Penjumlahan Genap/Ganjil:</b>
+                - Ganjil + Ganjil = Genap
+                - Genap + Ganjil = Ganjil
+                - Genap + Genap = Genap<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. Perhatikan hasil penjumlahannya: $p_1 + p_2 + p_3 = 100$ (Genap).<br>
+                2. Ada dua kemungkinan untuk mendapatkan jumlah genap dari tiga bilangan:
+                   - Genap + Genap + Genap
+                   - Ganjil + Ganjil + Genap
+                3. Kemungkinan pertama (Genap+Genap+Genap) tidak mungkin, karena satu-satunya bilangan prima genap adalah 2. Jadi tidak mungkin ada tiga bilangan prima genap yang berbeda.<br>
+                4. Maka, harus menggunakan kemungkinan kedua: dua bilangan prima ganjil dan satu bilangan prima genap.<br>
+                5. Satu-satunya bilangan prima genap adalah 2. Jadi, salah satu dari ketiga bilangan prima tersebut PASTI adalah 2.
+            </div>
+          </div>
+           <div class="soal-latihan">
+            <b>30. Jawaban: C. 1152</b>
+            <div class="pembahasan">
+                <b>Teori Dasar:</b> Soal ini menggunakan konsep Permutasi (susunan yang memperhatikan urutan). Karena ada syarat "berselang-seling", kita harus mengatur posisi huruf vokal dan konsonan secara terpisah lalu mengalikan hasilnya.<br><br>
+                <b>Langkah-langkah Penyelesaian:</b><br>
+                1. <b>Identifikasi Huruf dalam "OLIMPIAD":</b>
+                   - Vokal (V): O, I, A, E (4 huruf berbeda).
+                   - Konsonan (K): L, M, P, D (4 huruf berbeda).<br>
+                2. <b>Tentukan Pola Susunan:</b>
+                   Karena jumlah vokal dan konsonan sama (4 dan 4), ada dua kemungkinan pola:
+                   - Pola 1: V K V K V K V K
+                   - Pola 2: K V K V K V K V <br>
+                3. <b>Hitung Cara untuk Pola 1 (V K V K V K V K):</b>
+                   - Cara menyusun 4 vokal di 4 posisi vokal: $4! = 4 \times 3 \times 2 \times 1 = 24$ cara.
+                   - Cara menyusun 4 konsonan di 4 posisi konsonan: $4! = 24$ cara.
+                   - Total cara untuk Pola 1 = $24 \times 24 = 576$ cara.<br>
+                4. <b>Hitung Cara untuk Pola 2 (K V K V K V K V):</b>
+                   - Perhitungannya sama dengan Pola 1, yaitu 576 cara.<br>
+                5. <b>Jumlahkan Total Cara:</b>
+                   Total = (Cara Pola 1) + (Cara Pola 2) = $576 + 576 = 1152$ cara.
+            </div>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+  </body>
+</html>
+
+
+
