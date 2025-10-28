@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Judul disesuaikan dengan materi yang diminta -->
+    <title>Teori Bilangan Dasar - Latihan OSNK</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm; /* Mengubah ukuran logo agar tidak terlalu besar */
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 38pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .materi-konten {
+        display: block;
+        text-align: justify;
+      }
+      .soal-latihan,
+      .soal-latihan-n {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 25px;
+        break-inside: avoid;
+        padding-bottom: 10px;
+      }
+      .soal-latihan > b,
+      .soal-latihan-n > b {
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      .soal-wrapper {
+        flex-grow: 1;
+      }
+      .soal-konten {
+        text-align: justify;
+      }
+      .options {
+        padding-left: 0px;
+        margin-top: 10px;
+        display: block;
+      }
+      .options div {
+        margin-bottom: 5px;
+        padding-left: 20px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 18pt;
+        font-weight: 700;
+        margin: 20px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 10px 0;
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4caf50;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .image-description {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-style: italic;
+        color: #555;
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Halaman Sampul -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Ruangguru Privat Logo"
+          class="cover-image"
+        />
+        <!-- Judul disesuaikan -->
+        <h1 class="cover-title">Teori Bilangan Dasar<br />Latihan OSNK SD</h1>
+        <p class="cover-subtitle">Faktor, Kelipatan, & Bilangan Prima</p>
+      </div>
+    </section>
+
+    <!-- Halaman Materi 1: Faktor dan Kelipatan -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Faktor dan Kelipatan</h1>
+        <div class="materi-konten">
+          <h2>1. Faktor Bilangan</h2>
+          <p>
+            <b>Faktor</b> suatu bilangan adalah bilangan-bilangan bulat positif
+            yang dapat membagi habis bilangan tersebut (sisa pembagiannya adalah
+            0).
+          </p>
+          <p>
+            Contoh: Mencari faktor dari <b>12</b>. <br />Kita cari semua
+            perkalian dua bilangan yang hasilnya 12:
+          </p>
+          <ul style="padding-left: 20px">
+            <li>$1 \times 12 = 12$</li>
+            <li>$2 \times 6 = 12$</li>
+            <li>$3 \times 4 = 12$</li>
+          </ul>
+          <p>
+            Jadi, bilangan-bilangan yang dapat membagi habis 12 adalah 1, 2, 3,
+            4, 6, dan 12. <br />Faktor dari 12 adalah $\{1, 2, 3, 4, 6, 12\}$.
+          </p>
+
+          <h2>2. Kelipatan Bilangan</h2>
+          <p>
+            <b>Kelipatan</b> suatu bilangan adalah hasil perkalian bilangan
+            tersebut dengan bilangan asli (1, 2, 3, 4, ...).
+          </p>
+          <p>
+            Contoh: Mencari kelipatan dari <b>4</b>. <br />Kita kalikan 4 dengan
+            bilangan asli secara berurutan:
+          </p>
+          <ul style="padding-left: 20px">
+            <li>$4 \times 1 = 4$</li>
+            <li>$4 \times 2 = 8$</li>
+            <li>$4 \times 3 = 12$</li>
+            <li>$4 \times 4 = 16$</li>
+            <li>... dan seterusnya.</li>
+          </ul>
+          <p>
+            Jadi, kelipatan dari 4 adalah $\{4, 8, 12, 16, 20, ...\}$.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2: Bilangan Prima -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Bilangan Prima</h1>
+        <div class="materi-konten">
+          <h2>1. Bilangan Prima</h2>
+          <p>
+            <b>Bilangan Prima</b> adalah bilangan asli yang lebih besar dari 1,
+            yang hanya memiliki <b>tepat dua faktor</b>, yaitu 1 dan dirinya
+            sendiri.
+          </p>
+          <ul style="padding-left: 20px">
+            <li><b>2</b> adalah bilangan prima (faktornya 1 dan 2).</li>
+            <li><b>3</b> adalah bilangan prima (faktornya 1 dan 3).</li>
+            <li>
+              <b>4</b> <u>bukan</u> bilangan prima (faktornya 1, 2, dan 4).
+            </li>
+            <li><b>5</b> adalah bilangan prima (faktornya 1 dan 5).</li>
+            <li><b>7</b> adalah bilangan prima (faktornya 1 dan 7).</li>
+          </ul>
+          <p><b>Catatan Penting:</b></p>
+          <ul style="padding-left: 20px">
+            <li>
+              <b>1</b> <u>bukan</u> bilangan prima, karena hanya memiliki satu
+              faktor (yaitu 1).
+            </li>
+            <li>
+              <b>2</b> adalah <u>satu-satunya</u> bilangan prima yang genap.
+            </li>
+          </ul>
+          <p>
+            Contoh bilangan prima: $\{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, ...\}$
+          </p>
+
+          <h2>2. Bilangan Komposit</h2>
+          <p>
+            <b>Bilangan Komposit</b> adalah bilangan asli yang lebih besar dari 1
+            dan <u>bukan</u> merupakan bilangan prima. Bilangan komposit memiliki
+            lebih dari dua faktor.
+          </p>
+          <p>
+            Contoh bilangan komposit: $\{4, 6, 8, 9, 10, 12, 14, 15, ...\}$
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 3: Aplikasi (FPB & KPK) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Aplikasi Konsep</h1>
+        <div class="materi-konten">
+          <h2>1. Faktorisasi Prima</h2>
+          <p>
+            <b>Faktorisasi Prima</b> adalah proses menguraikan suatu bilangan
+            komposit menjadi perkalian faktor-faktor primanya. Cara yang umum
+            digunakan adalah dengan <b>pohon faktor</b>.
+          </p>
+          <p>Contoh: Faktorisasi prima dari <b>60</b>.</p>
+          <!-- Simulasi pohon faktor sederhana -->
+          <div
+            style="
+              font-family: 'Courier New', monospace;
+              margin-left: 20px;
+              line-height: 1.5;
+            "
+          >
+            60<br />
+            / \<br />
+            <b>2</b> 30<br />
+            / \<br />
+            <b>2</b> 15<br />
+            / \<br />
+            <b>3</b> <b>5</b>
+          </div>
+          <p>
+            Kita berhenti membagi ketika semua cabang sudah merupakan bilangan
+            prima (ditandai tebal). <br />Jadi, faktorisasi prima dari 60 adalah
+            $2 \times 2 \times 3 \times 5$ atau $2^2 \times 3 \times 5$.
+          </p>
+
+          <h2>2. FPB dan KPK</h2>
+          <p>
+            Konsep faktor dan kelipatan digunakan untuk mencari FPB dan KPK.
+          </p>
+          <p>
+            <b>Faktor Persekutuan Terbesar (FPB)</b> adalah faktor terbesar yang
+            sama dari dua bilangan atau lebih. <br />Cara mencari FPB: Kalikan
+            semua <b>faktor prima yang sama</b> dengan <b>pangkat terkecil</b>.
+          </p>
+          <p>
+            <b>Kelipatan Persekutuan Terkecil (KPK)</b> adalah kelipatan
+            terkecil yang sama dari dua bilangan atau lebih. <br />Cara mencari
+            KPK: Kalikan semua <b>faktor prima</b> yang ada. Jika ada yang sama,
+            ambil <b>pangkat terbesar</b>.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Mudah (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Semua faktor positif dari bilangan 10 adalah...
+            </div>
+            <div class="options">
+              <div>A. $\{1, 2, 5\}$</div>
+              <div>B. $\{1, 2, 5, 10\}$</div>
+              <div>C. $\{1, 10\}$</div>
+              <div>D. $\{1, 2, 10\}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Lima kelipatan pertama dari bilangan 7 adalah...
+            </div>
+            <div class="options">
+              <div>A. $\{1, 7, 14, 21, 28\}$</div>
+              <div>B. $\{7, 14, 21, 28, 35\}$</div>
+              <div>C. $\{7, 14, 20, 27, 34\}$</div>
+              <div>D. $\{1, 2, 3, 4, 5\}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Manakah dari bilangan-bilangan berikut yang merupakan bilangan
+              prima?
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 9</div>
+              <div>C. 15</div>
+              <div>D. 17</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapa banyak faktor yang dimiliki oleh bilangan 16?
+            </div>
+            <div class="options">
+              <div>A. 3</div>
+              <div>B. 4</div>
+              <div>C. 5</div>
+              <div>D. 6</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Satu-satunya bilangan prima yang juga merupakan bilangan genap
+              adalah...
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 2</div>
+              <div>C. 4</div>
+              <div>D. 10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Jumlah dari semua faktor positif bilangan 20 adalah...
+            </div>
+            <div class="options">
+              <div>A. 40</div>
+              <div>B. 42</div>
+              <div>C. 43</div>
+              <div>D. 21</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Kelipatan Persekutuan Terkecil (KPK) dari 8 dan 12 adalah...
+            </div>
+            <div class="options">
+              <div>A. 4</div>
+              <div>B. 24</div>
+              <div>C. 48</div>
+              <div>D. 96</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Banyaknya bilangan prima yang terletak di antara 20 dan 30
+              adalah...
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 2</div>
+              <div>C. 3</div>
+              <div>D. 4</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Faktor Persekutuan Terbesar (FPB) dari 18 dan 24 adalah...
+            </div>
+            <div class="options">
+              <div>A. 2</div>
+              <div>B. 3</div>
+              <div>C. 6</div>
+              <div>D. 72</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Faktorisasi prima dari bilangan 60 adalah...
+            </div>
+            <div class="options">
+              <div>A. $2 \times 3 \times 10$</div>
+              <div>B. $4 \times 3 \times 5$</div>
+              <div>C. $2^2 \times 15$</div>
+              <div>D. $2^2 \times 3 \times 5$</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang Lanjutan (11-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Susi mencari bilangan kelipatan 4 urutan ke-15. Wati mencari
+              bilangan kelipatan 6 urutan ke-10. Selisih dari kedua bilangan
+              yang ditemukan Susi dan Wati adalah...
+            </div>
+            <div class="options">
+              <div>A. 0</div>
+              <div>B. 10</div>
+              <div>C. 15</div>
+              <div>D. 60</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Tiga lampu (Merah, Kuning, Hijau) menyala bersamaan pada pukul
+              08:00:00. Lampu Merah menyala setiap 4 <b>menit</b>, Kuning setiap 5
+              <b>menit</b>, dan Hijau setiap 6 <b>menit</b>. Pukul berapakah ketiga lampu
+              itu menyala bersamaan lagi untuk pertama kalinya
+              <b>setelah</b> pukul 08:01:00?
+            </div>
+            <div class="options">
+              <div>A. 08:30:00</div>
+              <div>B. 08:45:00</div>
+              <div>C. 09:00:00</div>
+              <div>D. 10:00:00</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Bilangan $K$ adalah bilangan asli yang memiliki <b>tepat 3
+              faktor</b>. Bilangan $K+10$ adalah bilangan yang memiliki
+              <b>tepat 2 faktor</b>. Berapakah nilai $K$?
+            </div>
+            <div class="options">
+              <div>A. 4</div>
+              <div>B. 9</div>
+              <div>C. 25</div>
+              <div>D. 49</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Jumlah digit dari tahun 2025 adalah $2+0+2+5=9$. Tahun berapa
+              paling cepat setelah 2025 yang jumlah digit-digitnya juga
+              merupakan faktor dari 2025?
+            </div>
+            <div class="options">
+              <div>A. 2026</div>
+              <div>B. 2028</div>
+              <div>C. 2030</div>
+              <div>D. 2032</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Tiga bilangan prima $a, b, c$ ($a \le b \le c$) yang
+              <b>berbeda</b> memenuhi $a+b+c = 15$. Berapakah nilai $b \times c$?
+            </div>
+            <div class="options">
+              <div>A. 22</div>
+              <div>B. 26</div>
+              <div>C. 35</div>
+              <div>D. 55</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit 1 (16-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan-n">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Bilangan $K$ adalah bilangan asli terkecil yang lebih besar dari
+              100. Jika $K$ dibagi 5 bersisa 1, dibagi 6 bersisa 2, dan dibagi
+              7 bersisa 3. Berapakah nilai $K$?
+            </div>
+            <div class="options">
+              <div>A. 116</div>
+              <div>B. 206</div>
+              <div>C. 210</div>
+              <div>D. 416</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Diketahui $a$ dan $b$ adalah bilangan asli. Jika $a^2 - b^2 = 45$,
+              manakah nilai $a \times b$ berikut yang <b>tidak</b> mungkin?
+            </div>
+            <div class="options">
+              <div>A. 14</div>
+              <div>B. 54</div>
+              <div>C. 100</div>
+              <div>D. 506</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapa banyak faktor positif <b>ganjil</b> yang dimiliki oleh
+              bilangan 540?
+            </div>
+            <div class="options">
+              <div>A. 4</div>
+              <div>B. 8</div>
+              <div>C. 12</div>
+              <div>D. 24</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Jumlah dari semua faktor positif bilangan 72 adalah...
+            </div>
+            <div class="options">
+              <div>A. 144</div>
+              <div>B. 195</div>
+              <div>C. 200</div>
+              <div>D. 217</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Angka satuan dari $7^{2025}$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 3</div>
+              <div>C. 7</div>
+              <div>D. 9</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit 2 (21-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapa banyak bilangan asli dari 1 sampai 100 yang <b>bukan</b>
+              kelipatan 3 dan <b>bukan</b> kelipatan 5?
+            </div>
+            <div class="options">
+              <div>A. 47</div>
+              <div>B. 50</div>
+              <div>C. 53</div>
+              <div>D. 60</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              FPB dari dua bilangan adalah 6. KPK dari dua bilangan tersebut
+              adalah 90. Jika salah satu bilangannya adalah 18, bilangan
+              lainnya adalah...
+            </div>
+            <div class="options">
+              <div>A. 15</div>
+              <div>B. 30</div>
+              <div>C. 45</div>
+              <div>D. 60</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapa banyak bilangan prima 2 digit ($p$) sehingga $p+2$ juga
+              merupakan bilangan prima? (Pasangan ini disebut
+              <i>twin primes</i>)
+            </div>
+            <div class="options">
+              <div>A. 5</div>
+              <div>B. 6</div>
+              <div>C. 7</div>
+              <div>D. 8</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hanya ada satu bilangan prima $p$ yang dapat dinyatakan dalam
+              bentuk $n^3 + 1$, di mana $n$ adalah bilangan asli. Bilangan
+              prima $p$ tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 2</div>
+              <div>B. 3</div>
+              <div>C. 9</div>
+              <div>D. 28</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapa banyak bilangan 3 digit $abc$ yang dapat dibentuk dari
+              angka $\{1, 2, 3, 4, 5\}$ (angka boleh berulang) sehingga $a,
+              b, c$ semuanya adalah bilangan prima?
+            </div>
+            <div class="options">
+              <div>A. 8</div>
+              <div>B. 15</div>
+              <div>C. 27</div>
+              <div>D. 60</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit 3 (26-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>26.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapa banyak bilangan 3 digit $abc$ yang dapat dibentuk dari
+              angka $\{1, 2, 3, 4, 5, 6\}$ (angka harus <b>berbeda</b>)
+              sehingga $a$ adalah faktor dari $b$, dan $b$ adalah faktor dari
+              $c$?
+            </div>
+            <div class="options">
+              <div>A. 2</div>
+              <div>B. 3</div>
+              <div>C. 4</div>
+              <div>D. 5</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>27.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Sebuah bilangan 4 digit $3A7B$ habis dibagi 4 dan 9. Berapakah
+              nilai $A+B$?
+            </div>
+            <div class="options">
+              <div>A. 6</div>
+              <div>B. 8</div>
+              <div>C. 10</div>
+              <div>D. 12</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>28.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              $K$ adalah bilangan 2 digit. FPB dari $K$ dan 48 adalah 12. KPK
+              dari $K$ dan 48 adalah 144. Berapakah nilai $K$?
+            </div>
+            <div class="options">
+              <div>A. 24</div>
+              <div>B. 36</div>
+              <div>C. 60</div>
+              <div>D. 72</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>29.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Tiga bilangan prima $p, q, r$ memenuhi $p \times q \times r =
+              1001$. Berapakah nilai $p+q+r$?
+            </div>
+            <div class="options">
+              <div>A. 21</div>
+              <div>B. 30</div>
+              <div>C. 31</div>
+              <div>D. 33</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>30.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapa banyak bilangan dari 1 sampai 500 yang habis dibagi 3
+              atau 5, tetapi <b>tidak</b> habis dibagi 7?
+            </div>
+            <div class="options">
+              <div>A. 200</div>
+              <div>B. 233</div>
+              <div>C. 266</div>
+              <div>D. 304</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN MUDAH 1 (1-2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. $\{1, 2, 5, 10\}$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Faktor adalah bilangan yang dapat membagi habis
+              suatu bilangan tanpa sisa. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              Kita mencari semua perkalian yang menghasilkan 10: <br />
+              $1 \times 10 = 10$ <br />
+              $2 \times 5 = 10$ <br />
+              Bilangan-bilangan yang menjadi perkalian tersebut (1, 2, 5, dan
+              10) adalah faktor dari 10.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. $\{7, 14, 21, 28, 35\}$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Kelipatan adalah hasil perkalian suatu bilangan
+              dengan bilangan asli (1, 2, 3, 4, ...). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              Kita kalikan 7 dengan 5 bilangan asli pertama: <br />
+              $7 \times 1 = 7$ <br />
+              $7 \times 2 = 14$ <br />
+              $7 \times 3 = 21$ <br />
+              $7 \times 4 = 28$ <br />
+              $7 \times 5 = 35$ <br />
+              Jadi, lima kelipatan pertamanya adalah 7, 14, 21, 28, 35.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN MUDAH 2 (3-4) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 17</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Bilangan prima adalah bilangan yang hanya
+              memiliki <b>tepat dua faktor</b>, yaitu 1 dan dirinya sendiri.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              A. 1: Bukan prima (faktornya hanya 1).<br />
+              B. 9: Bukan prima (faktornya 1, 3, 9).<br />
+              C. 15: Bukan prima (faktornya 1, 3, 5, 15).<br />
+              D. 17: Adalah prima (faktornya hanya 1 dan 17).
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Faktor adalah bilangan yang dapat membagi habis
+              suatu bilangan. Kita perlu mendaftar semua faktor dari 16 lalu
+              menghitung jumlahnya. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              Perkalian yang menghasilkan 16: <br />
+              $1 \times 16 = 16$<br />
+              $2 \times 8 = 16$<br />
+              $4 \times 4 = 16$<br />
+              Faktor dari 16 adalah $\{1, 2, 4, 8, 16\}$. <br />
+              Jika dihitung, ada 5 faktor.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN MUDAH 3 (5) & SEDANG 1 (6) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 2</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Bilangan prima adalah bilangan yang memiliki
+              tepat dua faktor. Bilangan genap adalah bilangan yang habis dibagi
+              2. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Angka 2 adalah bilangan prima karena faktornya hanya 1 dan 2.<br />
+              2. Angka 2 juga merupakan bilangan genap.<br />
+              3. Semua bilangan genap lain yang lebih besar dari 2 (seperti 4,
+              6, 8, ...) pasti memiliki 2 sebagai faktornya (selain 1 dan
+              dirinya sendiri), sehingga mereka bukan bilangan prima.<br />
+              4. Oleh karena itu, 2 adalah satu-satunya bilangan prima yang
+              genap.
+            </div>
+          </div>
+        </div>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 42</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini meminta kita untuk mencari semua
+              faktor dari 20 terlebih dahulu, kemudian menjumlahkan semua faktor
+              tersebut. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Cari faktor dari 20:<br />
+              $1 \times 20 = 20$<br />
+              $2 \times 10 = 20$<br />
+              $4 \times 5 = 20$<br />
+              Faktor dari 20 adalah $\{1, 2, 4, 5, 10, 20\}$.
+              <br />
+              2. Jumlahkan semua faktor tersebut:<br />
+              $1 + 2 + 4 + 5 + 10 + 20 = 42$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SEDANG 2 (7-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 24</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KPK adalah kelipatan terkecil yang sama dari
+              dua bilangan. Kita bisa menggunakan metode faktorisasi prima.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Buat faktorisasi prima dari 8 dan 12:<br />
+              $8 = 2 \times 4 = 2 \times 2 \times 2 = 2^3$<br />
+              $12 = 2 \times 6 = 2 \times 2 \times 3 = 2^2 \times 3$<br />
+              2. Untuk KPK, ambil semua faktor prima yang ada (yaitu 2 dan 3),
+              dan gunakan pangkat tertinggi dari masing-masing faktor:<br />
+              - Pangkat tertinggi dari 2 adalah $2^3$.<br />
+              - Pangkat tertinggi dari 3 adalah $3^1$.<br />
+              3. Kalikan: KPK = $2^3 \times 3 = 8 \times 3 = 24$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 2</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Kita perlu mendaftar semua bilangan di antara
+              20 dan 30, lalu mengidentifikasi mana yang merupakan bilangan
+              prima. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Bilangan antara 20 dan 30 adalah: 21, 22, 23, 24, 25, 26, 27,
+              28, 29.<br />
+              2. Kita periksa satu per satu:<br />
+              - 21: Bukan prima (bisa dibagi 3 dan 7)<br />
+              - 22: Bukan prima (genap, bisa dibagi 2)<br />
+              - <b>23: Prima</b> (hanya bisa dibagi 1 dan 23)<br />
+              - 24: Bukan prima (genap, bisa dibagi 2)<br />
+              - 25: Bukan prima (bisa dibagi 5)<br />
+              - 26: Bukan prima (genap, bisa dibagi 2)<br />
+              - 27: Bukan prima (bisa dibagi 3 dan 9)<br />
+              - 28: Bukan prima (genap, bisa dibagi 2)<br />
+              - <b>29: Prima</b> (hanya bisa dibagi 1 dan 29)<br />
+              3. Ada 2 bilangan prima, yaitu 23 dan 29.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SEDANG 3 (9-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 6</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> FPB adalah faktor terbesar yang sama dari dua
+              bilangan. Kita bisa menggunakan faktorisasi prima. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Buat faktorisasi prima dari 18 dan 24:<br />
+              $18 = 2 \times 9 = 2 \times 3 \times 3 = 2 \times 3^2$<br />
+              $24 = 2 \times 12 = 2 \times 2 \times 6 = 2 \times 2 \times 2 \times 3 = 2^3 \times 3$<br />
+              2. Untuk FPB, ambil hanya faktor prima yang sama (dimiliki
+              keduanya, yaitu 2 dan 3), dan gunakan pangkat terkecil:<br />
+              - Pangkat terkecil dari 2 adalah $2^1$.<br />
+              - Pangkat terkecil dari 3 adalah $3^1$.<br />
+              3. Kalikan: FPB = $2 \times 3 = 6$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. $2^2 \times 3 \times 5$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Faktorisasi prima adalah menguraikan bilangan
+              menjadi perkalian bilangan prima. Pilihan A, B, dan C salah karena
+              masih mengandung bilangan komposit (10, 4, dan 15). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita bisa gunakan pohon faktor untuk 60:<br />
+              - $60 = 2 \times 30$<br />
+              - $30 = 2 \times 15$<br />
+              - $15 = 3 \times 5$<br />
+              2. Kumpulkan semua faktor primanya (yang di ujung cabang): 2, 2, 3,
+              5.<br />
+              3. Tulis dalam bentuk perkalian: $2 \times 2 \times 3 \times 5$.<br />
+              4. Tulis dalam bentuk pangkat: $2^2 \times 3 \times 5$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SEDANG LANJUTAN 1 (11-12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 0</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Kelipatan ke-$n$ dari suatu bilangan $a$
+              adalah $a \times n$.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Bilangan Susi: Kelipatan 4 urutan ke-15.
+              <br />
+              Bilangan Susi = $4 \times 15 = 60$.<br />
+              2. Bilangan Wati: Kelipatan 6 urutan ke-10.
+              <br />
+              Bilangan Wati = $6 \times 10 = 60$.<br />
+              3. Selisih kedua bilangan = $60 - 60 = 0$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 09:00:00</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal kejadian berulang bersamaan diselesaikan
+              dengan mencari Kelipatan Persekutuan Terkecil (KPK) dari
+              interval waktu.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Cari KPK dari 4 <b>menit</b>, 5 <b>menit</b>, dan 6 <b>menit</b>.<br />
+              $4 = 2^2$<br />
+              $5 = 5$<br />
+              $6 = 2 \times 3$<br />
+              2. KPK (ambil semua faktor pangkat terbesar):
+              $2^2 \times 3 \times 5 = 4 \times 3 \times 5 = 60$.<br />
+              3. Artinya, ketiga lampu menyala bersama setiap 60 <b>menit</b> (atau 1
+              <b>jam</b>).<br />
+              4. Waktu menyala bersama:
+              <br />
+              - Pukul 08:00:00 (pertama kali)<br />
+              - Pukul 09:00:00 (kedua kali)<br />
+              - Pukul 10:00:00 (ketiga kali)<br />
+              5. Soal menanyakan kapan menyala bersama
+              <b>setelah</b> pukul 08:01:00. Jawabannya adalah pukul
+              09:00:00.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SEDANG LANJUTAN 2 (13-14) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 9</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b>
+              <br />
+              1. Bilangan yang memiliki <b>tepat 2 faktor</b> adalah
+              <b>Bilangan Prima</b> (cth: 2, 3, 5, 19).<br />
+              2. Bilangan yang memiliki <b>tepat 3 faktor</b> adalah
+              <b>Kuadrat dari Bilangan Prima</b> (cth: $2^2=4$, $3^2=9$, $5^2=25$).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $K$ memiliki 3 faktor, jadi $K$ adalah kuadrat dari bilangan
+              prima. $K$ bisa jadi 4, 9, 25, 49, ...<br />
+              2. $K+10$ memiliki 2 faktor, jadi $K+10$ adalah bilangan
+              prima.<br />
+              3. Kita uji nilai $K$:
+              <br />
+              - Jika $K = 4 \rightarrow K+10 = 14$ (14 bukan prima).<br />
+              - Jika $K = 9 \rightarrow K+10 = 19$ (19 adalah prima).
+              <b>Berhasil.</b><br />
+              - Jika $K = 25 \rightarrow K+10 = 35$ (35 bukan prima).
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 2030</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini menggabungkan konsep jumlah digit
+              dan faktor bilangan.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Faktor dari 2025: $2025 = 25 \times 81 = 5^2 \times 3^4$.
+              Faktornya adalah 1, 3, 5, 9, 15, ...<br />
+              2. Kita cari tahun $T > 2025$ yang jumlah digitnya (J) adalah
+              salah satu dari faktor 2025.<br />
+              - $T=2026 \rightarrow J = 2+0+2+6 = 10$ (Bukan faktor 2025)<br />
+              - $T=2027 \rightarrow J = 2+0+2+7 = 11$ (Bukan faktor 2025)<br />
+              - $T=2028 \rightarrow J = 2+0+2+8 = 12$ (Bukan faktor 2025)<br />
+              - $T=2029 \rightarrow J = 2+0+2+9 = 13$ (Bukan faktor 2025)<br />
+              - $T=2030 \rightarrow J = 2+0+3+0 = 5$ (5 adalah faktor 2025).
+              <b>Berhasil.</b><br />
+              Tahun paling cepat adalah 2030.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SEDANG LANJUTAN 3 (15) & SULIT 1 (16) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 35</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Jumlah tiga bilangan $a+b+c = 15$ (Ganjil).
+              Penjumlahan 3 bilangan hasilnya ganjil jika:
+              <br />
+              1. Ketiganya Ganjil (Ganjil + Ganjil + Ganjil = Ganjil)
+              <br />
+              2. Satu Ganjil, Dua Genap (Ganjil + Genap + Genap = Ganjil)
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Bilangan prima satu-satunya yang genap adalah 2. Tidak mungkin
+              mendapat dua bilangan prima genap (Kasus 2 gagal).<br />
+              2. Maka, kita harus pakai Kasus 1: ketiga bilangan prima tersebut
+              harus Ganjil. Ini berarti $a=2$ tidak mungkin.<br />
+              3. Karena $a,b,c$ berbeda dan $a \le b \le c$, kita mulai dari
+              prima ganjil terkecil, $a=3$.<br />
+              4. $3 + b + c = 15 \rightarrow b + c = 12$.<br />
+              5. Kita cari 2 bilangan prima ganjil berbeda ($b, c > a$) yang
+              jumlahnya 12. Satu-satunya pasangan adalah $b=5$ dan $c=7$.<br />
+              6. Bilangannya adalah {3, 5, 7}. $a=3, b=5, c=7$.<br />
+              7. Nilai $b \times c = 5 \times 7 = 35$.
+            </div>
+          </div>
+        </div>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 206</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah soal sisa pembagian. Perhatikan
+              polanya:
+              <br />
+              Dibagi 5 sisa 1 (5-1 = 4)
+              <br />
+              Dibagi 6 sisa 2 (6-2 = 4)
+              <br />
+              Dibagi 7 sisa 3 (7-3 = 4)
+              <br />
+              Selisihnya (kekurangannya) selalu 4. Ini berarti $K = n \times
+              KPK(5,6,7) - 4$.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. KPK(5, 6, 7) = $5 \times 6 \times 7 = 210$ (karena ketiganya
+              saling prima).<br />
+              2. $K = 210n - 4$.<br />
+              3. Kita cari $K$ terkecil > 100.
+              <br />
+              - Jika $n=0, K = -4$ (Tidak memenuhi).<br />
+              - Jika $n=1, K = 210 - 4 = 206$.<br />
+              4. Bilangan 206 adalah bilangan terkecil yang memenuhi syarat,
+              dan 206 > 100.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SULIT 2 (17-18) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 100</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Kita gunakan pemfaktoran aljabar $a^2 - b^2
+              = (a-b)(a+b)$.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $(a-b)(a+b) = 45$. Karena $a, b$ asli, $a+b > a-b$.<br />
+              2. Cari pasangan faktor 45: (1, 45), (3, 15), (5, 9).<br />
+              3. Uji tiap kasus:<br />
+              - $a-b=1; a+b=45 \rightarrow 2a=46 \rightarrow a=23, b=22$.
+              $a \times b = 506$.<br />
+              - $a-b=3; a+b=15 \rightarrow 2a=18 \rightarrow a=9, b=6$. $a
+                \times b = 54$.<br />
+              - $a-b=5; a+b=9 \rightarrow 2a=14 \rightarrow a=7, b=2$. $a
+                \times b = 14$.<br />
+              4. Nilai $a \times b$ yang mungkin adalah 506, 54, dan 14.
+              <br />
+              Nilai yang tidak mungkin adalah 100.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 8</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Faktor ganjil HANYA dibentuk dari perkalian
+              faktor-faktor prima yang ganjil.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Faktorisasi prima 540: $540 = 54 \times 10 = (2 \times 27)
+                \times (2 \times 5) = 2 \times 3^3 \times 2 \times 5 = 2^2 \times
+                3^3 \times 5^1$.<br />
+              2. Untuk mencari faktor ganjil, kita abaikan faktor prima genap
+              ($2^2$).<br />
+              3. Kita hanya lihat bagian $3^3 \times 5^1$.<br />
+              4. Banyak faktor = $(pangkat+1) \times (pangkat+1) = (3+1) \times
+                (1+1) = 4 \times 2 = 8$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SULIT 3 (19-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 195</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Jumlah faktor dari $N = p^a \times q^b$
+              adalah $(p^0 + ... + p^a) \times (q^0 + ... + q^b)$.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Faktorisasi prima 72: $72 = 8 \times 9 = 2^3 \times 3^2$.<br />
+              2. Jumlah faktor = $(2^0+2^1+2^2+2^3) \times (3^0+3^1+3^2)$<br />
+              3. Hitung: $(1+2+4+8) \times (1+3+9) = 15 \times 13 = 195$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 7</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Angka satuan dari bilangan berpangkat
+              membentuk siklus (pola berulang).<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Cari pola angka satuan $7^n$:<br />
+              $7^1 = 7$<br />
+              $7^2 = 49$ (satuan 9)<br />
+              $7^3 = ...3$ (satuan 3)<br />
+              $7^4 = ...1$ (satuan 1)<br />
+              $7^5 = ...7$ (pola berulang)<br />
+              2. Polanya adalah (7, 9, 3, 1) yang berulang setiap 4 pangkat.<br />
+              3. Kita bagi pangkat 2025 dengan 4. Cukup cek 2 digit
+              terakhir: $25 \div 4 = 6$ sisa <b>1</b>.<br />
+              4. Sisa 1 berarti angka satuannya sama dengan urutan ke-1 pada
+              pola, yaitu 7.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SULIT 4 (21-22) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 53</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah soal himpunan (Prinsip
+              Inklusi-Eksklusi). Kita cari dulu jumlah bilangan yang
+              merupakan kelipatan 3 ATAU 5, lalu kurangkan dari total.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Total bilangan = 100.<br />
+              2. Kelipatan 3: $\lfloor 100/3 \rfloor = 33$.<br />
+              3. Kelipatan 5: $\lfloor 100/5 \rfloor = 20$.<br />
+              4. Kelipatan 3 dan 5 (KPK 15): $\lfloor 100/15 \rfloor = 6$.<br />
+              5. Jumlah bilangan kelipatan 3 ATAU 5 = (Kelipatan 3) +
+              (Kelipatan 5) - (Kelipatan 15) = $33 + 20 - 6 = 47$.<br />
+              6. Jumlah bilangan yang BUKAN kelipatan 3 dan BUKAN kelipatan 5
+              = Total - (Kelipatan 3 ATAU 5) = $100 - 47 = 53$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 30</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Hubungan FPB dan KPK: $FPB(a,b) \times
+                KPK(a,b) = a \times b$.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Misal dua bilangan itu adalah $a$ dan $b$.<br />
+              2. $a = 18$. $b = ?$<br />
+              3. $FPB = 6$. $KPK = 90$.<br />
+              4. $6 \times 90 = 18 \times b$<br />
+              $540 = 18 \times b$<br />
+              $b = 540 \div 18 = 30$.<br />
+              5. Bilangan lainnya adalah 30.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SULIT 5 (23-24) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 6</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini meminta kita mencari pasangan bilangan
+              prima kembar (twin primes) di mana kedua bilangan tersebut
+              memiliki 2 digit.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              Kita uji semua prima 2 digit ($p$) dan cek $p+2$:<br />
+              1. $p=11 \rightarrow p+2 = 13$ (Prima) - <b>OK (1)</b><br />
+              2. $p=17 \rightarrow p+2 = 19$ (Prima) - <b>OK (2)</b><br />
+              3. $p=29 \rightarrow p+2 = 31$ (Prima) - <b>OK (3)</b><br />
+              4. $p=41 \rightarrow p+2 = 43$ (Prima) - <b>OK (4)</b><br />
+              5. $p=59 \rightarrow p+2 = 61$ (Prima) - <b>OK (5)</b><br />
+              6. $p=71 \rightarrow p+2 = 73$ (Prima) - <b>OK (6)</b><br />
+              (Pasangan lain seperti (3,5), (5,7) bukan 2 digit. Pasangan
+              seperti (89, 91) gagal karena 91 bukan prima).<br />
+              Total ada 6 pasangan.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 2</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Gunakan pemfaktoran aljabar $n^3 + 1 =
+                (n+1)(n^2-n+1)$. Agar sebuah hasil kali menjadi bilangan
+              prima, salah satu faktornya harus 1.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $p = (n+1)(n^2-n+1)$.<br />
+              2. Karena $n$ adalah bilangan asli ($n \ge 1$), maka $n+1$ pasti
+              $\ge 2$.<br />
+              3. Satu-satunya cara agar $p$ prima adalah jika faktor yang
+              lebih kecil, yaitu $(n^2-n+1)$, bernilai 1.<br />
+              4. $n^2 - n + 1 = 1 \rightarrow n^2 - n = 0 \rightarrow n(n-1)
+                = 0$.<br />
+              5. Solusinya $n=0$ (bukan asli) atau $n=1$ (asli).<br />
+              6. Kita ambil $n=1$. $p = 1^3 + 1 = 2$. $p=2$ adalah bilangan
+              prima. Ini satu-satunya solusi.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SULIT 6 (25-26) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 27</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah soal kaidah pencacahan (filling
+              slots) yang digabung dengan konsep bilangan prima.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Angka yang tersedia: $\{1, 2, 3, 4, 5\}$.<br />
+              2. Angka prima yang tersedia: $\{2, 3, 5\}$. Ada <b>3
+              pilihan</b>.<br />
+              3. Kita perlu membentuk bilangan $abc$ dimana $a, b, c$
+              semuanya prima dan angka boleh berulang.<br />
+              - Pilihan untuk $a$ (prima): 3 pilihan (2, 3, 5).<br />
+              - Pilihan untuk $b$ (prima): 3 pilihan (2, 3, 5).<br />
+              - Pilihan untuk $c$ (prima): 3 pilihan (2, 3, 5).<br />
+              4. Total bilangan = $3 \times 3 \times 3 = 27$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>26.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 3</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini diselesaikan dengan mendaftar
+              secara sistematis (listing) berdasarkan syarat faktor dan angka
+              harus berbeda.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              Kita cari $(a, b, c)$ yang memenuhi $a|b$ dan $b|c$ dan
+              $a,b,c$ berbeda dari $\{1, 2, 3, 4, 5, 6\}$.<br />
+              1. $a=1, b=2 \rightarrow c$ adalah kelipatan 2 ($\ne 1,2$). $c=4$
+              atau $c=6$.
+              <br />
+              Pasangan: <b>(1, 2, 4)</b> dan <b>(1, 2, 6)</b>.<br />
+              2. $a=1, b=3 \rightarrow c$ adalah kelipatan 3 ($\ne 1,3$). $c=6$.
+              <br />
+              Pasangan: <b>(1, 3, 6)</b>.<br />
+              3. $a=2, b=4 \rightarrow c$ adalah kelipatan 4 ($\ne 2,4$).
+              (Tidak ada di himpunan).<br />
+              4. $a=2, b=6 \rightarrow c$ adalah kelipatan 6 ($\ne 2,6$).
+              (Tidak ada di himpunan).<br />
+              5. $a=3, b=6 \rightarrow c$ adalah kelipatan 6 ($\ne 3,6$).
+              (Tidak ada di himpunan).<br />
+              Total bilangan yang mungkin ada 3 (yaitu 124, 126, dan 136).
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SULIT 7 (27-28) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>27.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 8</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b>
+              <br />
+              1. Ciri habis dibagi 4: Dua digit terakhir ($7B$) habis dibagi
+              4.<br />
+              2. Ciri habis dibagi 9: Jumlah semua digit habis dibagi 9.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $7B$ habis dibagi 4. $72 \div 4 = 18$ (bisa). $76 \div 4 = 19$
+              (bisa). $B$ bisa 2 atau 6.<br />
+              2. Kasus 1: $B=2$. Bilangan: $3A72$. Jumlah digit $3+A+7+2 =
+                12+A$. $12+A$ harus kelipatan 9. $A=6$ ($12+6=18$). $A+B = 6+2
+                = 8$.<br />
+              3. Kasus 2: $B=6$. Bilangan: $3A76$. Jumlah digit $3+A+7+6 =
+                16+A$. $16+A$ harus kelipatan 9. $A=2$ ($16+2=18$). $A+B = 2+6
+                = 8$.<br />
+              4. Di kedua kasus, $A+B = 8$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>28.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 36</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> $K \times N = FPB(K,N) \times KPK(K,N)$.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $K \times 48 = 12 \times 144$.<br />
+              2. $K \times 48 = 1728$.<br />
+              3. $K = 1728 \div 48 = 36$.<br />
+              4. Cek: $K=36$ (2 digit). $FPB(36, 48)=12$. $KPK(36, 48)=144$.
+              Cocok.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN SULIT 8 (29-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>29.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 31</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini adalah faktorisasi prima dari
+              bilangan yang terlihat sulit.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita harus memfaktorkan 1001.
+              <br />
+              - Tidak habis dibagi 2, 3 (jumlah digit 2), 5.<br />
+              - Coba bagi 7: $1001 \div 7 = 143$.<br />
+              - Coba bagi 11: $143 \div 11 = 13$.<br />
+              - 13 adalah prima.<br />
+              2. $1001 = 7 \times 11 \times 13$.<br />
+              3. Tiga bilangan prima $p, q, r$ adalah 7, 11, dan 13.<br />
+              4. $p+q+r = 7 + 11 + 13 = 31$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>30.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 200</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Prinsip Inklusi-Eksklusi. Kita cari $n(A
+                \cup B) - n(A \cup B \cap C)$.<br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $A$ (habis dibagi 3) = $\lfloor 500/3 \rfloor = 166$.<br />
+              2. $B$ (habis dibagi 5) = $\lfloor 500/5 \rfloor = 100$.<br />
+              3. $C$ (habis dibagi 7) = $\lfloor 500/7 \rfloor = 71$.<br />
+              4. $A \cap B$ (KPK 15) = $\lfloor 500/15 \rfloor = 33$.<br />
+              5. $n(A \cup B) = n(A) + n(B) - n(A \cap B) = 166 + 100 - 33 =
+                233$. (Ini total yang habis dibagi 3 atau 5).<br />
+              6. Kita harus buang yang juga habis dibagi 7. Yaitu $n((A \cup
+                B) \cap C) = n((A \cap C) \cup (B \cap C))$.<br />
+              7. $A \cap C$ (KPK 21) = $\lfloor 500/21 \rfloor = 23$.<br />
+              8. $B \cap C$ (KPK 35) = $\lfloor 500/35 \rfloor = 14$.<br />
+              9. $A \cap B \cap C$ (KPK 105) = $\lfloor 500/105 \rfloor = 4$.<br />
+              10. $n((A \cap C) \cup (B \cap C)) = n(A \cap C) + n(B \cap C) -
+                n(A \cap B \cap C) = 23 + 14 - 4 = 33$.<br />
+              11. Jawaban = (Langkah 5) - (Langkah 10) = $233 - 33 = 200$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
+
