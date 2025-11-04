@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uji Kompetensi Guru - Kalkulus & Aljabar Linear</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          packages: { "[+]": ["ams"] },
+          processEscapes: true, // Ensure backslashes are processed correctly
+        },
+        svg: {
+          fontCache: "global",
+        },
+        options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre"],
+        },
+        startup: {
+          ready: () => {
+            MathJax.startup.defaultReady();
+            MathJax.startup.promise.then(() => {
+              console.log("MathJax initial typesetting complete");
+            });
+          },
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --header-top-bg: #e0f2f7; /* Light cyan background */
+        --header-bottom-bg: #f0f0f0;
+        --header-title-color: #00778f; /* Darker cyan title */
+        --grey-text: #8d8e8d;
+        --image-placeholder-bg: #eeeeee; /* Light grey for image placeholders */
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+        text-align: left; /* Override justify */
+      }
+      .data-table td {
+        border: 1px solid var(--border-color);
+        padding: 6px;
+        text-align: center;
+        font-size: 8.5pt;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", "Montserrat", sans-serif;
+        font-size: 10pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page-container {
+        counter-reset: page 0; /* Start page counter at 0 for page 1 */
+      }
+
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm; /* Use min-height to allow content expansion */
+        height: auto;
+        padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always; /* Ensure each page prints on a new sheet */
+      }
+
+      .page:last-of-type {
+          page-break-after: avoid; /* No page break after the last page */
+      }
+
+      .page-header {
+        margin: -1.8cm -2.5cm 20px -2.5cm;
+        width: 21cm; /* Ensure header spans the page width */
+      }
+
+      .header-top-box {
+        background-color: var(--header-top-bg);
+        padding: 10px 2.5cm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px; /* Small gap between top and bottom header parts */
+      }
+
+      .header-title-main {
+        font-size: 18pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        line-height: 1.2;
+      }
+
+      .header-title-sub {
+        font-size: 9pt;
+        font-weight: 400;
+        color: var(--primary-text);
+      }
+
+      .header-logo {
+        max-height: 45px; /* Adjusted logo size */
+      }
+
+      .header-bottom-box {
+        padding: 8px 2.5cm;
+        background-color: white; /* Ensure bottom box has white background relative to body */
+        margin: 0; /* Remove default margins */
+      }
+
+      .header-bottom-text {
+        background-color: var(--header-bottom-bg);
+        padding: 8px 15px;
+        font-weight: 700;
+        font-size: 8.5pt;
+        color: var(--secondary-text);
+        display: block; /* Takes full width available */
+        border-radius: 4px;
+        white-space: normal; /* Allow text wrapping */
+        text-align: left;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        flex-grow: 1; /* Allows content to fill space */
+      }
+
+      h2.kuis-title {
+        font-size: 11pt;
+        color: var(--secondary-text);
+        background-color: #f0f0f0;
+        padding: 2px 10px;
+        border-radius: 4px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: left;
+        font-weight: 700;
+        display: inline-block;
+      }
+
+      .layout-2-kolom {
+        columns: 2;
+        column-gap: 15mm;
+        height: auto; /* Let height adjust based on content */
+      }
+
+      .soal-latihan {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px; /* Jarak antara nomor dan teks soal */
+        margin-bottom: 15px; /* Reduced margin */
+        break-inside: avoid;
+        text-align: justify;
+        page-break-inside: avoid; /* Prevent breaking inside a question during print */
+      }
+
+      .soal-nomor {
+        font-weight: bold;
+        flex-shrink: 0;
+        min-width: 18px; /* Ruang untuk nomor hingga 2 digit */
+      }
+
+      .soal-konten {
+        flex-grow: 1; /* Konten soal mengisi sisa ruang */
+      }
+      
+      .soal-kategori {
+        font-size: 0.8em;
+        font-weight: bold;
+        color: var(--header-title-color);
+        margin-bottom: 4px;
+      }
+
+      ol {
+        padding-left: 0;
+        margin: 0; /* Reset default margins */
+      }
+      ol.pilihan-ganda {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 8px; /* Reduced margin */
+        text-align: left; /* Pilihan ganda selalu rata kiri */
+      }
+      ol.pilihan-ganda li {
+        margin-bottom: 6px; /* Reduced margin */
+      }
+      ol.pilihan-ganda li::before {
+        content: attr(data-option) ". ";
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto; /* Pushes footer to bottom */
+        border-top: 2.5px solid var(--grey-text);
+        width: 100%; /* Ensure footer spans width */
+      }
+
+      .page-number::before {
+        counter-increment: page;
+        content: "Halaman " counter(page) " dari 4";
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 1.8cm 2.5cm 1.5cm 2.5cm; /* Adjust margins for printing */
+        }
+
+        body {
+          background-color: white;
+          margin: 0;
+          font-size: 9pt; /* Consistent font size */
+        }
+
+        .page {
+          width: 100%;
+          min-height: initial; /* Remove min-height for print */
+          height: auto; /* Allow height to adjust */
+          margin: 0;
+          box-shadow: none;
+          padding: 0; /* Remove padding as margins are handled by @page */
+          page-break-after: always;
+          border: none; /* Remove border if any */
+          display: block; /* Change display for better print flow */
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+
+        .page-header {
+          margin: 0 0 20px 0; /* Reset negative margins, add bottom margin */
+          width: 100%; /* Ensure header spans content area */
+          padding: 10px 0 0 0; /* Remove horizontal padding, adjust top/bottom */
+          background-color: var(--header-top-bg); /* Apply background color */
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          position: relative; /* Keep header relative */
+          page-break-after: avoid; /* Don't break page after header */
+        }
+
+        .header-top-box,
+        .header-bottom-box {
+          padding-left: 0; /* Adjust padding within header for print */
+          padding-right: 0;
+          margin-left: 0;
+          margin-right: 0;
+          width: 100%; /* Ensure full width inside page margins */
+        }
+
+        .header-top-box {
+          background-color: transparent; /* Top box inherits header background */
+          margin-bottom: 0; /* Remove gap */
+        }
+
+        .header-bottom-box {
+          background-color: transparent; /* Bottom box inherits header background */
+          padding-bottom: 8px; /* Add padding if needed */
+        }
+
+        .header-bottom-text,
+        .kuis-title {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        .soal-kategori {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: var(--header-title-color) !important; /* Force color in print */
+            margin-bottom: 4px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .layout-2-kolom {
+          columns: 2;
+          column-gap: 15mm;
+          height: auto; /* Allow height to adjust in print */
+        }
+
+        .content-wrapper {
+          flex-grow: initial; /* Reset flex grow for print */
+          overflow: visible; /* Show all content */
+        }
+
+        .page-footer {
+          position: fixed; /* Fix footer at bottom for print */
+          bottom: 0;
+          left: 2.5cm; /* Align with page margin */
+          right: 2.5cm; /* Align with page margin */
+          width: calc(100% - 5cm); /* Adjust width based on margins */
+          border-top: 2.5px solid var(--grey-text);
+          padding-top: 2px;
+          margin-top: 0;
+          background-color: white; /* Ensure footer background */
+          -webkit-print-color-adjust: exact; /* Print background color */
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- Page 1 --><section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Uji Kompetensi Guru</div>
+              <div class="header-title-sub">
+                <strong>Kalkulus & Aljabar Linear</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+              alt="Logo Ruangguru"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Matematika Tingkat Lanjut | 20 Soal Pilihan Ganda | Waktu: 90 Menit
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <h2 class="kuis-title">Petunjuk Pengerjaan</h2>
+          <div style="text-align: left; margin-bottom: 15px; font-size: 8.5pt">
+            1. Soal terdiri dari 20 butir pilihan ganda.<br />
+            2. Waktu pengerjaan adalah 90 menit.<br />
+            3. Penilaian: Jawaban benar +4, Jawaban salah -1, Tidak menjawab 0.<br />
+            4. Pilihlah satu jawaban yang paling tepat (A, B, C, D, atau E).<br />
+            5. Tidak diperkenankan menggunakan kalkulator atau alat bantu hitung lainnya.
+          </div>
+          <div class="layout-2-kolom">
+            
+            <div class="soal-latihan">
+              <div class="soal-nomor">1.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Kalkulus)</div>
+                Tentukan nilai dari $\lim_{x \to 0} \frac{e^x - x - 1}{x^2}$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$0$</li>
+                  <li data-option="B">$1/2$</li>
+                  <li data-option="C">$1$</li>
+                  <li data-option="D">$2$</li>
+                  <li data-option="E">Tidak ada</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">2.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Misalkan $A$ adalah matriks 3x3 dengan $\det(A) = 2$. Berapakah nilai dari $\det(3A^T (A^{-1}))$?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$2$</li>
+                  <li data-option="B">$6$</li>
+                  <li data-option="C">$9$</li>
+                  <li data-option="D">$18$</li>
+                  <li data-option="E">$27$</li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="soal-latihan">
+              <div class="soal-nomor">3.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Kalkulus)</div>
+                Diberikan $f(x) = x^5 + 2x + 1$ dan $g(x) = f^{-1}(x)$. Tentukan nilai dari $g'(4)$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$1/7$</li>
+                  <li data-option="B">$1/81$</li>
+                  <li data-option="C">$7$</li>
+                  <li data-option="D">$4$</li>
+                  <li data-option="E">$1/12$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">4.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Diberikan $T: P_3 \to P_2$ (ruang polinomial) oleh $T(p(x)) = p'(x)$ (turunan pertama). Tentukan dimensi dari kernel (ruang nol) $T$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">0</li>
+                  <li data-option="B">1</li>
+                  <li data-option="C">2</li>
+                  <li data-option="D">3</li>
+                  <li data-option="E">4</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">5.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Kalkulus)</div>
+                Hitunglah nilai integral tentu $\int_0^{\pi/2} \frac{\sin x}{\sin x + \cos x} dx$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$0$</li>
+                  <li data-option="B">$\pi/4$</li>
+                  <li data-option="C">$\pi/2$</li>
+                  <li data-option="D">$\pi$</li>
+                  <li data-option="E">$1$</li>
+                </ol>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+        <footer class="page-footer">
+          <b>Uji Kompetensi Guru (Kalkulus & Aljabar Linear)</b> | <span class="page-number"></span>
+        </footer>
+      </section>
+
+      <!-- Page 2 --><section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Uji Kompetensi Guru</div>
+              <div class="header-title-sub">
+                <strong>Kalkulus & Aljabar Linear</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+              alt="Logo Ruangguru"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Matematika Tingkat Lanjut | 20 Soal Pilihan Ganda | Waktu: 90 Menit
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            
+            <div class="soal-latihan">
+              <div class="soal-nomor">6.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Jika matriks $A$ berukuran 3x3 memiliki nilai-nilai eigen $\{1, 2, 3\}$, dan $B = A^2 - 3A + I$. Tentukan nilai-nilai eigen dari $B$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\{1, 2, 3\}$</li>
+                  <li data-option="B">$\{-1, 1, 1\}$</li>
+                  <li data-option="C">$\{-1, -1, 1\}$</li>
+                  <li data-option="D">$\{1, 4, 9\}$</li>
+                  <li data-option="E">$\{1, 1, 1\}$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">7.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Analisis Real)</div>
+                Tinjau himpunan $S = \{\frac{1}{n} \mid n \in \mathbb{N}\} \cup \{0\}$ sebagai subhimpunan dari $\mathbb{R}$. Manakah pernyataan berikut yang <b>salah</b>?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$S$ adalah himpunan kompak (compact).</li>
+                  <li data-option="B">$S$ adalah himpunan tertutup (closed).</li>
+                  <li data-option="C">$S$ adalah himpunan terhubung (connected).</li>
+                  <li data-option="D">Satu-satunya titik limit dari $S$ adalah 0.</li>
+                  <li data-option="E">$S$ adalah himpunan terbatas (bounded).</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">8.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Analisis Real)</div>
+                Manakah dari fungsi berikut yang <b>tidak</b> seragam kontinu (uniformly continuous) pada interval $(0, 1)$?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$f(x) = x^2$</li>
+                  <li data-option="B">$f(x) = \sin(x)$</li>
+                  <li data-option="C">$f(x) = 1/x$</li>
+                  <li data-option="D">$f(x) = \sqrt{x}$</li>
+                  <li data-option="E">$f(x) = \frac{\sin x}{x}$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">9.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Kalkulus)</div>
+                Manakah pernyataan yang benar mengenai deret $\sum_{n=1}^\infty \frac{n!}{n^n}$?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">Konvergen menurut Uji Rasio (Ratio Test)</li>
+                  <li data-option="B">Divergen menurut Uji Rasio (Ratio Test)</li>
+                  <li data-option="C">Uji Rasio tidak memberikan kesimpulan</li>
+                  <li data-option="D">Divergen menurut Uji Suku ke-n (nth-term test)</li>
+                  <li data-option="E">Konvergen menurut Uji Perbandingan (Comparison Test)</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">10.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Tinjau sistem persamaan linear $A\mathbf{x} = \mathbf{b}$, di mana $A$ adalah matriks berukuran 4x3. Manakah dari pernyataan berikut yang <b>tidak mungkin</b> benar?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">Sistem memiliki solusi unik untuk suatu $\mathbf{b}$.</li>
+                  <li data-option="B">Sistem memiliki tak hingga solusi untuk suatu $\mathbf{b}$.</li>
+                  <li data-option="C">Sistem konsisten (memiliki solusi) untuk setiap $\mathbf{b} \in \mathbb{R}^4$.</li>
+                  <li data-option="D">Sistem tidak konsisten untuk suatu $\mathbf{b}$.</li>
+                  <li data-option="E">$\text{rank}(A) = 3$.</li>
+                </ol>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+        <footer class="page-footer">
+          <b>Uji Kompetensi Guru (Kalkulus & Aljabar Linear)</b> | <span class="page-number"></span>
+        </footer>
+      </section>
+
+      <!-- Page 3 --><section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Uji Kompetensi Guru</div>
+              <div class="header-title-sub">
+                <strong>Kalkulus & Aljabar Linear</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+              alt="Logo Ruangguru"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Matematika Tingkat Lanjut | 20 Soal Pilihan Ganda | Waktu: 90 Menit
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            
+            <div class="soal-latihan">
+              <div class="soal-nomor">11.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Kalkulus)</div>
+                Hitung integral lipat dua $\int_0^1 \int_y^1 e^{-x^2} dx dy$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\frac{1 - e^{-1}}{2}$</li>
+                  <li data-option="B">$1 - e^{-1}$</li>
+                  <li data-option="C">$\frac{e - 1}{2}$</li>
+                  <li data-option="D">$0$</li>
+                  <li data-option="E">Tidak dapat dihitung</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">12.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Manakah dari himpunan berikut yang <b>bukan</b> merupakan himpunan ortogonal?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\{(1, 0, -1), (1, \sqrt{2}, 1), (1, -\sqrt{2}, 1)\}$</li>
+                  <li data-option="B">$\{(\sin x, \cos x)\}$ pada $[0, \pi]$ dengan $\langle f, g \rangle = \int_0^\pi f(x)g(x) dx$</li>
+                  <li data-option="C">$\{(1, 2, 2), (2, 1, -2), (2, -2, 1)\}$</li>
+                  <li data-option="D">$\{(1, 1, 1), (1, -1, 0), (1, 1, -2)\}$</li>
+                  <li data-option="E">$\{(1, 1), (-1, 1)\}$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">13.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Sebuah matriks $A$ berukuran 3x3 memiliki nilai eigen $1, 2, 5$. Manakah pernyataan berikut yang <b>pasti</b> benar?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$A$ simetris.</li>
+                  <li data-option="B">$\det(A) = 8$.</li>
+                  <li data-option="C">$\text{trace}(A) = 10$.</li>
+                  <li data-option="D">$A$ adalah matriks identitas.</li>
+                  <li data-option="E">$A$ dapat didiagonalkan (diagonalizable).</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">14.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Kalkulus)</div>
+                Manakah pernyataan yang paling tepat mendeskripsikan deret $\sum_{n=2}^\infty \frac{(-1)^n}{n \ln n}$?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">Konvergen Absolut</li>
+                  <li data-option="B">Konvergen Bersyarat</li>
+                  <li data-option="C">Divergen</li>
+                  <li data-option="D">Konvergen menurut Uji Rasio</li>
+                  <li data-option="E">Divergen menurut Uji Akar</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">15.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Manakah dari himpunan berikut yang <b>bukan</b> merupakan subruang (subspace) dari $M_{2 \times 2}$ (ruang vektor matriks 2x2)?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">Himpunan matriks simetris 2x2.</li>
+                  <li data-option="B">Himpunan matriks 2x2 yang dapat dibalik (invertible).</li>
+                  <li data-option="C">Himpunan matriks segitiga atas 2x2.</li>
+                  <li data-option="D">Himpunan matriks 2x2 dengan $\text{trace} = 0$.</li>
+                  <li data-option="E">Himpunan matriks $A$ s.t. $A \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$.</li>
+                </ol>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+        <footer class="page-footer">
+          <b>Uji Kompetensi Guru (Kalkulus & Aljabar Linear)</b> | <span class="page-number"></span>
+        </footer>
+      </section>
+
+      <!-- Page 4 --><section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Uji Kompetensi Guru</div>
+              <div class="header-title-sub">
+                <strong>Kalkulus & Aljabar Linear</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+              alt="Logo Ruangguru"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Matematika Tingkat Lanjut | 20 Soal Pilihan Ganda | Waktu: 90 Menit
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            
+            <div class="soal-latihan">
+              <div class="soal-nomor">16.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Misalkan $W$ adalah subruang di $\mathbb{R}^3$ yang direntang oleh $S = \{(1, 1, 0), (0, 1, 1)\}$. Manakah dari vektor berikut yang berada di $W^\perp$ (komplemen ortogonal $W$)?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$(1, 0, 1)$</li>
+                  <li data-option="B">$(1, -1, 1)$</li>
+                  <li data-option="C">$(1, 1, 1)$</li>
+                  <li data-option="D">$(1, -1, 0)$</li>
+                  <li data-option="E">$(0, 0, 1)$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">17.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Kalkulus)</div>
+                Hitung $\oint_C (y^2 dx + x^2 dy)$ di mana $C$ adalah batas segitiga dengan titik sudut $(0,0)$, $(1,0)$, dan $(0,1)$ secara berlawanan arah jarum jam.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$-1$</li>
+                  <li data-option="B">$1/3$</li>
+                  <li data-option="C">$2/3$</li>
+                  <li data-option="D">$1$</li>
+                  <li data-option="E">$0$</li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="soal-latihan">
+              <div class="soal-nomor">18.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Misalkan $B = \{v_1, v_2\}$ dan $C = \{w_1, w_2\}$ adalah basis untuk $\mathbb{R}^2$. Diketahui $v_1 = 2w_1 + w_2$ dan $v_2 = w_1 - w_2$. Tentukan matriks transisi dari basis $C$ ke basis $B$, yaitu $P_{B \leftarrow C}$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\begin{pmatrix} 2 & 1 \\ 1 & -1 \end{pmatrix}$</li>
+                  <li data-option="B">$\begin{pmatrix} 1/3 & 1/3 \\ 1/3 & -2/3 \end{pmatrix}$</li>
+                  <li data-option="C">$\begin{pmatrix} 1 & 1 \\ 2 & -1 \end{pmatrix}$</li>
+                  <li data-option="D">$\begin{pmatrix} -1 & -1 \\ -1 & 2 \end{pmatrix}$</li>
+                  <li data-option="E">$\begin{pmatrix} 1 & 2 \\ 1 & -1 \end{pmatrix}$</li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="soal-latihan">
+              <div class="soal-nomor">19.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Kalkulus)</div>
+                Nilai maksimum dari turunan berarah $f(x,y)$ pada titik $P(1,2)$ adalah $5$, dan nilai ini terjadi pada arah yang sama dengan vektor $\mathbf{v} = \langle 3, 4 \rangle$. Tentukan gradien $\nabla f(1,2)$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\langle 3, 4 \rangle$</li>
+                  <li data-option="B">$\langle 3/5, 4/5 \rangle$</li>
+                  <li data-option="C">$\langle 15, 20 \rangle$</li>
+                  <li data-option="D">$\langle 5, 5 \rangle$</li>
+                  <li data-option="E">$\langle 3, 5 \rangle$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">20.</div>
+              <div class="soal-konten">
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Tentukan dimensi dari subruang $P_3(\mathbb{R})$ (polinomial derajat $\le 3$) yang direntang oleh himpunan $\{1+x, x+x^2, 1-x^2, 1+2x+x^2\}$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">1</li>
+                  <li data-option="B">2</li>
+                  <li data-option="C">3</li>
+                  <li data-option="D">4</li>
+                  <li data-option="E">0</li>
+                </ol>
+              </div>
+            </div>
+            
+          </div>
+          </div>
+        <footer class="page-footer">
+          <b>Uji Kompetensi Guru (Kalkulus & Aljabar Linear)</b> | <span class="page-number"></span>
+        </footer>
+      </section>
+      </div>
+    </body>
+</html>
+
