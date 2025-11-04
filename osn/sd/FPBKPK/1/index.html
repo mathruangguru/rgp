@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Judul disesuaikan dengan materi yang diminta -->
+    <title>Latihan OSNK: FPB & KPK</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm; /* Mengubah ukuran logo agar tidak terlalu besar */
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 38pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .materi-konten {
+        display: block;
+        text-align: justify;
+      }
+      .soal-latihan,
+      .soal-latihan-n {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 25px;
+        break-inside: avoid;
+        padding-bottom: 10px;
+      }
+      .soal-latihan > b,
+      .soal-latihan-n > b {
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      .soal-wrapper {
+        flex-grow: 1;
+      }
+      .soal-konten {
+        text-align: justify;
+      }
+      .options {
+        padding-left: 0px;
+        margin-top: 10px;
+        display: block;
+      }
+      .options div {
+        margin-bottom: 5px;
+        padding-left: 20px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 18pt;
+        font-weight: 700;
+        margin: 20px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 10px 0;
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4caf50;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .image-description {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-style: italic;
+        color: #555;
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Halaman Sampul -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Ruangguru Privat Logo"
+          class="cover-image"
+        />
+        <!-- Judul disesuaikan -->
+        <h1 class="cover-title">FPB & KPK<br />Latihan OSNK SD</h1>
+        <p class="cover-subtitle">
+          Faktor Persekutuan Terbesar & Kelipatan Persekutuan Terkecil
+        </p>
+      </div>
+    </section>
+
+    <!-- Halaman Materi 1: FPB -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Faktorisasi Prima & FPB</h1>
+        <div class="materi-konten">
+          <h2>1. Faktorisasi Prima</h2>
+          <p>
+            <b>Faktorisasi Prima</b> adalah proses menguraikan suatu bilangan
+            komposit menjadi perkalian faktor-faktor primanya. Cara yang umum
+            digunakan adalah dengan <b>pohon faktor</b>.
+          </p>
+          <p>Contoh: Faktorisasi prima dari <b>60</b>.</p>
+          <!-- Simulasi pohon faktor sederhana -->
+          <div
+            style="
+              font-family: 'Courier New', monospace;
+              margin-left: 20px;
+              line-height: 1.5;
+            "
+          >
+            60<br />
+            / \<br />
+            <b>2</b> 30<br />
+            / \<br />
+            <b>2</b> 15<br />
+            / \<br />
+            <b>3</b> <b>5</b>
+          </div>
+          <p>
+            Kita berhenti membagi ketika semua cabang sudah merupakan bilangan
+            prima (ditandai tebal). <br />Jadi, faktorisasi prima dari 60 adalah
+            $2 \times 2 \times 3 \times 5$ atau $2^2 \times 3 \times 5$.
+          </p>
+
+          <h2>2. Faktor Persekutuan Terbesar (FPB)</h2>
+          <p>
+            <b>FPB</b> adalah faktor (pembagi) terbesar yang sama dari dua
+            bilangan atau lebih.
+          </p>
+          <p>
+            <b>Cara Cepat (Menggunakan Faktorisasi Prima):</b><br />
+            Kalikan semua <b>faktor prima yang sama</b> dengan
+            <b>pangkat terkecil</b>.
+          </p>
+          <p>Contoh: Mencari FPB dari <b>18</b> dan <b>24</b>.</p>
+          <ul style="padding-left: 20px">
+            <li>$18 = 2 \times 9 = 2 \times 3^2$</li>
+            <li>$24 = 3 \times 8 = 2^3 \times 3$</li>
+          </ul>
+          <p>
+            Faktor prima yang sama adalah <b>2</b> dan <b>3</b>.<br />
+            - Pangkat terkecil dari 2 adalah $2^1$ (dari 18).<br />
+            - Pangkat terkecil dari 3 adalah $3^1$ (dari 24).<br />
+            FPB = $2^1 \times 3^1 = 6$.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2: KPK -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Kelipatan Persekutuan Terkecil (KPK)</h1>
+        <div class="materi-konten">
+          <h2>1. Kelipatan Persekutuan Terkecil (KPK)</h2>
+          <p>
+            <b>KPK</b> adalah kelipatan terkecil yang sama dari dua bilangan
+            atau lebih (bilangan yang bisa dibagi habis oleh kedua bilangan
+            tersebut).
+          </p>
+          <p>
+            <b>Cara Cepat (Menggunakan Faktorisasi Prima):</b><br />
+            Kalikan <b>semua faktor prima</b> yang ada. Jika ada faktor yang
+            sama, ambil <b>pangkat terbesar</b>.
+          </p>
+          <p>Contoh: Mencari KPK dari <b>18</b> dan <b>24</b>.</p>
+          <ul style="padding-left: 20px">
+            <li>$18 = 2 \times 3^2$</li>
+            <li>$24 = 2^3 \times 3$</li>
+          </ul>
+          <p>
+            Faktor prima yang ada adalah <b>2</b> dan <b>3</b>.<br />
+            - Pangkat terbesar dari 2 adalah $2^3$ (dari 24).<br />
+            - Pangkat terbesar dari 3 adalah $3^2$ (dari 18).<br />
+            KPK = $2^3 \times 3^2 = 8 \times 9 = 72$.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 3: Aplikasi (FPB & KPK) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Aplikasi & Soal Cerita</h1>
+        <div class="materi-konten">
+          <h2>1. Kapan Menggunakan FPB?</h2>
+          <p>
+            Gunakan FPB jika soal menanyakan tentang:
+          </p>
+          <ul style="padding-left: 20px">
+            <li>
+              Membagi beberapa benda berbeda ke dalam kelompok/paket/kantong
+              dengan jumlah <b>sama rata</b> dan <b>sama banyak</b>.
+            </li>
+            <li>Menanyakan <b>jumlah kelompok terbanyak</b>.</li>
+            <li>Menanyakan <b>ukuran terbesar</b>.</li>
+            <li>
+              Kata kunci: "dibagi", "sama banyak", "terbanyak", "maksimal",
+              "ukuran terbesar".
+            </li>
+          </ul>
+          <p>
+            <b>Contoh:</b> Ibu punya 20 apel dan 30 jeruk. Akan dimasukkan ke
+            kantong dengan jumlah apel dan jeruk sama banyak di tiap kantong.
+            Berapa kantong <b>terbanyak</b> yang dibutuhkan? <br />(Jawaban:
+            Cari FPB dari 20 dan 30).
+          </p>
+
+          <h2>2. Kapan Menggunakan KPK?</h2>
+          <p>
+            Gunakan KPK jika soal menanyakan tentang:
+          </p>
+          <ul style="padding-left: 20px">
+            <li>
+              Jadwal atau kejadian yang <b>berulang secara bersamaan</b>.
+            </li>
+            <li>
+              Kapan dua (atau lebih) hal terjadi <b>bersamaan lagi</b>.
+            </li>
+            <li>
+              Kata kunci: "bersama-sama lagi", "kapan bertemu", "setiap ...
+              sekali".
+            </li>
+          </ul>
+          <p>
+            <b>Contoh:</b> Lampu A menyala setiap 4 menit, Lampu B setiap 6
+            menit. Pukul 10:00 menyala bersama. Pukul berapa menyala
+            <b>bersamaan lagi</b>? <br />(Jawaban: Cari KPK dari 4 dan 6).
+          </p>
+
+          <h2>3. Rumus Hubungan FPB & KPK</h2>
+          <p>
+            Untuk dua bilangan $A$ dan $B$, berlaku rumus:
+          </p>
+          <p style="text-align: center; font-weight: bold; font-size: 14pt">
+            $A \times B = FPB(A, B) \times KPK(A, B)$
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Mudah (1-3) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Faktorisasi prima dari bilangan 30 adalah...
+            </div>
+            <div class="options">
+              <div>A. $2 \times 15$</div>
+              <div>B. $3 \times 10$</div>
+              <div>C. $2 \times 3 \times 5$</div>
+              <div>D. $5 \times 6$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Faktor Persekutuan Terbesar (FPB) dari 12 dan 18 adalah...
+            </div>
+            <div class="options">
+              <div>A. 2</div>
+              <div>B. 3</div>
+              <div>C. 6</div>
+              <div>D. 36</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Kelipatan Persekutuan Terkecil (KPK) dari 10 dan 15 adalah...
+            </div>
+            <div class="options">
+              <div>A. 5</div>
+              <div>B. 30</div>
+              <div>C. 60</div>
+              <div>D. 150</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Mudah (Lanjutan) (4-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Mudah (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Faktor prima dari bilangan 45 adalah...
+            </div>
+            <div class="options">
+              <div>A. $\{1, 3, 5, 9, 15, 45\}$</div>
+              <div>B. $\{3, 5, 9\}$</div>
+              <div>C. $\{3, 5\}$</div>
+              <div>D. $\{5, 9\}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Kelipatan persekutuan dari 3 dan 4 yang kurang dari 30 adalah...
+            </div>
+            <div class="options">
+              <div>A. $\{12, 24\}$</div>
+              <div>B. $\{6, 8, 12, 24\}$</div>
+              <div>C. $\{12, 18, 24\}$</div>
+              <div>D. $\{1, 12, 24\}$</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (6-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              FPB dari 24, 36, dan 48 adalah...
+            </div>
+            <div class="options">
+              <div>A. 6</div>
+              <div>B. 8</div>
+              <div>C. 12</div>
+              <div>D. 144</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              KPK dari 8, 12, dan 20 adalah...
+            </div>
+            <div class="options">
+              <div>A. 4</div>
+              <div>B. 40</div>
+              <div>C. 60</div>
+              <div>D. 120</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Lampu A menyala setiap 3 menit dan Lampu B menyala setiap 4 menit.
+              Jika kedua lampu menyala bersamaan pada pukul 08:00, kapan kedua
+              lampu akan menyala bersamaan lagi?
+            </div>
+            <div class="options">
+              <div>A. 08:07</div>
+              <div>B. 08:12</div>
+              <div>C. 08:15</div>
+              <div>D. 08:24</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (Lanjutan) (9-11) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Ibu memiliki 16 kue donat dan 20 kue bolu. Kue-kue tersebut akan
+              diletakkan di piring dengan jumlah donat dan bolu yang sama banyak
+              di setiap piring. Berapa piring terbanyak yang dibutuhkan Ibu?
+            </div>
+            <div class="options">
+              <div>A. 2</div>
+              <div>B. 4</div>
+              <div>C. 8</div>
+              <div>D. 80</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Diketahui faktorisasi prima $A = 2^2 \times 3$ dan
+              $B = 2 \times 3^2$. FPB dari A dan B adalah...
+            </div>
+            <div class="options">
+              <div>A. $2 \times 3$</div>
+              <div>B. $2^2 \times 3^2$</div>
+              <div>C. $2^2 \times 3$</div>
+              <div>D. $2 \times 3^2$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Diketahui faktorisasi prima $P = 2^3 \times 5$ dan
+              $Q = 2^2 \times 3 \times 5$. KPK dari P dan Q adalah...
+            </div>
+            <div class="options">
+              <div>A. $2^2 \times 5$</div>
+              <div>B. $2^3 \times 3 \times 5$</div>
+              <div>C. $2^3 \times 3 \times 5^2$</div>
+              <div>D. $2^2 \times 3 \times 5$</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang Lanjutan (12-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Ani berenang setiap 4 hari sekali dan Budi berenang setiap 6 hari
+              sekali. Mereka berenang bersama pada tanggal 1 Maret. Kapan mereka
+              akan berenang bersama lagi?
+            </div>
+            <div class="options">
+              <div>A. 10 Maret</div>
+              <div>B. 12 Maret</div>
+              <div>C. 13 Maret</div>
+              <div>D. 24 Maret</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">FPB dari 50 dan 75 adalah...</div>
+            <div class="options">
+              <div>A. 5</div>
+              <div>B. 10</div>
+              <div>C. 25</div>
+              <div>D. 150</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">KPK dari 40 dan 60 adalah...</div>
+            <div class="options">
+              <div>A. 20</div>
+              <div>B. 100</div>
+              <div>C. 120</div>
+              <div>D. 2400</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapa banyak faktor persekutuan (pembagi yang sama) dari 20 dan
+              30?
+            </div>
+            <div class="options">
+              <div>A. 2</div>
+              <div>B. 3</div>
+              <div>C. 4</div>
+              <div>D. 10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (16-18) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan-n">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              FPB dari dua bilangan adalah 6, sedangkan KPK-nya adalah 180. Jika
+              salah satu bilangan adalah 30, bilangan lainnya adalah...
+            </div>
+            <div class="options">
+              <div>A. 12</div>
+              <div>B. 36</div>
+              <div>C. 45</div>
+              <div>D. 60</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Bilangan $N$ adalah bilangan asli terkecil yang jika dibagi 4
+              bersisa 3, dibagi 5 bersisa 4, dan dibagi 6 bersisa 5. Bilangan
+              $N$ tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 59</div>
+              <div>B. 60</div>
+              <div>C. 61</div>
+              <div>D. 119</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Bilangan $X$ adalah bilangan asli terkecil lebih besar dari 50
+              yang jika dibagi 4 bersisa 2 dan jika dibagi 6 bersisa 2.
+              Berapakah nilai $X$?
+            </div>
+            <div class="options">
+              <div>A. 50</div>
+              <div>B. 62</div>
+              <div>C. 74</div>
+              <div>D. 86</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (Lanjutan) (19-21) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              FPB dari 108 dan 144 adalah $A$. KPK dari 108 dan 144 adalah $B$.
+              Berapakah nilai $B \div A$?
+            </div>
+            <div class="options">
+              <div>A. 4</div>
+              <div>B. 12</div>
+              <div>C. 36</div>
+              <div>D. 432</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Tiga lonceng berbunyi bersamaan pada pukul 12:00. Lonceng pertama
+              berbunyi setiap 15 menit, lonceng kedua setiap 20 menit, dan
+              lonceng ketiga setiap 30 menit. Pukul berapa ketiga lonceng akan
+              berbunyi bersamaan lagi?
+            </div>
+            <div class="options">
+              <div>A. 12:30</div>
+              <div>B. 12:45</div>
+              <div>C. 13:00</div>
+              <div>D. 14:00</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapa banyak faktor persekutuan positif dari 100 dan 120?
+            </div>
+            <div class="options">
+              <div>A. 4</div>
+              <div>B. 6</div>
+              <div>C. 8</div>
+              <div>D. 20</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (Lanjutan) (22-24) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              FPB dari $12a^2b$ dan $18ab^2$ adalah...
+            </div>
+            <div class="options">
+              <div>A. $6ab$</div>
+              <div>B. $6a^2b^2$</div>
+              <div>C. $36ab$</div>
+              <div>D. $36a^2b^2$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              KPK dari $10x^3y$ dan $15xy^2$ adalah...
+            </div>
+            <div class="options">
+              <div>A. $5xy$</div>
+              <div>B. $30xy$</div>
+              <div>C. $30x^3y^2$</div>
+              <div>D. $150x^3y^2$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Pak Tono memanen 75 mangga, 105 apel, dan 120 jeruk. Buah-buahan
+              tersebut akan dimasukkan ke dalam keranjang dengan jumlah yang
+              sama untuk setiap jenisnya. Berapa keranjang terbanyak yang
+              dibutuhkan Pak Tono?
+            </div>
+            <div class="options">
+              <div>A. 5</div>
+              <div>B. 10</div>
+              <div>C. 15</div>
+              <div>D. 25</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (Lanjutan) (25-27) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              $K$ adalah bilangan 2 digit. $FPB(K, 54) = 18$ dan
+              $KPK(K, 54) = 108$. Berapakah nilai $K$?
+            </div>
+            <div class="options">
+              <div>A. 18</div>
+              <div>B. 36</div>
+              <div>C. 72</div>
+              <div>D. 108</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>26.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapa banyak pasangan bilangan asli $(a, b)$ yang memiliki
+              $FPB = 5$ dan $KPK = 105$?
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 2</div>
+              <div>C. 3</div>
+              <div>D. 4</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>27.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              $N$ adalah bilangan terkecil yang jika dikalikan 28 akan
+              menghasilkan bilangan yang merupakan kelipatan 120 dan 84.
+              Berapakah $N$?
+            </div>
+            <div class="options">
+              <div>A. 15</div>
+              <div>B. 30</div>
+              <div>C. 420</div>
+              <div>D. 840</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (Lanjutan) (28-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>28.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Diketahui $FPB(A, B) = 12$. Ini berarti $A = 12 \times p$ dan
+              $B = 12 \times q$. Syarat yang harus dipenuhi oleh $p$ dan $q$
+              adalah...
+            </div>
+            <div class="options">
+              <div>A. $p$ dan $q$ harus ganjil</div>
+              <div>B. $p$ dan $q$ harus genap</div>
+              <div>C. $p$ dan $q$ harus prima</div>
+              <div>D. $p$ dan $q$ harus relatif prima (FPB-nya 1)</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>29.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Jumlah dua bilangan asli adalah 45 dan FPB kedua bilangan itu
+              adalah 9. Manakah pasangan bilangan yang tidak mungkin?
+            </div>
+            <div class="options">
+              <div>A. 9 dan 36</div>
+              <div>B. 18 dan 27</div>
+              <div>C. 45 dan 90</div>
+              <div>D. (Opsi A dan B benar)</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>30.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              KPK dari dua bilangan $A$ dan $B$ adalah 60, dan FPB-nya adalah
+              5. Manakah pernyataan berikut yang <b>tidak</b> mungkin benar?
+            </div>
+            <div class="options">
+              <div>A. $A=5, B=60$</div>
+              <div>B. $A=15, B=20$</div>
+              <div>C. $A=10, B=30$</div>
+              <div>D. $A=20, B=15$</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- START PEMBAHASAN (1 SOAL PER HALAMAN) -->
+    <!-- ================================================================= -->
+
+    <!-- PEMBAHASAN (1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. $2 \times 3 \times 5$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Faktorisasi prima adalah menguraikan bilangan
+              menjadi perkalian bilangan prima. Pilihan A, B, dan D salah
+              karena masih mengandung bilangan komposit (15, 10, dan 6).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              Kita gunakan pohon faktor: <br />
+              $30 = 2 \times 15$ <br />
+              $15 = 3 \times 5$ <br />
+              Faktor primanya adalah 2, 3, dan 5. Jadi, $30 = 2 \times 3 \times 5$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 6</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> FPB adalah faktor terbesar yang sama. Kita
+              cari faktorisasi prima kedua bilangan. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Faktorisasi prima:<br />
+              $12 = 2 \times 6 = 2 \times 2 \times 3 = 2^2 \times 3$ <br />
+              $18 = 2 \times 9 = 2 \times 3 \times 3 = 2 \times 3^2$ <br />
+              2. Untuk FPB, ambil faktor yang sama (2 dan 3) dengan pangkat
+              terkecil: $2^1$ dan $3^1$.<br />
+              3. $FPB = 2 \times 3 = 6$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (3) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 30</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KPK adalah kelipatan terkecil yang sama.
+              Kita cari faktorisasi prima kedua bilangan. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Faktorisasi prima:<br />
+              $10 = 2 \times 5$ <br />
+              $15 = 3 \times 5$ <br />
+              2. Untuk KPK, ambil semua faktor (2, 3, dan 5) dengan pangkat
+              terbesar: $2^1$, $3^1$, dan $5^1$.<br />
+              3. $KPK = 2 \times 3 \times 5 = 30$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (4) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. $\{3, 5\}$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Faktor prima adalah bilangan prima yang dapat
+              membagi habis suatu bilangan. Opsi A adalah semua faktor (termasuk
+              komposit). Opsi B dan D salah karena 9 bukan bilangan prima.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Faktorisasi prima 45:<br />
+              $45 = 5 \times 9 = 5 \times 3 \times 3 = 3^2 \times 5$.<br />
+              2. Bilangan prima yang digunakan dalam faktorisasi tersebut
+              adalah 3 dan 5.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. {12, 24}</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini menanyakan kelipatan persekutuan. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              Keliptan persekutuan antara 3 dan 4 adalah 12, 24, 36, dst. Kelipatan persekutuan yang kurang dari 30 adalah {12, 24}.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (6) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 12</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> FPB dari 3 bilangan dicari dengan cara yang
+              sama: ambil faktor prima yang sama (dimiliki ketiganya) dengan
+              pangkat terkecil. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Faktorisasi prima:<br />
+              $24 = 8 \times 3 = 2^3 \times 3$<br />
+              $36 = 4 \times 9 = 2^2 \times 3^2$<br />
+              $48 = 16 \times 3 = 2^4 \times 3$<br />
+              2. Faktor yang sama adalah 2 dan 3.<br />
+              3. Pangkat terkecil 2 adalah $2^2$ (dari 36).<br />
+              4. Pangkat terkecil 3 adalah $3^1$ (dari 24 dan 48).<br />
+              5. $FPB = 2^2 \times 3 = 4 \times 3 = 12$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (7) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 120</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KPK dari 3 bilangan: ambil semua faktor prima
+              yang ada dengan pangkat terbesar. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Faktorisasi prima:<br />
+              $8 = 2^3$<br />
+              $12 = 4 \times 3 = 2^2 \times 3$<br />
+              $20 = 4 \times 5 = 2^2 \times 5$<br />
+              2. Faktor yang ada adalah 2, 3, dan 5.<br />
+              3. Pangkat terbesar 2 adalah $2^3$ (dari 8).<br />
+              4. Pangkat terbesar 3 adalah $3^1$ (dari 12).<br />
+              5. Pangkat terbesar 5 adalah $5^1$ (dari 20).<br />
+              6. $KPK = 2^3 \times 3 \times 5 = 8 \times 3 \times 5 = 120$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 08:12</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal tentang jadwal "bersamaan lagi"
+              diselesaikan menggunakan KPK. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita mencari KPK dari 3 menit dan 4 menit.<br />
+              2. $KPK(3, 4) = 12$. (Karena 3 dan 4 relatif prima,
+              KPK-nya $3 \times 4$).<br />
+              3. Artinya, lampu akan menyala bersama setiap 12 menit.<br />
+              4. Waktu awal = 08:00.<br />
+              5. Waktu berikutnya = 08:00 + 12 menit = 08:12.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (9) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 4</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal tentang membagi benda "sama banyak" ke
+              dalam "piring terbanyak" diselesaikan menggunakan FPB. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita mencari FPB dari 16 (donat) dan 20 (bolu).<br />
+              2. Faktorisasi prima:<br />
+              $16 = 2^4$<br />
+              $20 = 4 \times 5 = 2^2 \times 5$<br />
+              3. FPB (ambil faktor sama, pangkat terkecil): $2^2 = 4$.<br />
+              4. Jadi, piring terbanyak yang dibutuhkan adalah 4. (Setiap
+              piring akan berisi 4 donat dan 5 bolu).
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. $2 \times 3$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Untuk mencari FPB dari bilangan yang sudah
+              dalam bentuk faktorisasi prima, ambil faktor prima yang sama (ada
+              di kedua bilangan) dan pilih pangkat terkecil. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $A = 2^2 \times 3^1$<br />
+              2. $B = 2^1 \times 3^2$<br />
+              3. Faktor yang sama adalah 2 dan 3.<br />
+              4. Pangkat terkecil 2 adalah $2^1$.<br />
+              5. Pangkat terkecil 3 adalah $3^1$.<br />
+              6. $FPB = 2 \times 3$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (11) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. $2^3 \times 3 \times 5$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Untuk mencari KPK dari bilangan yang sudah
+              dalam bentuk faktorisasi prima, ambil semua faktor prima yang ada
+              dan pilih pangkat terbesar. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $P = 2^3 \times 5$<br />
+              2. $Q = 2^2 \times 3 \times 5$<br />
+              3. Faktor yang ada adalah 2, 3, dan 5.<br />
+              4. Pangkat terbesar 2 adalah $2^3$.<br />
+              5. Pangkat terbesar 3 adalah $3^1$.<br />
+              6. Pangkat terbesar 5 adalah $5^1$ (keduanya sama).<br />
+              7. $KPK = 2^3 \times 3 \times 5$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 13 Maret</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal jadwal "bersama lagi" diselesaikan
+              menggunakan KPK. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita mencari KPK dari 4 hari dan 6 hari.<br />
+              2. $4 = 2^2$ <br />
+              3. $6 = 2 \times 3$ <br />
+              4. $KPK = 2^2 \times 3 = 12$.<br />
+              5. Mereka akan berenang bersama setiap 12 hari.<br />
+              6. Waktu awal = 1 Maret.<br />
+              7. Waktu berikutnya = 1 Maret + 12 hari = 13 Maret.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (13) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 25</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> FPB adalah faktor terbesar yang sama.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Faktorisasi prima:<br />
+              $50 = 2 \times 25 = 2 \times 5^2$<br />
+              $75 = 3 \times 25 = 3 \times 5^2$<br />
+              2. Faktor yang sama adalah 5.<br />
+              3. Pangkat terkecil dari 5 adalah $5^2$.<br />
+              4. $FPB = 5^2 = 25$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (14) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 120</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KPK adalah kelipatan terkecil yang sama.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Faktorisasi prima:<br />
+              $40 = 8 \times 5 = 2^3 \times 5$<br />
+              $60 = 6 \times 10 = (2 \times 3) \times (2 \times 5) = 2^2 \times 3 \times 5$<br />
+              2. Ambil semua faktor (2, 3, 5) dengan pangkat terbesar.<br />
+              3. $KPK = 2^3 \times 3^1 \times 5^1 = 8 \times 3 \times 5 = 120$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 4</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Faktor persekutuan adalah faktor yang sama
+              yang dimiliki oleh kedua bilangan. Jumlah faktor persekutuan sama
+              dengan banyaknya faktor dari FPB kedua bilangan itu. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita cari FPB dari 20 dan 30.<br />
+              $20 = 2^2 \times 5$<br />
+              $30 = 2 \times 3 \times 5$<br />
+              $FPB = 2 \times 5 = 10$.<br />
+              2. Faktor persekutuan dari 20 dan 30 adalah faktor dari 10.<br />
+              3. Faktor dari 10 adalah $\{1, 2, 5, 10\}$.<br />
+              4. Jika dihitung, ada 4 faktor persekutuan.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (16) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 36</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Rumus hubungan FPB dan KPK untuk dua bilangan
+              $A$ dan $B$ adalah: $A \times B = FPB(A, B) \times KPK(A, B)$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $A = 30$, $B = ?$ <br />
+              2. $FPB = 6$, $KPK = 180$ <br />
+              3. Masukkan ke rumus: <br />
+              $30 \times B = 6 \times 180$ <br />
+              $30 \times B = 1080$ <br />
+              $B = 1080 \div 30$ <br />
+              $B = 36$.<br />
+              4. Jadi, bilangan lainnya adalah 36.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (17) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 59</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah soal sisa pembagian. Perhatikan
+              polanya:
+              <br />
+              - Dibagi 4 bersisa 3 (artinya kurang 1 dari 4)
+              <br />
+              - Dibagi 5 bersisa 4 (artinya kurang 1 dari 5)
+              <br />
+              - Dibagi 6 bersisa 5 (artinya kurang 1 dari 6)
+              <br />
+              Ini berarti bilangan $N$ tersebut adalah $KPK(4, 5, 6) - 1$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Cari KPK dari 4, 5, dan 6.<br />
+              $4 = 2^2$ <br />
+              $5 = 5$ <br />
+              $6 = 2 \times 3$ <br />
+              2. $KPK = 2^2 \times 3 \times 5 = 4 \times 3 \times 5 = 60$.<br />
+              3. Bilangan $N$ adalah $KPK - 1$.<br />
+              $N = 60 - 1 = 59$.<br />
+              4. (Cek: $59 \div 4 = 14$ sisa 3. $59 \div 5 = 11$ sisa 4.
+              $59 \div 6 = 9$ sisa 5. Semua syarat terpenuhi).
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (18) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 62</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah soal sisa pembagian.
+              <br />
+              Dibagi 4 sisa 2
+              <br />
+              Dibagi 6 sisa 2
+              <br />
+              Ini berarti $X$ adalah $KPK(4, 6) + 2$. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $4 = 2^2$ <br />
+              2. $6 = 2 \times 3$ <br />
+              3. $KPK(4, 6) = 2^2 \times 3 = 12$.<br />
+              4. $X$ adalah kelipatan 12 ditambah 2. Bentuk umumnya $X = 12k
+                + 2$.<br />
+              5. Kita cari $k$ sehingga $X > 50$:
+              <br />
+              - $k=1 \rightarrow X = 12(1) + 2 = 14$
+              <br />
+              - $k=2 \rightarrow X = 12(2) + 2 = 26$
+              <br />
+              - $k=3 \rightarrow X = 12(3) + 2 = 38$
+              <br />
+              - $k=4 \rightarrow X = 12(4) + 2 = 50$ (Belum > 50)
+              <br />
+              - $k=5 \rightarrow X = 12(5) + 2 = 62$ (Memenuhi)
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (19) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 12</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini bisa diselesaikan dengan rumus
+              $A \times B = FPB \times KPK$. Jika kita bagi,
+              $(A \times B) / (FPB \times FPB) = (FPB \times KPK) / (FPB \times FPB)$.
+              Cara yang lebih mudah adalah mencari $A$ dan $B$ terlebih
+              dahulu. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $108 = 36 \times 3 = (2^2 \times 3^2) \times 3 = 2^2 \times 3^3$
+                <br />
+              2. $144 = 12 \times 12 = (2^2 \times 3) \times (2^2 \times 3) = 2^4 \times 3^2$
+                <br />
+              3. Cari $A$ (FPB): Ambil pangkat terkecil.
+              <br />
+              $A = FPB = 2^2 \times 3^2 = 4 \times 9 = 36$. <br />
+              4. Cari $B$ (KPK): Ambil pangkat terbesar.
+              <br />
+              $B = KPK = 2^4 \times 3^3 = 16 \times 27 = 432$. <br />
+              5. Hitung $B \div A = 432 \div 36 = 12$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 13:00</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal jadwal "bersamaan lagi" menggunakan KPK.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Cari KPK dari 15, 20, dan 30.<br />
+              $15 = 3 \times 5$ <br />
+              $20 = 4 \times 5 = 2^2 \times 5$ <br />
+              $30 = 6 \times 5 = 2 \times 3 \times 5$ <br />
+              2. $KPK = 2^2 \times 3 \times 5 = 4 \times 3 \times 5 = 60$.<br />
+              3. Mereka berbunyi bersama setiap 60 menit (1 jam).<br />
+              4. Waktu awal = 12:00.<br />
+              5. Waktu berikutnya = 12:00 + 1 jam = 13:00.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (21) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 6</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Banyaknya faktor persekutuan dari dua
+              bilangan sama dengan banyaknya faktor dari FPB kedua bilangan
+              tersebut. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Cari FPB dari 100 dan 120.<br />
+              $100 = 10 \times 10 = (2 \times 5) \times (2 \times 5) = 2^2 \times 5^2$
+                <br />
+              $120 = 12 \times 10 = (2^2 \times 3) \times (2 \times 5) = 2^3 \times 3 \times 5$
+                <br />
+              2. $FPB = 2^2 \times 5^1 = 4 \times 5 = 20$.<br />
+              3. Sekarang, hitung ada berapa banyak faktor yang dimiliki oleh
+              20.<br />
+              Faktor 20 adalah $\{1, 2, 4, 5, 10, 20\}$.<br />
+              4. Ada 6 faktor.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (22) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. $6ab$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> FPB dicari dengan mengambil faktor prima yang
+              sama dengan pangkat terkecil, baik koefisien (angka) maupun
+              variabel (huruf). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Bilangan 1: $12a^2b = (2^2 \times 3) \times a^2 \times b^1$<br />
+              2. Bilangan 2: $18ab^2 = (2 \times 3^2) \times a^1 \times b^2$<br />
+              3. FPB Angka (12, 18): $2^1 \times 3^1 = 6$.<br />
+              4. FPB Variabel $a$ ($a^2, a^1$): $a^1$ (pangkat terkecil).<br />
+              5. FPB Variabel $b$ ($b^1, b^2$): $b^1$ (pangkat terkecil).<br />
+              6. $FPB = 6 \times a \times b = 6ab$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (23) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. $30x^3y^2$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KPK dicari dengan mengambil semua faktor
+              prima dengan pangkat terbesar, baik koefisien (angka) maupun
+              variabel (huruf). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Bilangan 1: $10x^3y = (2 \times 5) \times x^3 \times y^1$<br />
+              2. Bilangan 2: $15xy^2 = (3 \times 5) \times x^1 \times y^2$<br />
+              3. KPK Angka (10, 15): $2 \times 3 \times 5 = 30$.<br />
+              4. KPK Variabel $x$ ($x^3, x^1$): $x^3$ (pangkat terbesar).<br />
+              5. KPK Variabel $y$ ($y^1, y^2$): $y^2$ (pangkat terbesar).<br />
+              6. $KPK = 30 \times x^3 \times y^2 = 30x^3y^2$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (24) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 15</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal membagi 3 jenis benda "sama banyak" ke
+              dalam "keranjang terbanyak" diselesaikan menggunakan FPB.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Cari FPB dari 75, 105, dan 120.<br />
+              $75 = 3 \times 25 = 3 \times 5^2$<br />
+              $105 = 5 \times 21 = 3 \times 5 \times 7$<br />
+              $120 = 12 \times 10 = (2^2 \times 3) \times (2 \times 5) = 2^3 \times 3 \times 5$<br />
+              2. Faktor yang sama di ketiganya adalah 3 dan 5.<br />
+              3. Pangkat terkecil 3 adalah $3^1$.<br />
+              4. Pangkat terkecil 5 adalah $5^1$.<br />
+              5. $FPB = 3 \times 5 = 15$.<br />
+              6. Keranjang terbanyak yang dibutuhkan adalah 15.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 36</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Gunakan rumus $A \times B = FPB(A, B) \times
+                KPK(A, B)$. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $K \times 54 = FPB(K, 54) \times KPK(K, 54)$<br />
+              2. $K \times 54 = 18 \times 108$<br />
+              3. $K \times 54 = 1944$<br />
+              4. $K = 1944 \div 54 = 36$.<br />
+              5. $K=36$ (memenuhi syarat 2 digit).
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (26) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>26.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 4</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Misal $a=FPB \times p$ dan $b=FPB \times q$,
+              dimana $p, q$ relatif prima. Maka $KPK = FPB \times p \times q$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $FPB = 5$, $KPK = 105$.<br />
+              2. $KPK = FPB \times p \times q \rightarrow 105 = 5 \times p \times q$.<br />
+              3. $p \times q = 105 \div 5 = 21$.<br />
+              4. Kita cari pasangan $(p, q)$ yang relatif prima (FPB=1) dan
+              hasil kalinya 21.
+              <br />
+              - (1, 21) $\rightarrow$ FPB(1, 21)=1. (Sah)
+              <br />
+              - (3, 7) $\rightarrow$ FPB(3, 7)=1. (Sah)
+              <br />
+              5. Pasangan $(p, q)$ ada 2, yaitu (1, 21) dan (3, 7).<br />
+              6. Ini menghasilkan 4 pasangan bilangan $(a, b)$:
+              <br />
+              - $p=1, q=21 \rightarrow a=5(1)=5, b=5(21)=105$.
+              <br />
+              - $p=21, q=1 \rightarrow a=5(21)=105, b=5(1)=5$.
+              <br />
+              - $p=3, q=7 \rightarrow a=5(3)=15, b=5(7)=35$.
+              <br />
+              - $p=7, q=3 \rightarrow a=5(7)=35, b=5(3)=15$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (27) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>27.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 30</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Bilangan hasil kali ($N \times 28$) adalah
+              KPK dari 120 dan 84. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Cari KPK dari 120 dan 84.<br />
+              $120 = 12 \times 10 = (2^2 \times 3) \times (2 \times 5) = 2^3 \times 3 \times 5$<br />
+              $84 = 12 \times 7 = (2^2 \times 3) \times 7$<br />
+              2. $KPK = 2^3 \times 3 \times 5 \times 7 = 8 \times 3 \times 5 \times 7 = 840$.<br />
+              3. Hasil kali yang diinginkan adalah 840.<br />
+              4. $N \times 28 = 840$<br />
+              5. $N = 840 \div 28 = 30$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (28) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>28.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. $p$ dan $q$ harus relatif prima (FPB-nya 1)</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah definisi dasar dari FPB. Jika
+              $FPB(A, B) = 12$, maka 12 adalah faktor terbesar yang dimiliki
+              keduanya. $A$ bisa ditulis $12 \times p$ dan $B$ bisa ditulis
+              $12 \times q$. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $A = 12p$, $B = 12q$.<br />
+              2. Jika $p$ dan $q$ masih memiliki faktor persekutuan lain
+              (misal $k$), maka $A = 12 \times (k \times p')$ dan $B = 12 \times (k \times q')$.<br />
+              3. FPB dari $A$ dan $B$ akan menjadi $12 \times k$, bukan 12.<br />
+              4. Agar FPB-nya tetap 12, $p$ dan $q$ tidak boleh lagi memiliki
+              faktor persekutuan selain 1. Ini disebut relatif prima.
+              Contoh: $FPB(36, 60) = 12$. $36=12 \times 3$, $60=12 \times 5$.
+              (3 dan 5 relatif prima).
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (29) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>29.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 45 dan 90</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Jika FPB dua bilangan adalah 9, maka kedua
+              bilangan itu pasti kelipatan 9. (Misal $A=9p, B=9q$ dengan $p, q$
+              relatif prima). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $A+B = 45 \rightarrow 9p + 9q = 45 \rightarrow 9(p+q) = 45
+                \rightarrow p+q = 5$.<br />
+              2. Kita cari pasangan $(p, q)$ yang jumlahnya 5 dan $p, q$
+              relatif prima (FPB=1).
+              <br />
+              - $p=1, q=4 \rightarrow$ (FPB(1,4)=1). Sah.
+              <br />
+              - $p=2, q=3 \rightarrow$ (FPB(2,3)=1). Sah.
+              <br />
+              3. Kita hitung pasangan bilangan $(A, B)$:
+              <br />
+              - Kasus 1: $A = 9(1) = 9$, $B = 9(4) = 36$. (Pasangan 9 dan 36).
+              <br />
+              - Kasus 2: $A = 9(2) = 18$, $B = 9(3) = 27$. (Pasangan 18 dan 27).
+              <br />
+              4. Opsi A dan B adalah pasangan yang mungkin. Opsi C (45 dan 90)
+              tidak mungkin karena jumlahnya 135, bukan 45.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>30.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. $A=10, B=30$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Kita bisa mengecek setiap opsi menggunakan
+              FPB dan KPK, atau menggunakan rumus $A \times B = FPB \times KPK$.
+              <br />
+              $A \times B = 5 \times 60 = 300$. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              Kita cek FPB dan KPK setiap opsi:
+              <br />
+              A. $A=5, B=60$. $FPB(5, 60)=5$. $KPK(5, 60)=60$. (Mungkin)
+              <br />
+              B. $A=15, B=20$. $15=3 \times 5$, $20=4 \times 5$. $FPB=5$.
+              $KPK=3 \times 4 \times 5 = 60$. (Mungkin)
+              <br />
+              C. $A=10, B=30$. $10=2 \times 5$, $30=3 \times 10 = 2 \times 3 \times 5$.
+              $FPB(10, 30)=10$. (Ini GAGAL, FPB-nya 10, bukan 5).
+              <br />
+              D. $A=20, B=15$. (Sama dengan opsi B, hanya dibalik. Mungkin).
+              <br />
+              Jadi, pasangan yang tidak mungkin adalah $A=10, B=30$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
+
+
+
