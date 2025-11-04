@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pembahasan UKG - Kalkulus & Aljabar Linear (Soal 11-20)</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          packages: { "[+]": ["ams"] },
+          processEscapes: true,
+        },
+        svg: {
+          fontCache: "global",
+        },
+        options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre"],
+        },
+      };
+    </script>
+
+    <script
+      id="MathJax-script"
+      defer
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        /* Tema dari file soal (UKG) */
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --header-top-bg: #e0f2f7; /* Light cyan background */
+        --header-bottom-bg: #f0f0f0;
+        --header-title-color: #00778f; /* Darker cyan title */
+        --grey-text: #8d8e8d;
+        --image-placeholder-bg: #eeeeee;
+
+        /* Tema dari template pembahasan */
+        --answer-bg: #e8f5e9; /* Light Green */
+        --answer-border: #4caf50; /* Green */
+        --answer-title: #1b5e20; /* Dark Green */
+        --key-bg: #fffde7; /* Light Yellow */
+        --key-border: #ffc107; /* Amber */
+        --difficulty-mudah-bg: #d1fae5;
+        --difficulty-mudah-text: #065f46;
+        --difficulty-sedang-bg: #fffbeb;
+        --difficulty-sedang-text: #b45309;
+        --difficulty-sulit-bg: #fee2e2;
+        --difficulty-sulit-text: #991b1b;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 10pt; /* Sedikit lebih besar dari soal untuk keterbacaan */
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page-container {
+        counter-reset: page;
+      }
+
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-header {
+        margin: -1.8cm -2.5cm 20px -2.5cm;
+        width: 21cm;
+        break-after: avoid;
+      }
+
+      .header-top-box {
+        background-color: var(--header-top-bg);
+        padding: 10px 2.5cm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+
+      .header-title-main {
+        font-size: 18pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        line-height: 1.2;
+      }
+
+      .header-title-sub {
+        font-size: 9pt;
+        font-weight: 400;
+        color: var(--primary-text);
+      }
+
+      .header-logo {
+        max-height: 45px; /* Sesuai file soal */
+      }
+
+      .header-bottom-box {
+        padding: 8px 2.5cm;
+        background-color: white; /* Sesuai file soal */
+        margin: 0;
+      }
+
+      .header-bottom-text {
+        background-color: var(--header-bottom-bg);
+        padding: 8px 15px;
+        font-weight: 700;
+        font-size: 8.5pt;
+        color: var(--secondary-text);
+        display: block;
+        border-radius: 4px;
+        white-space: normal;
+        text-align: left;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        flex-grow: 1;
+      }
+
+      .section-title {
+        font-size: 14pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        border-bottom: 2px solid var(--header-title-color);
+        padding-bottom: 5px;
+        margin: 30px 0 15px 0;
+      }
+      .section-title:first-of-type {
+        margin-top: 0;
+      }
+
+      .soal-wrapper {
+        margin-bottom: 20px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .soal-latihan {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px; /* Sedikit lebih lebar dari 5px */
+        text-align: justify;
+        font-size: 9pt; /* Sesuai file soal */
+        margin-bottom: 0; /* Margin dipindahkan ke .soal-wrapper */
+      }
+
+      .soal-nomor {
+        font-weight: bold;
+        flex-shrink: 0;
+        min-width: 24px;
+      }
+
+      .soal-konten {
+        flex-grow: 1;
+      }
+
+      .soal-konten .difficulty-level {
+        font-size: 8pt;
+        font-weight: bold;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-bottom: 5px; /* Beri jarak ke teks soal */
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .difficulty-mudah {
+        background-color: var(--difficulty-mudah-bg);
+        color: var(--difficulty-mudah-text);
+      }
+      .difficulty-sedang {
+        background-color: var(--difficulty-sedang-bg);
+        color: var(--difficulty-sedang-text);
+      }
+      .difficulty-sulit {
+        background-color: var(--difficulty-sulit-bg);
+        color: var(--difficulty-sulit-text);
+      }
+      .soal-kategori {
+        font-size: 0.9em;
+        font-weight: bold;
+        color: var(--header-title-color);
+        margin-bottom: 4px;
+      }
+
+      ol.pilihan-ganda {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 8px;
+        text-align: left;
+      }
+      ol.pilihan-ganda li {
+        margin-bottom: 6px;
+      }
+      ol.pilihan-ganda li::before {
+        content: attr(data-option) ". ";
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      .pembahasan {
+        background-color: var(--answer-bg);
+        border-left: 4px solid var(--answer-border);
+        padding: 10px 15px;
+        margin-top: 10px;
+        border-radius: 0 8px 8px 0;
+        font-size: 9pt;
+        text-align: justify;
+      }
+      .pembahasan strong.title {
+        color: var(--answer-title);
+        font-size: 10pt;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .pembahasan ul,
+      .pembahasan ol {
+        padding-left: 20px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        text-align: left;
+      }
+      .pembahasan p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .kunci-jawaban-wrapper {
+        background-color: var(--key-bg);
+        border: 1px solid var(--key-border);
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+        break-inside: avoid;
+      }
+      .kunci-jawaban-wrapper h3 {
+        margin-top: 0;
+        color: var(--header-title-color);
+        font-size: 12pt;
+      }
+      .kunci-jawaban-wrapper table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 9pt;
+      }
+      .kunci-jawaban-wrapper td {
+        padding: 6px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+      }
+      .kunci-jawaban-wrapper td:first-child {
+        text-align: left;
+        width: 50%;
+      }
+
+      .page-footer {
+        text-align: left;
+        font-size: 7pt; /* Adjusted size */
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        width: 100%;
+        overflow: hidden; /* Clear float */
+        break-before: avoid;
+      }
+
+      .page-footer::after {
+        counter-increment: page;
+        content: " - Halaman " counter(page);
+        float: right;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 1.8cm 2.5cm 1.5cm 2.5cm;
+        }
+
+        body {
+          background-color: white;
+          margin: 0;
+          font-size: 9pt;
+        }
+
+        .page {
+          width: 100%;
+          min-height: initial;
+          height: auto;
+          margin: 0;
+          box-shadow: none;
+          padding: 0;
+          page-break-after: always;
+          border: none;
+          display: block;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+
+        .page-header {
+          margin: 0 0 20px 0;
+          width: 100%;
+          padding: 10px 0 0 0;
+          background-color: var(--header-top-bg);
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          position: relative;
+          page-break-after: avoid;
+        }
+
+        .header-top-box,
+        .header-bottom-box {
+          padding-left: 0;
+          padding-right: 0;
+          margin-left: 0;
+          margin-right: 0;
+          width: 100%;
+        }
+        .header-top-box {
+          background-color: transparent;
+          margin-bottom: 0;
+        }
+        .header-bottom-box {
+          background-color: transparent;
+          padding-bottom: 8px;
+        }
+        .header-bottom-text,
+        .kuis-title {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .soal-kategori {
+          color: var(--header-title-color) !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        .pembahasan,
+        .soal-wrapper,
+        .kunci-jawaban-wrapper {
+          page-break-inside: avoid;
+        }
+
+        .content-wrapper {
+          flex-grow: initial;
+          overflow: visible;
+        }
+
+        .page-footer {
+          position: fixed;
+          bottom: 0;
+          left: 2.5cm;
+          right: 2.5cm;
+          width: calc(100% - 5cm);
+          border-top: 2.5px solid var(--grey-text);
+          padding-top: 2px;
+          margin-top: 0;
+          background-color: white;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- Page 1 -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Pembahasan Uji Kompetensi Guru</div>
+              <div class="header-title-sub">
+                <strong>Kalkulus & Aljabar Linear (Soal 11-20)</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+              alt="Logo Ruangguru"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Matematika Tingkat Lanjut | Pembahasan Soal 11-20
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="section-title">Soal Pilihan Ganda dan Pembahasan</div>
+
+          <div class="soal-wrapper">
+            <div class="soal-latihan">
+              <div class="soal-nomor">11.</div>
+              <div class="soal-konten">
+                <span class="difficulty-level difficulty-sedang">Sedang</span>
+                <div class="soal-kategori">(Kalkulus)</div>
+                Hitung integral lipat dua $\int_0^1 \int_y^1 e^{-x^2} dx dy$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\frac{1 - e^{-1}}{2}$</li>
+                  <li data-option="B">$1 - e^{-1}$</li>
+                  <li data-option="C">$\frac{e - 1}{2}$</li>
+                  <li data-option="D">$0$</li>
+                  <li data-option="E">Tidak dapat dihitung</li>
+                </ol>
+              </div>
+            </div>
+            <div class="pembahasan">
+              <strong class="title">PEMBAHASAN DETAIL</strong>
+              <p>
+                <strong>Konsep Dasar:</strong> Integral $\int e^{-x^2} dx$ tidak dapat diselesaikan dengan fungsi elementer. Jika menemui ini, kita harus mengubah urutan integrasi (dari $dx dy$ menjadi $dy dx$).
+              </p>
+              <strong>Langkah-langkah Pengerjaan:</strong>
+              <ol>
+                <li>
+                  Gambarkan daerah integrasi $D$ dari batas yang diberikan:
+                  $$ D = \{ (x, y) \mid 0 \le y \le 1, y \le x \le 1 \} $$
+                  Ini adalah segitiga dengan titik sudut (0,0), (1,0), dan (1,1).
+                </li>
+                <li>
+                  Ubah urutan integrasi. Jika kita memproyeksikan ke sumbu-x terlebih dahulu, kita dapatkan:
+                  $$ D = \{ (x, y) \mid 0 \le x \le 1, 0 \le y \le x \} $$
+                </li>
+                <li>
+                  Tulis ulang integral dengan urutan baru ($dy dx$):
+                  $$ \int_0^1 \int_0^x e^{-x^2} dy dx $$
+                </li>
+                <li>
+                  Selesaikan integral dalam (terhadap $y$):
+                  $$ \int_0^1 [y \cdot e^{-x^2}]_0^x dx $$
+                  $$ \int_0^1 (x \cdot e^{-x^2} - 0 \cdot e^{-x^2}) dx = \int_0^1 x e^{-x^2} dx $$
+                </li>
+                <li>
+                  Gunakan substitusi $u$ untuk menyelesaikan integral ini.
+                  Misal $u = -x^2$, maka $du = -2x dx$, sehingga $x dx = -\frac{1}{2} du$.
+                </li>
+                <li>
+                  Ubah batas integral:
+                  <ul>
+                    <li>Jika $x=0$, $u = -0^2 = 0$.</li>
+                    <li>Jika $x=1$, $u = -1^2 = -1$.</li>
+                  </ul>
+                </li>
+                <li>
+                  Substitusikan ke integral:
+                  $$ \int_0^{-1} e^u (-\frac{1}{2} du) = -\frac{1}{2} \int_0^{-1} e^u du $$
+                  $$ = \frac{1}{2} \int_{-1}^0 e^u du \quad (\text{membalik batas dan tanda}) $$
+                </li>
+                <li>
+                  Evaluasi integral:
+                  $$ \frac{1}{2} [e^u]_{-1}^0 = \frac{1}{2} (e^0 - e^{-1}) = \frac{1}{2} (1 - e^{-1}) $$
+                </li>
+              </ol>
+              <p>
+                <strong>Kesimpulan:</strong> Nilai integralnya adalah $\frac{1 - e^{-1}}{2}$. Jawaban yang benar adalah <strong>A</strong>.
+              </p>
+            </div>
+          </div>
+
+          <div class="soal-wrapper">
+            <div class="soal-latihan">
+              <div class="soal-nomor">12.</div>
+              <div class="soal-konten">
+                <span class="difficulty-level difficulty-sedang">Sedang</span>
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Manakah dari himpunan berikut yang <b>bukan</b> merupakan himpunan ortogonal?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\{(1, 0, -1), (1, \sqrt{2}, 1), (1, -\sqrt{2}, 1)\}$</li>
+                  <li data-option="B">$\{(\sin x, \cos x)\}$ pada $[0, \pi]$ dengan $\langle f, g \rangle = \int_0^\pi f(x)g(x) dx$</li>
+                  <li data-option="C">$\{(1, 2, 2), (2, 1, -2), (2, -2, 1)\}$</li>
+                  <li data-option="D">$\{(1, 1, 1), (1, -1, 0), (1, 1, -2)\}$</li>
+                  <li data-option="E">$\{(1, 1), (-1, 1)\}$</li>
+                </ol>
+              </div>
+            </div>
+            <div class="pembahasan">
+              <strong class="title">PEMBAHASAN DETAIL</strong>
+              <p>
+                <strong>Konsep Dasar:</strong> Himpunan vektor $\{v_1, v_2, \dots, v_k\}$ disebut ortogonal jika hasil kali titik (dot product) dari setiap pasangan vektor yang berbeda adalah nol ($\langle v_i, v_j \rangle = 0$ untuk $i \neq j$).
+              </p>
+              <strong>Langkah-langkah Pengerjaan:</strong>
+              <p>Kita harus memeriksa setiap pilihan. (Catatan: Terdapat kemungkinan besar salah ketik pada soal aslinya, karena semua pilihan B, C, D, E terbukti ortogonal. Kita akan periksa A sebagai yang paling mungkin salah).
+              </p>
+              <ol>
+                <li>
+                  <strong>A:</strong> Misal $v_1=(1, 0, -1)$, $v_2=(1, \sqrt{2}, 1)$, $v_3=(1, -\sqrt{2}, 1)$.
+                  <ul>
+                    <li>$v_1 \cdot v_2 = (1)(1) + (0)(\sqrt{2}) + (-1)(1) = 1 - 1 = 0$. (OK)</li>
+                    <li>$v_1 \cdot v_3 = (1)(1) + (0)(-\sqrt{2}) + (-1)(1) = 1 - 1 = 0$. (OK)</li>
+                    <li>$v_2 \cdot v_3 = (1)(1) + (\sqrt{2})(-\sqrt{2}) + (1)(1) = 1 - 2 + 1 = 0$. (OK)</li>
+                  </ul>
+                  Jika soal tertulis persis seperti ini, himpunan A juga ortogonal. Namun, jika ada salah ketik dan $v_3$ seharusnya $(1, \sqrt{2}, 1)$, atau $v_2$ seharusnya $(1, -\sqrt{2}, 1)$ (sehingga $v_2=v_3$), atau mungkin $v_3 = (1, \sqrt{2}, -1)$, maka $v_1 \cdot v_3 = 1+1 = 2 \neq 0$. Dengan asumsi ada salah ketik pada tanda di $v_3$ (misal $v_3=(1, \sqrt{2}, 1)$), maka himpunan ini tidak ortogonal (karena $v_2 \cdot v_3 \neq 0$).
+                </li>
+                 <li>
+                  <strong>B:</strong> $\int_0^\pi \sin x \cos x dx = \frac{1}{2} \int_0^\pi \sin(2x) dx = \frac{1}{2} [-\frac{1}{2}\cos(2x)]_0^\pi = -\frac{1}{4}(\cos(2\pi) - \cos(0)) = -\frac{1}{4}(1 - 1) = 0$. (Ortogonal)
+                </li>
+                 <li>
+                  <strong>C:</strong> $(1,2,2)\cdot(2,1,-2) = 2+2-4=0$. $(1,2,2)\cdot(2,-2,1)=2-4+2=0$. $(2,1,-2)\cdot(2,-2,1)=4-2-2=0$. (Ortogonal)
+                </li>
+                 <li>
+                  <strong>D:</strong> $(1,1,1)\cdot(1,-1,0)=1-1=0$. $(1,1,1)\cdot(1,1,-2)=1+1-2=0$. $(1,-1,0)\cdot(1,1,-2)=1-1=0$. (Ortogonal)
+                </li>
+                <li>
+                  <strong>E:</strong> $(1,1)\cdot(-1,1) = -1+1=0$. (Ortogonal)
+                </li>
+              </ol>
+              <p>
+                <strong>Kesimpulan:</strong> Berdasarkan perhitungan, semua pilihan B, C, D, dan E adalah himpunan ortogonal. Pilihan A sebagaimana tertulis juga ortogonal. Ini menunjukkan ada kesalahan pada naskah soal. Jika kita harus memilih, kesalahan ketik paling mungkin terjadi pada pilihan A yang melibatkan akar kuadrat. Jika $v_3$ seharusnya $(1, \sqrt{2}, -1)$, maka $v_1 \cdot v_3 = 2 \neq 0$. Jawaban yang paling mungkin dimaksud adalah <strong>A</strong>.
+              </p>
+            </div>
+          </div>
+
+          <div class="soal-wrapper">
+            <div class="soal-latihan">
+              <div class="soal-nomor">13.</div>
+              <div class="soal-konten">
+                <span class="difficulty-level difficulty-mudah">Mudah</span>
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Sebuah matriks $A$ berukuran 3x3 memiliki nilai eigen $1, 2, 5$. Manakah pernyataan berikut yang <b>pasti</b> benar?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$A$ simetris.</li>
+                  <li data-option="B">$\det(A) = 8$.</li>
+                  <li data-option="C">$\text{trace}(A) = 10$.</li>
+                  <li data-option="D">$A$ adalah matriks identitas.</li>
+                  <li data-option="E">$A$ dapat didiagonalkan (diagonalizable).</li>
+                </ol>
+              </div>
+            </div>
+            <div class="pembahasan">
+              <strong class="title">PEMBAHASAN DETAIL</strong>
+              <p>
+                <strong>Konsep Dasar:</strong> Sifat-sifat nilai eigen ($\lambda$).
+                <ol>
+                  <li>$\det(A) = \prod \lambda_i$ (hasil kali semua nilai eigen)</li>
+                  <li>$\text{trace}(A) = \sum \lambda_i$ (jumlah semua nilai eigen)</li>
+                  <li>Matriks $n \times n$ yang memiliki $n$ nilai eigen yang *berbeda* (distinct) pasti dapat didiagonalkan.</li>
+                  <li>Matriks simetris *selalu* dapat didiagonalkan, tetapi matriks yang dapat didiagonalkan belum tentu simetris.</li>
+                </ol>
+              </p>
+              <strong>Langkah-langkah Pengerjaan (Analisis Pilihan):</strong>
+              <ul>
+                <li><strong>A:</strong> $A$ belum tentu simetris. Contoh: $A = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 5 \end{pmatrix}$. Nilai eigennya adalah 1, 2, 5 (karena segitiga atas), tapi $A$ tidak simetris. (Salah)</li>
+                <li><strong>B:</strong> $\det(A) = 1 \times 2 \times 5 = 10$. Pernyataan B salah.</li>
+                <li><strong>C:</strong> $\text{trace}(A) = 1 + 2 + 5 = 8$. Pernyataan C salah.</li>
+                <li><strong>D:</strong> Jelas salah, nilai eigen matriks identitas adalah $\{1, 1, 1\}$.</li>
+                <li><strong>E:</strong> Matriks $A$ berukuran 3x3 dan memiliki 3 nilai eigen yang berbeda (1, 2, dan 5). Berdasarkan Sifat (3), matriks ini pasti dapat didiagonalkan. (Benar)</li>
+              </ul>
+              <p>
+                <strong>Kesimpulan:</strong> Pernyataan yang pasti benar adalah $A$ dapat didiagonalkan. Jawaban yang benar adalah <strong>E</strong>.
+              </p>
+            </div>
+          </div>
+          
+           <div class="soal-wrapper">
+            <div class="soal-latihan">
+              <div class="soal-nomor">14.</div>
+              <div class="soal-konten">
+                <span class="difficulty-level difficulty-sulit">Sulit</span>
+                <div class="soal-kategori">(Kalkulus)</div>
+                Manakah pernyataan yang paling tepat mendeskripsikan deret $\sum_{n=2}^\infty \frac{(-1)^n}{n \ln n}$?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">Konvergen Absolut</li>
+                  <li data-option="B">Konvergen Bersyarat</li>
+                  <li data-option="C">Divergen</li>
+                  <li data-option="D">Konvergen menurut Uji Rasio</li>
+                  <li data-option="E">Divergen menurut Uji Akar</li>
+                </ol>
+              </div>
+            </div>
+            <div class="pembahasan">
+              <strong class="title">PEMBAHASAN DETAIL</strong>
+              <p>
+                <strong>Konsep Dasar:</strong> Untuk deret berselang (alternating series) $\sum (-1)^n b_n$, kita perlu memeriksa dua hal:
+                1.  <strong>Konvergensi Absolut:</strong> Apakah $\sum |(-1)^n b_n| = \sum b_n$ konvergen?
+                2.  <strong>Konvergensi Bersyarat:</strong> Jika $\sum b_n$ divergen, apakah deret aslinya konvergen menurut Uji Deret Berselang (Alternating Series Test/AST)?
+              </p>
+              <strong>Langkah-langkah Pengerjaan:</strong>
+              <ol>
+                <li>
+                  <strong>Cek Konvergensi Absolut:</strong>
+                  Kita uji deret $\sum_{n=2}^\infty \left| \frac{(-1)^n}{n \ln n} \right| = \sum_{n=2}^\infty \frac{1}{n \ln n}$.
+                  Kita gunakan Uji Integral (Integral Test) dengan $f(x) = \frac{1}{x \ln x}$.
+                  $$ \int_2^\infty \frac{1}{x \ln x} dx $$
+                  Misal $u = \ln x$, maka $du = \frac{1}{x} dx$.
+                  $$ \int_{\ln 2}^\infty \frac{1}{u} du = [\ln|u|]_{\ln 2}^\infty = \lim_{b \to \infty} (\ln b) - \ln(\ln 2) = \infty $$
+                  Karena integralnya divergen, maka deret $\sum \frac{1}{n \ln n}$ divergen.
+                  Kesimpulan: Deret ini <strong>tidak konvergen absolut</strong>.
+                </li>
+                <li>
+                  <strong>Cek Konvergensi Bersyarat (AST):</strong>
+                  Kita uji deret $\sum_{n=2}^\infty \frac{(-1)^n}{n \ln n}$ dengan $b_n = \frac{1}{n \ln n}$.
+                  Syarat AST:
+                  a. $b_n > 0$ for $n \ge 2$? Ya.
+                  b. $b_n$ menurun (decreasing)? Ya, karena $n \ln n$ adalah fungsi yang menaik, $1/(n \ln n)$ pasti menurun.
+                  c. $\lim_{n \to \infty} b_n = 0$? $\lim_{n \to \infty} \frac{1}{n \ln n} = \frac{1}{\infty} = 0$. Ya.
+                  Karena ketiga syarat terpenuhi, deret $\sum_{n=2}^\infty \frac{(-1)^n}{n \ln n}$ konvergen menurut AST.
+                </li>
+              </ol>
+              <p>
+                <strong>Kesimpulan:</strong> Deret ini konvergen, tetapi tidak konvergen absolut. Oleh karena itu, deret ini <strong>Konvergen Bersyarat</strong>. Jawaban yang benar adalah <strong>B</strong>.
+              </p>
+            </div>
+          </div>
+          
+        </div>
+        <footer class="page-footer">
+          <b>Pembahasan UKG (Kalkulus & Aljabar Linear)</b>
+        </footer>
+      </section>
+
+      <!-- Page 2 -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Pembahasan Uji Kompetensi Guru</div>
+              <div class="header-title-sub">
+                <strong>Kalkulus & Aljabar Linear (Soal 11-20)</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+              alt="Logo Ruangguru"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Matematika Tingkat Lanjut | Pembahasan Soal 11-20
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+
+          <div class="soal-wrapper">
+            <div class="soal-latihan">
+              <div class="soal-nomor">15.</div>
+              <div class="soal-konten">
+                <span class="difficulty-level difficulty-sedang">Sedang</span>
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Manakah dari himpunan berikut yang <b>bukan</b> merupakan subruang (subspace) dari $M_{2 \times 2}$ (ruang vektor matriks 2x2)?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">Himpunan matriks simetris 2x2.</li>
+                  <li data-option="B">Himpunan matriks 2x2 yang dapat dibalik (invertible).</li>
+                  <li data-option="C">Himpunan matriks segitiga atas 2x2.</li>
+                  <li data-option="D">Himpunan matriks 2x2 dengan $\text{trace} = 0$.</li>
+                  <li data-option="E">Himpunan matriks $A$ s.t. $A \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$.</li>
+                </ol>
+              </div>
+            </div>
+            <div class="pembahasan">
+              <strong class="title">PEMBAHASAN DETAIL</strong>
+              <p>
+                <strong>Konsep Dasar:</strong> Himpunan $W$ adalah subruang dari ruang vektor $V$ jika memenuhi tiga syarat:
+                1.  $W$ mengandung vektor nol dari $V$ ($0 \in W$).
+                2.  $W$ tertutup terhadap penjumlahan (jika $u, v \in W$, maka $u+v \in W$).
+                3.  $W$ tertutup terhadap perkalian skalar (jika $u \in W$ dan $k$ skalar, maka $ku \in W$).
+              </p>
+              <strong>Langkah-langkah Pengerjaan (Analisis Pilihan):</strong>
+              <ul>
+                <li><strong>A (Matriks Simetris):</strong> 1. Matriks nol $\begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$ simetris. (OK). 2. $(A+B)^T = A^T+B^T = A+B$. (OK). 3. $(kA)^T = kA^T = kA$. (OK). <strong>Ini subruang.</strong></li>
+                <li><strong>B (Matriks Invertible):</strong> 1. Vektor nol di $M_{2 \times 2}$ adalah matriks nol $\begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$. Matriks ini memiliki $\det=0$ sehingga tidak invertible. Karena himpunan ini tidak mengandung vektor nol, <strong>ini bukan subruang.</strong></li>
+                <li><strong>C (Segitiga Atas):</strong> 1. Matriks nol adalah segitiga atas. (OK). 2. Jumlah dua matriks segitiga atas adalah segitiga atas. (OK). 3. Perkalian skalar matriks segitiga atas adalah segitiga atas. (OK). <strong>Ini subruang.</strong></li>
+                <li><strong>D (Trace = 0):</strong> 1. $\text{trace}(\begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}) = 0$. (OK). 2. $\text{trace}(A+B) = \text{trace}(A) + \text{trace}(B) = 0+0=0$. (OK). 3. $\text{trace}(kA) = k \cdot \text{trace}(A) = k \cdot 0 = 0$. (OK). <strong>Ini subruang.</strong></li>
+                <li><strong>E ($A\begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$):</strong> Jika $A=\begin{pmatrix} a & b \\ c & d \end{pmatrix}$, $A\begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} a \\ c \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$. Jadi ini himpunan matriks $\begin{pmatrix} 0 & b \\ 0 & d \end{pmatrix}$. Ini adalah subruang (cek 3 syarat).</li>
+              </ul>
+              <p>
+                <strong>Kesimpulan:</strong> Himpunan matriks yang dapat dibalik (invertible) bukan merupakan subruang. Jawaban yang benar adalah <strong>B</strong>.
+              </p>
+            </div>
+          </div>
+          
+          <div class="soal-wrapper">
+            <div class="soal-latihan">
+              <div class="soal-nomor">16.</div>
+              <div class="soal-konten">
+                <span class="difficulty-level difficulty-sedang">Sedang</span>
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Misalkan $W$ adalah subruang di $\mathbb{R}^3$ yang direntang oleh $S = \{(1, 1, 0), (0, 1, 1)\}$. Manakah dari vektor berikut yang berada di $W^\perp$ (komplemen ortogonal $W$)?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$(1, 0, 1)$</li>
+                  <li data-option="B">$(1, -1, 1)$</li>
+                  <li data-option="C">$(1, 1, 1)$</li>
+                  <li data-option="D">$(1, -1, 0)$</li>
+                  <li data-option="E">$(0, 0, 1)$</li>
+                </ol>
+              </div>
+            </div>
+            <div class="pembahasan">
+              <strong class="title">PEMBAHASAN DETAIL</strong>
+              <p>
+                <strong>Konsep Dasar:</strong> Vektor $\mathbf{x}$ berada di $W^\perp$ jika dan hanya jika $\mathbf{x}$ ortogonal (tegak lurus) terhadap *setiap* vektor di basis $W$.
+                Kita perlu mencari $\mathbf{x} = (a, b, c)$ sehingga:
+                1. $\mathbf{x} \cdot (1, 1, 0) = 0$
+                2. $\mathbf{x} \cdot (0, 1, 1) = 0$
+              </p>
+              <strong>Langkah-langkah Pengerjaan:</strong>
+              <ol>
+                <li>
+                  Terapkan kondisi 1:
+                  $$ (a, b, c) \cdot (1, 1, 0) = a + b = 0 \implies b = -a $$
+                </li>
+                <li>
+                  Terapkan kondisi 2:
+                  $$ (a, b, c) \cdot (0, 1, 1) = b + c = 0 \implies c = -b $$
+                </li>
+                <li>
+                  Gabungkan kedua persamaan:
+                  $$ c = -b = -(-a) = a $$
+                </li>
+                <li>
+                  Jadi, setiap vektor di $W^\perp$ harus berbentuk $(a, -a, a)$ untuk skalar $a$.
+                </li>
+                <li>
+                  Cari di pilihan ganda yang memenuhi pola $(a, -a, a)$.
+                  <ul>
+                    <li>A: $(1, 0, 1)$ (Tidak, $b \neq -a$)</li>
+                    <li>B: $(1, -1, 1)$ (Ya, $a=1$)</li>
+                    <li>C: $(1, 1, 1)$ (Tidak)</li>
+                    <li>D: $(1, -1, 0)$ (Tidak)</li>
+                    <li>E: $(0, 0, 1)$ (Tidak)</li>
+                  </ul>
+                </li>
+              </ol>
+              <p>
+                <strong>Kesimpulan:</strong> Vektor yang berada di $W^\perp$ adalah $(1, -1, 1)$. Jawaban yang benar adalah <strong>B</strong>.
+              </p>
+            </div>
+          </div>
+          
+          <div class="soal-wrapper">
+            <div class="soal-latihan">
+              <div class="soal-nomor">17.</div>
+              <div class="soal-konten">
+                <span class="difficulty-level difficulty-sedang">Sedang</span>
+                <div class="soal-kategori">(Kalkulus)</div>
+                Hitung $\oint_C (y^2 dx + x^2 dy)$ di mana $C$ adalah batas segitiga dengan titik sudut $(0,0)$, $(1,0)$, dan $(0,1)$ secara berlawanan arah jarum jam.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$-1$</li>
+                  <li data-option="B">$1/3$</li>
+                  <li data-option="C">$2/3$</li>
+                  <li data-option="D">$1$</li>
+                  <li data-option="E">$0$</li>
+                </ol>
+              </div>
+            </div>
+            <div class="pembahasan">
+              <strong class="title">PEMBAHASAN DETAIL</strong>
+              <p>
+                <strong>Konsep Dasar:</strong> Kita dapat menggunakan Teorema Green untuk mengubah integral garis (loop tertutup) menjadi integral lipat dua di atas daerah $D$ yang dilingkupinya.
+                $$ \oint_C (P dx + Q dy) = \iint_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA $$
+              </p>
+              <strong>Langkah-langkah Pengerjaan:</strong>
+              <ol>
+                <li>
+                  Identifikasi $P$ dan $Q$:
+                  $P(x, y) = y^2$
+                  $Q(x, y) = x^2$
+                </li>
+                <li>
+                  Hitung turunan parsial:
+                  $\frac{\partial Q}{\partial x} = 2x$
+                  $\frac{\partial P}{\partial y} = 2y$
+                </li>
+                <li>
+                  Terapkan Teorema Green:
+                  $$ \iint_D (2x - 2y) dA $$
+                </li>
+                <li>
+                  Daerah $D$ adalah segitiga dengan $(0,0), (1,0), (0,1)$. Batas-batasnya adalah $x=0$, $y=0$, dan $x+y=1$ (atau $y=1-x$).
+                </li>
+                <li>
+                  Set up integral lipat dua:
+                  $$ \int_0^1 \int_0^{1-x} (2x - 2y) dy dx $$
+                </li>
+                <li>
+                  Selesaikan integral dalam (terhadap $y$):
+                  $$ \int_0^1 [2xy - y^2]_0^{1-x} dx $$
+                  $$ \int_0^1 ( (2x(1-x) - (1-x)^2) - (0 - 0) ) dx $$
+                  $$ \int_0^1 (2x - 2x^2 - (1 - 2x + x^2)) dx $$
+                  $$ \int_0^1 (2x - 2x^2 - 1 + 2x - x^2) dx $$
+                  $$ \int_0^1 (-3x^2 + 4x - 1) dx $$
+                </li>
+                <li>
+                  Selesaikan integral luar (terhadap $x$):
+                  $$ [-x^3 + 2x^2 - x]_0^1 $$
+                  $$ (-(1)^3 + 2(1)^2 - (1)) - (0) = -1 + 2 - 1 = 0 $$
+                </li>
+              </ol>
+              <p>
+                <strong>Kesimpulan:</strong> Nilai integralnya adalah 0. Jawaban yang benar adalah <strong>E</strong>.
+              </p>
+            </div>
+          </div>
+          
+        </div>
+        <footer class="page-footer">
+          <b>Pembahasan UKG (Kalkulus & Aljabar Linear)</b>
+        </footer>
+      </section>
+      
+      <!-- Page 3 -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Pembahasan Uji Kompetensi Guru</div>
+              <div class="header-title-sub">
+                <strong>Kalkulus & Aljabar Linear (Soal 11-20)</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+              alt="Logo Ruangguru"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Matematika Tingkat Lanjut | Pembahasan Soal 11-20
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          
+          <div class="soal-wrapper">
+            <div class="soal-latihan">
+              <div class="soal-nomor">18.</div>
+              <div class="soal-konten">
+                <span class="difficulty-level difficulty-sedang">Sedang</span>
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Misalkan $B = \{v_1, v_2\}$ dan $C = \{w_1, w_2\}$ adalah basis untuk $\mathbb{R}^2$. Diketahui $v_1 = 2w_1 + w_2$ dan $v_2 = w_1 - w_2$. Tentukan matriks transisi dari basis $C$ ke basis $B$, yaitu $P_{B \leftarrow C}$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\begin{pmatrix} 2 & 1 \\ 1 & -1 \end{pmatrix}$</li>
+                  <li data-option="B">$\begin{pmatrix} 1/3 & 1/3 \\ 1/3 & -2/3 \end{pmatrix}$</li>
+                  <li data-option="C">$\begin{pmatrix} 1 & 1 \\ 2 & -1 \end{pmatrix}$</li>
+                  <li data-option="D">$\begin{pmatrix} -1 & -1 \\ -1 & 2 \end{pmatrix}$</li>
+                  <li data-option="E">$\begin{pmatrix} 1 & 2 \\ 1 & -1 \end{pmatrix}$</li>
+                </ol>
+              </div>
+            </div>
+            <div class="pembahasan">
+              <strong class="title">PEMBAHASAN DETAIL</strong>
+              <p>
+                <strong>Konsep Dasar:</strong> Matriks transisi $P_{C \leftarrow B}$ (dari $B$ ke $C$) mengubah koordinat basis $B$ menjadi koordinat basis $C$. Kolom-kolomnya adalah vektor basis $B$ yang ditulis dalam basis $C$.
+                $$ P_{C \leftarrow B} = \begin{pmatrix} [v_1]_C & [v_2]_C \end{pmatrix} $$
+                Matriks yang kita cari, $P_{B \leftarrow C}$, adalah kebalikannya:
+                $$ P_{B \leftarrow C} = (P_{C \leftarrow B})^{-1} $$
+              </p>
+              <strong>Langkah-langkah Pengerjaan:</strong>
+              <ol>
+                <li>
+                  Dari soal, kita diberikan:
+                  $v_1 = 2w_1 + w_2 \implies [v_1]_C = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$
+                  $v_2 = w_1 - w_2 \implies [v_2]_C = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$
+                </li>
+                <li>
+                  Bentuk matriks transisi dari $B$ ke $C$:
+                  $$ P_{C \leftarrow B} = \begin{pmatrix} 2 & 1 \\ 1 & -1 \end{pmatrix} $$
+                  (Perhatikan ini adalah pilihan A, yang merupakan matriks transisi dari $B$ ke $C$, bukan $C$ ke $B$).
+                </li>
+                <li>
+                  Cari matriks $P_{B \leftarrow C}$ dengan meng-invers $P_{C \leftarrow B}$:
+                  $$ \det(P_{C \leftarrow B}) = (2)(-1) - (1)(1) = -2 - 1 = -3 $$
+                </li>
+                <li>
+                  Gunakan rumus invers matriks 2x2:
+                  $$ (P_{C \leftarrow B})^{-1} = \frac{1}{\det} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix} $$
+                  $$ P_{B \leftarrow C} = \frac{1}{-3} \begin{pmatrix} -1 & -1 \\ -1 & 2 \end{pmatrix} = \begin{pmatrix} 1/3 & 1/3 \\ 1/3 & -2/3 \end{pmatrix} $$
+                </li>
+              </ol>
+              <p>
+                <strong>Kesimpulan:</strong> Matriks transisi dari $C$ ke $B$ adalah $\begin{pmatrix} 1/3 & 1/3 \\ 1/3 & -2/3 \end{pmatrix}$. Jawaban yang benar adalah <strong>B</strong>.
+              </p>
+            </div>
+          </div>
+          
+          <div class="soal-wrapper">
+            <div class="soal-latihan">
+              <div class="soal-nomor">19.</div>
+              <div class="soal-konten">
+                <span class="difficulty-level difficulty-mudah">Mudah</span>
+                <div class="soal-kategori">(Kalkulus)</div>
+                Nilai maksimum dari turunan berarah $f(x,y)$ pada titik $P(1,2)$ adalah $5$, dan nilai ini terjadi pada arah yang sama dengan vektor $\mathbf{v} = \langle 3, 4 \rangle$. Tentukan gradien $\nabla f(1,2)$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\langle 3, 4 \rangle$</li>
+                  <li data-option="B">$\langle 3/5, 4/5 \rangle$</li>
+                  <li data-option="C">$\langle 15, 20 \rangle$</li>
+                  <li data-option="D">$\langle 5, 5 \rangle$</li>
+                  <li data-option="E">$\langle 3, 5 \rangle$</li>
+                </ol>
+              </div>
+            </div>
+            <div class="pembahasan">
+              <strong class="title">PEMBAHASAN DETAIL</strong>
+              <p>
+                <strong>Konsep Dasar:</strong> Sifat-sifat gradien ($\nabla f$):
+                1.  Nilai maksimum dari turunan berarah ($D_{\mathbf{u}}f$) pada suatu titik adalah besarnya (magnitudo) gradien pada titik tersebut, $|\nabla f|$.
+                2.  Arah (vektor satuan $\mathbf{u}$) di mana nilai maksimum ini terjadi adalah arah yang sama dengan vektor gradien itu sendiri, $\mathbf{u} = \frac{\nabla f}{|\nabla f|}$.
+              </p>
+              <strong>Langkah-langkah Pengerjaan:</strong>
+              <ol>
+                <li>
+                  Dari Sifat (1), nilai maksimum adalah 5, jadi:
+                  $$ |\nabla f(1,2)| = 5 $$
+                </li>
+                <li>
+                  Dari Sifat (2), arahnya $\mathbf{u}$ sama dengan arah $\mathbf{v} = \langle 3, 4 \rangle$. Kita cari vektor satuan untuk $\mathbf{v}$:
+                  $$ |\mathbf{v}| = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5 $$
+                  $$ \mathbf{u} = \frac{\mathbf{v}}{|\mathbf{v}|} = \frac{\langle 3, 4 \rangle}{5} = \langle 3/5, 4/5 \rangle $$
+                </li>
+                <li>
+                  Kita tahu bahwa $\nabla f = |\nabla f| \cdot \mathbf{u}$.
+                </li>
+                <li>
+                  Substitusikan nilai yang kita punya:
+                  $$ \nabla f(1,2) = 5 \cdot \langle 3/5, 4/5 \rangle = \langle 5 \cdot (3/5), 5 \cdot (4/5) \rangle = \langle 3, 4 \rangle $$
+                </li>
+              </ol>
+              <p>
+                <strong>Kesimpulan:</strong> Gradien $\nabla f(1,2)$ adalah $\langle 3, 4 \rangle$. Jawaban yang benar adalah <strong>A</strong>.
+              </p>
+            </div>
+          </div>
+          
+          <div class="soal-wrapper">
+            <div class="soal-latihan">
+              <div class="soal-nomor">20.</div>
+              <div class="soal-konten">
+                <span class="difficulty-level difficulty-sedang">Sedang</span>
+                <div class="soal-kategori">(Aljabar Linear)</div>
+                Tentukan dimensi dari subruang $P_3(\mathbb{R})$ (polinomial derajat $\le 3$) yang direntang oleh himpunan $\{1+x, x+x^2, 1-x^2, 1+2x+x^2\}$.
+                <ol class="pilihan-ganda">
+                  <li data-option="A">1</li>
+                  <li data-option="B">2</li>
+                  <li data-option="C">3</li>
+                  <li data-option="D">4</li>
+                  <li data-option="E">0</li>
+                </ol>
+              </div>
+            </div>
+            <div class="pembahasan">
+              <strong class="title">PEMBAHASAN DETAIL</strong>
+              <p>
+                <strong>Konsep Dasar:</strong> Dimensi dari subruang yang direntang (span) oleh suatu himpunan vektor adalah jumlah maksimum vektor bebas linear (linearly independent) dalam himpunan tersebut.
+              </p>
+              <strong>Langkah-langkah Pengerjaan:</strong>
+              <ol>
+                <li>
+                  Misalkan vektor-vektor kita adalah:
+                  <ul>
+                    <li>$v_1 = 1+x$</li>
+                    <li>$v_2 = x+x^2$</li>
+                    <li>$v_3 = 1-x^2$</li>
+                    <li>$v_4 = 1+2x+x^2$</li>
+                  </ul>
+                  Domainnya adalah $P_3$, yang memiliki dimensi 4 (basis $\{1, x, x^2, x^3\}$). Namun, semua vektor kita ada di $P_2$, jadi subruang ini adalah subruang dari $P_2$.
+                </li>
+                <li>
+                  Kita cari hubungan linear antar vektor.
+                </li>
+                <li>
+                  Coba kombinasikan $v_1$ dan $v_2$:
+                  $$ v_1 + v_2 = (1+x) + (x+x^2) = 1 + 2x + x^2 $$
+                  Ini sama dengan $v_4$. Karena $v_4 = v_1 + v_2$, maka $v_4$ bergantung linear (redundant) dan bisa dihapus dari himpunan.
+                </li>
+                <li>
+                  Himpunan perentang kita sekarang adalah $\{v_1, v_2, v_3\}$. Cek kebebasan linearnya.
+                  $$ v_1 - v_2 = (1+x) - (x+x^2) = 1 - x^2 $$
+                  Ini sama dengan $v_3$. Karena $v_3 = v_1 - v_2$, maka $v_3$ juga bergantung linear dan bisa dihapus.
+                </li>
+                <li>
+                  Himpunan perentang kita sekarang $\{v_1, v_2\} = \{1+x, x+x^2\}$.
+                </li>
+                <li>
+                  Apakah $v_1$ dan $v_2$ bebas linear? Ya, karena $v_1$ bukan kelipatan skalar dari $v_2$.
+                </li>
+                <li>
+                  Karena himpunan perentang minimal (basis) memiliki 2 vektor, dimensi dari subruang tersebut adalah 2.
+                </li>
+              </ol>
+              <p>
+                <strong>Kesimpulan:</strong> Dimensi dari subruang tersebut adalah 2. Jawaban yang benar adalah <strong>B</strong>.
+              </p>
+            </div>
+          </div>
+          
+
+          <div class="kunci-jawaban-wrapper">
+            <h3>Kunci Jawaban (Soal 11-20)</h3>
+            <table>
+              <tbody>
+                <tr>
+                  <td>11. A ($\frac{1 - e^{-1}}{2}$)</td>
+                  <td>16. B ($(1, -1, 1)$)</td>
+                </tr>
+                <tr>
+                  <td>12. A (Himpunan A)</td>
+                  <td>17. E (0)</td>
+                </tr>
+                <tr>
+                  <td>13. E (Dapat didiagonalkan)</td>
+                  <td>18. B (Matriks invers)</td>
+                </tr>
+                <tr>
+                  <td>14. B (Konvergen Bersyarat)</td>
+                  <td>19. A ($\langle 3, 4 \rangle$)</td>
+                </tr>
+                <tr>
+                  <td>15. B (Matriks Invertible)</td>
+                  <td>20. B (2)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Pembahasan UKG (Kalkulus & Aljabar Linear)</b>
+        </footer>
+      </section>
+    </div>
+  </body>
+</html>
