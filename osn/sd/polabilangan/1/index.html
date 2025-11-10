@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Judul disesuaikan dengan materi yang diminta -->
+    <title>Latihan OSNK: Pola Bilangan</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm; /* Mengubah ukuran logo agar tidak terlalu besar */
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 38pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 16pt;
+        font-weight: 700;
+        color: var(--secondary-text);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 5px;
+        margin-top: 25px;
+      }
+      .materi-konten {
+        display: block;
+        text-align: justify;
+      }
+      .soal-latihan,
+      .soal-latihan-n {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 25px;
+        break-inside: avoid;
+        padding-bottom: 10px;
+      }
+      .soal-latihan > b,
+      .soal-latihan-n > b {
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      .soal-wrapper {
+        flex-grow: 1;
+      }
+      .soal-konten {
+        text-align: justify;
+      }
+      .options {
+        padding-left: 0px;
+        margin-top: 10px;
+        display: block;
+      }
+      .options div {
+        margin-bottom: 5px;
+        padding-left: 20px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 18pt;
+        font-weight: 700;
+        margin: 20px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 10px 0;
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4caf50;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .image-description {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-style: italic;
+        color: #555;
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Halaman Sampul -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Ruangguru Privat Logo"
+          class="cover-image"
+        />
+        <!-- Judul disesuaikan -->
+        <h1 class="cover-title">
+          Pola Bilangan & Barisan<br />Latihan OSNK SD
+        </h1>
+        <p class="cover-subtitle">
+          Mengenali Pola, Simbol, dan Hubungan
+        </p>
+      </div>
+    </section>
+
+    <!-- Halaman Materi 1: Pengenalan Pola Bilangan -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Pengenalan Pola Bilangan</h1>
+        <div class="materi-konten">
+          <h2>1. Apa itu Pola Bilangan?</h2>
+          <p>
+            <b>Pola Bilangan</b> (Pattern Recognition) adalah salah satu topik
+            utama dalam olimpiade matematika. Ini adalah kemampuan untuk
+            <b>"mengamati pola"</b> dan
+            <b>"menganalisis hubungan antar simbol"</b> untuk menemukan suatu
+            aturan atau prosedur.
+          </p>
+          <p>
+            Secara sederhana, pola bilangan adalah susunan bilangan yang memiliki
+            aturan tertentu sehingga dapat diprediksi suku-suku berikutnya.
+          </p>
+          <p>
+            Contoh: $1, 3, 5, 7, ...$ <br />
+            Kita bisa mengamati pola bahwa setiap bilangan berikutnya selalu
+            ditambah 2. Maka, suku berikutnya adalah $7 + 2 = 9$.
+          </p>
+
+          <h2>2. Jenis-Jenis Pola Dasar</h2>
+          <p>
+            Ada dua jenis pola barisan yang paling umum:
+          </p>
+          <p>
+            <b>A. Barisan Aritmetika (Pola Penjumlahan/Pengurangan)</b>
+          </p>
+          <p>
+            Barisan ini memiliki <b>selisih (beda)</b> yang tetap antar
+            suku-sukunya. Beda dilambangkan dengan $b$.
+          </p>
+          <ul style="padding-left: 20px">
+            <li>Contoh 1: $2, 5, 8, 11, 14, ...$ (Beda: $b = +3$)</li>
+            <li>Contoh 2: $20, 18, 16, 14, ...$ (Beda: $b = -2$)</li>
+          </ul>
+          <p>
+            Rumus Suku ke-n: $U_n = a + (n-1)b$<br />
+            $a$ = suku pertama ($U_1$) <br />
+            $n$ = urutan suku yang dicari <br />
+            $b$ = beda (selisih)
+          </p>
+
+          <p>
+            <b>B. Barisan Geometri (Pola Perkalian/Pembagian)</b>
+          </p>
+          <p>
+            Barisan ini memiliki <b>pengali (rasio)</b> yang tetap antar
+            suku-sukunya. Rasio dilambangkan dengan $r$.
+          </p>
+          <ul style="padding-left: 20px">
+            <li>Contoh 1: $3, 6, 12, 24, ...$ (Rasio: $r = \times 2$)</li>
+            <li>Contoh 2: $80, 40, 20, 10, ...$ (Rasio: $r = \times \frac{1}{2}$)</li>
+          </ul>
+          <p>
+            Rumus Suku ke-n: $U_n = a \times r^{(n-1)}$<br />
+            $a$ = suku pertama ($U_1$) <br />
+            $r$ = rasio (pengali)
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2: Pola Khusus -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Pola Bilangan Khusus</h1>
+        <div class="materi-konten">
+          <h2>1. Pola Bilangan Persegi (Kuadrat)</h2>
+          <p>
+            Pola ini terbentuk dari hasil kuadrat bilangan asli.
+          </p>
+          <p>
+            Barisan: $1, 4, 9, 16, 25, 36, ...$<br />
+            Aturan: $1^2, 2^2, 3^2, 4^2, 5^2, 6^2, ...$<br />
+            Rumus Suku ke-n: $U_n = n^2$
+          </p>
+          <div class="image-description">
+            [Deskripsi Gambar: Visualisasi pola persegi. <br />
+            $U_1$: 1 titik. <br />
+            $U_2$: 4 titik membentuk persegi 2x2. <br />
+            $U_3$: 9 titik membentuk persegi 3x3.]
+          </div>
+
+          <h2>2. Pola Bilangan Segitiga</h2>
+          <p>
+            Pola ini terbentuk dari jumlah bilangan asli berurutan.
+          </p>
+          <p>
+            Barisan: $1, 3, 6, 10, 15, 21, ...$<br />
+            Aturan: $1, (1+2), (1+2+3), (1+2+3+4), ...$<br />
+            Rumus Suku ke-n: $U_n = \frac{n \times (n+1)}{2}$
+          </p>
+          <div class="image-description">
+            [Deskripsi Gambar: Visualisasi pola segitiga. <br />
+            $U_1$: 1 titik. <br />
+            $U_2$: 3 titik membentuk segitiga. <br />
+            $U_3$: 6 titik membentuk segitiga lebih besar.]
+          </div>
+
+          <h2>3. Pola Bilangan Fibonacci</h2>
+          <p>
+            Pola ini didapat dengan menjumlahkan dua suku sebelumnya.
+          </p>
+          <p>
+            Barisan: $1, 1, 2, 3, 5, 8, 13, ...$<br />
+            Aturan: <br />
+            $U_3 = U_1 + U_2 = 1 + 1 = 2$<br />
+            $U_4 = U_2 + U_3 = 1 + 2 = 3$<br />
+            $U_5 = U_3 + U_4 = 2 + 3 = 5$<br />
+            (Suku ke-n: $U_n = U_{n-1} + U_{n-2}$)
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 3: Strategi Pemecahan Masalah -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Strategi Mengenali Pola</h1>
+        <div class="materi-konten">
+          <h2>1. Strategi 1: Cek Selisih (Beda)</h2>
+          <p>
+            Ini adalah langkah pertama yang harus dilakukan. Cek selisih antar
+            suku.
+          </p>
+          <ul style="padding-left: 20px">
+            <li>
+              Pola: $4, 9, 14, 19, ...$ <br />
+              Selisih: $+5, +5, +5, ...$ (Ini Aritmetika biasa)
+            </li>
+          </ul>
+          <p>
+            <b>Aritmetika Bertingkat (Pola Kuadratik)</b><br />
+            Jika selisih level 1 tidak konstan, cek selisih di level 2.
+          </p>
+          <p style="font-family: 'Courier New', monospace; margin-left: 20px">
+            Pola: 1, 4, 9, 16, 25, ...<br />
+            Level 1: +3 +5 +7 +9 ...<br />
+            Level 2: +2 +2 +2 ... (Konstan di level 2)
+          </p>
+          <p>
+            Jika pola konstan di level 2, ini adalah
+            <b>pola kuadratik</b> (mengandung $n^2$).
+          </p>
+
+          <h2>2. Strategi 2: Cek Rasio (Pengali)</h2>
+          <p>
+            Jika selisih tidak konstan, coba cek rasionya (dibagi).
+          </p>
+          <ul style="padding-left: 20px">
+            <li>
+              Pola: $2, 6, 18, 54, ...$ <br />
+              Rasio: $\times 3, \times 3, \times 3, ...$ (Ini Geometri)
+            </li>
+          </ul>
+
+          <h2>3. Strategi 3: Cek Pola Gabungan / Khusus</h2>
+          <p>
+            Kadang pola tidak sesederhana itu. Coba cek:
+          </p>
+          <ul style="padding-left: 20px">
+            <li>
+              <b>Pola Loncati (Alternating):</b><br />
+              $10, 5, 20, 10, 40, 20, ...$<br />
+              Pola 1 (ganjil): $10, 20, 40, ...$ (Pola $\times 2$)<br />
+              Pola 2 (genap): $5, 10, 20, ...$ (Pola $\times 2$)
+            </li>
+            <li>
+              <b>Pola Fibonacci (Jumlah 2 suku):</b><br />
+              $2, 4, 6, 10, 16, 26, ...$ ( $2+4=6$, $4+6=10$, dst.)
+            </li>
+            <li>
+              <b>Pola Siklus (Berulang):</b><br />
+              $A, B, C, D, A, B, C, D, ...$ (Pola berulang setiap 4)
+            </li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Mudah (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Perhatikan pola bilangan berikut: $3, 7, 11, 15, ...$
+              <br />Suku berikutnya dari pola tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 18</div>
+              <div>B. 19</div>
+              <div>C. 20</div>
+              <div>D. 21</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Perhatikan pola bilangan berikut: $2, 4, 8, 16, 32, ...$
+              <br />Suku berikutnya dari pola tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 34</div>
+              <div>B. 48</div>
+              <div>C. 64</div>
+              <div>D. 128</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Pola bilangan persegi adalah $1, 4, 9, 16, 25, ...$ <br />Suku
+              berikutnya dari pola tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 30</div>
+              <div>B. 32</div>
+              <div>C. 36</div>
+              <div>D. 49</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Pola bilangan segitiga adalah $1, 3, 6, 10, 15, ...$ <br />Suku
+              berikutnya dari pola tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 18</div>
+              <div>B. 20</div>
+              <div>C. 21</div>
+              <div>D. 25</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Perhatikan pola bilangan Fibonacci berikut: $1, 1, 2, 3, 5, 8, ...$
+              <br />Suku berikutnya dari pola tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 11</div>
+              <div>B. 12</div>
+              <div>C. 13</div>
+              <div>D. 14</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Suku ke-10 dari barisan aritmetika $5, 8, 11, 14, ...$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 30</div>
+              <div>B. 32</div>
+              <div>C. 35</div>
+              <div>D. 38</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Suku ke-7 dari barisan geometri $3, 6, 12, 24, ...$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 96</div>
+              <div>B. 128</div>
+              <div>C. 192</div>
+              <div>D. 256</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Perhatikan pola susunan batang korek api berikut:
+              <div class="image-description">
+                [Deskripsi Gambar: <br />
+                Pola 1: 1 persegi (4 batang). <br />
+                Pola 2: 2 persegi berdampingan (7 batang). <br />
+                Pola 3: 3 persegi berdampingan (10 batang).]
+              </div>
+              Banyak batang korek api pada pola ke-5 adalah...
+            </div>
+            <div class="options">
+              <div>A. 13</div>
+              <div>B. 15</div>
+              <div>C. 16</div>
+              <div>D. 19</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Dua suku berikutnya dari pola $100, 95, 90, 85, ...$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 80 dan 70</div>
+              <div>B. 80 dan 75</div>
+              <div>C. 75 dan 70</div>
+              <div>D. 75 dan 65</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Suku ke-8 dari pola bilangan persegi ($1, 4, 9, ...$) adalah...
+            </div>
+            <div class="options">
+              <div>A. 64</div>
+              <div>B. 49</div>
+              <div>C. 36</div>
+              <div>D. 16</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (Lanjutan) (11-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Suku ke-10 dari pola bilangan segitiga ($1, 3, 6, 10, ...$)
+              adalah...
+            </div>
+            <div class="options">
+              <div>A. 45</div>
+              <div>B. 55</div>
+              <div>C. 66</div>
+              <div>D. 100</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Perhatikan pola: $2, 5, 10, 17, ...$ <br />
+              Suku berikutnya adalah...
+            </div>
+            <div class="options">
+              <div>A. 24</div>
+              <div>B. 25</div>
+              <div>C. 26</div>
+              <div>D. 27</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Perhatikan pola: $1, 10, 2, 20, 3, 30, ...$ <br />
+              Dua suku berikutnya adalah...
+            </div>
+            <div class="options">
+              <div>A. 4 dan 40</div>
+              <div>B. 40 dan 4</div>
+              <div>C. 4 dan 35</div>
+              <div>D. 35 dan 4</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Perhatikan pola huruf: $A, C, E, G, ...$ <br />
+              Huruf berikutnya adalah...
+            </div>
+            <div class="options">
+              <div>A. H</div>
+              <div>B. I</div>
+              <div>C. J</div>
+              <div>D. K</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Sebuah pola simbol berulang:
+              $\triangle, \square, \bigcirc, \triangle, \square, \bigcirc, ...$
+              <br />
+              Simbol pada urutan ke-10 adalah...
+            </div>
+            <div class="options">
+              <div>A. $\triangle$</div>
+              <div>B. $\square$</div>
+              <div>C. $\bigcirc$</div>
+              <div>D. Tidak ada</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (16-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan-n">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Dalam suatu barisan aritmetika, diketahui suku ke-3 ($U_3$)
+              adalah 10 dan suku ke-7 ($U_7$) adalah 22. Suku pertama ($U_1$)
+              barisan tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 3</div>
+              <div>C. 4</div>
+              <div>D. 7</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Dalam suatu barisan geometri, diketahui suku ke-2 ($U_2$) adalah 6
+              dan suku ke-4 ($U_4$) adalah 54. Suku pertama ($U_1$) barisan
+              tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 2</div>
+              <div>C. 3</div>
+              <div>D. 9</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Perhatikan pola bilangan: $1, 3, 7, 13, 21, ...$ <br />
+              Suku ke-10 dari pola tersebut adalah...
+            </div>
+            <div class="options">
+              <div>A. 91</div>
+              <div>B. 101</div>
+              <div>C. 111</div>
+              <div>D. 121</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Jika sekarang pukul 07:00 pagi. Pukul berapakah 100 jam yang akan
+              datang?
+            </div>
+            <div class="options">
+              <div>A. Pukul 09:00</div>
+              <div>B. Pukul 10:00</div>
+              <div>C. Pukul 11:00</div>
+              <div>D. Pukul 12:00</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Jika hari ini adalah hari Selasa. Hari apakah 50 hari yang akan
+              datang?
+            </div>
+            <div class="options">
+              <div>A. Senin</div>
+              <div>B. Selasa</div>
+              <div>C. Rabu</div>
+              <div>D. Kamis</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (Lanjutan) (21-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Angka satuan (digit terakhir) dari $2^{2025}$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 2</div>
+              <div>B. 4</div>
+              <div>C. 6</div>
+              <div>D. 8</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapakah hasil dari $1 + 2 + 3 + ... + 50$?
+            </div>
+            <div class="options">
+              <div>A. 1050</div>
+              <div>B. 1200</div>
+              <div>C. 1275</div>
+              <div>D. 2500</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Perhatikan barisan "Look-and-Say" berikut: <br />
+              $1$ (Satu angka 1)<br />
+              $11$ (Dua angka 1)<br />
+              $21$ (Satu angka 2, Satu angka 1)<br />
+              $1211$ (Satu angka 1, Satu angka 2, Dua angka 1)<br />
+              $111221$ <br />
+              Suku berikutnya adalah...
+            </div>
+            <div class="options">
+              <div>A. 312211</div>
+              <div>B. 111222</div>
+              <div>C. 311221</div>
+              <div>D. 2112211</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Jumlah $n$ bilangan ganjil pertama adalah $n^2$. Jika
+              $1 + 3 + 5 + 7 + ... + U_n = 144$, berapakah nilai $n$?
+            </div>
+            <div class="options">
+              <div>A. 10</div>
+              <div>B. 11</div>
+              <div>C. 12</div>
+              <div>D. 14</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Pada barisan geometri $1, \frac{1}{2}, \frac{1}{4}, \frac{1}{8}, ...$
+              , suku ke berapakah $\frac{1}{128}$?
+            </div>
+            <div class="options">
+              <div>A. Suku ke-6</div>
+              <div>B. Suku ke-7</div>
+              <div>C. Suku ke-8</div>
+              <div>D. Suku ke-9</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (Lanjutan) (26-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>26.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Berapakah jumlah 20 suku pertama dari barisan $3, 5, 7, 9, ...$?
+            </div>
+            <div class="options">
+              <div>A. 400</div>
+              <div>B. 420</div>
+              <div>C. 440</div>
+              <div>D. 840</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>27.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Titik $A(1,1), B(2,3), C(3,5), D(4,7)$. Koordinat $y$ pada titik
+              ke-10 adalah...
+            </div>
+            <div class="options">
+              <div>A. 10</div>
+              <div>B. 19</div>
+              <div>C. 20</div>
+              <div>D. 21</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>28.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Bilangan $N$ adalah bilangan asli terkecil lebih besar dari 50
+              yang jika dibagi 3 bersisa 2 dan jika dibagi 4 bersisa 2.
+              Berapakah nilai $N$?
+            </div>
+            <div class="options">
+              <div>A. 50</div>
+              <div>B. 60</div>
+              <div>C. 62</div>
+              <div>D. 74</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>29.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Lampu A, B, C, dan D menyala bergantian (A, B, C, D, A, B, ...).
+              Lampu apakah yang menyala pada urutan ke-99?
+            </div>
+            <div class="options">
+              <div>A. A</div>
+              <div>B. B</div>
+              <div>C. C</div>
+              <div>D. D</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>30.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Perhatikan pola huruf berulang:
+              $O, S, N, M, A, T, O, S, N, M, A, T, ...$ <br />
+              Huruf apakah yang menempati urutan ke-2025?
+            </div>
+            <div class="options">
+              <div>A. O</div>
+              <div>B. S</div>
+              <div>C. N</div>
+              <div>D. T</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- START PEMBAHASAN (1 SOAL PER HALAMAN) -->
+    <!-- ================================================================= -->
+
+    <!-- PEMBAHASAN (1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 19</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah pola barisan aritmetika, di mana
+              setiap suku memiliki selisih (beda) yang konstan.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $3, 7, 11, 15, ...$ <br />
+              2. Selisih $7 - 3 = 4$ <br />
+              3. Selisih $11 - 7 = 4$ <br />
+              4. Selisih $15 - 11 = 4$ <br />
+              5. Polanya adalah "ditambah 4".<br />
+              6. Suku berikutnya = Suku terakhir + 4 = $15 + 4 = 19$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 64</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah pola barisan geometri, di mana
+              setiap suku memiliki pengali (rasio) yang konstan.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $2, 4, 8, 16, 32, ...$ <br />
+              2. Rasio $4 \div 2 = 2$ <br />
+              3. Rasio $8 \div 4 = 2$ <br />
+              4. Rasio $16 \div 8 = 2$ <br />
+              5. Polanya adalah "dikali 2".<br />
+              6. Suku berikutnya = Suku terakhir $\times$ 2 = $32 \times 2 = 64$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (3) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 36</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pola bilangan persegi (kuadrat) adalah pola
+              dengan aturan $U_n = n^2$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $1, 4, 9, 16, 25, ...$ <br />
+              2. $U_1 = 1^2 = 1$ <br />
+              3. $U_2 = 2^2 = 4$ <br />
+              4. $U_3 = 3^2 = 9$ <br />
+              5. $U_4 = 4^2 = 16$ <br />
+              6. $U_5 = 5^2 = 25$ <br />
+              7. Suku berikutnya adalah $U_6 = 6^2 = 36$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (4) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 21</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pola bilangan segitiga adalah pola dengan
+              aturan penambahan bilangan asli berurutan ($+2, +3, +4, ...$).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $1, 3, 6, 10, 15, ...$ <br />
+              2. $U_1 = 1$ <br />
+              3. $U_2 = 1 + 2 = 3$ <br />
+              4. $U_3 = 3 + 3 = 6$ <br />
+              5. $U_4 = 6 + 4 = 10$ <br />
+              6. $U_5 = 10 + 5 = 15$ <br />
+              7. Suku berikutnya ($U_6$) = $15 + 6 = 21$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 13</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pola bilangan Fibonacci adalah barisan di mana
+              setiap suku adalah hasil penjumlahan dua suku sebelumnya.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $1, 1, 2, 3, 5, 8, ...$ <br />
+              2. $2 = 1 + 1$ <br />
+              3. $3 = 1 + 2$ <br />
+              4. $5 = 2 + 3$ <br />
+              5. $8 = 3 + 5$ <br />
+              6. Suku berikutnya = $5 + 8 = 13$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (6) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 32</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah barisan aritmetika. Kita dapat
+              menggunakan rumus $U_n = a + (n-1)b$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $5, 8, 11, 14, ...$ <br />
+              2. Suku pertama ($a$) = $5$.<br />
+              3. Beda ($b$) = $8 - 5 = 3$.<br />
+              4. Suku yang dicari ($n$) = $10$.<br />
+              5. $U_n = a + (n-1)b$ <br />
+              6. $U_{10} = 5 + (10 - 1) \times 3$ <br />
+              7. $U_{10} = 5 + 9 \times 3$ <br />
+              8. $U_{10} = 5 + 27 = 32$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (7) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 192</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah barisan geometri. Kita dapat
+              menggunakan rumus $U_n = a \times r^{(n-1)}$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $3, 6, 12, 24, ...$ <br />
+              2. Suku pertama ($a$) = $3$.<br />
+              3. Rasio ($r$) = $6 \div 3 = 2$.<br />
+              4. Suku yang dicari ($n$) = $7$.<br />
+              5. $U_n = a \times r^{(n-1)}$ <br />
+              6. $U_7 = 3 \times 2^{(7 - 1)}$ <br />
+              7. $U_7 = 3 \times 2^6$ <br />
+              8. $U_7 = 3 \times (2 \times 2 \times 2 \times 2 \times 2 \times 2) =
+                3 \times 64 = 192$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 16</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Kita harus menganalisis hubungan antara Pola
+              ke-n dengan jumlah batang korek api. Ini adalah pola aritmetika.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola 1 ($U_1$) = 4 batang.<br />
+              2. Pola 2 ($U_2$) = 7 batang. (Bertambah 3 batang)<br />
+              3. Pola 3 ($U_3$) = 10 batang. (Bertambah 3 batang)<br />
+              4. Ini adalah barisan aritmetika dengan suku awal ($a$) = 4 dan
+              beda ($b$) = 3.<br />
+              5. Pola ke-4 ($U_4$) = $10 + 3 = 13$ batang.<br />
+              6. Pola ke-5 ($U_5$) = $13 + 3 = 16$ batang.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (9) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 80 dan 75</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah barisan aritmetika menurun, dengan
+              beda (selisih) negatif.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $100, 95, 90, 85, ...$ <br />
+              2. Selisih $95 - 100 = -5$.<br />
+              3. Polanya adalah "dikurangi 5".<br />
+              4. Suku berikutnya = $85 - 5 = 80$.<br />
+              5. Suku berikutnya lagi = $80 - 5 = 75$.<br />
+              6. Jadi, dua suku berikutnya adalah 80 dan 75.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 64</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pola bilangan persegi (kuadrat) memiliki rumus
+              $U_n = n^2$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita mencari suku ke-8 ($n=8$).<br />
+              2. $U_n = n^2$ <br />
+              3. $U_8 = 8^2 = 8 \times 8 = 64$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (11) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 55</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pola bilangan segitiga memiliki rumus
+              $U_n = \frac{n \times (n+1)}{2}$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita mencari suku ke-10 ($n=10$).<br />
+              2. $U_n = \frac{n \times (n+1)}{2}$ <br />
+              3. $U_{10} = \frac{10 \times (10+1)}{2}$ <br />
+              4. $U_{10} = \frac{10 \times 11}{2}$ <br />
+              5. $U_{10} = \frac{110}{2} = 55$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 26</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Kita harus menganalisis selisih antar suku
+              (aritmetika bertingkat).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $2, 5, 10, 17, ...$ <br />
+              2. Selisih Level 1: <br />
+              $5 - 2 = 3$ <br />
+              $10 - 5 = 5$ <br />
+              $17 - 10 = 7$ <br />
+              3. Pola selisihnya adalah: $3, 5, 7, ...$ (bilangan ganjil).<br />
+              4. Selisih berikutnya adalah $9$.<br />
+              5. Suku berikutnya = Suku terakhir + Selisih berikutnya = $17 + 9
+                = 26$.<br />
+              (Pola ini juga bisa dilihat sebagai Pola Kuadrat + 1, $U_n =
+                n^2 + 1$. $U_5 = 5^2 + 1 = 26$).
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (13) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 4 dan 40</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah pola loncati atau pola gabungan
+              (alternating pattern).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $1, 10, 2, 20, 3, 30, ...$ <br />
+              2. Kita pisahkan menjadi 2 pola:<br />
+              Pola Ganjil (suku 1, 3, 5, ...): $1, 2, 3, ...$ (Pola $+1$)<br />
+              Pola Genap (suku 2, 4, 6, ...): $10, 20, 30, ...$ (Pola $+10$)<br />
+              3. Suku berikutnya (suku ke-7) adalah dari Pola Ganjil: $3 + 1 =
+                4$.<br />
+              4. Suku berikutnya lagi (suku ke-8) adalah dari Pola Genap: $30 +
+                10 = 40$.<br />
+              5. Jawabannya adalah 4 dan 40.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (14) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. I</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pola huruf dapat dipecahkan dengan melihat
+              urutan alfabet atau huruf yang dilompati.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $A, C, E, G, ...$ <br />
+              2. $A \rightarrow C$ (Melompati B)<br />
+              3. $C \rightarrow E$ (Melompati D)<br />
+              4. $E \rightarrow G$ (Melompati F)<br />
+              5. Polanya adalah melompati 1 huruf.<br />
+              6. Huruf berikutnya setelah G adalah melompati H, yaitu $I$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. $\triangle$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah pola siklus (berulang). Kita
+              menggunakan konsep sisa bagi (modulo).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $\triangle, \square, \bigcirc$ <br />
+              2. Pola ini berulang setiap 3 simbol (siklus 3).<br />
+              3. Kita mencari urutan ke-10.<br />
+              4. Kita bagi urutan yang dicari dengan panjang siklus: $10 \div 3$.<br />
+              5. $10 \div 3 = 3$ sisa $1$.<br />
+              6. Sisa 1 artinya sama dengan urutan ke-1.<br />
+              7. Simbol urutan ke-1 adalah $\triangle$.<br />
+              (Urutan 1, 4, 7, 10, ... adalah $\triangle$)
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (16) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 4</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Kompetensi ini menguji kemampuan
+              "menganalisis hubungan" untuk "memilih prosedur pemecahan
+              masalah". Kita gunakan rumus $U_n = a + (n-1)b$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $U_7 = a + (7-1)b = a + 6b = 22$ <br />
+              2. $U_3 = a + (3-1)b = a + 2b = 10$ <br />
+              3. Kita eliminasi (kurangkan) kedua persamaan: <br />
+              $(a + 6b) - (a + 2b) = 22 - 10$ <br />
+              $4b = 12$ <br />
+              $b = 12 \div 4 = 3$. (Bedanya adalah 3).<br />
+              4. Masukkan $b=3$ ke persamaan (2): <br />
+              $a + 2b = 10$ <br />
+              $a + 2(3) = 10$ <br />
+              $a + 6 = 10$ <br />
+              $a = 10 - 6 = 4$.<br />
+              5. Suku pertama ($U_1$ atau $a$) adalah 4.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (17) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 2</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Kita gunakan rumus barisan geometri
+              $U_n = a \times r^{(n-1)}$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $U_4 = a \times r^{(4-1)} = ar^3 = 54$ <br />
+              2. $U_2 = a \times r^{(2-1)} = ar^1 = 6$ <br />
+              3. Kita bagi kedua persamaan: <br />
+              $\frac{ar^3}{ar} = \frac{54}{6}$ <br />
+              $r^2 = 9$ <br />
+              $r = 3$. (Rasionya adalah 3).<br />
+              4. Masukkan $r=3$ ke persamaan (2): <br />
+              $ar = 6$ <br />
+              $a \times (3) = 6$ <br />
+              $a = 6 \div 3 = 2$.<br />
+              5. Suku pertama ($U_1$ atau $a$) adalah 2.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (18) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 91</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah pola aritmetika bertingkat, karena
+              selisihnya tidak konstan di level 1.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: $1, 3, 7, 13, 21, ...$ <br />
+              2. Selisih Level 1: $+2, +4, +6, +8, ...$ (Pola bilangan genap, $2n$)
+                <br />
+              3. Selisih Level 2: $+2, +2, +2, ...$ (Konstan di level 2)<br />
+              4. Karena konstan di level 2, rumusnya mengandung $n^2$. Pola ini
+              bisa ditulis $U_n = n^2 - n + 1$.<br />
+              5. Mari kita cek: <br />
+              $U_1 = 1^2 - 1 + 1 = 1$ (Benar) <br />
+              $U_2 = 2^2 - 2 + 1 = 4 - 2 + 1 = 3$ (Benar) <br />
+              $U_3 = 3^2 - 3 + 1 = 9 - 3 + 1 = 7$ (Benar) <br />
+              6. Suku ke-10 ($n=10$):<br />
+              $U_{10} = 10^2 - 10 + 1 = 100 - 10 + 1 = 91$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (19) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. Pukul 11:00</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah pola siklus (berulang) menggunakan
+              sisa bagi (modulo). Satu hari (siklus) terdiri dari 24 jam.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita mencari sisa dari 100 jam jika dibagi 24.<br />
+              2. $100 \div 24 = 4$ sisa $4$.<br />
+              (Karena $24 \times 4 = 96$. $100 - 96 = 4$).<br />
+              3. Artinya, 100 jam lagi sama dengan 4 jam lagi dari sekarang.<br />
+              4. Waktu sekarang: Pukul 07:00.<br />
+              5. Waktu yang dicari: $07:00 + 4$ jam $= 11:00$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. Rabu</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah pola siklus (berulang) menggunakan
+              sisa bagi (modulo). Satu minggu (siklus) terdiri dari 7 hari.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita mencari sisa dari 50 hari jika dibagi 7.<br />
+              2. $50 \div 7 = 7$ sisa $1$.<br />
+              (Karena $7 \times 7 = 49$. $50 - 49 = 1$).<br />
+              3. Artinya, 50 hari lagi sama dengan 1 hari lagi (sisa 1) dari
+              hari ini.<br />
+              4. Hari ini: Selasa.<br />
+              5. 1 hari setelah Selasa adalah Rabu.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (21) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 2</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Angka satuan dari bilangan berpangkat selalu
+              membentuk pola siklus (berulang).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Kita amati pola angka satuan dari $2^n$:<br />
+              $2^1 = 2$ (Satuan: 2)<br />
+              $2^2 = 4$ (Satuan: 4)<br />
+              $2^3 = 8$ (Satuan: 8)<br />
+              $2^4 = 16$ (Satuan: 6)<br />
+              $2^5 = 32$ (Satuan: 2) $\leftarrow$ Pola mulai berulang.<br />
+              2. Polanya adalah: $2, 4, 8, 6$ (Siklus 4).<br />
+              3. Kita mencari $2^{2025}$. Kita hanya perlu tahu sisa bagi dari
+              pangkat (2025) dengan panjang siklus (4).<br />
+              4. $2025 \div 4$. (Ciri bilangan habis dibagi 4 adalah 2 digit
+              terakhirnya habis dibagi 4. $25 \div 4 = 6$ sisa $1$).<br />
+              5. $2025 \div 4$ bersisa $1$.<br />
+              6. Sisa 1 artinya sama dengan urutan ke-1 dalam pola.<br />
+              7. Urutan ke-1 adalah 2.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (22) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 1275</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah Deret Aritmetika (penjumlahan
+              barisan aritmetika). Rumusnya $S_n = \frac{n}{2} \times (a + U_n)$.
+              Untuk deret $1 + 2 + ... + n$, rumusnya $\frac{n \times (n+1)}{2}$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $n = 50$ (banyaknya suku).<br />
+              2. $a = 1$ (suku pertama).<br />
+              3. $U_n = 50$ (suku terakhir).<br />
+              4. $S_{50} = \frac{50}{2} \times (1 + 50)$ <br />
+              5. $S_{50} = 25 \times (51)$ <br />
+              6. $S_{50} = 1275$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (23) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 312211</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah pola "Look-and-Say" (Lihat dan
+              Sebutkan). Suku berikutnya adalah deskripsi dari suku sebelumnya.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Suku terakhir yang diketahui: $111221$.<br />
+              2. Kita harus "membaca" suku tersebut:<br />
+              - $111$ (Ada Tiga angka 1) $\rightarrow$ tulis $31$ <br />
+              - $22$ (Ada Dua angka 2) $\rightarrow$ tulis $22$ <br />
+              - $1$ (Ada Satu angka 1) $\rightarrow$ tulis $11$ <br />
+              3. Gabungkan hasil bacaan: $312211$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (24) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 12</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini menguji pemahaman pola kuadrat. Pola
+              jumlah bilangan ganjil pertama adalah $S_n = n^2$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Diketahui jumlah $n$ bilangan ganjil pertama adalah $n^2$.<br />
+              2. $1 + 3 + 5 + ...$ (ini adalah deret $n$ bilangan ganjil).<br />
+              3. Diketahui jumlahnya ($S_n$) = $144$.<br />
+              4. Maka, $n^2 = 144$.<br />
+              5. $n = \sqrt{144} = 12$.<br />
+              6. Jadi, ada 12 suku bilangan ganjil yang dijumlahkan.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. Suku ke-8</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah barisan geometri ($a=1$, $r =
+                \frac{1}{2}$). Kita bisa menggunakan rumus $U_n = ar^{(n-1)}$
+                atau mendaftar (listing) polanya.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian (Cara Listing):</b><br />
+              1. $U_1 = 1$ <br />
+              2. $U_2 = 1/2$ <br />
+              3. $U_3 = 1/4$ <br />
+              4. $U_4 = 1/8$ <br />
+              5. $U_5 = 1/16$ <br />
+              6. $U_6 = 1/32$ <br />
+              7. $U_7 = 1/64$ <br />
+              8. $U_8 = 1/128$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (26) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>26.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 440</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah Deret Aritmetika (penjumlahan
+              barisan aritmetika). Rumus $S_n = \frac{n}{2} \times (2a +
+                (n-1)b)$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Barisan: $3, 5, 7, 9, ...$<br />
+              2. Suku pertama ($a$) = 3.<br />
+              3. Beda ($b$) = $5 - 3 = 2$.<br />
+              4. Banyak suku ($n$) = 20.<br />
+              5. $S_n = \frac{n}{2} \times (2a + (n-1)b)$ <br />
+              6. $S_{20} = \frac{20}{2} \times (2 \times 3 + (20-1) \times 2)$ <br />
+              7. $S_{20} = 10 \times (6 + 19 \times 2)$ <br />
+              8. $S_{20} = 10 \times (6 + 38)$ <br />
+              9. $S_{20} = 10 \times (44) = 440$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (27) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>27.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 19</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal ini menguji kemampuan menganalisis dua
+              pola (koordinat x dan y) secara terpisah.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. $A(1,1), B(2,3), C(3,5), D(4,7)$ <br />
+              2. Kita analisis pola $x$: $1, 2, 3, 4, ...$ (Polanya $U_n = n$).
+                Maka $x$ ke-10 adalah 10.<br />
+              3. Kita analisis pola $y$: $1, 3, 5, 7, ...$ (Pola bilangan ganjil,
+              aritmetika $a=1, b=2$).<br />
+              4. Kita cari $y$ ke-10 ($n=10$) dari pola $1, 3, 5, 7, ...$<br />
+              5. $U_n = a + (n-1)b$ <br />
+              6. $U_{10} = 1 + (10-1) \times 2 = 1 + 9 \times 2 = 1 + 18 = 19$.<br />
+              7. Koordinat titik ke-10 adalah $(10, 19)$. Yang ditanyakan
+              adalah koordinat $y$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (28) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>28.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 62</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah soal sisa pembagian yang sama.
+              Bilangan $N$ memiliki bentuk $N = KPK(\text{pembagi}) \times k +
+                \text{sisa}$.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Dibagi 3 bersisa 2.<br />
+              2. Dibagi 4 bersisa 2.<br />
+              3. Sisanya sama, yaitu 2.<br />
+              4. Kita cari KPK dari pembagi: $KPK(3, 4) = 12$.<br />
+              5. Pola bilangannya adalah $N = 12k + 2$ (Kelipatan 12 ditambah
+              2).<br />
+              6. Kita cari kelipatan 12 yang dekat dengan 50:<br />
+              $12 \times 3 = 36 \rightarrow N = 36 + 2 = 38$ (Belum > 50)<br />
+              $12 \times 4 = 48 \rightarrow N = 48 + 2 = 50$ (Belum > 50)<br />
+              $12 \times 5 = 60 \rightarrow N = 60 + 2 = 62$ (Sudah > 50)<br />
+              7. Bilangan terkecil > 50 yang memenuhi adalah 62.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (29) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>29.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. C</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah pola siklus (berulang) menggunakan
+              sisa bagi (modulo).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: A, B, C, D.<br />
+              2. Pola berulang setiap 4 lampu (Siklus 4).<br />
+              3. Kita mencari urutan ke-99.<br />
+              4. Kita bagi urutan (99) dengan panjang siklus (4).<br />
+              5. $99 \div 4 = 24$ sisa $3$.<br />
+              (Karena $24 \times 4 = 96$. $99 - 96 = 3$).<br />
+              6. Sisa 3 artinya sama dengan urutan ke-3.<br />
+              7. Urutan ke-1: A, Urutan ke-2: B, Urutan ke-3: C.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>30.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. O</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ini adalah pola siklus (berulang) menggunakan
+              sisa bagi (modulo).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Pola: O, S, N, M, A, T.<br />
+              2. Pola berulang setiap 6 huruf (Siklus 6).<br />
+              3. Kita mencari urutan ke-2025.<br />
+              4. Kita bagi urutan (2025) dengan panjang siklus (6).<br />
+              5. $2025 \div 6$. <br />
+              (Ciri habis dibagi 3: $2+0+2+5 = 9$, habis dibagi 3).<br />
+              (Tidak habis dibagi 2, karena ganjil).<br />
+              $2025 \div 6 = 337$ sisa $3$.<br />
+              (Karena $337 \times 6 = 2022$. $2025 - 2022 = 3$).<br />
+              6. Sisa 3 artinya sama dengan urutan ke-3.<br />
+              7. Urutan ke-1: O, Urutan ke-2: S, Urutan ke-3: N.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
