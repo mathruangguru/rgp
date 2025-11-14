@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Judul disesuaikan dengan materi yang diminta -->
+    <title>Latihan OSNK: Operasi Bilangan Lanjut</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm; /* Mengubah ukuran logo agar tidak terlalu besar */
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 38pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 16pt;
+        font-weight: 700;
+        color: var(--secondary-text);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 5px;
+        margin-top: 25px;
+      }
+      .materi-konten {
+        display: block;
+        text-align: justify;
+      }
+      .soal-latihan,
+      .soal-latihan-n {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 25px;
+        break-inside: avoid;
+        padding-bottom: 10px;
+      }
+      .soal-latihan > b,
+      .soal-latihan-n > b {
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      .soal-wrapper {
+        flex-grow: 1;
+      }
+      .soal-konten {
+        text-align: justify;
+      }
+      .options {
+        padding-left: 0px;
+        margin-top: 10px;
+        display: block;
+      }
+      .options div {
+        margin-bottom: 5px;
+        padding-left: 20px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 18pt;
+        font-weight: 700;
+        margin: 20px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 10px 0;
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4caf50;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .image-description {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-style: italic;
+        color: #555;
+      }
+      .image-description img {
+        max-width: 100%;
+        height: auto;
+        /* Membatasi lebar maksimum gambar agar tidak 'nabrak' */
+        max-width: 500px;
+        display: inline-block;
+      }
+      ul.checklist {
+        list-style-type: none;
+        padding-left: 10px;
+      }
+      ul.checklist li {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 10px;
+      }
+      ul.checklist li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #4caf50;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Halaman Sampul -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Ruangguru Privat Logo"
+          class="cover-image"
+        />
+        <!-- Judul disesuaikan -->
+        <h1 class="cover-title">
+          Operasi Bilangan Lanjut<br />Latihan OSNK SD
+        </h1>
+        <p class="cover-subtitle">
+          Aritmatika, Bilangan Bulat, Pecahan, & Desimal
+        </p>
+      </div>
+    </section>
+
+    <!-- Halaman Materi 1: Operasi Hitung Campuran (KaBaTaKu) - Bagian 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Operasi Hitung Campuran (KaBaTaKu)</h1>
+        <div class="materi-konten">
+          <h2>1. Apa itu Operasi Hitung Campuran?</h2>
+          <p>
+            <b>Operasi Hitung Campuran</b> adalah perhitungan yang melibatkan
+            lebih dari satu jenis operasi (tambah, kurang, kali, bagi) dalam
+            satu soal. Untuk menyelesaikannya, kita tidak bisa hanya menghitung
+            dari kiri ke kanan. Kita harus mengikuti urutan prioritas.
+          </p>
+          <p>
+            Di Indonesia, urutan ini sering disingkat sebagai
+            <b>KaBaTaKu</b>:
+          </p>
+          <ul class="checklist">
+            <li><b>Ka</b>: Kali ($\times$)</li>
+            <li><b>Ba</b>: Bagi ($\div$)</li>
+            <li><b>Ta</b>: Tambah ($+$)</li>
+            <li><b>Ku</b>: Kurang ($-$)</li>
+          </ul>
+          <p>
+            Ini mirip dengan aturan internasional <b>PEMDAS</b> (Parentheses,
+            Exponents, Multiplication, Division, Addition, Subtraction).
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1: Operasi Hitung Campuran (KaBaTaKu) - Bagian 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Operasi Hitung Campuran (Lanjutan)</h1>
+        <div class="materi-konten">
+          <h2>2. Aturan Prioritas KaBaTaKu</h2>
+          <p>
+            <b>Aturan 1: Kerjakan yang di dalam Tanda Kurung ()</b><br />
+            Operasi apa pun yang ada di dalam tanda kurung harus didahulukan.
+            <br />
+            Contoh: $10 \times (5 + 2) = 10 \times 7 = 70$.
+          </p>
+          <p>
+            <b>Aturan 2: Kali ($\times$) dan Bagi ($\div$) Setara</b><br />
+            Perkalian dan pembagian memiliki kekuatan yang sama. Kerjakan yang
+            muncul lebih dulu (dari kiri ke kanan).
+          </p>
+          <p>
+            Contoh: $100 \div 10 \times 5$<br />
+            Salah: $100 \div (10 \times 5) = 100 \div 50 = 2$ $\leftarrow$
+            (SALAH)
+            <br />
+            Benar: $(100 \div 10) \times 5 = 10 \times 5 = 50$ $\leftarrow$
+            (BENAR)
+          </p>
+          <p>
+            <b>Aturan 3: Tambah ($+$) dan Kurang ($-$) Setara</b><br />
+            Penjumlahan dan pengurangan juga setara. Kerjakan yang muncul lebih
+            dulu (dari kiri ke kanan).
+          </p>
+          <p>
+            <b>Aturan 4: Kali/Bagi lebih kuat dari Tambah/Kurang</b><br />
+            Selalu kerjakan perkalian atau pembagian SEBELUM mengerjakan
+            penjumlahan atau pengurangan.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1: Operasi Hitung Campuran (KaBaTaKu) - Bagian 3 (Contoh) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Operasi Hitung Campuran (Lanjutan)</h1>
+        <div class="materi-konten">
+          <div class="pembahasan" style="border-left-color: #ff9800">
+            <b>Contoh Soal:</b><br />
+            Hitunglah nilai dari $50 + 20 \div 5 \times 2 - (10 - 7)$
+            <br /><br />
+            <b>Langkah 1 (Kurung):</b> $10 - 7 = 3$<br />
+            Soal menjadi: $50 + 20 \div 5 \times 2 - 3$
+            <br /><br />
+            <b>Langkah 2 (Kali/Bagi dari Kiri):</b> $20 \div 5 = 4$<br />
+            Soal menjadi: $50 + 4 \times 2 - 3$
+            <br /><br />
+            <b>Langkah 3 (Kali/Bagi):</b> $4 \times 2 = 8$<br />
+            Soal menjadi: $50 + 8 - 3$
+            <br /><br />
+            <b>Langkah 4 (Tambah/Kurang dari Kiri):</b> $50 + 8 = 58$<br />
+            Soal menjadi: $58 - 3$
+            <br /><br />
+            <b>Langkah 5 (Tambah/Kurang):</b> $58 - 3 = 55$<br />
+            <b>Jawaban: 55</b>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2: Operasi Bilangan Bulat Negatif - Bagian 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Operasi Bilangan Bulat Negatif</h1>
+        <div class="materi-konten">
+          <h2>1. Penjumlahan & Pengurangan</h2>
+          <p>
+            Cara termudah membayangkannya adalah menggunakan garis bilangan,
+            uang (utang), atau suhu.
+          </p>
+          <p>
+            <b>Penjumlahan (Tambah):</b>
+          </p>
+          <ul style="padding-left: 20px">
+            <li>
+              <b>Positif + Negatif:</b> $5 + (-3)$<br />
+              Artinya: "Maju 5 langkah, lalu mundur 3 langkah."<br />
+              Hasil: $2$. (Sama dengan $5 - 3 = 2$).
+            </li>
+            <li>
+              <b>Negatif + Positif:</b> $(-7) + 10$<br />
+              Artinya: "Suhu $-7^\circ$C, lalu naik $10^\circ$C."<br />
+              Hasil: $3^\circ$C. (Sama dengan $10 - 7 = 3$).
+            </li>
+            <li>
+              <b>Negatif + Negatif:</b> $(-4) + (-3)$<br />
+              Artinya: "Utang 4, tambah utang 3."<br />
+              Hasil: Utang 7, atau $-7$. (Sama dengan $-(4+3)$).
+            </li>
+          </ul>
+
+          <p>
+            <b>Pengurangan (Kurang):</b>
+          </p>
+          <ul style="padding-left: 20px">
+            <li>
+              <b>Aturan Kunci:</b> Mengurangi dengan bilangan negatif sama
+              dengan MENAMBAH bilangan positif.
+            </li>
+            <li>
+              <b>Contoh 1:</b> $8 - (-5)$<br />
+              Dua tanda negatif bertemu $\rightarrow$ jadi positif.<br />
+              Sama dengan: $8 + 5 = 13$.
+            </li>
+            <li>
+              <b>Contoh 2:</b> $(-10) - (-4)$<br />
+              Sama dengan: $(-10) + 4$<br />
+              Artinya: "Utang 10, dibayar 4."<br />
+              Hasil: Masih utang 6, atau $-6$.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2: Operasi Bilangan Bulat Negatif - Bagian 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Operasi Bilangan Bulat (Lanjutan)</h1>
+        <div class="materi-konten">
+          <h2>2. Perkalian & Pembagian</h2>
+          <p>
+            Aturan ini sangat sederhana dan wajib dihafal. Aturan untuk
+            perkalian dan pembagian adalah SAMA.
+          </p>
+          <div class="pembahasan" style="border-left-color: #2196f3">
+            <b>Aturan Tanda:</b><br />
+            <ul>
+              <li>
+                Tanda Sama $\rightarrow$ Hasil <b>Positif</b><br />
+                $(+) \times (+) = (+)$<br />
+                $(-) \times (-) = (+)$
+              </li>
+              <br />
+              <li>
+                Tanda Beda $\rightarrow$ Hasil <b>Negatif</b><br />
+                $(+) \times (-) = (-)$<br />
+                $(-) \times (+) = (-)$
+              </li>
+            </ul>
+          </div>
+          <p>
+            <b>Contoh Perkalian:</b>
+          </p>
+          <ul style="padding-left: 20px">
+            <li>$(-5) \times (-4) = 20$ (Tanda sama, hasil positif)</li>
+            <li>$(-7) \times 3 = -21$ (Tanda beda, hasil negatif)</li>
+          </ul>
+          <p>
+            <b>Contoh Pembagian:</b>
+          </p>
+          <ul style="padding-left: 20px">
+            <li>$(-30) \div 5 = -6$ (Tanda beda, hasil negatif)</li>
+            <li>$(-100) \div (-10) = 10$ (Tanda sama, hasil positif)</li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 3: Operasi Pecahan & Desimal - Bagian 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Operasi Pecahan & Desimal</h1>
+        <div class="materi-konten">
+          <h2>1. Penjumlahan & Pengurangan (Beda Penyebut)</h2>
+          <p>
+            <b>Aturan Kunci:</b> Kita tidak bisa menjumlahkan atau mengurangkan
+            pecahan jika "ukuran potongannya" (penyebut) berbeda. Kita harus
+            menyamakan penyebutnya terlebih dahulu.
+          </p>
+          <p>
+            Cara menyamakan penyebut adalah dengan mencari
+            <b>KPK (Kelipatan Persekutuan Terkecil)</b> dari kedua penyebut.
+          </p>
+          <p>
+            <b>Contoh: $\frac{2}{3} + \frac{1}{4}$</b>
+          </p>
+          <ul style="padding-left: 20px">
+            <li>Penyebutnya adalah 3 dan 4.</li>
+            <li>KPK dari 3 dan 4 adalah 12.</li>
+            <li>Ubah kedua pecahan ke penyebut 12:</li>
+            <li>
+              $\frac{2}{3} = \frac{2 \times 4}{3 \times 4} = \frac{8}{12}$
+            </li>
+            <li>
+              $\frac{1}{4} = \frac{1 \times 3}{4 \times 3} = \frac{3}{12}$
+            </li>
+            <li>
+              Sekarang hitung: $\frac{8}{12} + \frac{3}{12} = \frac{8+3}{12} =
+              \frac{11}{12}$
+            </li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 3: Operasi Pecahan & Desimal - Bagian 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Operasi Pecahan & Desimal (Lanjutan)</h1>
+        <div class="materi-konten">
+          <h2>2. Perkalian Pecahan</h2>
+          <p>Ini adalah operasi termudah. Tidak perlu samakan penyebut.</p>
+          <p>
+            <b>Aturan: (Atas $\times$ Atas) dan (Bawah $\times$ Bawah)</b>
+          </p>
+          <p>
+            Rumus: $\frac{a}{b} \times \frac{c}{d} = \frac{a \times c}{b \times
+            d}$
+          </p>
+          <p>
+            <b
+              >Contoh: $\frac{3}{5} \times \frac{2}{7} = \frac{3 \times 2}{5
+              \times 7} = \frac{6}{35}$</b
+            >
+          </p>
+          <p>
+            <b>Trik (Sistem Coret/Penyederhanaan):</b> Jika ada angka di atas
+            dan di bawah yang bisa dibagi dengan angka yang sama, coretlah untuk
+            menyederhanakan.
+          </p>
+          <p>
+            Contoh: $\frac{4}{9} \times \frac{3}{8}$<br />
+            Sederhanakan 4 (atas) dan 8 (bawah), sama-sama bagi 4: $\rightarrow$
+            $\frac{1}{9} \times \frac{3}{2}$<br />
+            Sederhanakan 3 (atas) dan 9 (bawah), sama-sama bagi 3: $\rightarrow$
+            $\frac{1}{3} \times \frac{1}{2}$<br />
+            Hasil: $\frac{1 \times 1}{3 \times 2} = \frac{1}{6}$
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 3: Operasi Pecahan & Desimal - Bagian 3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Operasi Pecahan & Desimal (Lanjutan)</h1>
+        <div class="materi-konten">
+          <h2>3. Pembagian Pecahan</h2>
+          <p>
+            <b>Aturan Kunci: "Balik dan Kali" (Keep, Change, Flip)</b><br />
+            Meng-<em>bagi</em> dengan pecahan sama dengan meng-<em>kali</em>
+            dengan kebalikan pecahan tersebut.
+          </p>
+          <p>
+            Rumus: $\frac{a}{b} \div \frac{c}{d} = \frac{a}{b} \times
+            \frac{d}{c}$
+          </p>
+          <p>
+            <b>Contoh: $\frac{1}{2} \div \frac{3}{4}$</b>
+          </p>
+          <ul style="padding-left: 20px">
+            <li>
+              Ubah $\div$ menjadi $\times$ dan balik pecahan kedua ($\frac{3}{4}
+              \rightarrow \frac{4}{3}$).
+            </li>
+            <li>Soal menjadi: $\frac{1}{2} \times \frac{4}{3}$</li>
+            <li>Gunakan aturan perkalian (bisa sederhanakan 2 dan 4):</li>
+            <li>$\frac{1}{1} \times \frac{2}{3} = \frac{2}{3}$</li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 3: Operasi Pecahan & Desimal - Bagian 4 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Operasi Pecahan & Desimal (Lanjutan)</h1>
+        <div class="materi-konten">
+          <h2>4. Operasi Desimal</h2>
+          <ul style="padding-left: 20px">
+            <li>
+              <b>Tambah/Kurang:</b> Luruskan tanda koma (,).<br />
+              Contoh: $12,5 + 1,23 \rightarrow$
+              <pre
+                style="
+                  font-family: 'Courier New', monospace;
+                  background: #f4f4f4;
+                  padding: 5px;
+                "
+              >
+  12,50
+   1,23
++ -----
+  13,73</pre
+              >
+            </li>
+            <li>
+              <b>Perkalian:</b> Kalikan seperti biasa, abaikan koma. Lalu,
+              hitung total angka di belakang koma pada soal untuk menentukan
+              hasil.
+            </li>
+            <li>
+              Contoh: $1,2 \times 0,3$<br />
+              $12 \times 3 = 36$.<br />
+              Soal: $1,2$ (1 angka di belakang koma) + $0,3$ (1 angka di
+              belakang koma) = Total 2 angka di belakang koma.<br />
+              Hasil: $0,36$.
+            </li>
+            <li>
+              <b>Pembagian:</b> Ubah pembagi (angka kedua) menjadi bilangan
+              bulat dengan menggeser koma. Geser koma pada angka pertama
+              sejumlah pergeseran yang sama.
+            </li>
+            <li>
+              Contoh: $4,5 \div 0,5$<br />
+              Geser koma pembagi ($0,5 \rightarrow 5$), 1 langkah.<br />
+              Geser koma angka pertama ($4,5 \rightarrow 45$), 1 langkah.<br />
+              Soal menjadi: $45 \div 5 = 9$.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Mudah (1-3) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $15 + 5 \times 2$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 40</div>
+              <div>B. 30</div>
+              <div>C. 25</div>
+              <div>D. 20</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">Hasil dari $(-8) + 12$ adalah...</div>
+            <div class="options">
+              <div>A. 4</div>
+              <div>B. -4</div>
+              <div>C. -20</div>
+              <div>D. 20</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $(-5) \times (-6)$ adalah...
+            </div>
+            <div class="options">
+              <div>A. -11</div>
+              <div>B. 30</div>
+              <div>C. 11</div>
+              <div>D. -30</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Mudah (4-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Mudah (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $\frac{1}{2} + \frac{1}{4}$ adalah...
+            </div>
+            <div class="options">
+              <div>A. $\frac{2}{8}$</div>
+              <div>B. $\frac{1}{6}$</div>
+              <div>C. $\frac{2}{6}$</div>
+              <div>D. $\frac{3}{4}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">Hasil dari $20 - 5 + 3$ adalah...</div>
+            <div class="options">
+              <div>A. 12</div>
+              <div>B. 22</div>
+              <div>C. 28</div>
+              <div>D. 18</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (6-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $100 - 20 \div 5 \times 8$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 320</div>
+              <div>B. 92</div>
+              <div>C. 68</div>
+              <div>D. 12,8</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $1\frac{1}{2} \div \frac{3}{4}$ adalah...
+            </div>
+            <div class="options">
+              <div>A. $1\frac{1}{2}$</div>
+              <div>B. $\frac{9}{8}$</div>
+              <div>C. $2\frac{1}{4}$</div>
+              <div>D. 2</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $15 + (-4 \times 3) - (-10)$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 17</div>
+              <div>B. -7</div>
+              <div>C. 37</div>
+              <div>D. 13</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (9-11) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Nilai dari $0,5 + 0,25 \times 4$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 1,5</div>
+              <div>B. 3,0</div>
+              <div>C. 5,0</div>
+              <div>D. 1,25</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $\frac{3}{5} \times (\frac{1}{2} + \frac{1}{3})$
+              adalah...
+            </div>
+            <div class="options">
+              <div>A. $\frac{3}{10}$</div>
+              <div>B. $\frac{5}{6}$</div>
+              <div>C. $\frac{1}{2}$</div>
+              <div>D. $1$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Nilai dari $(-50) \div 10 - (-5) \times 2$ adalah...
+            </div>
+            <div class="options">
+              <div>A. -10</div>
+              <div>B. -15</div>
+              <div>C. 5</div>
+              <div>D. 0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (12-14) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $(10 - 15) \times (5 + (-3))$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 10</div>
+              <div>B. -16</div>
+              <div>C. 16</div>
+              <div>D. -10</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $2\frac{1}{4} - 1\frac{1}{2}$ adalah...
+            </div>
+            <div class="options">
+              <div>A. $\frac{3}{4}$</div>
+              <div>B. $\frac{1}{4}$</div>
+              <div>C. $1\frac{1}{4}$</div>
+              <div>D. $\frac{1}{2}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Nilai dari $2,5 \div 0,5 + 1,2$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 1,7</div>
+              <div>B. 6,2</div>
+              <div>C. 2,95</div>
+              <div>D. 5,0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (15-17) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $50\% \times 200 + 15$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 115</div>
+              <div>B. 100</div>
+              <div>C. 150</div>
+              <div>D. 50.35</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Nilai dari $10 + (-100) \div 20$ adalah...
+            </div>
+            <div class="options">
+              <div>A. -5</div>
+              <div>B. 15</div>
+              <div>C. -4,5</div>
+              <div>D. 5</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $4 \times (1,5 + 0,5) \div \frac{1}{2}$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 8</div>
+              <div>B. 1</div>
+              <div>C. 16</div>
+              <div>D. 4</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (18-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Nilai dari $2,5 \times (\frac{1}{2} + \frac{1}{5})$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 1,25</div>
+              <div>B. 1,5</div>
+              <div>C. 2,75</div>
+              <div>D. 1,75</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Suhu di kota A adalah $-5^\circ$C. Suhu di kota B $12^\circ$C
+              lebih hangat dari kota A. Suhu di kota C adalah setengah dari suhu
+              kota B. Berapakah suhu di kota C?
+            </div>
+            <div class="options">
+              <div>A. $3,5^\circ$C</div>
+              <div>B. $6^\circ$C</div>
+              <div>C. $7^\circ$C</div>
+              <div>D. $-2,5^\circ$C</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $\frac{\frac{1}{2} + \frac{1}{3}}{\frac{1}{2} -
+              \frac{1}{3}}$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 6</div>
+              <div>B. $\frac{1}{6}$</div>
+              <div>C. 1</div>
+              <div>D. 5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (21-23) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $(1 - \frac{1}{2}) \times (1 - \frac{1}{3}) \times (1 -
+              \frac{1}{4}) \times (1 - \frac{1}{5})$ adalah...
+            </div>
+            <div class="options">
+              <div>A. $1$</div>
+              <div>B. $\frac{4}{5}$</div>
+              <div>C. $\frac{1}{5}$</div>
+              <div>D. $\frac{120}{120}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Nilai dari $\frac{0,25 \times 1,2}{0,5}$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 0,06</div>
+              <div>B. 6</div>
+              <div>C. 0,5</div>
+              <div>D. 0,6</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $\frac{120}{5 \times (10 - 4)} + 15 - 3$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 16</div>
+              <div>B. 5</div>
+              <div>C. 4</div>
+              <div>D. 28</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (24-26) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Jika $A = -2$, $B = 5$, dan $C = -3$. Berapakah nilai dari $A
+              \times (B - C) \div C$?
+            </div>
+            <div class="options">
+              <div>A. $4$</div>
+              <div>B. $-\frac{16}{3}$</div>
+              <div>C. $\frac{16}{3}$</div>
+              <div>D. $-4$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $(\frac{1}{2} - \frac{1}{3}) \times (\frac{1}{4} +
+              \frac{1}{5})$ adalah...
+            </div>
+            <div class="options">
+              <div>A. $\frac{1}{120}$</div>
+              <div>B. $\frac{3}{40}$</div>
+              <div>C. $\frac{1}{6}$</div>
+              <div>D. $\frac{9}{20}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>26.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Nilai dari $1,25 \div (0,5 \div 0,2)$ adalah...
+            </div>
+            <div class="options">
+              <div>A. 5</div>
+              <div>B. 1</div>
+              <div>C. 6,25</div>
+              <div>D. 0,5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (27-29) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>27.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $\frac{3}{4} \div (1\frac{1}{2} + \frac{1}{4}) \times
+              7$ adalah...
+            </div>
+            <div class="options">
+              <div>A. $\frac{21}{16}$</div>
+              <div>B. 3</div>
+              <div>C. $\frac{3}{7}$</div>
+              <div>D. $1$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>28.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Nilai dari $1 \div (1 \div (1 \div (1 \div 2)))$ adalah...
+            </div>
+            <div class="options">
+              <div>A. $1$</div>
+              <div>B. $\frac{1}{2}$</div>
+              <div>C. $4$</div>
+              <div>D. $2$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>29.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Nilai dari $100 \times (-0,1) \times (-0,01) \times (-1)$
+              adalah...
+            </div>
+            <div class="options">
+              <div>A. $-0,1$</div>
+              <div>B. $0,1$</div>
+              <div>C. $-1$</div>
+              <div>D. $1$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>30.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Hasil dari $\frac{2,5 \times \frac{1}{5} + 0,5 \times
+              \frac{1}{2}}{1,5}$ adalah...
+            </div>
+            <div class="options">
+              <div>A. $0,75$</div>
+              <div>B. $1$</div>
+              <div>C. $0,5$</div>
+              <div>D. $1,5$</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- START PEMBAHASAN -->
+    <!-- ================================================================= -->
+
+    <!-- PEMBAHASAN (1-3) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 25</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Sesuai aturan KaBaTaKu, perkalian ($\times$)
+              harus dikerjakan lebih dahulu daripada penjumlahan ($+$).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $15 + 5 \times 2$<br />
+              2. Kerjakan perkalian dulu: $5 \times 2 = 10$.<br />
+              3. Soal menjadi: $15 + 10$<br />
+              4. Hasil: $25$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 4</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Penjumlahan bilangan negatif dan positif. Bisa
+              dibayangkan sebagai "utang 8, dibayar 12". <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $(-8) + 12$<br />
+              2. Ini sama dengan $12 - 8$.<br />
+              3. Hasil: $4$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan-n">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 30</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Perkalian dua bilangan negatif. Aturan
+              tandanya adalah (Negatif $\times$ Negatif = Positif). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $(-5) \times (-6)$<br />
+              2. Tanda ($-$) $\times$ ($-$) = ($+$).<br />
+              3. Hitung angkanya: $5 \times 6 = 30$.<br />
+              4. Hasil: $30$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. $\frac{3}{4}$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Penjumlahan pecahan dengan penyebut berbeda.
+              Penyebut harus disamakan terlebih dahulu menggunakan KPK.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $\frac{1}{2} + \frac{1}{4}$<br />
+              2. KPK dari 2 dan 4 adalah 4.<br />
+              3. Ubah $\frac{1}{2}$ menjadi per 4: $\frac{1 \times 2}{2 \times
+              2} = \frac{2}{4}$<br />
+              4. Pecahan $\frac{1}{4}$ tetap.<br />
+              5. Soal menjadi: $\frac{2}{4} + \frac{1}{4} = \frac{2+1}{4} =
+              \frac{3}{4}$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (4-6) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah & Sedang</div>
+        <div class="soal-latihan-n">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 18</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Aturan KaBaTaKu. Penjumlahan ($+$) dan
+              Pengurangan ($-$) setara. Kerjakan dari kiri ke kanan.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $20 - 5 + 3$<br />
+              2. Kerjakan dari kiri: $20 - 5 = 15$.<br />
+              3. Soal menjadi: $15 + 3$<br />
+              4. Hasil: $18$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 68</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Aturan KaBaTaKu. Perkalian ($\times$) dan
+              Pembagian ($\div$) setara dan dikerjakan dari kiri ke kanan,
+              sebelum Pengurangan ($-$). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $100 - 20 \div 5 \times 8$<br />
+              2. Kerjakan pembagian dulu (karena di kiri): $20 \div 5 = 4$<br />
+              3. Soal menjadi: $100 - 4 \times 8$<br />
+              4. Kerjakan perkalian: $4 \times 8 = 32$<br />
+              5. Soal menjadi: $100 - 32$<br />
+              6. Hasil: $68$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (7-9) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 2</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pembagian pecahan. Ubah pecahan campuran ke
+              pecahan biasa, lalu gunakan aturan "Balik dan Kali". <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $1\frac{1}{2} \div \frac{3}{4}$<br />
+              2. Ubah pecahan campuran: $1\frac{1}{2} = \frac{(1 \times 2) +
+              1}{2} = \frac{3}{2}$<br />
+              3. Soal menjadi: $\frac{3}{2} \div \frac{3}{4}$<br />
+              4. Balik dan kali: $\frac{3}{2} \times \frac{4}{3}$<br />
+              5. Sederhanakan 3 (atas) dengan 3 (bawah). Sederhanakan 4 (atas)
+              dan 2 (bawah), sisa 2 di atas.<br />
+              6. Soal menjadi: $\frac{1}{1} \times \frac{2}{1} = 2$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 13</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Operasi campuran yang melibatkan bilangan
+              negatif dan tanda kurung. Dahulukan kurung, lalu KaBaTaKu.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $15 + (-4 \times 3) - (-10)$<br />
+              2. Kerjakan kurung pertama: $(-4 \times 3) = -12$<br />
+              3. Kerjakan kurung kedua: $-(-10) = +10$<br />
+              4. Soal menjadi: $15 + (-12) + 10 = 15 - 12 + 10$<br />
+              6. Kerjakan dari kiri: $(15 - 12) + 10 = 3 + 10 = 13$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (10-12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 1,5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Operasi campuran desimal (KaBaTaKu). Dahulukan
+              perkalian. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $0,5 + 0,25 \times 4$<br />
+              2. Kerjakan perkalian: $0,25 \times 4 = 1,0$<br />
+              3. Soal menjadi: $0,5 + 1,0$<br />
+              4. Hasil: $1,5$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. $\frac{1}{2}$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Operasi campuran pecahan. Dahulukan tanda
+              kurung (samakan penyebut). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $\frac{3}{5} \times (\frac{1}{2} + \frac{1}{3})$<br />
+              2. Kerjakan kurung (KPK 2 & 3 adalah 6): $(\frac{3}{6} +
+              \frac{2}{6}) = \frac{5}{6}$<br />
+              3. Soal menjadi: $\frac{3}{5} \times \frac{5}{6}$<br />
+              4. Sederhanakan 5 (atas) dan 5 (bawah). Sisa $\frac{3}{6}$.<br />
+              5. Sederhanakan $\frac{3}{6}$ (bagi 3 atas dan bawah) =
+              $\frac{1}{2}$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (10-12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KaBaTaKu dengan bilangan negatif. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $(-50) \div 10 - (-5) \times 2$<br />
+              2. Kerjakan pembagian: $(-50) \div 10 = -5$<br />
+              3. Kerjakan perkalian: $(-5) \times 2 = -10$<br />
+              4. Soal menjadi: $(-5) - (-10)$<br />
+              5. Dua negatif bertemu: $(-5) + 10$<br />
+              6. Hasil: $5$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. -10</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Perkalian hasil dari dua operasi dalam kurung.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $(10 - 15) \times (5 + (-3))$<br />
+              2. Kurung pertama: $10 - 15 = -5$<br />
+              3. Kurung kedua: $5 + (-3) = 5 - 3 = 2$<br />
+              4. Soal menjadi: $(-5) \times (2)$<br />
+              5. Hasil: $-10$ (Negatif $\times$ Positif = Negatif).
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (13-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. $\frac{3}{4}$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pengurangan pecahan campuran. Samakan penyebut
+              (KPK dari 4 dan 2 adalah 4). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $2\frac{1}{4} - 1\frac{1}{2}$<br />
+              2. Ubah $1\frac{1}{2}$ ke penyebut 4: $1\frac{1 \times 2}{2 \times
+              2} = 1\frac{2}{4}$<br />
+              3. Soal menjadi: $2\frac{1}{4} - 1\frac{2}{4}$<br />
+              4. Karena $\frac{1}{4}$ tidak bisa dikurangi $\frac{2}{4}$, pinjam
+              1 dari angka 2.<br />
+              $2\frac{1}{4} = 1 + 1 + \frac{1}{4} = 1 + \frac{4}{4} +
+              \frac{1}{4} = 1\frac{5}{4}$<br />
+              5. Soal menjadi: $1\frac{5}{4} - 1\frac{2}{4} = (1-1) +
+              (\frac{5-2}{4}) = 0 + \frac{3}{4}$<br />
+              6. Hasil: $\frac{3}{4}$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 6,2</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KaBaTaKu desimal. Dahulukan pembagian.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $2,5 \div 0,5 + 1,2$<br />
+              2. Kerjakan pembagian: $2,5 \div 0,5$. Geser koma 1 langkah
+              $\rightarrow 25 \div 5 = 5$.<br />
+              3. Soal menjadi: $5 + 1,2$<br />
+              4. Hasil: $6,2$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (16-18) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Sedang & Sulit</div>
+        <div class="soal-latihan-n">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 115</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Persen (%) artinya per-100. KaBaTaKu
+              (perkalian dulu). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $50\% \times 200 + 15$<br />
+              2. $50\% \times 200$ artinya $\frac{50}{100} \times 200$.<br />
+              3. $\frac{1}{2} \times 200 = 100$. (Setengah dari 200 adalah
+              100).<br />
+              4. Soal menjadi: $100 + 15$<br />
+              5. Hasil: $115$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KaBaTaKu (Pembagian dulu). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $10 + (-100) \div 20$<br />
+              2. Kerjakan pembagian: $(-100) \div 20 = -5$ (Negatif $\div$
+              Positif = Negatif).<br />
+              3. Soal menjadi: $10 + (-5)$<br />
+              4. $10 - 5 = 5$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Sedang & Sulit</div>
+        <div class="soal-latihan-n">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 16</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KaBaTaKu (Kurung dulu), lalu pembagian pecahan
+              (Balik dan Kali). <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $4 \times (1,5 + 0,5) \div \frac{1}{2}$<br />
+              2. Kerjakan kurung: $1,5 + 0,5 = 2,0$<br />
+              3. Soal menjadi: $4 \times 2 \div \frac{1}{2}$<br />
+              4. Kerjakan dari kiri (perkalian): $4 \times 2 = 8$<br />
+              5. Soal menjadi: $8 \div \frac{1}{2}$<br />
+              6. Balik dan Kali: $8 \times \frac{2}{1} = 16$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 1,75</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Operasi campuran desimal dan pecahan.
+              Dahulukan tanda kurung. <br /><br />
+              <b>Langkah-langkah Penyelesaian (Cara Desimal):</b><br />
+              1. Soal: $2,5 \times (\frac{1}{2} + \frac{1}{5})$<br />
+              2. Ubah isi kurung ke desimal: $\frac{1}{2} = 0,5$ dan
+              $\frac{1}{5} = 0,2$<br />
+              3. Kerjakan kurung: $(0,5 + 0,2) = 0,7$<br />
+              4. Soal menjadi: $2,5 \times 0,7$<br />
+              5. Hitung $25 \times 7 = 175$. Total 2 angka di belakang koma.
+              Hasil: $1,75$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (19-21) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade)</div>
+        <div class="soal-latihan">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. $3,5^\circ$C</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal cerita bilangan bulat. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Suhu A = $-5^\circ$C.<br />
+              2. Suhu B = $12^\circ$C lebih hangat dari A $\rightarrow (-5) + 12
+              = 7^\circ$C.<br />
+              3. Suhu C = Setengah dari Suhu B $\rightarrow 7 \div 2 =
+              3,5^\circ$C.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pembagian pecahan kompleks. Selesaikan
+              pembilang (atas) dan penyebut (bawah) dulu. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Bagian Atas: $\frac{1}{2} + \frac{1}{3} = \frac{3}{6} +
+              \frac{2}{6} = \frac{5}{6}$<br />
+              2. Bagian Bawah: $\frac{1}{2} - \frac{1}{3} = \frac{3}{6} -
+              \frac{2}{6} = \frac{1}{6}$<br />
+              3. Soal menjadi: $\frac{5/6}{1/6}$ atau $\frac{5}{6} \div
+              \frac{1}{6}$<br />
+              4. Balik dan Kali: $\frac{5}{6} \times \frac{6}{1} = 5$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (22-24) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. $\frac{1}{5}$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Perkalian pecahan berantai. Selesaikan setiap
+              kurung dan amati polanya. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $(1 - \frac{1}{2}) \times (1 - \frac{1}{3}) \times (1 -
+              \frac{1}{4}) \times (1 - \frac{1}{5})$<br />
+              2. Ubah isi kurung: $(\frac{1}{2}) \times (\frac{2}{3}) \times
+              (\frac{3}{4}) \times (\frac{4}{5})$<br />
+              3. Sederhanakan 2 (atas) dan 2 (bawah), 3 (atas) dan 3 (bawah), 4
+              (atas) dan 4 (bawah).<br />
+              4. Yang tersisa adalah 1 di pembilang pertama dan 5 di penyebut
+              terakhir.<br />
+              5. Hasil: $\frac{1}{5}$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 0,6</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Operasi desimal. <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $\frac{0,25 \times 1,2}{0,5}$<br />
+              2. Kerjakan atas: $0,25 \times 1,2$. (Sama dengan $25 \times 12 =
+              300$). Ada 3 angka di belakang koma (0,25 dan 1,2). Jadi hasilnya
+              $0,300$ atau $0,3$.<br />
+              3. Soal menjadi: $\frac{0,3}{0,5}$<br />
+              4. Geser koma atas dan bawah 1 langkah: $3 \div 5 = \frac{3}{5} =
+              0,6$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. 16</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KaBaTaKu kompleks. <br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $\frac{120}{5 \times (10 - 4)} + 15 - 3$<br />
+              2. Kerjakan kurung: $10 - 4 = 6$<br />
+              3. Soal menjadi: $\frac{120}{5 \times 6} + 15 - 3$<br />
+              4. Kerjakan penyebut: $5 \times 6 = 30$<br />
+              5. Soal menjadi: $\frac{120}{30} + 15 - 3$<br />
+              6. Kerjakan pembagian: $120 \div 30 = 4$<br />
+              7. Soal menjadi: $4 + 15 - 3$<br />
+              8. Kerjakan dari kiri: $4 + 15 = 19 \rightarrow 19 - 3 = 16$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. $\frac{16}{3}$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Substitusi nilai ke dalam ekspresi aljabar,
+              lalu gunakan KaBaTaKu. <br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $A \times (B - C) \div C$<br />
+              2. Masukkan nilai: $(-2) \times (5 - (-3)) \div (-3)$<br />
+              3. Kerjakan kurung: $5 - (-3) = 5 + 3 = 8$<br />
+              4. Soal menjadi: $(-2) \times (8) \div (-3)$<br />
+              5. Kerjakan dari kiri (perkalian): $(-2) \times 8 = -16$<br />
+              6. Soal menjadi: $(-16) \div (-3)$<br />
+              7. Hasil: $\frac{-16}{-3} = \frac{16}{3}$ (Negatif $\div$ Negatif
+              = Positif).
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (25-27) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. $\frac{3}{40}$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Perkalian pecahan, dahulukan kurung.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $(\frac{1}{2} - \frac{1}{3}) \times (\frac{1}{4} +
+              \frac{1}{5})$<br />
+              2. Kurung 1 (KPK 6): $(\frac{3}{6} - \frac{2}{6}) =
+              \frac{1}{6}$<br />
+              3. Kurung 2 (KPK 20): $(\frac{5}{20} + \frac{4}{20}) =
+              \frac{9}{20}$<br />
+              4. Soal menjadi: $\frac{1}{6} \times \frac{9}{20}$<br />
+              5. Sederhanakan 6 dan 9 (bagi 3): $\frac{1}{2} \times
+              \frac{3}{20}$<br />
+              6. Hasil: $\frac{1 \times 3}{2 \times 20} = \frac{3}{40}$.
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>26.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 0,5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KaBaTaKu desimal. Utamakan kurung.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $1,25 \div (0,5 \div 0,2)$<br />
+              2. Kerjakan kurung: $0,5 \div 0,2$. Geser koma $\rightarrow 5 \div
+              2 = 2,5$<br />
+              3. Soal menjadi: $1,25 \div 2,5$<br />
+              4. Geser koma pembagi 1 langkah ($2,5 \rightarrow 25$). Geser koma
+              angka pertama 1 langkah ($1,25 \rightarrow 12,5$).<br />
+              5. Soal menjadi: $12,5 \div 25 = 0,5$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN (28-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>27.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: B. 3</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> KaBaTaKu campuran. Utamakan kurung, lalu
+              kerjakan dari kiri. <br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $\frac{3}{4} \div (1\frac{1}{2} + \frac{1}{4}) \times
+              7$<br />
+              2. Kerjakan kurung: $1\frac{1}{2} + \frac{1}{4} = 1\frac{2}{4} +
+              \frac{1}{4} = 1\frac{3}{4}$<br />
+              3. Ubah ke pecahan biasa: $1\frac{3}{4} = \frac{7}{4}$<br />
+              4. Soal menjadi: $\frac{3}{4} \div \frac{7}{4} \times 7$<br />
+              5. Kerjakan dari kiri (pembagian): $\frac{3}{4} \times \frac{4}{7}
+              = \frac{3}{7}$ (Sederhanakan angka 4)<br />
+              6. Soal menjadi: $\frac{3}{7} \times 7$<br />
+              7. Hasil: $3$ (Sederhanakan angka 7).
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>28.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: D. 2</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pembagian pecahan bertingkat. Kerjakan dari
+              kurung terdalam. <br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $1 \div (1 \div (1 \div (1 \div 2)))$<br />
+              2. Kurung 1 (terdalam): $1 \div 2 = \frac{1}{2}$<br />
+              3. Soal menjadi: $1 \div (1 \div (1 \div \frac{1}{2}))$<br />
+              4. Kurung 2: $1 \div \frac{1}{2} = 1 \times \frac{2}{1} = 2$<br />
+              5. Soal menjadi: $1 \div (1 \div 2)$<br />
+              6. Kurung 3: $1 \div 2 = \frac{1}{2}$<br />
+              7. Soal menjadi: $1 \div \frac{1}{2}$<br />
+              8. Hasil: $1 \times \frac{2}{1} = 2$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>29.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: A. -0,1</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Perkalian desimal dan bilangan negatif.
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $100 \times (-0,1) \times (-0,01) \times (-1)$<br />
+              2. Hitung tanda: Ada 3 tanda negatif (ganjil), maka hasilnya pasti
+              <b>negatif</b>.<br />
+              3. Hitung angka: $100 \times 0,1 \times 0,01 \times 1$ secara
+              berurut.<br />
+              4. $100 \times 0,1 = 10$<br />
+              5. $10 \times 0,01 = 0,1$<br />
+              6. $0,1 \times 1 = 0,1$<br />
+              7. Gabungkan dengan tanda: $-0,1$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan-n">
+          <b>30.</b>
+          <div class="soal-wrapper">
+            <b>Jawaban: C. 0,5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Ubah semua ke satu bentuk (misal: desimal).
+              <br /><br />
+              <b>Langkah-langkah Penyelesaian:</b><br />
+              1. Soal: $\frac{2,5 \times \frac{1}{5} + 0,5 \times
+              \frac{1}{2}}{1,5}$<br />
+              2. Ubah pecahan ke desimal: $\frac{1}{5}=0,2$ dan
+              $\frac{1}{2}=0,5$<br />
+              3. Soal menjadi: $\frac{2,5 \times 0,2 + 0,5 \times 0,5}{1,5}$<br />
+              4. Hitung pembilang (atas):<br />
+              - Perkalian 1: $2,5 \times 0,2 = 0,5$<br />
+              - Perkalian 2: $0,5 \times 0,5 = 0,25$<br />
+              - Penjumlahan: $0,5 + 0,25 = 0,75$<br />
+              5. Soal menjadi: $\frac{0,75}{1,5}$<br />
+              6. Geser koma pembagi ($1,5 \rightarrow 15$). Geser koma atas
+              ($0,75 \rightarrow 7,5$).<br />
+              7. $7,5 \div 15 = 0,5$.
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
