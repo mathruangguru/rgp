@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Bahasa utama 'en' (English) -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FISO Maths Practice Module A</title>
+    <script>
+      // Setup MathJax for LaTeX rendering
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        /* PENTING: Memastikan setiap section.page adalah halaman yang terpisah */
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 38pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      /* Watermark */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/png_aaojxe_9962.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      /* Memastikan satu blok soal/pembahasan tidak terpotong */
+      .soal-latihan {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .soal-latihan > b {
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      .soal-wrapper {
+        flex-grow: 1;
+      }
+      .soal-konten {
+        text-align: justify;
+      }
+      .options {
+        padding-left: 0px;
+        margin-top: 10px;
+        display: block;
+      }
+      .options div {
+        margin-bottom: 5px;
+        padding-left: 20px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 8pt; /* Sedikit lebih besar dari sebelumnya */
+        color: var(--grey-text);
+        padding-top: 5px;
+        margin-top: auto;
+        border-top: 1px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4caf50;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .image-description {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-style: italic;
+        color: #555;
+      }
+      .image-description img {
+        max-width: 500px;
+        height: auto;
+        display: inline-block;
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          padding: 2.5cm;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+        .page-footer {
+          position: absolute;
+          bottom: 1cm;
+          left: 2.5cm;
+          right: 2.5cm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============================== Halaman 1: Sampul ============================== -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/png_aaojxe_9962.png"
+          alt="Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">FISO Maths Practice Module A<br /></h1>
+        <p class="cover-subtitle">Grade 7-8 (Category 5)</p>
+      </div>
+    </section>
+
+    <!-- ============================== Halaman 2: Soal (Q1 - Q3) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Practice Problems</h1>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A book has 200 pages. A student reads 20% of the book on Monday,
+              and 25% of the *remaining* pages on Tuesday. How many pages are
+              left to read?
+            </div>
+            <div class="options">
+              <div>A. 100</div>
+              <div>B. 110</div>
+              <div>C. 120</div>
+              <div>D. 160</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              If $a + b = 5$, $b + c = 8$, and $c + a = 7$, find the value of $a
+              - b + c$.
+            </div>
+            <div class="options">
+              <div>A. 2</div>
+              <div>B. 4</div>
+              <div>C. 10</div>
+              <div>D. 0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Soal 1/9
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 3: Soal (Q4 - Q6) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              In a right-angled triangle $ABC$, the right angle is at $C$. A
+              point $D$ is on the side $AC$. Given $BC = 8$ cm, $DB = 10$ cm,
+              and $AB = 17$ cm. Find the length of $AD$.
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_ira3ee_1697.png"
+                    style="width: 220px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. 6 cm</div>
+              <div>B. 7 cm</div>
+              <div>C. 9 cm</div>
+              <div>D. 15 cm</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Solve: $\frac{\sqrt{5} \cdot \sqrt{10}}{\sqrt{2}} = ?$
+            </div>
+            <div class="options">
+              <div>A. $\sqrt{5}$</div>
+              <div>B. 5</div>
+              <div>C. $\sqrt{10}$</div>
+              <div>D. 2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Soal 2/9
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 4: Soal (Q7 - Q9) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the value of $y$: $\frac{3}{y} + \frac{y}{y+2} +
+              \frac{y-3}{y} = \frac{3}{2}$
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 2</div>
+              <div>C. 3</div>
+              <div>D. 4</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Solve: $2^{a+1} = 3 \implies 4^{a+1} = ?$
+            </div>
+            <div class="options">
+              <div>A. 6</div>
+              <div>B. 9</div>
+              <div>C. 12</div>
+              <div>D. 8</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Simplify: $\frac{ab^2-9a-4b^2+36}{ab-4b-3a+12} +
+              \frac{ab-3a-b+3}{a-1} = ?$
+            </div>
+            <div class="options">
+              <div>A. $2b$</div>
+              <div>B. $b+6$</div>
+              <div>C. $2b-6$</div>
+              <div>D. $2a$</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Soal 3/9
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A square $ABCD$ has a side length of 4 cm. $E$ is the midpoint of
+              side $BC$ and $F$ is the midpoint of side $CD$. What is the area
+              of the triangle $AEF$?
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_bxawie_9972.png"
+                    style="width: 220px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. 4 cm²</div>
+              <div>B. 6 cm²</div>
+              <div>C. 8 cm²</div>
+              <div>D. 10 cm²</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A rule connects two shapes to a number based on their number of
+              sides. Based on the pattern below, find the value of $x$.
+              <br /><br />
+              (Hexagon, Triangle) $\to$ 27
+              <br />
+              (Pentagon, Square) $\to$ 9
+              <br />
+              (Heptagon, Hexagon) $\to$ 13
+              <br />
+              (Octagon, Pentagon) $\to x$
+            </div>
+            <div class="options">
+              <div>A. 13</div>
+              <div>B. 39</div>
+              <div>C. 40</div>
+              <div>D. 64</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Soal 4/9
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 5: Soal (Q10 - Q12) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              The number sequence below is written according to a rule.
+              Accordingly, what is the value of $x$?
+              <br />
+              $2, 6, 30, 210, x$
+            </div>
+            <div class="options">
+              <div>A. 1050</div>
+              <div>B. 1470</div>
+              <div>C. 1680</div>
+              <div>D. 1890</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Given the equations: $x + 2y = 8$ and $3x - y = 10$. What is the
+              value of $x + y$?
+            </div>
+            <div class="options">
+              <div>A. 4</div>
+              <div>B. 5</div>
+              <div>C. 6</div>
+              <div>D. 7</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A mother is 40 years old and her daughter is 10 years old. In how
+              many years will the mother's age be three times her daughter's
+              age?
+            </div>
+            <div class="options">
+              <div>A. 4</div>
+              <div>B. 5</div>
+              <div>C. 8</div>
+              <div>D. 10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Soal 5/9
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 6: Soal (Q13 - Q15) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Given these equations:
+              <br />
+              Apple + Apple + Apple = 30
+              <br />
+              Apple + Banana + Banana = 18
+              <br />
+              Banana $\times$ Cherry = Apple
+              <br />
+              What is the value of Apple + Banana + Cherry?
+            </div>
+            <div class="options">
+              <div>A. 14</div>
+              <div>B. 15.5</div>
+              <div>C. 16</div>
+              <div>D. 16.5</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Solve: $$ (3\frac{1}{2} - 2\frac{1}{3}) \div 1\frac{1}{6} = ? $$
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. $\frac{6}{7}$</div>
+              <div>C. $\frac{7}{6}$</div>
+              <div>D. 2</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the next number: $0, 3, 8, 15, ?$
+            </div>
+            <div class="options">
+              <div>A. 24</div>
+              <div>B. 25</div>
+              <div>C. 26</div>
+              <div>D. 35</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Soal 6/9
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 7: Soal (Q16 - Q18) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A pattern is made of dots. Following this arithmetic rule, which
+              Pattern number will have 32 dots?
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_lucgfi_3474.png"
+                    style="width: 300px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. 8</div>
+              <div>B. 9</div>
+              <div>C. 10</div>
+              <div>D. 11</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find: $$ \frac{a}{b} = \frac{c}{d} = \frac{e}{f} = 3 \implies
+              \frac{a + c + e}{b + d + f} = ? $$
+            </div>
+            <div class="options">
+              <div>A. $\frac{1}{3}$</div>
+              <div>B. 3</div>
+              <div>C. 9</div>
+              <div>D. Cannot be determined</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              What is one possible value for $(x, y)$? $$ x^2 + y^2 = 25 $$ $$ y
+              = x - 1 $$
+            </div>
+            <div class="options">
+              <div>A. (3, 2)</div>
+              <div>B. (5, 4)</div>
+              <div>C. (4, 3)</div>
+              <div>D. (1, 0)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Soal 7/9
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 8: Soal (Q19 - Q21) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              What is the value of $x$? $$ \frac{x^2-x-6}{x+2} = 1 $$
+            </div>
+            <div class="options">
+              <div>A. -2</div>
+              <div>B. 3</div>
+              <div>C. 4</div>
+              <div>D. 1</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find $x=?$ $$ \frac{x+1}{x-1} = \frac{5}{3} $$
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 2</div>
+              <div>C. 3</div>
+              <div>D. 4</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Solve: $ (2.5 \times 4) + (10.5 \div 0.5) - (3^2) $
+              <br /><br />
+              Answer: __________
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              What is the value of $x+y=?$ $$ 2x + 3y = 12 $$ $$ 2x - 3y = 0 $$
+              Answer: __________
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Soal 8/9
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 9: Soal (Q22 - Q24) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              In the figure, $ABCD$ is a square with a side length of 4 cm. The
+              points $E, F, G, H$ are on the sides $AB, BC, CD, DA$
+              respectively, such that $AE = BF = CG = DH = 1$ cm. What is the
+              area of the inner square $EFGH$?
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_pk980y_4111.png"
+                    style="width: 200px"
+                  />
+                </div>
+              </div>
+              <br />
+              Answer: __________
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A fractal pattern is built in stages, based on the figure below.
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_wyqblr_1446.png"
+                    style="width: 300px"
+                  />
+                </div>
+              </div>
+              Following this rule, how many boxes will be in <b>Stage 5</b>?
+              <br />
+              Answer: __________
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A rule is defined as: $N \to N - (product \ of \ N's \ digits)$.
+              <br />
+              Example: $53 \to 53 - (5 \times 3) = 38$.
+              <br />
+              Example: $27 \to 27 - (2 \times 7) = 13$.
+              <br />
+              Accordingly, what is the value of $65 \to ?$
+              <br /><br />
+              Answer: __________
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Soal 9/9
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 11: Pembahasan (A1 - A2) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 120</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Perhitungan persentase multi-langkah.
+              <br /><br />
+              <b>Langkah-langkah:</b>
+              <ul>
+                <li>Total Halaman: 200</li>
+                <li>
+                  Senin: Membaca 20% dari 200. $0.20 \times 200 = 40$ halaman.
+                </li>
+                <li>Sisa Halaman: $200 - 40 = 160$ halaman.</li>
+                <li>
+                  Selasa: Membaca 25% dari *sisa* halaman. $0.25 \times 160 =
+                  40$ halaman.
+                </li>
+                <li>
+                  Sisa halaman yang belum dibaca: $160 \text{ (setelah Senin)} -
+                  40 \text{ (dibaca Selasa)} = 120$ halaman.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 4</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Sistem Persamaan Linier Tiga Variabel (SLETV).
+              <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Jumlahkan semua persamaan: $2(a + b + c) = 5 + 8 + 7 = 20$.
+                  Maka $a + b + c = 10$.
+                </li>
+                <li>
+                  Cari nilai masing-masing variabel:
+                  <ul>
+                    <li>$a = (a+b+c) - (b+c) = 10 - 8 = 2$.</li>
+                    <li>$b = (a+b+c) - (a+c) = 10 - 7 = 3$.</li>
+                    <li>$c = (a+b+c) - (a+b) = 10 - 5 = 5$.</li>
+                  </ul>
+                </li>
+                <li>Hitung ekspresi akhir: $a - b + c = 2 - 3 + 5 = 4$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 1/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 12: Pembahasan (A3 - A4) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 9 cm</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Teorema Pythagoras ($a^2 + b^2 = c^2$).
+              <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  <b>Segitiga DBC:</b> Siku-siku di $C$. $DB=10$, $BC=8$. $$ DC
+                  = \sqrt{10^2 - 8^2} = \sqrt{100 - 64} = \sqrt{36} = 6 \text{
+                  cm} $$
+                </li>
+                <li>
+                  <b>Segitiga ABC:</b> Siku-siku di $C$. $AB=17$, $BC=8$. $$ AC
+                  = \sqrt{17^2 - 8^2} = \sqrt{289 - 64} = \sqrt{225} = 15 \text{
+                  cm} $$
+                </li>
+                <li>
+                  <b>Cari AD:</b>
+                  $$ AD = AC - DC = 15 - 6 = 9 \text{ cm} $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Sifat-sifat akar kuadrat. $\sqrt{a} \cdot
+              \sqrt{b} = \sqrt{ab}$ dan $\frac{\sqrt{a}}{\sqrt{b}} =
+              \sqrt{\frac{a}{b}}$. <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Gabungkan: $$ \frac{\sqrt{5} \cdot \sqrt{10}}{\sqrt{2}} =
+                  \frac{\sqrt{50}}{\sqrt{2}} $$
+                </li>
+                <li>Sederhanakan: $$ \sqrt{\frac{50}{2}} = \sqrt{25} = 5 $$</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 2/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 13: Pembahasan (A5 - A6) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 2</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Penjumlahan pecahan aljabar. <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Gabungkan suku-suku dengan penyebut $y$: $$ \left(\frac{3}{y}
+                  + \frac{y-3}{y}\right) + \frac{y}{y+2} = \frac{3}{2} $$
+                </li>
+                <li>
+                  Sederhanakan: $$ \frac{3 + y - 3}{y} + \frac{y}{y+2} =
+                  \frac{3}{2} \implies \frac{y}{y} + \frac{y}{y+2} = \frac{3}{2}
+                  $$
+                </li>
+                <li>$1 + \frac{y}{y+2} = \frac{3}{2}$</li>
+                <li>
+                  Pecahkan untuk $y$: $$ \frac{y}{y+2} = \frac{3}{2} - 1 =
+                  \frac{1}{2} \implies 2y = y+2 \implies y = 2 $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 3/15
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 9</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Sifat eksponen: $(a^m)^n = a^{mn}$.
+              <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>Diketahui $2^{a+1} = 3$.</li>
+                <li>
+                  Ekspresi yang dicari adalah $4^{a+1}$. Ubah basis: $$ 4^{a+1}
+                  = (2^2)^{a+1} $$
+                </li>
+                <li>
+                  Terapkan sifat eksponen: $$ (2^2)^{a+1} = (2^{a+1})^2 $$
+                </li>
+                <li>Substitusikan nilai yang diketahui: $$ (3)^2 = 9 $$</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 4/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 14: Pembahasan (A7 - A8) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <b>Answer: A. $2b$</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pemfaktoran dengan pengelompokan. <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  <b>Suku Pertama:</b> $\frac{a(b^2-9) - 4(b^2-9)}{b(a-4) -
+                  3(a-4)} = \frac{(a-4)(b^2-9)}{(b-3)(a-4)}$ $$
+                  \frac{(a-4)(b-3)(b+3)}{(b-3)(a-4)} = b+3 $$
+                </li>
+                <li>
+                  <b>Suku Kedua:</b> $\frac{a(b-3) - 1(b-3)}{a-1} =
+                  \frac{(a-1)(b-3)}{a-1}$ $$ \frac{(a-1)(b-3)}{a-1} = b-3 $$
+                </li>
+                <li>
+                  <b>Hasil Akhir:</b>
+                  $$ (b+3) + (b-3) = 2b $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 5/15
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 6 cm²</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Luas persegi dan luas segitiga (Metode
+              Subtraksi Area). <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Cara termudah mencari luas $\triangle AEF$ adalah dengan
+                  mengurangi luas persegi $ABCD$ dengan luas tiga segitiga
+                  siku-siku di pojok ($ABE$, $ADF$, dan $ECF$).
+                </li>
+                <li>
+                  Luas Persegi $ABCD = \text{sisi} \times \text{sisi} = 4 \times
+                  4 = 16 \text{ cm}^2$.
+                </li>
+                <li>
+                  $E$ adalah titik tengah $BC$, maka $BE = EC = 4/2 = 2 \text{
+                  cm}$.
+                </li>
+                <li>
+                  $F$ adalah titik tengah $CD$, maka $CF = FD = 4/2 = 2 \text{
+                  cm}$.
+                </li>
+                <li>
+                  Hitung luas 3 segitiga:
+                  <ul>
+                    <li>
+                      Luas $\triangle ABE$ (siku-siku di $B$): $\frac{1}{2}
+                      \times AB \times BE = \frac{1}{2} \times 4 \times 2 = 4
+                      \text{ cm}^2$.
+                    </li>
+                    <li>
+                      Luas $\triangle ADF$ (siku-siku di $D$): $\frac{1}{2}
+                      \times AD \times DF = \frac{1}{2} \times 4 \times 2 = 4
+                      \text{ cm}^2$.
+                    </li>
+                    <li>
+                      Luas $\triangle ECF$ (siku-siku di $C$): $\frac{1}{2}
+                      \times EC \times CF = \frac{1}{2} \times 2 \times 2 = 2
+                      \text{ cm}^2$.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Hitung luas $\triangle AEF$: $$ \text{Luas}(AEF) =
+                  \text{Luas}(ABCD) - \text{Luas}(ABE) - \text{Luas}(ADF) -
+                  \text{Luas}(ECF) $$ $$ \text{Luas}(AEF) = 16 - 4 - 4 - 2 = 6
+                  \text{ cm}^2 $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 6/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 15: Pembahasan (A9 - A10) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 39</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pola logika bentuk (Logika Aljabar).
+              <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Misalkan S1 adalah jumlah sisi bentuk pertama dan S2 adalah
+                  jumlah sisi bentuk kedua.
+                </li>
+                <li>Hexagon=6, Triangle=3. (6, 3) $\to$ 27.</li>
+                <li>Pentagon=5, Square=4. (5, 4) $\to$ 9.</li>
+                <li>Heptagon=7, Hexagon=6. (7, 6) $\to$ 13.</li>
+                <li>
+                  Pola yang ditemukan adalah (S1² - S2²) atau (S1 + S2) $\times$
+                  (S1 - S2).
+                </li>
+                <li>
+                  Cek Pola:
+                  <ul>
+                    <li>(6² - 3²) = 36 - 9 = 27. (Cocok)</li>
+                    <li>(5² - 4²) = 25 - 16 = 9. (Cocok)</li>
+                    <li>(7² - 6²) = 49 - 36 = 13. (Cocok)</li>
+                  </ul>
+                </li>
+                <li>
+                  Terapkan pola pada soal: (Octagon=8, Pentagon=5).
+                  <br />
+                  $$ x = (8^2 - 5^2) = 64 - 25 = 39 $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <b>Answer: D. 1890</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pola perkalian (Multiplication pattern).
+              <br /><br />
+              <b>Langkah-langkah:</b>
+              <ul>
+                <li>$2 \to 6$ : $\times 3$</li>
+                <li>$6 \to 30$ : $\times 5$</li>
+                <li>$30 \to 210$ : $\times 7$</li>
+                <li>
+                  Pola pengali adalah bilangan ganjil berurutan (3, 5, 7, ...).
+                </li>
+                <li>Pengali berikutnya adalah 9.</li>
+                <li>$x = 210 \times 9 = 1890$.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 7/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 16: Pembahasan (A11 - A12) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 6</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> SPLDV (Metode Eliminasi). <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>(1) $x + 2y = 8$ <br />(2) $3x - y = 10$</li>
+                <li>Kalikan (2) dengan 2: $6x - 2y = 20$ (Eq 3)</li>
+                <li>
+                  Jumlahkan (1) dan (3): $(x + 2y) + (6x - 2y) = 8 + 20 \implies
+                  7x = 28 \implies x = 4$.
+                </li>
+                <li>
+                  Substitusi $x=4$ ke (1): $4 + 2y = 8 \implies 2y = 4 \implies
+                  y = 2$.
+                </li>
+                <li>Nilai $x + y$: $4 + 2 = 6$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Soal cerita aljabar (umur). <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>Misalkan $y$ adalah jumlah tahun yang akan datang.</li>
+                <li>
+                  Persamaan: Umur Ibu = 3 $\times$ Umur Anak $$ 40 + y = 3
+                  \times (10 + y) $$
+                </li>
+                <li>$$ 40 + y = 30 + 3y $$</li>
+                <li>$$ 10 = 2y \implies y = 5 $$</li>
+                <li>Akan terjadi dalam 5 tahun.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 8/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 17: Pembahasan (A13 - A14) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <b>Answer: D. 16.5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Sistem persamaan dari teka-teki. <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Baris 1: $3 \times \text{Apel} = 30 \implies \text{Apel} =
+                  10$.
+                </li>
+                <li>
+                  Baris 2: $10 + 2 \times \text{Pisang} = 18 \implies 2 \times
+                  \text{Pisang} = 8 \implies \text{Pisang} = 4$.
+                </li>
+                <li>
+                  Baris 3: $4 \times \text{Cherry} = 10 \implies \text{Cherry} =
+                  10/4 = 2.5$.
+                </li>
+                <li>
+                  Hasil akhir: $\text{Apel} + \text{Pisang} + \text{Cherry} = 10
+                  + 4 + 2.5 = 16.5$.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <b>Answer: A. 1</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Operasi bilangan pecahan campuran.
+              <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Ubah ke pecahan biasa: $3\frac{1}{2}=\frac{7}{2}$,
+                  $2\frac{1}{3}=\frac{7}{3}$, $1\frac{1}{6}=\frac{7}{6}$.
+                </li>
+                <li>
+                  Hitung dalam kurung: $$ \frac{7}{2} - \frac{7}{3} =
+                  \frac{21}{6} - \frac{14}{6} = \frac{7}{6} $$
+                </li>
+                <li>
+                  Lakukan Pembagian: $$ \frac{7}{6} \div \frac{7}{6} = 1 $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 9/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 18: Pembahasan (A15 - A16) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <b>Answer: A. 24</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Pola barisan kuadrat. <br /><br />
+              <b>Langkah-langkah:</b>
+              <ul>
+                <li>$0 = 1^2 - 1$</li>
+                <li>$3 = 2^2 - 1$</li>
+                <li>$8 = 3^2 - 1$</li>
+                <li>$15 = 4^2 - 1$</li>
+                <li>Pola barisan adalah $n^2 - 1$.</li>
+                <li>
+                  Bilangan berikutnya adalah untuk $n=5$: $5^2 - 1 = 25 - 1 =
+                  24$.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 10</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Barisan Aritmatika. <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>$a_1 = 5$ dan beda $d = 3$.</li>
+                <li>Rumus suku ke-n: $a_n = a_1 + (n-1)d$.</li>
+                <li>
+                  Cari $n$ ketika $a_n = 32$: $$ 32 = 5 + (n-1) \times 3 $$ $$
+                  27 = 3(n-1) $$ $$ 9 = n - 1 \implies n = 10 $$
+                </li>
+                <li>Pola ke-10 akan memiliki 32 titik.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 10/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 19: Pembahasan (A17 - A18) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 3</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Sifat rasio. Jika $\frac{a}{b} = k$, maka
+              $\frac{a+c+e}{b+d+f} = k$ jika $\frac{c}{d} = k$ dan $\frac{e}{f}
+              = k$. <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Dari $\frac{a}{b} = \frac{c}{d} = \frac{e}{f} = 3$, kita punya
+                  $a = 3b$, $c = 3d$, $e = 3f$.
+                </li>
+                <li>
+                  Substitusikan ke ekspresi: $$ \frac{a + c + e}{b + d + f} =
+                  \frac{3b + 3d + 3f}{b + d + f} $$
+                </li>
+                <li>Faktorkan 3: $$ \frac{3(b + d + f)}{b + d + f} = 3 $$</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. (4, 3)</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Sistem persamaan non-linear (Substitusi).
+              <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Substitusi $y = x - 1$ ke $x^2 + y^2 = 25$: $$ x^2 + (x - 1)^2
+                  = 25 $$
+                </li>
+                <li>
+                  Sederhanakan: $2x^2 - 2x + 1 = 25 \implies 2x^2 - 2x - 24 = 0
+                  \implies x^2 - x - 12 = 0$.
+                </li>
+                <li>
+                  Faktorkan: $(x - 4)(x + 3) = 0$. Solusi $x=4$ atau $x=-3$.
+                </li>
+                <li>Jika $x=4$, maka $y = 4 - 1 = 3$. Pasangan $(4, 3)$.</li>
+                <li>
+                  Jika $x=-3$, maka $y = -3 - 1 = -4$. Pasangan $(-3, -4)$.
+                </li>
+                <li>Opsi C, (4, 3), adalah salah satu solusi.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 11/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 20: Pembahasan (A19 - A20) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 4</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Persamaan rasional (Pemfaktoran). <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>Faktorkan pembilang: $x^2 - x - 6 = (x-3)(x+2)$.</li>
+                <li>Persamaan menjadi: $$ \frac{(x-3)(x+2)}{x+2} = 1 $$</li>
+                <li>Karena $x+2$ ada di penyebut, $x \neq -2$.</li>
+                <li>Sederhanakan: $x - 3 = 1 \implies x = 4$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <b>Answer: D. 4</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Persamaan rasional (Perkalian silang).
+              <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>Perkalian silang: $3(x+1) = 5(x-1)$</li>
+                <li>$$ 3x + 3 = 5x - 5 $$</li>
+                <li>$$ 3 + 5 = 5x - 3x \implies 8 = 2x \implies x = 4 $$</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 12/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 21: Pembahasan (A21 - A22) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <b>Answer: 22</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Urutan Operasi (PEMDAS/BODMAS). <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>Hitung eksponen: $3^2 = 9$.</li>
+                <li>Hitung perkalian: $2.5 \times 4 = 10$.</li>
+                <li>Hitung pembagian: $10.5 \div 0.5 = 21$.</li>
+                <li>
+                  Hitung penjumlahan dan pengurangan: $10 + 21 - 9 = 31 - 9 =
+                  22$.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <b>Answer: 5</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> SPLDV (Metode Eliminasi). <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Jumlahkan kedua persamaan: $$ (2x + 3y) + (2x - 3y) = 12 + 0
+                  \implies 4x = 12 \implies x = 3 $$
+                </li>
+                <li>
+                  Substitusi $x=3$ ke persamaan kedua: $2(3) - 3y = 0 \implies 6
+                  = 3y \implies y = 2$.
+                </li>
+                <li>Hasil $x + y$: $3 + 2 = 5$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 13/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 22: Pembahasan (A23 - A24) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <b>Answer: 10</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Teorema Pythagoras atau Metode Subtraksi Area.
+              <br /><br />
+              <b>Metode 1: Subtraksi Area (Pengurangan Luas)</b>
+              <ol>
+                <li>
+                  Luas persegi besar $ABCD = 4 \times 4 = 16 \text{ cm}^2$.
+                </li>
+                <li>
+                  Terdapat 4 segitiga siku-siku identik di setiap sudut (misal:
+                  $\triangle HAE$).
+                </li>
+                <li>
+                  Panjang sisi segitiga: $AE = 1$ cm. Maka $HA = AD - HD = 4 - 1
+                  = 3$ cm.
+                </li>
+                <li>
+                  Luas satu segitiga $\triangle HAE = \frac{1}{2} \times
+                  \text{alas} \times \text{tinggi} = \frac{1}{2} \times 1 \times
+                  3 = 1.5 \text{ cm}^2$.
+                </li>
+                <li>Luas empat segitiga = $4 \times 1.5 = 6 \text{ cm}^2$.</li>
+                <li>
+                  Luas persegi $EFGH$ = Luas $ABCD$ - Luas 4 segitiga.
+                  <br />
+                  $16 - 6 = 10 \text{ cm}^2$.
+                </li>
+              </ol>
+              <b>Metode 2: Teorema Pythagoras</b>
+              <ol>
+                <li>
+                  Sisi persegi $EFGH$ (misal $HE$) adalah hipotenusa dari
+                  segitiga $\triangle HAE$.
+                </li>
+                <li>$HE^2 = HA^2 + AE^2 = 3^2 + 1^2 = 9 + 1 = 10$.</li>
+                <li>Luas persegi $EFGH$ adalah $HE \times HE = HE^2$.</li>
+                <li>Luas = $10 \text{ cm}^2$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 14/15
+      </footer>
+    </section>
+
+    <!-- ============================== Halaman 23: Pembahasan (A25) ============================== -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <b>Answer: 25</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Barisan Kuadrat Sempurna ($n^2$). <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Mari kita analisis jumlah total kotak ($V_n$) di setiap tahap
+                  (Stage $n$).
+                  <ul>
+                    <li>$V_1 = 1 \implies 1^2$</li>
+                    <li>$V_2 = 4 \implies 2^2$</li>
+                    <li>$V_3 = 9 \implies 3^2$</li>
+                    <li>$V_4 = 16 \implies 4^2$</li>
+                  </ul>
+                </li>
+                <li>
+                  Pola yang ditemukan adalah jumlah kotak pada Tahap $n$ adalah
+                  $V_n = n^2$.
+                </li>
+                <li>
+                  Gunakan aturan ini untuk mencari $V_5$ (Stage 5):
+                  <br />
+                  $$ V_5 = 5^2 = 25 $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <b>Answer: 35</b>
+            <div class="pembahasan">
+              <b>Teori Dasar:</b> Aturan operasi digit. <br /><br />
+              <b>Langkah-langkah:</b>
+              <ol>
+                <li>
+                  Aturan: Angka Baru = Angka Lama - (Hasil kali digit Angka
+                  Lama).
+                </li>
+                <li>
+                  Terapkan pada 65: $$ 65 - (6 \times 5) $$ $$ 65 - 30 = 35 $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        | Halaman Pembahasan 15/15
+      </footer>
+    </section>
+  </body>
+</html>
