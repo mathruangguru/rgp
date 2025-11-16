@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Mengubah bahasa utama ke 'en' (English) -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Judul disesuaikan -->
+    <title>FISO 2023 (Grade 7-8) Problem Discussions</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm; /* Mengubah ukuran logo agar tidak terlalu besar */
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 38pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/png_aaojxe_9962.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 16pt;
+        font-weight: 700;
+        color: var(--secondary-text);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 5px;
+        margin-top: 25px;
+      }
+      .materi-konten {
+        display: block;
+        text-align: justify;
+      }
+      .soal-latihan,
+      .soal-latihan-n {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 25px;
+        break-inside: avoid;
+        padding-bottom: 10px;
+      }
+      .soal-latihan > b,
+      .soal-latihan-n > b {
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      .soal-wrapper {
+        flex-grow: 1;
+      }
+      .soal-konten {
+        text-align: justify;
+      }
+      .options {
+        padding-left: 0px;
+        margin-top: 10px;
+        display: block;
+      }
+      .options div {
+        margin-bottom: 5px;
+        padding-left: 20px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 18pt;
+        font-weight: 700;
+        margin: 20px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 10px 0;
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4caf50;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .pembahasan-flawed {
+        background-color: #fffbe6;
+        border-left: 4px solid #ff9800;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .image-description {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-style: italic;
+        color: #555;
+      }
+      .image-description img {
+        max-width: 100%;
+        height: auto;
+        /* Membatasi lebar maksimum gambar agar tidak 'nabrak' */
+        max-width: 500px;
+        display: inline-block;
+      }
+      ul.checklist {
+        list-style-type: none;
+        padding-left: 10px;
+      }
+      ul.checklist li {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 10px;
+      }
+      ul.checklist li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #4caf50;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Halaman Sampul -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/png_aaojxe_9962.png"
+          alt="Ruangguru Privat Logo"
+          class="cover-image"
+        />
+        <!-- Judul disesuaikan -->
+        <h1 class="cover-title">
+          FISO 2023 Problem Discussions<br />Grade 7-8 (Category 5)
+        </h1>
+        <p class="cover-subtitle">Problem Set and Discussions</p>
+      </div>
+    </section>
+
+    <!-- Halaman Soal 1-3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Problem Set (Part 1)</h1>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Johnny played 13 games in the first week, 14 games in the second
+              week, and 15 games in the third week. Find the total number of
+              games Johnny played.
+            </div>
+            <div class="options">
+              <div>A. 22</div>
+              <div>B. 32</div>
+              <div>C. 42</div>
+              <div>D. 52</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              If $x + y = 3$, $y + z = 5$, and $z + x = 6$, find the value of $x
+              + 2y + 3z$.
+            </div>
+            <div class="options">
+              <div>A. 22</div>
+              <div>B. 12</div>
+              <div>C. 19</div>
+              <div>D. 16</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the value of $CD=?$
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_81kdyd_7824.png"
+                    style="width: 200px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. 15</div>
+              <div>B. 17</div>
+              <div>C. 25</div>
+              <div>D. 21</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 4-6 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Problem Set (Part 2)</h1>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Solve: $\frac{\sqrt{2} \cdot \sqrt[3]{4}}{\sqrt[3]{2} \cdot
+              \sqrt{8}} = ?$
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 2</div>
+              <div>C. $\frac{1}{\sqrt{2}}$</div>
+              <div>D. $\frac{1}{2}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the value of $x$: $\frac{2}{x} + \frac{x}{x+1} +
+              \frac{x-2}{x} = \frac{5}{4}$
+            </div>
+            <div class="options">
+              <div>A. $\frac{2}{3}$</div>
+              <div>B. 1</div>
+              <div>C. $\frac{1}{3}$</div>
+              <div>D. 0,5</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Solve: $3^{x+1} = 5 \implies 25^{x+1} = ?$
+            </div>
+            <div class="options">
+              <div>A. 9</div>
+              <div>B. 15</div>
+              <div>C. 27</div>
+              <div>D. 25</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 7-9 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Problem Set (Part 3)</h1>
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Simplify: $\frac{xy^2-4x-3y^2+12}{xy-3y-2x+6} +
+              \frac{xy-2x-y+2}{x-1} = ?$
+            </div>
+            <div class="options">
+              <div>A. $2(y-x)$</div>
+              <div>B. $2y$</div>
+              <div>C. $2y+4$</div>
+              <div>D. $2y-4$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Given a regular hexagon $ABCDEF$. $[KA] \perp [AB]$, $AB=3$, $K$
+              is on $AF$. $AK=?$
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_iemora_4723.png"
+                    style="width: 200px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. $\frac{3\sqrt{3}}{4}$</div>
+              <div>B. $\sqrt{3}$</div>
+              <div>C. $2\sqrt{3}$</div>
+              <div>D. 3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 10-12 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Problem Set (Part 4)</h1>
+        <div class="soal-latihan-n">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the value of $x$.
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_bmqbzv_9339.png"
+                    style="width: 200px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. 916</div>
+              <div>B. 2564</div>
+              <div>C. 1625</div>
+              <div>D. 2516</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              The number sequence below is written according to a rule.
+              Accordingly, what is the value of $x$?
+              <br />
+              $3, 6, 24, 144, 1152, x$
+            </div>
+            <div class="options">
+              <div>A. 1720</div>
+              <div>B. 14400</div>
+              <div>C. 5760</div>
+              <div>D. 11520</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Problem Set (Part 4)</h1>
+        <div class="soal-latihan-n">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              In the addition and multiplication tables above, the letters $a,
+              b,$ and $c$ each represent a positive number. Accordingly, what is
+              the value of $b$?
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_jwl76q_806.png"
+                    style="width: 160px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 4</div>
+              <div>C. 2</div>
+              <div>D. 5</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A father is 38 years old and his son is 13 years old. In how many
+              years will the father's age be twice his son's age?
+            </div>
+            <div class="options">
+              <div>A. 10</div>
+              <div>B. 13</div>
+              <div>C. 12</div>
+              <div>D. 16</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 13-15 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Problem Set (Part 5)</h1>
+        <div class="soal-latihan">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Solve:
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_ttoiej_5148.png"
+                    style="width: 200px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. 6</div>
+              <div>B. 7</div>
+              <div>C. 5</div>
+              <div>D. 8</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Solve: $$ \frac{(2\frac{1}{3} - 1\frac{2}{5}) \div
+              1\frac{1}{3}}{2\frac{1}{3} - 1\frac{2}{5} \div 1\frac{1}{3}} = ?
+              $$
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. $\frac{6}{11}$</div>
+              <div>C. $\frac{1}{15}$</div>
+              <div>D. $11 \frac{2}{5}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the next number: $1, 27, 125, 343, ?$
+            </div>
+            <div class="options">
+              <div>A. 625</div>
+              <div>B. 720</div>
+              <div>C. 729</div>
+              <div>D. 561</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 16-18 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Problem Set (Part 6)</h1>
+        <div class="soal-latihan">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              With the given rule, find the number of matchsticks in Pattern 5.
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_jeswnw_3335.png"
+                    style="width: 200px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. 9</div>
+              <div>B. 14</div>
+              <div>C. 11</div>
+              <div>D. 15</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find: $$ \frac{a}{b} = \frac{c}{3d} = \frac{2e}{f} = 2 \implies
+              \frac{2b + 7d - \frac{f}{2}}{2a + \frac{7c}{3} - e} = ? $$
+            </div>
+            <div class="options">
+              <div>A. -2</div>
+              <div>B. 2</div>
+              <div>C. $\frac{1}{2}$</div>
+              <div>D. $-\frac{1}{2}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              What is the value of $(x, y)$? $$ x^2 + y^2 = 17 $$ $$ y = x - 5
+              $$
+            </div>
+            <div class="options">
+              <div>A. (5, 17)</div>
+              <div>B. (1, 5)</div>
+              <div>C. (1, -4)</div>
+              <div>D. (-2, 4)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 19-21 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Problem Set (Part 7)</h1>
+        <div class="soal-latihan">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              What is the value of $x$? $$ \frac{x^2-5x}{x^2+3x-10} =
+              \frac{6}{10-3x-x^2} $$
+            </div>
+            <div class="options">
+              <div>A. 3</div>
+              <div>B. 5</div>
+              <div>C. 4</div>
+              <div>D. 1</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find $x=?$ $$ \frac{6 \cdot \frac{1}{2} + 4 \cdot 3 + 8 \cdot
+              x}{\frac{1}{2} + 3 + x} = \frac{62}{11} $$
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. 2</div>
+              <div>C. 0,5</div>
+              <div>D. 4</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Solve:
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_pswp0v_3823.png"
+                    style="width: 300px"
+                  />
+                </div>
+              </div>
+              Answer: __________
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 22-24 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Problem Set (Part 8)</h1>
+        <div class="soal-latihan">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              What is the value of $x+y=?$ $$ x - 5y = -15 $$ $$ 11x + 5y = 45
+              $$ Answer: __________
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the value of perimeter – area. $P - A = ?$
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_egzmfs_1617.png"
+                    style="width: 300px"
+                  />
+                </div>
+              </div>
+              Answer: __________
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 25 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Problem Set (Part 9)</h1>
+        <div class="soal-latihan-n">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the value of $x$.
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_wx6qau_6622.png"
+                    style="width: 300px"
+                  />
+                </div>
+              </div>
+              Answer: __________
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              With the numbers in the boxes, the numbers below them are obtained
+              according to a rule. Accordingly, what is the value of $x$?
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_nhsdzf_7955.png"
+                    style="width: 300px"
+                  />
+                </div>
+              </div>
+              Answer: __________
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- START DISCUSSIONS (TRANSLATED) -->
+    <!-- ================================================================= -->
+
+    <!-- DISCUSSION (1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Answer Key & Discussions</h1>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 42</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Addition of integers. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ul>
+                <li>The problem asks for the total games played.</li>
+                <li>Week 1: 13 games</li>
+                <li>Week 2: 14 games</li>
+                <li>Week 3: 15 games</li>
+                <li>Total = $13 + 14 + 15 = 42$ games.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <b>Answer: D. 16</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> System of Linear Equations in Three Variables
+              (SLETV). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Given the equations:
+                  <ul>
+                    <li>(1) $x + y = 3$</li>
+                    <li>(2) $y + z = 5$</li>
+                    <li>(3) $z + x = 6$</li>
+                  </ul>
+                </li>
+                <li>
+                  Add the three equations (1), (2), and (3): $$ \begin{aligned}
+                  (x+y) + (y+z) + (z+x) &= 3 + 5 + 6 \\ 2x + 2y + 2z &= 14 \\ x
+                  + y + z &= 7 \quad \text{(Equation 4)} \end{aligned} $$
+                </li>
+                <li>
+                  Find the values of $x, y, z$ by substitution:
+                  <ul>
+                    <li>(4) - (2): $(x+y+z) - (y+z) = 7 - 5 \implies x = 2$</li>
+                    <li>(4) - (3): $(x+y+z) - (z+x) = 7 - 6 \implies y = 1$</li>
+                    <li>(4) - (1): $(x+y+z) - (x+y) = 7 - 3 \implies z = 4$</li>
+                  </ul>
+                </li>
+                <li>
+                  Calculate the value of $x + 2y + 3z$: $$ (2) + 2(1) + 3(4) = 2
+                  + 2 + 12 = 16 $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (3) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <b>Answer: D. 21</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Pythagorean Theorem ($a^2 + b^2 = c^2$) and
+              Pythagorean triples. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  <b>Triangle ACP (left):</b> Right-angled at $C$.
+                  <ul>
+                    <li>Hypotenuse $AP = 15$, leg $AC = 12$.</li>
+                    <li>
+                      This is a (3-4-5) $\times$ 3 Pythagorean triple, which is
+                      9-12-15.
+                    </li>
+                    <li>Therefore, $CP = 9$ m.</li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Triangle BDP (right):</b> Right-angled at $D$.
+                  <ul>
+                    <li>Hypotenuse $PB = 15$, leg $BD = 9$.</li>
+                    <li>This is also a 9-12-15 Pythagorean triple.</li>
+                    <li>Therefore, $DP = 12$ m.</li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Total Length:</b>
+                  $$ CD = CP + DP = 9 + 12 = 21 \text{ m} $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (4) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <b>Answer: D. $\frac{1}{2}$ (Assuming a typo)</b>
+            <div class="pembahasan-flawed">
+              <b>Problem Analysis:</b> The original calculation does not yield
+              any of the options. This is most likely a typo. <br /><br />
+              <b>Original Calculation (Without Typo):</b>
+              <ol>
+                <li>
+                  Convert to base 2: $\sqrt{2}=2^{1/2}$, $\sqrt[3]{4}=2^{2/3}$,
+                  $\sqrt[3]{2}=2^{1/3}$, $\sqrt{8}=2^{3/2}$.
+                </li>
+                <li>
+                  Calculate: $$ \begin{aligned} \frac{2^{1/2} \cdot
+                  2^{2/3}}{2^{1/3} \cdot 2^{3/2}} &=
+                  \frac{2^{1/2+2/3}}{2^{1/3+3/2}} \\ &= \frac{2^{7/6}}{2^{11/6}}
+                  \\ &= 2^{7/6 - 11/6} = 2^{-4/6} = 2^{-2/3} \end{aligned} $$
+                </li>
+                <li>
+                  The result $\frac{1}{\sqrt[3]{4}}$ is not in the options.
+                </li>
+              </ol>
+              <b>Assuming Typo:</b> The $\sqrt[3]{4}$ in the numerator should be
+              $\sqrt[3]{2}$.
+              <ol>
+                <li>
+                  The problem becomes: $\frac{\sqrt{2} \cdot
+                  \sqrt[3]{2}}{\sqrt[3]{2} \cdot \sqrt{8}}$
+                </li>
+                <li>
+                  Cancel out $\sqrt[3]{2}$ (since it's in both the numerator and
+                  denominator).
+                </li>
+                <li>
+                  Remaining: $\frac{\sqrt{2}}{\sqrt{8}} = \sqrt{\frac{2}{8}} =
+                  \sqrt{\frac{1}{4}} = \frac{1}{2}$.
+                </li>
+                <li>This result matches option D.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. $\frac{1}{3}$</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Addition of algebraic fractions. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Problem: $\frac{2}{x} + \frac{x}{x+1} + \frac{x-2}{x} =
+                  \frac{5}{4}$
+                </li>
+                <li>
+                  Combine the terms with denominator $x$: $$ \begin{aligned}
+                  \left(\frac{2}{x} + \frac{x-2}{x}\right) + \frac{x}{x+1} &=
+                  \frac{5}{4} \\ \frac{2 + (x-2)}{x} + \frac{x}{x+1} &=
+                  \frac{5}{4} \\ \frac{x}{x} + \frac{x}{x+1} &= \frac{5}{4} \\ 1
+                  + \frac{x}{x+1} &= \frac{5}{4} \end{aligned} $$
+                </li>
+                <li>
+                  Solve for $x$: $$ \begin{aligned} \frac{x}{x+1} &= \frac{5}{4}
+                  - 1 \\ \frac{x}{x+1} &= \frac{1}{4} \\ 4x &= 1(x+1) \\ 4x &= x
+                  + 1 \\ 3x &= 1 \\ x &= \frac{1}{3} \end{aligned} $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (6) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <b>Answer: A. 9 (Assuming a typo)</b>
+            <div class="pembahasan-flawed">
+              <b>Problem Analysis:</b> Bases 3 and 25 are unrelated. This is
+              almost certainly a typo. <br /><br />
+              <b>Most Likely Typo Assumption:</b>
+              <ul>
+                <li>
+                  The problem should be $5^{x+1} = 3 \implies 25^{x+1} = ?$.
+                  (The numbers 3 and 5 were swapped).
+                </li>
+              </ul>
+              <b>Step-by-Step Solution (With Correction):</b>
+              <ol>
+                <li>Assume $5^{x+1} = 3$.</li>
+                <li>We want to find $25^{x+1}$.</li>
+                <li>
+                  Use exponent properties: $$ \begin{aligned} 25^{x+1} &=
+                  (5^2)^{x+1} \\ &= 5^{2(x+1)} \\ &= (5^{x+1})^2 \end{aligned}
+                  $$
+                </li>
+                <li>Substitute the value $5^{x+1} = 3$: $$ (3)^2 = 9 $$</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (7) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. $2y$</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Factoring and simplifying algebraic
+              fractions. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  <b>First Term:</b> $\frac{xy^2-4x-3y^2+12}{xy-3y-2x+6}$
+                  <ul>
+                    <li>
+                      Factor Numerator: $x(y^2-4) - 3(y^2-4) = (x-3)(y-2)(y+2)$
+                    </li>
+                    <li>Factor Denominator: $y(x-3) - 2(x-3) = (y-2)(x-3)$</li>
+                    <li>
+                      Simplify: $\frac{(x-3)(y-2)(y+2)}{(y-2)(x-3)} = y+2$
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Second Term:</b> $\frac{xy-2x-y+2}{x-1}$
+                  <ul>
+                    <li>Factor Numerator: $x(y-2) - 1(y-2) = (x-1)(y-2)$</li>
+                    <li>Simplify: $\frac{(x-1)(y-2)}{x-1} = y-2$</li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Combine Results:</b>
+                  $$ (y+2) + (y-2) = 2y $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. $2\sqrt{3}$</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Trigonometry in Right-Angled Triangles &
+              Properties of a Hexagon. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  <b>Angle Analysis:</b>
+                  <ul>
+                    <li>
+                      $ABCDEF$ is a regular hexagon, so $\angle FAB =
+                      120^\circ$.
+                    </li>
+                    <li>$[KA] \perp [AB]$ means $\angle KAB = 90^\circ$.</li>
+                    <li>
+                      This means $\angle FAK = \angle FAB - \angle KAB =
+                      120^\circ - 90^\circ = 30^\circ$.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Side Length:</b> $AF$ is a side of the hexagon, so $AF = AB
+                  = 3$.
+                </li>
+                <li>
+                  <b>Triangle AKF Analysis:</b>
+                  <ul>
+                    <li>
+                      In a regular hexagon, the short diagonal (like $FD$) is
+                      perpendicular to the side it connects to (like $AF$). This
+                      means $\angle AFK = 90^\circ$.
+                    </li>
+                    <li>
+                      We now have a right-angled triangle $AKF$ (right-angled at
+                      $F$).
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Trigonometric Calculation:</b>
+                  <ul>
+                    <li>We know the angle $\angle FAK = 30^\circ$.</li>
+                    <li>We know the adjacent side $AF = 3$.</li>
+                    <li>We are looking for the hypotenuse $AK$.</li>
+                  </ul>
+                  $$ \begin{aligned} \cos(\angle FAK) &= \frac{\text{Adjacent
+                  (AF)}}{\text{Hypotenuse (AK)}} \\ \cos(30^\circ) &=
+                  \frac{3}{AK} \\ \frac{\sqrt{3}}{2} &= \frac{3}{AK} \\ AK \cdot
+                  \sqrt{3} &= 6 \\ AK &= \frac{6}{\sqrt{3}} =
+                  \frac{6\sqrt{3}}{3} \\ AK &= 2\sqrt{3} \end{aligned} $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (9) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <b>Answer: D. 2516</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Finding a pattern based on attributes (number
+              of sides). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  <b>Row 2 (Clearest):</b> Triangle (3 sides) + Pentagon (5
+                  sides) $\to 925$.
+                  <ul>
+                    <li>Pattern: (Sides A)$^2$ followed by (Sides B)$^2$.</li>
+                    <li>$3^2 = 9$ and $5^2 = 25$. Result: 925. (Match)</li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Row 1 (Confirm Pattern):</b> Square (4 sides) + Hexagon (6
+                  sides) $\to 369$.
+                  <ul>
+                    <li>
+                      Using the pattern: $4^2 = 16$ and $6^2 = 36$. Should be
+                      $\to 1636$.
+                    </li>
+                    <li>The number 369 in the problem is likely a typo.</li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Row 3 (Apply Pattern):</b> Pentagon (5 sides) + Square (4
+                  sides) $\to x$.
+                  <ul>
+                    <li>$5^2 = 25$ and $4^2 = 16$.</li>
+                    <li>Therefore, $x = 2516$.</li>
+                  </ul>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <b>Answer: D. 11520</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Finding the pattern in a number sequence.
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ul>
+                <li>$3 \to 6$ : multiplied by 2 ($\times 2$)</li>
+                <li>$6 \to 24$ : multiplied by 4 ($\times 4$)</li>
+                <li>$24 \to 144$ : multiplied by 6 ($\times 6$)</li>
+                <li>$144 \to 1152$ : multiplied by 8 ($\times 8$)</li>
+                <li>
+                  Multiplier pattern: Consecutive even numbers (2, 4, 6, 8,
+                  ...).
+                </li>
+                <li>The next multiplier is 10.</li>
+                <li>$x = 1152 \times 10 = 11520$.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (11) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <b>Answer: D. 5</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> System of three-variable equations
+              (substitution).
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Based on the table, we get three equations (since a,b,c are
+                  positive): (1) $a + b = 8$; (2) $b + c = 2a$; (3) $a \times c
+                  = 3$
+                </li>
+                <li>
+                  From (1) we get $a = 8 - b$. Then, substitute $a$ into (2): $b
+                  + c = 2(8 - b) \implies b + c = 16 - 2b \implies c = 16 - 3b$
+                </li>
+                <li>
+                  Now substitute $a = 8-b$ and $c = 16-3b$ into equation (3): $$
+                  \begin{aligned} a \times c &= 3 \\ (8 - b)(16 - 3b) &= 3 \\
+                  128 - 24b - 16b + 3b^2 &= 3 \\ 3b^2 - 40b + 128 - 3 &= 0 \\
+                  3b^2 - 40b + 125 &= 0\end{aligned} $$
+                </li>
+                <li>
+                  Use the quadratic formula $\frac{-B \pm \sqrt{B^2 - 4AC}}{2A}$
+                  to find $b$: $$ \begin{aligned} b &= \frac{40 \pm
+                  \sqrt{(-40)^2 - 4(3)(125)}}{2(3)} = \frac{40 \pm \sqrt{1600 -
+                  1500}}{6} \\ &= \frac{40 \pm \sqrt{100}}{6} = \frac{40 \pm
+                  10}{6} \end{aligned} $$
+                </li>
+                <li>
+                  This gives two solutions: $b_1 = \frac{40+10}{6} =
+                  \frac{50}{6} = \frac{25}{3}$ and $b_2 = \frac{40-10}{6} =
+                  \frac{30}{6} = 5$.
+                </li>
+                <li>
+                  We check both solutions (because a, b, c must be positive):
+                  <ul>
+                    <li>
+                      <b>Case 1: $b=5$.</b> $a = 8-5 = 3$. $c = 3/a = 3/3 = 1$.
+                      (All positive. Check Eq (2): $b+c = 5+1=6$ and
+                      $2a=2(3)=6$. This is valid.)
+                    </li>
+                    <li>
+                      <b>Case 2: $b=25/3$.</b> $a = 8 - 25/3 = 24/3 - 25/3 =
+                      -1/3$. (This is not valid, because $a$ is not positive).
+                    </li>
+                  </ul>
+                </li>
+                <li>The only valid solution is $b=5$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 12</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Algebra age word problem. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>Let $y$ be the number of years to come.</li>
+                <li>Father's age in the future: $38 + y$.</li>
+                <li>Son's age in the future: $13 + y$.</li>
+                <li>
+                  Set up the equation (Father's age = 2 $\times$ Son's age): $$
+                  \begin{aligned} 38 + y &= 2 \times (13 + y) \\ 38 + y &= 26 +
+                  2y \\ 38 - 26 &= 2y - y \\ 12 &= y \end{aligned} $$
+                </li>
+                <li>So, it will take 12 years.</li>
+                <li>
+                  (Check: Father 38+12=50, Son 13+12=25. $50 = 2 \times 25$).
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (13) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 7</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> System of equations from a picture puzzle.
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>Let A = Star, B = Swirl, C = Clock.</li>
+                <li>
+                  Row 1: $A + A + A = 18 \implies 3A = 18 \implies A = 6$. (Star
+                  = 6)
+                </li>
+                <li>
+                  Row 2: $B + B + A = 14 \implies B + B + 6 = 14 \implies 2B = 8
+                  \implies B = 4$. (Swirl = 4)
+                </li>
+                <li>
+                  Row 3: $C + C - B = 2 \implies C + C - 4 = 2 \implies 2C = 6
+                  \implies C = 3$. (Clock = 3)
+                </li>
+                <li>Row 4 (Question): $B + C = ?$ $$ 4 + 3 = 7 $$</li>
+              </ol>
+              <b>Conclusion: The correct answer is 7, which is Option B.</b>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (14) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. $\frac{6}{11}$</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Order of operations (PEMDAS) with fractions.
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Convert all: $2\frac{1}{3}=\frac{7}{3}$,
+                  $1\frac{2}{5}=\frac{7}{5}$, $1\frac{1}{3}=\frac{4}{3}$.
+                </li>
+                <li>
+                  <b>Calculate Top (Numerator):</b> (Parentheses first) $$
+                  \begin{aligned} (\frac{7}{3} - \frac{7}{5}) \div \frac{4}{3}
+                  &= (\frac{35-21}{15}) \div \frac{4}{3} \\ &= \frac{14}{15}
+                  \times \frac{3}{4} = \frac{7}{10} \end{aligned} $$
+                </li>
+                <li>
+                  <b>Calculate Bottom (Denominator):</b> (Division first) $$
+                  \begin{aligned} \frac{7}{3} - (\frac{7}{5} \div \frac{4}{3})
+                  &= \frac{7}{3} - (\frac{7}{5} \times \frac{3}{4}) \\ &=
+                  \frac{7}{3} - \frac{21}{20} = \frac{140-63}{60} =
+                  \frac{77}{60} \end{aligned} $$
+                </li>
+                <li>
+                  <b>Final Result (Top $\div$ Bottom):</b>
+                  $$ \begin{aligned} \frac{7/10}{77/60} = \frac{7}{10} \times
+                  \frac{60}{77} = \frac{1}{1} \times \frac{6}{11} = \frac{6}{11}
+                  \end{aligned} $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 729</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Pattern of cubic numbers. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ul>
+                <li>$1 = 1^3$</li>
+                <li>$27 = 3^3$</li>
+                <li>$125 = 5^3$</li>
+                <li>$343 = 7^3$</li>
+                <li>
+                  Base number pattern: Consecutive odd numbers (1, 3, 5, 7,
+                  ...).
+                </li>
+                <li>The next odd number is 9.</li>
+                <li>The next number in the sequence is $9^3 = 729$.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (16) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 11</b>
+            <div class="pembahasan">
+              <b>Problem Analysis:</b> Finding an arithmetic sequence pattern
+              from images. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>Pattern 1: 1 triangle = 3 matchsticks.</li>
+                <li>
+                  Pattern 2: 2 triangles (sharing 1 side) = 3 + 2 = 5
+                  matchsticks.
+                </li>
+                <li>
+                  Pattern 3: 3 triangles (sharing sides) = 5 + 2 = 7
+                  matchsticks.
+                </li>
+                <li>The sequence formed is: 3, 5, 7, ...</li>
+                <li>
+                  This is an arithmetic sequence with first term $a_1 = 3$ and
+                  common difference $d = 2$.
+                </li>
+                <li>
+                  The formula for the n-th term is: $a_n = a_1 + (n-1)d$. $$ a_n
+                  = 3 + (n-1)2 = 3 + 2n - 2 = 2n + 1 $$
+                </li>
+                <li>
+                  <b>Pattern 5 (The question):</b>
+                  $$ a_5 = 2(5) + 1 = 11 $$
+                </li>
+              </ol>
+              <b>Conclusion: The correct answer is 11, which is Option C.</b>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (17) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. $\frac{1}{2}$</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Algebraic manipulation and substitution from
+              ratio equations. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  We split the given ratio into three equations:
+                  <ul>
+                    <li>$\frac{a}{b} = 2 \implies a = 2b$</li>
+                    <li>$\frac{c}{3d} = 2 \implies c = 6d$</li>
+                    <li>$\frac{2e}{f} = 2 \implies 2e = 2f \implies e = f$</li>
+                  </ul>
+                </li>
+                <li>
+                  Our goal is to make the numerator and denominator have the
+                  same variables so they can be cancelled. Let's change the
+                  denominator to be in terms of $b, d, f$.
+                </li>
+                <li>
+                  Substitute the values of $a$, $c$, and $e$ into the
+                  denominator: $$ \text{Denominator} = 2a + \frac{7c}{3} - e $$
+                  $$ \begin{aligned} &= 2(2b) + \frac{7(6d)}{3} - (f) \\ &= 4b +
+                  \frac{42d}{3} - f \\ &= 4b + 14d - f \end{aligned} $$
+                </li>
+                <li>
+                  Now we rewrite the full expression: $$ \frac{2b + 7d -
+                  \frac{f}{2}}{4b + 14d - f} $$
+                </li>
+                <li>
+                  Notice that the denominator is exactly 2 times the numerator:
+                  $$ \begin{aligned}2 \times \left( 2b + 7d - \frac{f}{2}
+                  \right) &= 4b + 14d - f \\ \frac{\left( 2b + 7d - \frac{f}{2}
+                  \right)}{2 \left( 2b + 7d - \frac{f}{2} \right)} &=
+                  \frac{1}{2} \end{aligned}$$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (18) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. (1, -4)</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> System of non-linear equations
+              (substitution). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Given:
+                  <ul>
+                    <li>(1) $x^2 + y^2 = 17$</li>
+                    <li>(2) $y = x - 5$</li>
+                  </ul>
+                </li>
+                <li>
+                  Substitute (2) into (1): $$ \begin{aligned} x^2 + (x - 5)^2 &=
+                  17 \\ x^2 + (x^2 - 10x + 25) &= 17 \\ 2x^2 - 10x + 25 - 17 &=
+                  0 \\ 2x^2 - 10x + 8 &= 0 \\ x^2 - 5x + 4 &= 0 \end{aligned} $$
+                </li>
+                <li>Factor: $(x - 1)(x - 4) = 0$.</li>
+                <li>Solutions for $x$ are $x=1$ or $x=4$.</li>
+                <li>
+                  Find $y$ using $y = x - 5$:
+                  <ul>
+                    <li>If $x=1$, $y = 1 - 5 = -4$. Solution: $(1, -4)$.</li>
+                    <li>If $x=4$, $y = 4 - 5 = -1$. Solution: $(4, -1)$.</li>
+                  </ul>
+                </li>
+                <li>Option C, (1, -4), is one of the solutions.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (19) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <b>Answer: A. 3</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Rational equations (algebraic fractions).
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Factor all parts:
+                  <ul>
+                    <li>$x^2-5x = x(x-5)$</li>
+                    <li>$x^2+3x-10 = (x+5)(x-2)$</li>
+                    <li>$10-3x-x^2 = -(x^2+3x-10) = -(x+5)(x-2)$</li>
+                  </ul>
+                </li>
+                <li>
+                  Rewrite the equation: $$ \frac{x(x-5)}{(x+5)(x-2)} =
+                  \frac{6}{-(x+5)(x-2)} $$
+                </li>
+                <li>
+                  <b>Condition:</b> Denominator $\neq 0$, so $x \neq -5$ and $x
+                  \neq 2$.
+                </li>
+                <li>
+                  Multiply both sides by $-(x+5)(x-2)$: $$ \begin{aligned} -1
+                  \cdot x(x-5) &= 6 \\ -x^2 + 5x &= 6 \\ 0 &= x^2 - 5x + 6
+                  \end{aligned} $$
+                </li>
+                <li>Factor: $0 = (x-2)(x-3)$.</li>
+                <li>Potential solutions: $x=2$ or $x=3$.</li>
+                <li>
+                  Based on the condition (step 3), $x=2$ is invalid (extraneous
+                  solution).
+                </li>
+                <li>The only solution is $x=3$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 2</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Solving rational equations. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Problem: $\frac{6 \cdot \frac{1}{2} + 4 \cdot 3 + 8 \cdot
+                  x}{\frac{1}{2} + 3 + x} = \frac{62}{11}$
+                </li>
+                <li>
+                  Simplify the numerator and denominator: $$ \frac{3 + 12 +
+                  8x}{3.5 + x} = \frac{62}{11} $$ $$ \frac{15 + 8x}{3.5 + x} =
+                  \frac{62}{11} $$
+                </li>
+                <li>
+                  Cross-multiply: $$ \begin{aligned} 11(15 + 8x) &= 62(3.5 + x)
+                  \\ 165 + 88x &= 217 + 62x \\ 88x - 62x &= 217 - 165 \\ 26x &=
+                  52 \\ x &= 2 \end{aligned} $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (21) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <b>Answer: 4</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Operations with mixed fractions (decimals and
+              fractions). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <p>
+                This problem is $\text{Left Expression} \div \text{Right
+                Expression}$.
+              </p>
+              <ol>
+                <li>
+                  <b>Calculate Left Expression (A):</b> $\frac{3\frac{1}{3}
+                  \cdot 1.9 + 19.5 \div 4\frac{1}{2}}{\frac{62}{75} - 0.16} $ $$
+                  \begin{aligned} \text{Numerator (A)} &= \left(\frac{10}{3}
+                  \cdot \frac{19}{10}\right) + (19.5 \div 4.5) \\ &=
+                  \frac{19}{3} + \frac{13}{3} = \frac{32}{3} \\
+                  \text{Denominator (A)} &= \frac{62}{75} - \frac{16}{100} =
+                  \frac{62}{75} - \frac{4}{25} \\ &= \frac{62-12}{75} =
+                  \frac{50}{75} = \frac{2}{3} \\ \text{Result (A)} &=
+                  \frac{32/3}{2/3} = 16 \end{aligned} $$
+                </li>
+                <li>
+                  <b>Calculate Right Expression (B):</b>
+                  $\frac{3.5 + 4\frac{2}{3} + 2\frac{2}{15}}{0.5 \cdot
+                  (1\frac{1}{20} + 4.1)} $ $$ \begin{aligned} \text{Numerator
+                  (B)} &= \frac{7}{2} + \frac{14}{3} + \frac{32}{15} \\ &=
+                  \frac{105+140+64}{30} = \frac{309}{30} = \frac{103}{10} \\
+                  \text{Denominator (B)} &= 0.5 \cdot (1.05 + 4.1) \\ &= 0.5
+                  \cdot (5.15) = 2.575 = \frac{103}{40} \\ \text{Result (B)} &=
+                  \frac{103/10}{103/40} = 4 \end{aligned} $$
+                </li>
+                <li>
+                  <b>Calculate Final Result (A $\div$ B):</b>
+                  $ 16 \div 4 = 4 $
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (22) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <b>Answer: 6</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> System of linear equations (elimination
+              method). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Given:
+                  <ul>
+                    <li>(1) $x - 5y = -15$</li>
+                    <li>(2) $11x + 5y = 45$</li>
+                  </ul>
+                </li>
+                <li>
+                  The $y$ coefficients are already opposites. Add (1) + (2): $$
+                  \begin{aligned} (x - 5y) + (11x + 5y) &= -15 + 45 \\ 12x &= 30
+                  \\ x &= \frac{30}{12} = 2.5 \end{aligned} $$
+                </li>
+                <li>
+                  Substitute $x = 2.5$ into (1): $$ \begin{aligned} 2.5 - 5y &=
+                  -15 \\ 2.5 + 15 &= 5y \\ 17.5 &= 5y \\ y &= 3.5 \end{aligned}
+                  $$
+                </li>
+                <li>Calculate $x + y$: $$ x + y = 2.5 + 3.5 = 6 $$</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (23) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <b>Answer: 3.0</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Calculating Perimeter and Area of a 2D shape.
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  <b>Calculate Area (A):</b>
+                  <ul>
+                    <li>
+                      Area = (Area of large rectangle) - (Area of U-cutout)
+                    </li>
+                    <li>
+                      Area of large rectangle (outer bounds) = $7.8 \times 7.2 =
+                      56.16$ cm$^2$
+                    </li>
+                    <li>
+                      Area of U-cutout (middle box) = $3.4 \times 5.4 = 18.36$
+                      cm$^2$
+                    </li>
+                    <li>$A = 56.16 - 18.36 = 37.8$ cm$^2$</li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Calculate Perimeter (P):</b>
+                  <ul>
+                    <li>P = Sum of all 8 sides (outer and inner).</li>
+                    <li>
+                      P = (Outer Left) + (Bottom) + (Outer Right) + (Top Right)
+                      + (Inner Right) + (Inner Bottom) + (Inner Left) + (Top
+                      Left)
+                    </li>
+                    <li>P = $7.2 + 7.8 + 7.2 + 2.3 + 5.4 + 3.4 + 5.4 + 2.1$</li>
+                    <li>P = $40.8$ cm</li>
+                  </ul>
+                </li>
+                <li>
+                  <b>Calculate $P - A$:</b>
+                  <ul>
+                    <li>$P - A = 40.8 - 37.8 = 3.0$</li>
+                  </ul>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (24) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <b>Answer: 53</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Finding the pattern from a sequence of
+              values. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>The sequence of values is: 1, 5, 17, x.</li>
+                <li>
+                  Find the rule $V_n = f(V_{n-1})$:
+                  <ul>
+                    <li>$V_2 = 1 \times 3 + 2 = 5$. (Match)</li>
+                    <li>$V_3 = 5 \times 3 + 2 = 17$. (Match)</li>
+                  </ul>
+                </li>
+                <li>The rule found is: $V_n = V_{n-1} \times 3 + 2$.</li>
+                <li>
+                  Apply for $x = V_4$: $$ \begin{aligned} x &= V_4 = V_3 \times
+                  3 + 2 \\ x &= 17 \times 3 + 2 \\ x &= 51 + 2 = 53
+                  \end{aligned} $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <b>Answer: 71</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Finding a rule based on digit operations.
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>$53 \to 61$: $53 + (5+3) = 53 + 8 = 61$. (Match)</li>
+                <li>$27 \to 36$: $27 + (2+7) = 27 + 9 = 36$. (Match)</li>
+                <li>$65 \to 76$: $65 + (6+5) = 65 + 11 = 76$. (Match)</li>
+                <li>$75 \to 87$: $75 + (7+5) = 75 + 12 = 87$. (Match)</li>
+                <li>
+                  Rule: New Number = Old Number + (Sum of digits of Old Number).
+                </li>
+                <li>
+                  Apply to $58 \to x$: $$ x = 58 + (5+8) $$ $$ x = 58 + 13 = 71
+                  $$
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>FISO 2023 - Problems cited for educational purposes</b>
+      </footer>
+    </section>
+  </body>
+</html>
