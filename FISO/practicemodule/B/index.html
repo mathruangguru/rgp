@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Language set to 'en' (English) -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Title updated -->
+    <title>FISO Maths Practice Module B</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* All original CSS from your file */
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 38pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/png_aaojxe_9962.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 16pt;
+        font-weight: 700;
+        color: var(--secondary-text);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 5px;
+        margin-top: 25px;
+      }
+      .materi-konten {
+        display: block;
+        text-align: justify;
+      }
+      .soal-latihan,
+      .soal-latihan-n {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 25px;
+        break-inside: avoid;
+        padding-bottom: 10px;
+      }
+      .soal-latihan > b,
+      .soal-latihan-n > b {
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      .soal-wrapper {
+        flex-grow: 1;
+      }
+      .soal-konten {
+        text-align: justify;
+      }
+      .options {
+        padding-left: 0px;
+        margin-top: 10px;
+        display: block;
+      }
+      .options div {
+        margin-bottom: 5px;
+        padding-left: 20px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 18pt;
+        font-weight: 700;
+        margin: 20px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 10px 0;
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4caf50;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .pembahasan-flawed {
+        background-color: #fffbe6;
+        border-left: 4px solid #ff9800;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .image-description {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-style: italic;
+        color: #555;
+      }
+      .image-description img {
+        max-width: 100%;
+        height: auto;
+        max-width: 500px;
+        display: inline-block;
+      }
+      ul.checklist {
+        list-style-type: none;
+        padding-left: 10px;
+      }
+      ul.checklist li {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 10px;
+      }
+      ul.checklist li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #4caf50;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/png_aaojxe_9962.png"
+          alt="Ruangguru Privat Logo"
+          class="cover-image"
+        />
+        <!-- Title updated -->
+        <h1 class="cover-title">FISO Maths Practice Module B</h1>
+        <p class="cover-subtitle">Grade 7-8 (Category 5)</p>
+      </div>
+    </section>
+
+    <!-- Page: Problems 1-3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>FISO Practice Problems</h1>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              If $a + 2b = 7$, $b + 2c = 8$, and $c + 2a = 9$, find the value of
+              $a + b + c$.
+            </div>
+            <div class="options">
+              <div>A. 6</div>
+              <div>B. 8</div>
+              <div>C. 9</div>
+              <div>D. 12</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              If $4^x = 9$, what is the value of $2^{x+1}$?
+            </div>
+            <div class="options">
+              <div>A. 6</div>
+              <div>B. 9</div>
+              <div>C. 12</div>
+              <div>D. 18</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A rectangle has a diagonal of 17 cm and a width of 8 cm. What is
+              the area of the rectangle?
+            </div>
+            <div class="options">
+              <div>A. 68 cm²</div>
+              <div>B. 120 cm²</div>
+              <div>C. 136 cm²</div>
+              <div>D. 144 cm²</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Soal 1/8
+      </footer>
+    </section>
+
+    <!-- Page: Problems 4-6 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Simplify the expression: $\frac{\sqrt{50} + \sqrt{18}}{\sqrt{8}}$
+            </div>
+            <div class="options">
+              <div>A. $\sqrt{17}$</div>
+              <div>B. 4</div>
+              <div>C. $4\sqrt{2}$</div>
+              <div>D. 8</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Solve for $x$: $\frac{x}{x-2} - \frac{3}{x} = 1$
+            </div>
+            <div class="options">
+              <div>A. 3</div>
+              <div>B. 4</div>
+              <div>C. 6</div>
+              <div>D. -1</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the next number in the sequence: $2, 5, 11, 23, ?$
+            </div>
+            <div class="options">
+              <div>A. 46</div>
+              <div>B. 47</div>
+              <div>C. 48</div>
+              <div>D. 49</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Soal 2/8
+      </footer>
+    </section>
+
+    <!-- Page: Problems 7-9 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Simplify the expression: $\frac{x^2 - 9}{x^2 + x - 6} \div
+              \frac{x+3}{x-2}$
+            </div>
+            <div class="options">
+              <div>A. 1</div>
+              <div>B. $\frac{x-3}{x+3}$</div>
+              <div>C. $\frac{x+3}{x-3}$</div>
+              <div>D. $\frac{(x-3)(x-2)}{(x+3)^2}$</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              The sum of the internal angles of a polygon is $1440^\circ$. How
+              many sides does the polygon have?
+            </div>
+            <div class="options">
+              <div>A. 8</div>
+              <div>B. 9</div>
+              <div>C. 10</div>
+              <div>D. 12</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A rule is applied to two-digit numbers: $35 \to 15$, $82 \to 16$,
+              $51 \to 5$. What is the result for $67 \to ?$
+            </div>
+            <div class="options">
+              <div>A. 13</div>
+              <div>B. 21</div>
+              <div>C. 30</div>
+              <div>D. 42</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Soal 3/8
+      </footer>
+    </section>
+
+    <!-- Page: Problems 10-12 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the next number in the sequence: $1, 1, 2, 3, 5, 8, ?$
+            </div>
+            <div class="options">
+              <div>A. 11</div>
+              <div>B. 12</div>
+              <div>C. 13</div>
+              <div>D. 14</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Given the following equations: $A \times B = 12$, $B \times C =
+              20$, and $A \times C = 15$. Find the value of $A + B + C$ (assume
+              positive integers).
+            </div>
+            <div class="options">
+              <div>A. 10</div>
+              <div>B. 12</div>
+              <div>C. 13</div>
+              <div>D. 15</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A man is 24 years older than his son. In 2 years, his age will be
+              twice his son's age. How old is the son now?
+            </div>
+            <div class="options">
+              <div>A. 20</div>
+              <div>B. 22</div>
+              <div>C. 24</div>
+              <div>D. 26</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Soal 4/8
+      </footer>
+    </section>
+
+    <!-- Page: Problems 13-15 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the next number in the sequence: $1, 16, 81, 256, ?$
+            </div>
+            <div class="options">
+              <div>A. 512</div>
+              <div>B. 625</div>
+              <div>C. 1024</div>
+              <div>D. 1296</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A pattern is made of some line segments as shown. How many line
+              segments are in Pattern 7?
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_ul77xy_16.png"
+                    style="width: 300px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. 19</div>
+              <div>B. 22</div>
+              <div>C. 25</div>
+              <div>D. 28</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              If $\frac{a+b}{a-b} = \frac{7}{3}$, what is the value of
+              $\frac{a}{b}$?
+            </div>
+            <div class="options">
+              <div>A. $\frac{5}{2}$</div>
+              <div>B. $\frac{2}{5}$</div>
+              <div>C. $\frac{3}{7}$</div>
+              <div>D. $\frac{7}{3}$</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Soal 5/8
+      </footer>
+    </section>
+
+    <!-- Page: Problems 16-18 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Given $x - y = 2$ and $x^2 + y^2 = 52$. Which of the following is
+              a possible solution for $(x, y)$?
+            </div>
+            <div class="options">
+              <div>A. (6, 4)</div>
+              <div>B. (4, 2)</div>
+              <div>C. (5, 3)</div>
+              <div>D. (7, 5)</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the solution for $x$: $\frac{x^2}{x-3} = \frac{9}{x-3}$
+            </div>
+            <div class="options">
+              <div>A. $x = 3$ only</div>
+              <div>B. $x = -3$ only</div>
+              <div>C. $x = 3$ or $x = -3$</div>
+              <div>D. No solution</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              The average of $a, b, c$ is 10. The average of $a, b, c, d$ is 12.
+              What is the value of $d$?
+            </div>
+            <div class="options">
+              <div>A. 2</div>
+              <div>B. 14</div>
+              <div>C. 18</div>
+              <div>D. 22</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Soal 6/8
+      </footer>
+    </section>
+
+    <!-- Page: Problems 19-21 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              If $3x - 2y = 10$ and $4x + 2y = 18$, find the value of $x + y$.
+            </div>
+            <div class="options">
+              <div>A. 4</div>
+              <div>B. 5</div>
+              <div>C. 6</div>
+              <div>D. 7</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Find the perimeter of the shape described below.
+              <div class="image-desc">
+                <div style="display: flex; justify-content: center">
+                  <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_nspuyf_6873.png"
+                    style="width: 250px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div>A. 36 cm</div>
+              <div>B. 40 cm</div>
+              <div>C. 42 cm</div>
+              <div>D. 44 cm</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A rule transforms a number $n$: $1 \to 3$, $2 \to 5$, $3 \to 7$,
+              $4 \to 9$. What is the result for $n=5$?
+            </div>
+            <div class="options">
+              <div>A. 10</div>
+              <div>B. 11</div>
+              <div>C. 13</div>
+              <div>D. 15</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Soal 7/8
+      </footer>
+    </section>
+
+    <!-- Page: Problems 22-25 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A rule applies to two-digit numbers: $28 \to 10$, $35 \to 8$, $91
+              \to 10$. What is the result for $47 \to ?$
+            </div>
+            <div class="options">
+              <div>A. 9</div>
+              <div>B. 10</div>
+              <div>C. 11</div>
+              <div>D. 28</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              What is the sum of the first five prime numbers that are *greater*
+              than 10?
+            </div>
+            <div class="options">
+              <div>A. 60</div>
+              <div>B. 75</div>
+              <div>C. 83</div>
+              <div>D. 90</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              Alice can paint a fence in 3 hours. Bob can paint the same fence
+              in 6 hours. How long will it take them to paint the fence if they
+              work together?
+            </div>
+            <div class="options">
+              <div>A. 2 hours</div>
+              <div>B. 2.5 hours</div>
+              <div>C. 3 hours</div>
+              <div>D. 4.5 hours</div>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <div class="soal-konten">
+              A rule applies to two-digit numbers: $42 \to 8$, $53 \to 15$, $61
+              \to 6$. What is the result for $73 \to ?$
+            </div>
+            <div class="options">
+              <div>A. 10</div>
+              <div>B. 21</div>
+              <div>C. 24</div>
+              <div>D. 42</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Soal 8/8
+      </footer>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- START DISCUSSIONS -->
+    <!-- ================================================================= -->
+
+    <!-- DISCUSSION (1-3) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Answer Key & Discussions</h1>
+        <div class="soal-latihan">
+          <b>1.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 8</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> System of Linear Equations. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Given: (1) $a + 2b = 7$, (2) $b + 2c = 8$, (3) $c + 2a = 9$.
+                </li>
+                <li>
+                  Add all three equations: $$ \begin{aligned} (a + 2b) + (b +
+                  2c) + (c + 2a) &= 7 + 8 + 9 \\ 3a + 3b + 3c &= 24
+                  \end{aligned} $$
+                </li>
+                <li>Factor out 3: $3(a + b + c) = 24$.</li>
+                <li>Divide by 3: $a + b + c = 8$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>2.</b>
+          <div class="soal-wrapper">
+            <b>Answer: A. 6</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Properties of Exponents. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>We are given $4^x = 9$.</li>
+                <li>Rewrite 4 as $2^2$: $(2^2)^x = 9 \implies (2^x)^2 = 9$.</li>
+                <li>
+                  Take the square root of both sides: $2^x = 3$. (We take the
+                  positive root as $2^x$ is always positive).
+                </li>
+                <li>The question asks for $2^{x+1}$.</li>
+                <li>Using exponent rules: $2^{x+1} = 2^x \cdot 2^1$.</li>
+                <li>Substitute the value from step 3: $(3) \cdot 2 = 6$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 1/15
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (4-6) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>3.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 120 cm²</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Pythagorean Theorem ($a^2 + b^2 = c^2$).
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>Let $L$ = Length, $W$ = Width, $D$ = Diagonal.</li>
+                <li>Given: $D = 17$ cm, $W = 8$ cm.</li>
+                <li>By Pythagoras: $L^2 + W^2 = D^2$.</li>
+                <li>$L^2 + 8^2 = 17^2 \implies L^2 + 64 = 289$.</li>
+                <li>$L^2 = 289 - 64 = 225 \implies L = \sqrt{225} = 15$ cm.</li>
+                <li>(This is the 8-15-17 Pythagorean triple).</li>
+                <li>Area = $L \times W = 15 \times 8 = 120$ cm².</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>4.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 4</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Simplifying Radicals. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Simplify each radical first: $\sqrt{50} = \sqrt{25 \times 2} =
+                  5\sqrt{2}$.
+                </li>
+                <li>$\sqrt{18} = \sqrt{9 \times 2} = 3\sqrt{2}$.</li>
+                <li>$\sqrt{8} = \sqrt{4 \times 2} = 2\sqrt{2}$.</li>
+                <li>
+                  Substitute back into the expression: $\frac{5\sqrt{2} +
+                  3\sqrt{2}}{2\sqrt{2}}$.
+                </li>
+                <li>Combine the numerator: $\frac{8\sqrt{2}}{2\sqrt{2}}$.</li>
+                <li>Cancel $\sqrt{2}$ and divide 8 by 2: $\frac{8}{2} = 4$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 2/15
+      </footer>
+    </section>
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>5.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 6</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Rational Algebraic Equations. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>The equation is: $\frac{x}{x-2} - \frac{3}{x} = 1$.</li>
+                <li>Find a common denominator, which is $x(x-2)$.</li>
+                <li>
+                  Multiply every term by $x(x-2)$: $$ x(x) - 3(x-2) = 1 \cdot
+                  x(x-2) $$
+                </li>
+                <li>$x^2 - 3x + 6 = x^2 - 2x$.</li>
+                <li>The $x^2$ terms cancel out.</li>
+                <li>$-3x + 6 = -2x \implies 6 = -2x + 3x \implies 6 = x$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>6.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 47</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Number Sequence Patterns. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Look at the difference between terms:
+                  <ul>
+                    <li>$5 - 2 = 3$</li>
+                    <li>$11 - 5 = 6$</li>
+                    <li>$23 - 11 = 12$</li>
+                  </ul>
+                </li>
+                <li>
+                  The differences are $3, 6, 12$. This is a geometric
+                  progression (multiplying by 2).
+                </li>
+                <li>The next difference should be $12 \times 2 = 24$.</li>
+                <li>So, the next number is $23 + 24 = 47$.</li>
+                <li>
+                  (Alternatively, the rule is $V_n = V_{n-1} \times 2 + 1$. $2
+                  \times 2 + 1 = 5$. $5 \times 2 + 1 = 11$. $11 \times 2 + 1 =
+                  23$. $23 \times 2 + 1 = 47$.)
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 3/15
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (7-9) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>7.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. $\frac{x-3}{x+3}$</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Factoring and Simplifying Algebraic
+              Fractions. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Invert the second fraction and change to multiplication:
+                  $\frac{x^2 - 9}{x^2 + x - 6} \cdot \frac{x-2}{x+3}$.
+                </li>
+                <li>
+                  Factor all polynomials:
+                  <ul>
+                    <li>$x^2 - 9 = (x-3)(x+3)$</li>
+                    <li>$x^2 + x - 6 = (x+3)(x-2)$</li>
+                  </ul>
+                </li>
+                <li>
+                  Substitute the factors: $\frac{(x-3)(x+3)}{(x+3)(x-2)} \cdot
+                  \frac{x-2}{x+3}$.
+                </li>
+                <li>
+                  Cancel terms that appear in the numerator and denominator:
+                  $(x+3)$ and $(x-2)$.
+                </li>
+                <li>We are left with: $\frac{x-3}{x+3}$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>8.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 10</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Properties of Polygons. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  The formula for the sum of internal angles of a polygon with
+                  $n$ sides is $(n - 2) \times 180^\circ$.
+                </li>
+                <li>
+                  Set this equal to the given sum: $(n - 2) \times 180^\circ =
+                  1440^\circ$.
+                </li>
+                <li>Divide both sides by 180: $n - 2 = \frac{1440}{180}$.</li>
+                <li>$n - 2 = 8$.</li>
+                <li>$n = 10$. The polygon has 10 sides.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 4/15
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (10-12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>9.</b>
+          <div class="soal-wrapper">
+            <b>Answer: D. 42</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Logic Pattern (Digit Operation). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Analyze the rule:
+                  <ul>
+                    <li>$35 \to 15$: This is $3 \times 5$.</li>
+                    <li>$82 \to 16$: This is $8 \times 2$.</li>
+                    <li>$51 \to 5$: This is $5 \times 1$.</li>
+                  </ul>
+                </li>
+                <li>The rule is to multiply the two digits of the number.</li>
+                <li>Apply the rule to 67: $6 \times 7 = 42$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 13</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Number Sequence (Fibonacci). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  This is the Fibonacci sequence, where each number is the sum
+                  of the two preceding ones.
+                </li>
+                <li>$1 + 1 = 2$</li>
+                <li>$1 + 2 = 3$</li>
+                <li>$2 + 3 = 5$</li>
+                <li>$3 + 5 = 8$</li>
+                <li>The next term is $5 + 8 = 13$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 5/15
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>11.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 12</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> System of Non-Linear Equations (Logic).
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>Given: (1) $AB = 12$, (2) $BC = 20$, (3) $AC = 15$.</li>
+                <li>
+                  Multiply all three equations together: $(AB) \cdot (BC) \cdot
+                  (AC) = 12 \times 20 \times 15$.
+                </li>
+                <li>$A^2 \cdot B^2 \cdot C^2 = 3600$.</li>
+                <li>
+                  Take the square root: $(ABC)^2 = 3600 \implies ABC = 60$.
+                </li>
+                <li>
+                  Now, find each variable by dividing the product (step 4) by
+                  the pair we *don't* want:
+                </li>
+                <li>$A = \frac{ABC}{BC} = \frac{60}{20} = 3$.</li>
+                <li>$B = \frac{ABC}{AC} = \frac{60}{15} = 4$.</li>
+                <li>$C = \frac{ABC}{AB} = \frac{60}{12} = 5$.</li>
+                <li>The question asks for $A + B + C = 3 + 4 + 5 = 12$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>12.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 22</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Algebraic Age Problem. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>Let $M$ be the man's age now, $S$ be the son's age now.</li>
+                <li>(1) $M = S + 24$.</li>
+                <li>In 2 years: Man's age = $M+2$, Son's age = $S+2$.</li>
+                <li>(2) $M + 2 = 2 \times (S + 2) \implies M + 2 = 2S + 4$.</li>
+                <li>Substitute (1) into (2): $(S + 24) + 2 = 2S + 4$.</li>
+                <li>
+                  $S + 26 = 2S + 4 \implies 26 - 4 = 2S - S \implies 22 = S$.
+                </li>
+                <li>The son is 22 years old now.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 6/15
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (13-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>13.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 625</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Number Sequence (Powers). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>$1 = 1^4$</li>
+                <li>$16 = 2^4$</li>
+                <li>$81 = 3^4$</li>
+                <li>$256 = 4^4$</li>
+                <li>The sequence is $n^4$ for $n = 1, 2, 3, 4, ...$</li>
+                <li>The next term is $5^4 = 625$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>14.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 22</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Arithmetic Sequence. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>Pattern 1: 4 sticks.</li>
+                <li>Pattern 2: 7 sticks (adds 3).</li>
+                <li>Pattern 3: 10 sticks (adds 3).</li>
+                <li>
+                  This is an arithmetic sequence with $a_1 = 4$ and $d = 3$.
+                </li>
+                <li>The formula is $a_n = a_1 + (n-1)d$.</li>
+                <li>$a_n = 4 + (n-1)3 = 4 + 3n - 3 = 3n + 1$.</li>
+                <li>For Pattern 7: $a_7 = 3(7) + 1 = 21 + 1 = 22$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 7/15
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (16-18) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>15.</b>
+          <div class="soal-wrapper">
+            <b>Answer: A. $\frac{5}{2}$</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Ratio and Proportion (Algebra). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>Given: $\frac{a+b}{a-b} = \frac{7}{3}$.</li>
+                <li>Cross-multiply: $3(a + b) = 7(a - b)$.</li>
+                <li>$3a + 3b = 7a - 7b$.</li>
+                <li>
+                  Move $a$ terms to one side and $b$ terms to the other: $3b +
+                  7b = 7a - 3a$.
+                </li>
+                <li>$10b = 4a$.</li>
+                <li>
+                  We want to find $\frac{a}{b}$. Divide both sides by $b$: $10 =
+                  \frac{4a}{b}$.
+                </li>
+                <li>Divide both sides by 4: $\frac{10}{4} = \frac{a}{b}$.</li>
+                <li>Simplify: $\frac{a}{b} = \frac{5}{2}$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 8/15
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>16.</b>
+          <div class="soal-wrapper">
+            <b>Answer: A. (6, 4)</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> System of Non-Linear Equations
+              (Substitution). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>(1) $x - y = 2 \implies x = y + 2$.</li>
+                <li>(2) $x^2 + y^2 = 52$.</li>
+                <li>Substitute (1) into (2): $(y + 2)^2 + y^2 = 52$.</li>
+                <li>$(y^2 + 4y + 4) + y^2 = 52$.</li>
+                <li>$2y^2 + 4y + 4 = 52 \implies 2y^2 + 4y - 48 = 0$.</li>
+                <li>Divide by 2: $y^2 + 2y - 24 = 0$.</li>
+                <li>Factor: $(y + 6)(y - 4) = 0$.</li>
+                <li>Solutions for $y$ are $y = 4$ or $y = -6$.</li>
+                <li>
+                  Find corresponding $x$ using $x = y + 2$:
+                  <ul>
+                    <li>If $y = 4$, $x = 4 + 2 = 6$. Solution: $(6, 4)$.</li>
+                    <li>
+                      If $y = -6$, $x = -6 + 2 = -4$. Solution: $(-4, -6)$.
+                    </li>
+                  </ul>
+                </li>
+                <li>Option A, (6, 4), is one of the valid solutions.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 9/15
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>17.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. $x = -3$ only</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Rational Equations (Extraneous Solutions).
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>The equation is $\frac{x^2}{x-3} = \frac{9}{x-3}$.</li>
+                <li>
+                  <b>Condition:</b> The denominator cannot be zero, so $x \neq
+                  3$.
+                </li>
+                <li>
+                  Since the denominators are the same, we can set the numerators
+                  equal: $x^2 = 9$.
+                </li>
+                <li>
+                  This gives two potential solutions: $x = 3$ and $x = -3$.
+                </li>
+                <li>We must check these against our condition (step 2).</li>
+                <li>
+                  The solution $x = 3$ is invalid (extraneous) because it makes
+                  the denominator zero.
+                </li>
+                <li>The only valid solution is $x = -3$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>18.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 18</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Mean (Average). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Average of 3 numbers is 10: $\frac{a+b+c}{3} = 10 \implies
+                  a+b+c = 30$.
+                </li>
+                <li>
+                  Average of 4 numbers is 12: $\frac{a+b+c+d}{4} = 12 \implies
+                  a+b+c+d = 48$.
+                </li>
+                <li>
+                  Substitute the sum from step 1 into step 2: $(30) + d = 48$.
+                </li>
+                <li>Solve for $d$: $d = 48 - 30 = 18$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 10/15
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (19-21) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>19.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 5</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> System of Linear Equations (Elimination).
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>Given: (1) $3x - 2y = 10$, (2) $4x + 2y = 18$.</li>
+                <li>
+                  The $y$ terms ($-2y$ and $+2y$) are opposites. Add the two
+                  equations: $$ \begin{aligned} (3x - 2y) + (4x + 2y) &= 10 + 18
+                  \\ 7x &= 28 \\ x &= 4 \end{aligned} $$
+                </li>
+                <li>
+                  Substitute $x = 4$ into (2): $4(4) + 2y = 18 \implies 16 + 2y
+                  = 18$.
+                </li>
+                <li>$2y = 2 \implies y = 1$.</li>
+                <li>Find $x + y$: $4 + 1 = 5$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 11/15
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>20.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 42 cm</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Perimeter of Composite Shapes (Displacement).
+              <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  This problem is best solved using "Perimeter Displacement".
+                </li>
+                <li>
+                  Imagine the shape's "bounding box," which is a large 10 cm x 8
+                  cm rectangle.
+                </li>
+                <li>
+                  The perimeter of this outer rectangle is $P = 2 \times (10 +
+                  8) = 36$ cm.
+                </li>
+                <li>
+                  Now, look at the "notch" cut from the top. The 4 cm horizontal
+                  segment *on the top edge* is "removed" (Perimeter: -4 cm).
+                </li>
+                <li>
+                  But, a 4 cm horizontal segment is *added* back at the bottom
+                  of the cut (Perimeter: +4 cm). These two segments cancel each
+                  other out.
+                </li>
+                <li>
+                  The only *new* lines added to the perimeter (which the
+                  original 10x8 rectangle did not have) are the two
+                  <b>vertical sides</b> of the cut.
+                </li>
+                <li>
+                  The description states the cut is 3 cm deep. We add *both* the
+                  left 3 cm side and the right 3 cm side.
+                </li>
+                <li>
+                  Final Perimeter = (Perimeter of Bounding Box) + (New Sides) =
+                  $36 + 3 + 3 = 42$ cm.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 12/15
+      </footer>
+    </section>
+
+    <!-- DISCUSSION (22-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>21.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 11</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Logic Pattern. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Analyze the rule $n \to ?$
+                  <ul>
+                    <li>$1 \to 3$: This is $2(1) + 1$.</li>
+                    <li>$2 \to 5$: This is $2(2) + 1$.</li>
+                    <li>$3 \to 7$: This is $2(3) + 1$.</li>
+                    <li>$4 \to 9$: This is $2(4) + 1$.</li>
+                  </ul>
+                </li>
+                <li>The rule is $2n + 1$.</li>
+                <li>Apply the rule to $n=5$: $2(5) + 1 = 10 + 1 = 11$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>22.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 11</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Logic Pattern (Digit Operation). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Analyze the rule:
+                  <ul>
+                    <li>$28 \to 10$: This is $2 + 8$.</li>
+                    <li>$35 \to 8$: This is $3 + 5$.</li>
+                    <li>$91 \to 10$: This is $9 + 1$.</li>
+                  </ul>
+                </li>
+                <li>The rule is to find the sum of the digits.</li>
+                <li>Apply the rule to 47: $4 + 7 = 11$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 13/15
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>23.</b>
+          <div class="soal-wrapper">
+            <b>Answer: C. 83</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Prime Numbers. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>We need the first five prime numbers *after* 10.</li>
+                <li>
+                  Prime numbers (cannot be divided evenly, except by 1 and
+                  itself): 2, 3, 5, 7, 11, 13, 17, 19, 23, 29...
+                </li>
+                <li>The five primes *after* 10 are: 11, 13, 17, 19, 23.</li>
+                <li>Sum = $11 + 13 + 17 + 19 + 23$.</li>
+                <li>
+                  Sum = $24 + 17 + 19 + 23 = 41 + 19 + 23 = 60 + 23 = 83$.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <b>24.</b>
+          <div class="soal-wrapper">
+            <b>Answer: A. 2 hours</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Combined Work/Rate Problems. <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Alice's rate: $\frac{1 \text{ fence}}{3 \text{ hours}}$ (1/3
+                  of the job per hour).
+                </li>
+                <li>
+                  Bob's rate: $\frac{1 \text{ fence}}{6 \text{ hours}}$ (1/6 of
+                  the job per hour).
+                </li>
+                <li>Combined rate: $\frac{1}{3} + \frac{1}{6}$.</li>
+                <li>
+                  Find common denominator: $\frac{2}{6} + \frac{1}{6} =
+                  \frac{3}{6} = \frac{1}{2}$.
+                </li>
+                <li>Together, they complete 1/2 of the job per hour.</li>
+                <li>
+                  Therefore, to complete 1 full job, it will take 2 hours.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 14/15
+      </footer>
+    </section>
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan-n">
+          <b>25.</b>
+          <div class="soal-wrapper">
+            <b>Answer: B. 21</b>
+            <div class="pembahasan">
+              <b>Basic Theory:</b> Logic Pattern (Digit Operation). <br /><br />
+              <b>Step-by-Step Solution:</b>
+              <ol>
+                <li>
+                  Analyze the rule:
+                  <ul>
+                    <li>$42 \to 8$: This is $4 \times 2$.</li>
+                    <li>$53 \to 15$: This is $5 \times 3$.</li>
+                    <li>$61 \to 6$: This is $6 \times 1$.</li>
+                  </ul>
+                </li>
+                <li>The rule is to multiply the two digits.</li>
+                <li>Apply the rule to 73: $7 \times 3 = 21$.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+        <br />
+        | Halaman Pembahasan 15/15
+      </footer>
+    </section>
+  </body>
+</html>
