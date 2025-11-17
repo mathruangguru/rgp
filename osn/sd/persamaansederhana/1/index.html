@@ -1,0 +1,1962 @@
+
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aljabar: Persamaan Linear - Bahan Ajar OSNK</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm; /* Mengubah ukuran logo agar tidak terlalu besar */
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 38pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 16pt;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+      .soal-latihan {
+        margin-bottom: 25px; /* Menambah spasi antar soal */
+        break-inside: avoid;
+        padding-bottom: 5px;
+      }
+      .soal-latihan-n {
+        margin-bottom: 25px; /* Menambah spasi antar soal */
+        break-inside: avoid;
+        padding-bottom: 3px;
+      }
+      .soal-latihan b {
+        margin-bottom: 5px;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: inline; /* Membuat konten soal sejajar dengan nomor */
+      }
+      .options {
+        padding-left: 0px; /* Disesuaikan agar rapi */
+        margin-top: 10px;
+        display: block; /* Opsi pilihan tetap di bawah soal */
+      }
+      .options div {
+        margin-bottom: 5px;
+        padding-left: 20px; /* Menambahkan indentasi pada pilihan */
+      }
+      .rules-list {
+        padding-left: 30px;
+        font-size: 14pt;
+      }
+      .rules-list li {
+        margin-bottom: 25px;
+        padding-left: 10px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 18pt;
+        font-weight: 700;
+        margin: 20px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 10px 0;
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4caf50;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Ruangguru Privat Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">Aljabar Dasar:<br />Persamaan Linear</h1>
+        <p class="cover-subtitle">Bahan Ajar OSNK - Jenjang SD/MI Sederajat</p>
+      </div>
+    </section>
+
+    <!-- Halaman Materi 1: Pengenalan Aljabar & PLSV (Bagian 1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Pengenalan Aljabar & PLSV</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>1. Apa itu Aljabar?</h2>
+          <p>
+            Aljabar adalah cabang matematika yang mempelajari tentang simbol dan
+            operasi yang digunakan pada simbol-simbol tersebut. Di aljabar, kita
+            sering menggunakan huruf untuk mewakili angka yang belum diketahui
+            nilainya.
+          </p>
+          <ul>
+            <li>
+              <b>Variabel (Peubah):</b> Simbol (biasanya huruf, seperti $x, y, a$)
+              yang mewakili suatu nilai yang belum diketahui.
+            </li>
+            <li>
+              <b>Koefisien:</b> Angka yang berada di depan variabel (menunjukkan
+              berapa banyak variabel itu). Contoh: pada $3x$, koefisiennya
+              adalah 3.
+            </li>
+            <li>
+              <b>Konstanta:</b> Angka yang nilainya tetap (tidak memiliki
+              variabel). Contoh: pada $3x + 5$, konstantanya adalah 5.
+            </li>
+            <li>
+              <b>Suku:</b> Bagian dari aljabar yang dipisahkan oleh tanda $+$
+              atau $-$. Contoh: $3x + 5$ memiliki dua suku, yaitu $3x$ dan $5$.
+            </li>
+          </ul>
+
+          <h2>2. Persamaan Linear Satu Variabel (PLSV)</h2>
+          <p>
+            <b>Persamaan</b> adalah kalimat matematika terbuka yang dihubungkan
+            oleh tanda sama dengan (=). Disebut "terbuka" karena kita belum tahu
+            apakah pernyataan itu benar atau salah.
+          </p>
+          <p>
+            <b>Persamaan Linear Satu Variabel (PLSV)</b> adalah persamaan yang:
+          </p>
+          <ol>
+            <li>Hanya memiliki <b>satu</b> jenis variabel (misalnya $x$ saja).</li>
+            <li>Pangkat tertinggi dari variabelnya adalah <b>satu</b>.</li>
+          </ol>
+          <p>
+            Contoh PLSV: $x + 5 = 12$ (Variabelnya $x$, pangkatnya 1).<br />
+            Contoh bukan PLSV: $x^2 + 5 = 14$ (Pangkatnya 2, ini persamaan
+            kuadrat).<br />
+            Contoh bukan PLSV: $x + y = 10$ (Variabelnya ada dua: $x$ dan $y$).
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1: Pengenalan Aljabar & PLSV (Bagian 2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Pengenalan Aljabar & PLSV (Lanjutan)</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>3. Menyelesaikan PLSV (Prinsip Keseimbangan)</h2>
+          <p>
+            Menyelesaikan PLSV berarti mencari nilai dari variabel agar persamaan
+            itu menjadi benar. Bayangkan persamaan sebagai sebuah timbangan yang
+            seimbang. Apapun yang kamu lakukan di sisi kiri, harus kamu lakukan
+            juga di sisi kanan agar tetap seimbang.
+          </p>
+          <p>
+            <b>Prinsip Penjumlahan/Pengurangan:</b> Kita boleh menambah atau
+            mengurangi kedua sisi persamaan dengan bilangan yang sama.
+          </p>
+          <p>
+            <b>Contoh:</b> Selesaikan $x + 7 = 15$.<br />
+            Tujuan kita adalah membuat $x$ sendirian di sisi kiri. Untuk
+            menghilangkan $+7$, kita harus menguranginya dengan 7.<br />
+            $x + 7 - 7 = 15 - 7$ (Kedua sisi dikurangi 7)<br />
+            $x = 8$.<br />
+            Jadi, nilai $x$ adalah 8.
+          </p>
+          <p>
+            <b>Contoh (Bilangan Negatif):</b> Selesaikan $a - 4 = -1$.<br />
+            Untuk menghilangkan $-4$, kita harus menambahinya dengan 4.<br />
+            $a - 4 + 4 = -1 + 4$ (Kedua sisi ditambah 4)<br />
+            $a = 3$.<br />
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2: Lanjutan PLSV (Solving) (Bagian 1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Menyelesaikan PLSV Lanjutan</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>4. Prinsip Perkalian dan Pembagian</h2>
+          <p>
+            Kita boleh mengalikan atau membagi kedua sisi persamaan dengan
+            bilangan yang sama (asalkan bukan nol).
+          </p>
+          <p>
+            <b>Contoh (Perkalian):</b> Selesaikan $4x = 20$.<br />
+            $4x$ artinya $4 \times x$. Untuk membuat $x$ sendirian, kita harus
+            membagi $4x$ dengan 4.<br />
+            $\frac{4x}{4} = \frac{20}{4}$ (Kedua sisi dibagi 4)<br />
+            $x = 5$.
+          </p>
+          <p>
+            <b>Contoh (Pecahan):</b> Selesaikan $\frac{1}{3}y = 6$.<br />
+            Untuk menghilangkan $\frac{1}{3}$, kita harus mengalikan dengan
+            kebalikannya, yaitu 3.<br />
+            $3 \times \frac{1}{3}y = 3 \times 6$ (Kedua sisi dikali 3)<br />
+            $y = 18$.<br />
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2: Lanjutan PLSV (Solving) (Bagian 2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Menyelesaikan PLSV Lanjutan (Lanjutan)</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>5. Menyelesaikan PLSV (Langkah Gabungan)</h2>
+          <p>
+            Seringkali kita perlu menggunakan kedua prinsip (tambah/kurang dan
+            kali/bagi). Dahulukan prinsip tambah/kurang untuk memisahkan suku
+            variabel dari konstanta.
+          </p>
+          <p>
+            <b>Contoh:</b> Selesaikan $2x - 5 = 11$.<br />
+            <b>Langkah 1 (Tambah/Kurang):</b> Hilangkan $-5$ dengan menambah 5
+            di kedua sisi.<br />
+            $2x - 5 + 5 = 11 + 5$<br />
+            $2x = 16$.<br />
+            <b>Langkah 2 (Kali/Bagi):</b> Hilangkan koefisien 2 dengan membagi 2
+            di kedua sisi.<br />
+            $\frac{2x}{2} = \frac{16}{2}$<br />
+            $x = 8$.
+          </p>
+
+          <h2>6. PLSV dengan Variabel di Kedua Sisi</h2>
+          <p>
+            Jika variabel ada di kedua sisi (misal $5x - 4 = 2x + 11$), tujuannya
+            adalah mengumpulkan semua suku bervariabel di satu sisi (biasanya
+            kiri) dan semua konstanta di sisi lain (kanan).
+          </p>
+          <p>
+            <b>Contoh:</b> Selesaikan $5x - 4 = 2x + 11$.<br />
+            <b>Langkah 1 (Pindah Variabel):</b> Pindahkan $2x$ ke kiri dengan
+            mengurangi kedua sisi dengan $2x$.<br />
+            $5x - 2x - 4 = 2x - 2x + 11$<br />
+            $3x - 4 = 11$.<br />
+            <b>Langkah 2 (Pindah Konstanta):</b> Pindahkan $-4$ ke kanan dengan
+            menambah kedua sisi dengan $4$.<br />
+            $3x - 4 + 4 = 11 + 4$<br />
+            $3x = 15$.<br />
+            <b>Langkah 3 (Selesaikan):</b> Bagi kedua sisi dengan 3.<br />
+            $\frac{3x}{3} = \frac{15}{3} \Rightarrow x = 5$.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 3: Model Matematika PLSV (Bagian 1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Model Matematika (Soal Cerita PLSV)</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>7. Model Matematika (Soal Cerita PLSV)</h2>
+          <p>
+            Ini adalah kompetensi penting di OSN. Kita harus menerjemahkan soal
+            cerita menjadi kalimat matematika (persamaan).
+          </p>
+          <p>
+            <b>Contoh 1 (Umur):</b> Umur Budi 5 tahun lebih tua dari umur adiknya.
+            Jika jumlah umur mereka adalah 21 tahun, berapakah umur Budi?
+          </p>
+          <p>
+            <b>Langkah 1 (Pemisalan):</b><br />
+            Misal umur adik = $x$ tahun.<br />
+            Maka, umur Budi = $x + 5$ tahun.
+          </p>
+          <p>
+            <b>Langkah 2 (Persamaan):</b> "jumlah umur mereka adalah 21"<br />
+            (Umur Adik) + (Umur Budi) = 21<br />
+            $x + (x + 5) = 21$
+          </p>
+          <p>
+            <b>Langkah 3 (Selesaikan):</b><br />
+            $2x + 5 = 21$ (Sifat operasi hitung bilangan cacah)<br />
+            $2x = 21 - 5 \Rightarrow 2x = 16$<br />
+            $x = 8$.
+          </p>
+          <p>
+            <b>Langkah 4 (Jawab):</b> $x=8$ adalah umur adik. Yang ditanya adalah
+            umur Budi.<br />
+            Umur Budi = $x + 5 = 8 + 5 = 13$ tahun.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 3: Model Matematika PLSV (Bagian 2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Model Matematika (Soal Cerita PLSV) (Lanjutan)</h1>
+        <div class="materi-konten" style="display: block">
+          <p>
+            <b>Contoh 2 (Bilangan Berurutan):</b> Jumlah tiga bilangan cacah
+            berurutan adalah 45. Tentukan bilangan terbesar.
+          </p>
+          <p>
+            <b>Langkah 1 (Pemisalan):</b> Bilangan berurutan selisihnya 1.<br />
+            Misal bilangan pertama = $n$.<br />
+            Bilangan kedua = $n + 1$.<br />
+            Bilangan ketiga = $n + 2$.
+          </p>
+          <p>
+            <b>Langkah 2 (Persamaan):</b> "Jumlah ... adalah 45"<br />
+            $n + (n + 1) + (n + 2) = 45$
+          </p>
+          <p>
+            <b>Langkah 3 (Selesaikan):</b><br />
+            $3n + 3 = 45$<br />
+            $3n = 45 - 3 \Rightarrow 3n = 42$<br />
+            $n = 14$.
+          </p>
+          <p>
+            <b>Langkah 4 (Jawab):</b> $n=14$ adalah bilangan pertama (terkecil).
+            Yang ditanya adalah bilangan terbesar.<br />
+            Bilangan terbesar = $n + 2 = 14 + 2 = 16$.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 4: Pengenalan SPLDV (Bagian 1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Pengenalan SPLDV</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>8. Pengertian PLDV dan SPLDV</h2>
+          <p>
+            <b>Persamaan Linear Dua Variabel (PLDV)</b> adalah persamaan yang
+            memiliki <b>dua</b> jenis variabel (misalnya $x$ dan $y$) dan
+            pangkat tertinggi variabelnya adalah <b>satu</b>.
+          </p>
+          <p>Contoh: $2x + 3y = 12$.</p>
+          <p>
+            Satu PLDV saja memiliki banyak sekali solusi (misal $x=0, y=4$ atau
+            $x=3, y=2$).
+          </p>
+          <p>
+            <b>Sistem Persamaan Linear Dua Variabel (SPLDV)</b> terdiri dari
+            <b>dua</b> atau lebih PLDV yang saling terkait. Tujuannya adalah
+            mencari satu pasang nilai $(x, y)$ yang memenuhi KEDUA persamaan
+            tersebut.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 4: Pengenalan SPLDV (Bagian 2) - PECAHAN (HAL 9 LAMA) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Pengenalan SPLDV (Lanjutan)</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>9. Metode Eliminasi (Koefisien Sama)</h2>
+          <p>
+            Eliminasi artinya menghilangkan salah satu variabel dengan cara
+            menjumlahkan atau mengurangkan kedua persamaan.
+          </p>
+          <p>
+            <b>Contoh:</b> Selesaikan SPLDV:
+          </p>
+          (1) $x + y = 8$<br />
+          (2) $x - y = 2$
+          <p>
+            Perhatikan, koefisien $y$ sudah sama (1) tapi beda tanda (+y dan -y).
+            Jika kita <b>jumlahkan</b> kedua persamaan, $y$ akan hilang.
+          </p>
+          $(x + y) + (x - y) = 8 + 2$<br />
+          $2x = 10$<br />
+          $x = 5$.
+          <p>
+            Setelah $x=5$ ketemu, masukkan (substitusi) ke salah satu persamaan
+            (misal ke (1)):<br />
+            $x + y = 8 \Rightarrow 5 + y = 8 \Rightarrow y = 3$.<br />
+            Solusinya adalah $x=5, y=3$.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 4: Pengenalan SPLDV (Bagian 3) - PECAHAN (HAL 9 LAMA) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Pengenalan SPLDV (Lanjutan)</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>10. Metode Substitusi (Bentuk Sederhana)</h2>
+          <p>
+            Substitusi artinya menggantikan satu variabel di satu persamaan
+            dengan ekspresi dari persamaan lain.
+          </p>
+          <p>
+            <b>Contoh:</b> Selesaikan SPLDV:
+          </p>
+          (1) $y = 2x$<br />
+          (2) $x + y = 9$
+          <p>
+            Persamaan (1) sudah memberi tahu kita bahwa $y$ sama dengan $2x$.
+            Kita bisa <b>substitusikan</b> (gantikan) $y$ di persamaan (2)
+            dengan $2x$.
+          </p>
+          $x + (2x) = 9$<br />
+          $3x = 9$<br />
+          $x = 3$.
+          <p>
+            Setelah $x=3$ ketemu, masukkan kembali ke persamaan (1):<br />
+            $y = 2x \Rightarrow y = 2(3) \Rightarrow y = 6$.<br />
+            Solusinya adalah $x=3, y=6$.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 5: SPLDV Lanjutan (Bagian 1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Metode SPLDV Lanjutan</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>11. Metode Eliminasi (Koefisien Berbeda)</h2>
+          <p>
+            Bagaimana jika tidak ada koefisien yang sama? Kita harus
+            <b>menyamakannya</b> terlebih dahulu dengan mengalikan satu atau
+            kedua persamaan dengan suatu bilangan.
+          </p>
+          <p>
+            <b>Contoh:</b> Selesaikan SPLDV:
+          </p>
+          (1) $2x + 3y = 7$<br />
+          (2) $3x + y = 7$
+          <p>
+            Kita bisa pilih eliminasi $x$ atau $y$. Eliminasi $y$ lebih mudah.
+            Koefisien $y$ adalah 3 (di atas) dan 1 (di bawah). KPK dari 3 dan 1
+            adalah 3.
+          </p>
+          <p>
+            (1) $2x + 3y = 7$ (Tetap, atau $\times 1$)<br />
+            (2) $3x + y = 7$ (Kali 3) $\Rightarrow$ $9x + 3y = 21$
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 5: SPLDV Lanjutan (Bagian 2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Metode SPLDV Lanjutan (Lanjutan)</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>11. Metode Eliminasi (Koefisien Berbeda) (Lanjutan)</h2>
+          <p>
+            Sekarang kita punya sistem baru dengan koefisien $y$ yang sama (sama-sama
+            +3y). Untuk menghilangkannya, kita <b>kurangkan</b>.
+          </p>
+          $(9x + 3y) - (2x + 3y) = 21 - 7$<br />
+          $7x = 14$<br />
+          $x = 2$.
+          <p>
+            Substitusi $x=2$ ke persamaan (2) asli (lebih mudah):<br />
+            $3x + y = 7 \Rightarrow 3(2) + y = 7 \Rightarrow 6 + y = 7 \Rightarrow
+            y = 1$.<br />
+            Solusinya adalah $x=2, y=1$.
+          </p>
+          <p>
+            <b>Metode Campuran (Eliminasi-Substitusi)</b> adalah yang paling
+            sering dipakai. Gunakan eliminasi dulu, lalu substitusi hasilnya.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 6: Model Matematika SPLDV (Bagian 1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Model Matematika (Soal Cerita SPLDV)</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>12. Soal Cerita SPLDV</h2>
+          <p>
+            Banyak masalah sehari-hari yang bisa diselesaikan dengan SPLDV.
+            Kuncinya adalah menemukan dua hal yang tidak diketahui (variabel) dan
+            membuat dua persamaan (kalimat matematika) dari cerita tersebut.
+          </p>
+          <p>
+            <b>Contoh 1 (Ayam & Kambing):</b> Di sebuah peternakan, jumlah ayam
+            dan kambing adalah 20 ekor. Jumlah kaki mereka seluruhnya adalah 56
+            kaki. Berapa jumlah ayam?
+          </p>
+          <p>
+            <b>Langkah 1 (Pemisalan):</b><br />
+            Misal jumlah ayam = $a$<br />
+            Misal jumlah kambing = $k$
+          </p>
+          <p>
+            <b>Langkah 2 (Persamaan):</b><br />
+            Persamaan (1) dari "jumlah ekor": $a + k = 20$<br />
+            Persamaan (2) dari "jumlah kaki" (Ayam punya 2, Kambing punya 4): $2a
+            + 4k = 56$
+          </p>
+          <p>
+            <b>Langkah 3 (Selesaikan):</b> Kita mau mencari $a$. Kita eliminasi
+            $k$.<br />
+            (1) $a + k = 20$ (Kali 4) $\Rightarrow$ $4a + 4k = 80$<br />
+            (2) $2a + 4k = 56$ (Kali 1) $\Rightarrow$ $2a + 4k = 56$<br />
+            Kurangkan kedua persamaan baru:<br />
+            $(4a + 4k) - (2a + 4k) = 80 - 56$<br />
+            $2a = 24 \Rightarrow a = 12$.
+          </p>
+          <p>
+            <b>Langkah 4 (Jawab):</b> Jumlah ayam adalah 12 ekor.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 6: Model Matematika SPLDV (Bagian 2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Model Matematika (Soal Cerita SPLDV) (Lanjutan)</h1>
+        <div class="materi-konten" style="display: block">
+          <h2>12. Soal Cerita SPLDV (Lanjutan)</h2>
+          <p>
+            <b>Contoh 2 (Harga Barang):</b> Harga 2 apel dan 3 jeruk adalah Rp
+            13.000. Harga 4 apel dan 2 jeruk adalah Rp 18.000. Berapa harga 1 apel
+            dan 1 jeruk?
+          </p>
+          <p>
+            <b>Langkah 1 (Pemisalan):</b> Misal harga apel=$x$, harga jeruk=$y$.<br />
+            <b>Langkah 2 (Persamaan):</b><br />
+            (1) $2x + 3y = 13000$<br />
+            (2) $4x + 2y = 18000$<br />
+            <b>Langkah 3 (Selesaikan):</b> Eliminasi $x$. Kalikan (1) dengan 2.<br />
+            (1) $4x + 6y = 26000$<br />
+            (2) $4x + 2y = 18000$<br />
+            Kurangkan (1) - (2): $4y = 8000 \Rightarrow y = 2000$.<br />
+            Substitusi $y=2000$ ke (1): $2x + 3(2000) = 13000 \Rightarrow 2x + 6000
+            = 13000 \Rightarrow 2x = 7000 \Rightarrow x = 3500$.<br />
+            <b>Langkah 4 (Jawab):</b> Harga 1 apel ($x$) = Rp 3.500, harga 1 jeruk
+            ($y$) = Rp 2.000.
+          </p>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Mudah (1-4) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Mudah (1-10)</div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Nilai $x$ yang memenuhi persamaan $x + 9 = 17$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 8</div>
+            <div>C. 12</div>
+            <div>D. 26</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Suhu ruangan awalnya $-4^\circ$C. Setelah penghangat
+            dinyalakan, suhu naik $y^\circ$C hingga mencapai suhu $10^\circ$C.
+            Persamaan yang tepat untuk situasi ini adalah...
+          </div>
+          <div class="options">
+            <div>A. $y + 10 = -4$</div>
+            <div>B. $y - 10 = 4$</div>
+            <div>C. $-4 + y = 10$</div>
+            <div>D. $4 + y = 10$</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Nilai $a$ yang memenuhi persamaan $3a = 21$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 3</div>
+            <div>B. 7</div>
+            <div>C. 18</div>
+            <div>D. 24</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Budi memiliki $k$ kelereng. Ibu memberi lagi 6 kelereng,
+            sehingga jumlah kelereng Budi sekarang 20. Nilai $k$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 14</div>
+            <div>B. 26</div>
+            <div>C. 120</div>
+            <div>D. 4</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Mudah (5-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Mudah (1-10)</div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Penyelesaian dari $2x + 3 = 13$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 8</div>
+            <div>C. 5</div>
+            <div>D. 4</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Nilai $p$ yang memenuhi $\frac{p}{4} = 5$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 9</div>
+            <div>C. 20</div>
+            <div>D. 1,25</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Jika $y - 5 = -8$, maka nilai $y$ adalah...
+          </div>
+          <div class="options">
+            <div>A. -13</div>
+            <div>B. -3</div>
+            <div>C. 3</div>
+            <div>D. 13</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Nilai $x$ yang memenuhi $-5x = 30$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. -6</div>
+            <div>C. 25</div>
+            <div>D. -35</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Mudah (9-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Mudah (1-10)</div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Lima kurangnya dari suatu bilangan $n$ adalah 12. Kalimat
+            matematika yang benar adalah...
+          </div>
+          <div class="options">
+            <div>A. $5 - n = 12$</div>
+            <div>B. $n - 5 = 12$</div>
+            <div>C. $5n = 12$</div>
+            <div>D. $n + 5 = 12$</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Jika $\frac{x+1}{3} = 5$, maka nilai $x$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 14</div>
+            <div>B. 15</div>
+            <div>C. 16</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (11-14) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang (11-20)</div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Nilai $x$ dari persamaan $3(x - 2) = 15$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 5</div>
+            <div>B. 7</div>
+            <div>C. 9</div>
+            <div>D. 11</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Setengah dari suatu bilangan $a$ jika ditambah 4 hasilnya
+            adalah 10. Nilai $a$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 3</div>
+            <div>B. 6</div>
+            <div>C. 12</div>
+            <div>D. 28</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Penyelesaian dari $5x - 4 = 2x + 11$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 3</div>
+            <div>B. 5</div>
+            <div>C. 7</div>
+            <div>D. 15</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Diketahui sistem persamaan $x + y = 12$ dan $x - y = 4$.
+            Nilai $x$ yang memenuhi adalah...
+          </div>
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 6</div>
+            <div>C. 8</div>
+            <div>D. 16</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (15-18) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang (11-20)</div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Harga 2 buku tulis dan 3 pensil adalah Rp 13.000. Harga 1
+            buku tulis adalah Rp 3.500. Berapa harga 1 pensil?
+          </div>
+          <div class="options">
+            <div>A. Rp 1.500</div>
+            <div>B. Rp 2.000</div>
+            <div>C. Rp 2.500</div>
+            <div>D. Rp 3.000</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Harga 1 baju dan 2 celana adalah Rp 140.000. Harga 2 baju
+            dan 1 celana adalah Rp 130.000. Harga 1 baju adalah...
+          </div>
+          <div class="options">
+            <div>A. Rp 30.000</div>
+            <div>B. Rp 40.000</div>
+            <div>C. Rp 50.000</div>
+            <div>D. Rp 60.000</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Nilai $n$ yang memenuhi $\frac{2}{5}n - 1 = 3$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 5</div>
+            <div>C. 8</div>
+            <div>D. 10</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Penyelesaian dari $7x - 1 = 4x + 11$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 3</div>
+            <div>B. 4</div>
+            <div>C. 10</div>
+            <div>D. 12</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sedang (19-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sedang (11-20)</div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Diketahui SPLDV $y = x + 3$ dan $2x + y = 15$. Nilai $y$
+            yang memenuhi adalah...
+          </div>
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 6</div>
+            <div>C. 7</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Jumlah dua bilangan adalah 25. Selisih kedua bilangan itu
+            adalah 5. Bilangan terkecil adalah...
+          </div>
+          <div class="options">
+            <div>A. 5</div>
+            <div>B. 10</div>
+            <div>C. 15</div>
+            <div>D. 20</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (21-22) - PECAHAN DARI HAL 23 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (21-30)</div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>21.</b> Diketahui sistem persamaan $3x + 2y = 16$ dan $2x + 3y =
+            19$. Nilai dari $x + y$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 5</div>
+            <div>B. 7</div>
+            <div>C. 12</div>
+            <div>D. 35</div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>22.</b> Umur seorang ayah sekarang adalah 3 kali umur anaknya.
+            Lima tahun yang akan datang, jumlah umur mereka adalah 70 tahun.
+            Berapa umur anak saat ini?
+          </div>
+          <div class="options">
+            <div>A. 10 tahun</div>
+            <div>B. 15 tahun</div>
+            <div>C. 20 tahun</div>
+            <div>D. 25 tahun</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (23-24) - PECAHAN DARI HAL 23 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (21-30)</div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>23.</b> Sebuah tongkat dipotong menjadi dua bagian. $\frac{1}{3}$
+            bagian pertama sama panjangnya dengan $\frac{2}{5}$ bagian kedua.
+            Jika panjang tongkat seluruhnya adalah 44 meter, berapakah panjang
+            bagian pertama?
+          </div>
+          <div class="options">
+            <div>A. 12 m</div>
+            <div>B. 20 m</div>
+            <div>C. 24 m</div>
+            <div>D. 30 m</div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>24.</b> Di sebuah tempat parkir terdapat 30 kendaraan terdiri dari
+            motor (roda 2) dan mobil (roda 4). Jumlah semua roda adalah 96. Berapa
+            banyak motor di tempat parkir itu?
+          </div>
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 12</div>
+            <div>C. 15</div>
+            <div>D. 18</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (25-26) - PECAHAN DARI HAL 24 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (21-30)</div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>25.</b> Nilai $x$ yang memenuhi $\frac{2x - 1}{3} = \frac{x +
+              3}{2}$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 7</div>
+            <div>B. 9</div>
+            <div>C. 11</div>
+            <div>D. 13</div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>26.</b> Lima tahun yang lalu, umur Ani 4 kali umur Budi. Empat
+            tahun yang akan datang, 2 kali umur Ani sama dengan 3 kali umur Budi
+            ditambah 1 tahun. Jumlah umur mereka sekarang adalah...
+          </div>
+          <div class="options">
+            <div>A. 20 tahun</div>
+            <div>B. 24 tahun</div>
+            <div>C. 27 tahun</div>
+            <div>D. 31 tahun</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (27-28) - PECAHAN DARI HAL 24 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (21-30)</div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>27.</b> Diketahui $2a + 3b = 10$ dan $4a - b = 6$. Nilai dari $a -
+              b$ adalah...
+          </div>
+          <div class="options">
+            <div>A. -1</div>
+            <div>B. 0</div>
+            <div>C. 1</div>
+            <div>D. 2</div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>28.</b> Sebuah pekerjaan dapat diselesaikan oleh $x$ orang dalam
+            $y$ hari. Hubungan $x$ dan $y$ adalah $xy = 120$ (total
+            "orang-hari"). Jika pekerjaan harus selesai 6 hari lebih cepat, berapa
+            tambahan orang yang diperlukan?
+          </div>
+          <div class="options">
+            <div>A. $\frac{120}{y-6} - \frac{120}{y}$</div>
+            <div>B. $\frac{120}{y} - \frac{120}{y+6}$</div>
+            <div>C. $\frac{120}{y-6} + \frac{120}{y}$</div>
+            <div>D. $\frac{y-6}{120} - \frac{y}{120}$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Sulit (29-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Soal Kategori Sulit (21-30)</div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>29.</b> (Trik OSN) Jika $4x - 3y = 23$ dan $3x - 4y = 7$, maka
+            nilai $x + y$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 16</div>
+            <div>B. 15</div>
+            <div>C. 10</div>
+            <div>D. 30</div>
+          </div>
+        </div>
+        <div class="soal-latihan-n">
+          <div class="soal-konten">
+            <b>30.</b> $\frac{1}{x} + \frac{1}{y} = 5$ dan $\frac{2}{x} -
+              \frac{1}{y} = 1$. Nilai $x$ adalah...
+          </div>
+          <div class="options">
+            <div>A. $\frac{1}{2}$</div>
+            <div>B. $\frac{1}{3}$</div>
+            <div>C. 2</div>
+            <div>D. 3</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Mudah (1-2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah</div>
+        <div class="soal-latihan">
+          <b>1. Jawaban: B. 8</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV. Gunakan prinsip keseimbangan (pengurangan).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Soal: $x + 9 = 17$.<br />2. Kurangkan kedua sisi dengan 9
+            agar $x$ sendirian.<br />3. $x + 9 - 9 = 17 - 9$.<br />4. $x = 8$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>2. Jawaban: C. $-4 + y = 10$</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Menerjemahkan soal cerita ke model matematika (PLSV)
+            yang melibatkan bilangan negatif.<br /><b>Langkah-langkah:</b><br />1.
+            Suhu Awal = $-4^\circ$C.<br />2. Kenaikan Suhu = $y^\circ$C.<br />3.
+            Suhu Akhir = $10^\circ$C.<br />4. Kalimat matematikanya: (Suhu Awal) +
+            (Kenaikan) = (Suhu Akhir).<br />5. $-4 + y = 10$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Mudah (3-4) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>3. Jawaban: B. 7</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV. Gunakan prinsip keseimbangan (pembagian).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Soal: $3a = 21$. (Ini artinya $3 \times a$).<br />2. Bagi
+            kedua sisi dengan 3 agar $a$ sendirian.<br />3. $\frac{3a}{3} =
+            \frac{21}{3}$.<br />4. $a = 7$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>4. Jawaban: A. 14</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Soal cerita PLSV.<br /><b>Langkah-langkah:</b><br />1.
+            Kelereng awal = $k$. Diberi 6, artinya ditambah 6.<br />2. Jumlah
+            akhir = 20.<br />3. Persamaan: $k + 6 = 20$.<br />4. $k = 20 - 6$.<br />5.
+            $k = 14$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Mudah (5-6) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>5. Jawaban: C. 5</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV (Langkah Gabungan).<br /><b>Langkah-langkah:</b
+            ><br />1. Soal: $2x + 3 = 13$.<br />2. Pindahkan konstanta dulu.
+            Kurangkan 3 dari kedua sisi: $2x + 3 - 3 = 13 - 3$.<br />3. $2x =
+            10$.<br />4. Bagi kedua sisi dengan 2: $\frac{2x}{2} =
+            \frac{10}{2}$.<br />5. $x = 5$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>6. Jawaban: C. 20</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV (Prinsip Perkalian).<br /><b>Langkah-langkah:</b
+            ><br />1. Soal: $\frac{p}{4} = 5$. (Ini artinya $p$ dibagi 4).<br />2.
+            Untuk menghilangkan pembagi 4, kalikan kedua sisi dengan 4.<br />3.
+            $\frac{p}{4} \times 4 = 5 \times 4$.<br />4. $p = 20$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Mudah (7-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>7. Jawaban: B. -3</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV (Operasi Bilangan Bulat Negatif).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Soal: $y - 5 = -8$.<br />2. Tambahkan 5 ke kedua sisi untuk
+            menghilangkan -5.<br />3. $y - 5 + 5 = -8 + 5$.<br />4. $y = -3$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>8. Jawaban: B. -6</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV (Prinsip Pembagian, Bil. Negatif).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Soal: $-5x = 30$.<br />2. Bagi kedua sisi dengan $-5$
+            agar $x$ sendirian.<br />3. $\frac{-5x}{-5} = \frac{30}{-5}$.<br />4. $x =
+            -6$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Mudah (9-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Mudah (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>9. Jawaban: B. $n - 5 = 12$</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Menerjemahkan kalimat matematika.<br /><b
+              >Langkah-langkah:</b
+            ><br />"Lima kurangnya dari suatu bilangan $n$" artinya bilangan
+            $n$ dikurangi 5. <br />Jadi, $n - 5$.<br />"adalah 12" artinya
+            $= 12$.<br />Persamaannya menjadi $n - 5 = 12$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10. Jawaban: A. 14</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV (Melibatkan Pecahan).<br /><b>Langkah-langkah:</b
+            ><br />1. Soal: $\frac{x+1}{3} = 5$.<br />2. Kalikan kedua sisi dengan
+            3 untuk menghilangkan penyebut.<br />3. $(x+1) = 5 \times 3 \Rightarrow x
+            + 1 = 15$.<br />4. $x = 15 - 1 \Rightarrow x = 14$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sedang (11-12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang</div>
+        <div class="soal-latihan">
+          <b>11. Jawaban: B. 7</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Sifat Distributif pada PLSV.<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Soal: $3(x - 2) = 15$.<br />2.
+            <b>Cara 1 (Distributif):</b> Kalikan 3 ke dalam kurung: $3x - 6 =
+            15$.<br />3. $3x = 15 + 6 \Rightarrow 3x = 21$.<br />4. $x =
+            \frac{21}{3} \Rightarrow x = 7$.<br /><b>Cara 2 (Bagi dulu):</b>
+            Langsung bagi kedua sisi dengan 3.<br />1. $\frac{3(x-2)}{3} =
+            \frac{15}{3}$.<br />2. $x - 2 = 5$.<br />3. $x = 5 + 2 \Rightarrow x =
+            7$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>12. Jawaban: C. 12</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Soal cerita PLSV (Pecahan).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. "Setengah dari suatu bilangan $a$" $\Rightarrow
+            \frac{1}{2}a$.<br />2. "jika ditambah 4" $\Rightarrow \frac{1}{2}a +
+            4$.<br />3. "hasilnya adalah 10" $\Rightarrow \frac{1}{2}a + 4 =
+            10$.<br />4. Selesaikan persamaan: $\frac{1}{2}a = 10 - 4 \Rightarrow
+            \frac{1}{2}a = 6$.<br />5. Kalikan kedua sisi dengan 2: $a = 6 \times
+            2 \Rightarrow a = 12$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sedang (13-14) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>13. Jawaban: B. 5</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV dengan variabel di kedua sisi.<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Soal: $5x - 4 = 2x + 11$.<br />2. Kumpulkan suku $x$ di
+            kiri, dan konstanta di kanan.<br />3. Kurangkan $2x$ dari kedua sisi:
+            $5x - 2x - 4 = 2x - 2x + 11 \Rightarrow 3x - 4 = 11$.<br />4. Tambahkan
+            4 ke kedua sisi: $3x - 4 + 4 = 11 + 4 \Rightarrow 3x = 15$.<br />5.
+            Bagi kedua sisi dengan 3: $x = 5$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>14. Jawaban: C. 8</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> SPLDV (Metode Eliminasi).<br /><b>Langkah-langkah:</b
+            ><br />1. (1) $x + y = 12$<br />   (2) $x - y = 4$<br />2. Koefisien
+            $y$ sudah sama (1) dengan tanda beda (+y dan -y). Jumlahkan kedua
+            persamaan untuk mengeliminasi $y$.<br />3. $(x+y) + (x-y) = 12 +
+            4$<br />4. $2x = 16$.<br />5. $x = 8$. (Jika ditanya $y$, $8+y=12
+            \Rightarrow y=4$).
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sedang (15) - DIPISAH -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>15. Jawaban: B. Rp 2.000</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Soal cerita PLSV (Substitusi nilai).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Misal buku=$b$, pensil=$p$. Persamaan: $2b + 3p =
+            13000$.<br />2. Diketahui harga 1 buku $b = 3500$.<br />3.
+            Substitusikan (gantikan) nilai $b$ ke persamaan:<br />   $2(3500) + 3p
+            = 13000$.<br />4. $7000 + 3p = 13000$.<br />5. $3p = 13000 - 7000
+            \Rightarrow 3p = 6000$.<br />6. $p = \frac{6000}{3} \Rightarrow p =
+            2000$.<br />Jadi, harga 1 pensil adalah Rp 2.000.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sedang (16) - DIPISAH -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>16. Jawaban: B. Rp 40.000</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Soal cerita SPLDV.<br /><b>Langkah-langkah:</b><br />1.
+            Misal baju=$b$, celana=$c$.<br />   (1) $b + 2c = 140000$<br />   (2)
+            $2b + c = 130000$<br />2. Kita mau mencari $b$, jadi eliminasi $c$.
+            Samakan koefisien $c$ dengan mengalikan persamaan (1) dengan 1, dan
+            persamaan (2) dengan 2.<br />   (1) $b + 2c = 140000$<br />   (2) $4b
+            + 2c = 260000$<br />3. Kurangkan (2) dengan (1): $(4b+2c) - (b+2c) =
+            260000 - 140000$<br />4. $3b = 120000$.<br />5. $b = 40000$.<br />Jadi,
+            harga 1 baju adalah Rp 40.000.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sedang (17-18) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>17. Jawaban: D. 10</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV (Operasi Pecahan).<br /><b>Langkah-langkah:</b
+            ><br />1. Soal: $\frac{2}{5}n - 1 = 3$.<br />2. Pindahkan konstanta
+            dulu: $\frac{2}{5}n = 3 + 1 \Rightarrow \frac{2}{5}n = 4$.<br />3.
+            Untuk mencari $n$, kalikan kedua sisi dengan kebalikan dari koefisien
+            $\frac{2}{5}$, yaitu $\frac{5}{2}$.<br />4. $n = 4 \times
+            \frac{5}{2}$.<br />5. $n = \frac{20}{2} \Rightarrow n = 10$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>18. Jawaban: B. 4</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV (Variabel di kedua sisi).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Soal: $7x - 1 = 4x + 11$.<br />2. Kumpulkan $x$ di kiri: $7x
+            - 4x - 1 = 11 \Rightarrow 3x - 1 = 11$.<br />3. Kumpulkan konstanta
+            di kanan: $3x = 11 + 1 \Rightarrow 3x = 12$.<br />4. Bagi dengan 3: $x
+            = \frac{12}{3} \Rightarrow x = 4$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sedang (19-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sedang (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>19. Jawaban: C. 7</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> SPLDV (Metode Substitusi).<br /><b>Langkah-langkah:</b
+            ><br />1. (1) $y = x + 3$<br />   (2) $2x + y = 15$<br />2.
+            Substitusikan (gantikan) $y$ di pers (2) dengan $(x + 3)$ dari pers
+            (1).<br />3. $2x + (x + 3) = 15$.<br />4. $3x + 3 = 15 \Rightarrow 3x =
+            12 \Rightarrow x = 4$.<br />5. Soal menanyakan $y$. Masukkan $x=4$ ke
+            pers (1): $y = 4 + 3 \Rightarrow y = 7$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>20. Jawaban: B. 10</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Soal cerita SPLDV.<br /><b>Langkah-langkah:</b
+            ><br />1. Misal bilangan besar = $x$, bilangan kecil = $y$.<br />2.
+            (1) $x + y = 25$<br />   (2) $x - y = 5$<br />3. Eliminasi $x$ dengan
+            mengurangkan (1) - (2): $(x+y) - (x-y) = 25 - 5 \Rightarrow 2y =
+            20 \Rightarrow y = 10$.<br />4. Substitusi $y=10$ ke (1): $x + 10 =
+            25 \Rightarrow x = 15$.<br />5. Bilangan terkecil adalah $y$, yaitu 10.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit (21) - PECAHAN DARI HAL 26 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade SD)</div>
+        <div class="soal-latihan">
+          <b>21. Jawaban: B. 7</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Trik SPLDV. Soal tidak meminta $x$ atau $y$, tapi $x +
+            y$. Perhatikan pola koefisien.<br /><b>Langkah-langkah:</b><br />1.
+            (1) $3x + 2y = 16$<br />   (2) $2x + 3y = 19$<br />2. Jika kita
+            <b>menjumlahkan</b> kedua persamaan, kita akan mendapatkan koefisien
+            yang sama untuk $x$ dan $y$.<br />3. $(3x + 2y) + (2x + 3y) = 16 +
+            19$<br />4. $5x + 5y = 35$.<br />5. Keluarkan 5 (sifat distributif):
+            $5(x + y) = 35$.<br />6. Bagi kedua sisi dengan 5: $x + y = 7$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit (22) - PECAHAN DARI HAL 26 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Olimpiade SD)</div>
+        <div class="soal-latihan">
+          <b>22. Jawaban: B. 15 tahun</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Soal cerita umur (SPLDV/PLSV).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Misal umur anak sekarang = $a$, umur ayah sekarang = $b$.<br />2.
+            Persamaan (1): "Umur ayah sekarang 3x umur anak" $\Rightarrow b =
+            3a$.<br />3. Lima tahun lagi: Umur anak = $a+5$, Umur ayah = $b+5$.<br />4.
+            Persamaan (2): "Jumlah umur mereka 70" $\Rightarrow (a+5) + (b+5) =
+            70 \Rightarrow a + b + 10 = 70 \Rightarrow a + b = 60$.<br />5. Kita
+            punya SPLDV: $b = 3a$ dan $a + b = 60$.<br />6. Selesaikan dengan
+            substitusi. Gantikan $b$ di pers (2) dengan $3a$.<br />7. $a + (3a) =
+            60 \Rightarrow 4a = 60 \Rightarrow a = 15$.<br />Jadi, umur anak saat
+            ini adalah 15 tahun.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit (23) - PECAHAN DARI HAL 27 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>23. Jawaban: C. 24 m</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Soal perbandingan (pecahan) yang dimodelkan dengan
+            SPLDV.<br /><b>Langkah-langkah:</b><br />1. Misal bagian pertama = $a$,
+            bagian kedua = $b$.<br />2. Persamaan (1): "Panjang tongkat seluruhnya
+            44" $\Rightarrow a + b = 44$.<br />3. Persamaan (2): "1/3 bagian
+            pertama = 2/5 bagian kedua" $\Rightarrow \frac{1}{3}a =
+            \frac{2}{5}b$.<br />4. Sederhanakan pers (2): $a = \frac{6}{5}b$ (Kali
+            silang 3).<br />5. Substitusikan $a$ di pers (1) dengan $\frac{6}{5}b$:<br />
+            $(\frac{6}{5}b) + b = 44$.<br />6. $\frac{6}{5}b + \frac{5}{5}b = 44
+            \Rightarrow \frac{11}{5}b = 44$.<br />7. $b = 44 \times \frac{5}{11}
+            = 4 \times 5 = 20$.<br />8. $b=20$ adalah bagian kedua. Bagian pertama
+            $a = 44 - b = 44 - 20 = 24$ m.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit (24) - PECAHAN DARI HAL 27 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>24. Jawaban: B. 12</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Soal cerita klasik SPLDV.<br /><b>Langkah-langkah:</b
+            ><br />1. Misal jumlah motor = $m$, jumlah mobil = $b$.<br />2. Roda
+            motor = 2, roda mobil = 4.<br />3. Persamaan (1) (Jumlah
+            Kendaraan): $m + b = 30$.<br />4. Persamaan (2) (Jumlah Roda): $2m +
+            4b = 96$.<br />5. Kita mau mencari $m$ (motor), jadi eliminasi $b$.
+            Kalikan pers (1) dengan 4.<br />   (1) $4m + 4b = 120$<br />   (2) $2m +
+            4b = 96$<br />6. Kurangkan (1) dengan (2): $(4m+4b) - (2m+4b) = 120 -
+            96$.<br />7. $2m = 24 \Rightarrow m = 12$.<br />Jadi, jumlah motor
+            adalah 12.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit (25) - PECAHAN DARI HAL 28 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>25. Jawaban: C. 11</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> PLSV (Bentuk Pecahan). Gunakan kali silang.<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Soal: $\frac{2x - 1}{3} = \frac{x + 3}{2}$.<br />2. Lakukan
+            perkalian silang: $2 \times (2x - 1) = 3 \times (x + 3)$.<br />3.
+            Gunakan sifat distributif: $4x - 2 = 3x + 9$.<br />4. Kumpulkan $x$ di
+            kiri: $4x - 3x - 2 = 9 \Rightarrow x - 2 = 9$.<br />5. Kumpulkan
+            konstanta di kanan: $x = 9 + 2 \Rightarrow x = 11$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit (26) - PECAHAN DARI HAL 28 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>26. Jawaban: A. 20 tahun</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Soal cerita umur SPLDV (Lanjutan).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Misal umur Ani sekarang = $A$, Budi sekarang = $B$.<br />2.
+            5 tahun lalu: $A-5$ dan $B-5$. Pers (1): $A-5 = 4(B-5) \Rightarrow A-5
+            = 4B - 20 \Rightarrow A = 4B - 15$.<br />3. 4 tahun lagi: $A+4$ dan
+            $B+4$. Pers (2): $2(A+4) = 3(B+4) + 1 \Rightarrow 2A+8 = 3B + 12 + 1
+            \Rightarrow 2A = 3B + 5$.<br />4. Substitusi (1) ke (2): $2(4B - 15)
+            = 3B + 5 \Rightarrow 8B - 30 = 3B + 5$.<br />5. $5B = 35 \Rightarrow B
+            = 7$.<br />6. $A = 4B - 15 = 4(7) - 15 = 28 - 15 = 13$.<br />7. Jumlah
+            umur sekarang = $A + B = 13 + 7 = 20$.<br />Jadi, jumlah umur mereka
+            sekarang adalah 20 tahun.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit (27) - PECAHAN DARI HAL 29 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>27. Jawaban: B. 0</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> SPLDV (Eliminasi Koefisien Berbeda).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. (1) $2a + 3b = 10$<br />   (2) $4a - b = 6$<br />2. Eliminasi
+            $b$. Kalikan pers (2) dengan 3.<br />   (1) $2a + 3b = 10$<br />   (2)
+            $12a - 3b = 18$<br />3. Tanda $b$ berbeda, jadi jumlahkan: $(2a+3b) +
+            (12a-3b) = 10 + 18 \Rightarrow 14a = 28 \Rightarrow a = 2$.<br />4.
+            Substitusi $a=2$ ke (2): $4(2) - b = 6 \Rightarrow 8 - b = 6
+            \Rightarrow b = 2$.<br />5. Nilai $a - b = 2 - 2 = 0$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit (28) - PECAHAN DARI HAL 29 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>28. Jawaban: A. $\frac{120}{y-6} - \frac{120}{y}$</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Perbandingan berbalik nilai (Aljabar).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Total pekerjaan = 120 orang-hari. $x \times y = 120
+            \Rightarrow x = \frac{120}{y}$ (Orang awal).<br />2. Waktu baru = $y
+            - 6$ hari.<br />3. Orang baru ($x_{baru}$) =
+            $\frac{\text{Total Pekerjaan}}{\text{Waktu Baru}} =
+            \frac{120}{y-6}$.<br />4. Tambahan orang = (Orang baru) - (Orang
+            awal).<br />5. Tambahan = $\frac{120}{y-6} - \frac{120}{y}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit (29) - PECAHAN DARI HAL 30 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>29. Jawaban: A. 16</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Trik SPLDV (Pengurangan).<br /><b>Langkah-langkah:</b
+            ><br />1. (1) $4x - 3y = 23$<br />   (2) $3x - 4y = 7$<br />2. Soal
+            meminta $x + y$. Perhatikan jika kita kurangkan (1) - (2):<br />3.
+            $(4x - 3y) - (3x - 4y) = 23 - 7$<br />4. $4x - 3y - 3x + 4y = 16$.<br />5.
+            $(4x - 3x) + (-3y + 4y) = 16$.<br />6. $x + y = 16$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Kunci Jawaban Sulit (30) - PECAHAN DARI HAL 30 LAMA -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban & Pembahasan</h1>
+        <div class="kategori-soal">Kategori Sulit (Lanjutan)</div>
+        <div class="soal-latihan">
+          <b>30. Jawaban: A. $\frac{1}{2}$</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> SPLDV non-linear (bentuk pecahan).<br /><b
+              >Langkah-langkah:</b
+            ><br />1. Misalkan $a = \frac{1}{x}$ dan $b = \frac{1}{y}$.<br />2.
+            Sistem persamaannya menjadi:<br />   (1) $a + b = 5$<br />   (2) $2a -
+            b = 1$<br />3. Selesaikan SPLDV ini. Jumlahkan (1) dan (2) untuk
+            eliminasi $b$:<br />   $(a+b) + (2a-b) = 5 + 1 \Rightarrow 3a = 6
+            \Rightarrow a = 2$.<br />4. Kita mencari $x$. Kita tahu $a =
+            \frac{1}{x}$.<br />5. $2 = \frac{1}{x} \Rightarrow 2x = 1 \Rightarrow x =
+            \frac{1}{2}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
