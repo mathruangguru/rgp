@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul Lengkap OSNK Matematika - 30 Soal</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-color: #2c3e50;
+        --highlight-color: #e74c3c;
+        --bg-color: #e0e0e0;
+        --page-bg: #ffffff;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: var(--page-bg);
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: var(--accent-color);
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 3px solid var(--accent-color);
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+        color: var(--accent-color);
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 8px;
+        color: var(--accent-color);
+        border-left: 5px solid var(--highlight-color);
+        padding-left: 10px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 15px;
+        color: #444;
+      }
+      p {
+        text-align: justify;
+        margin-bottom: 8px;
+      }
+      ul {
+        padding-left: 20px;
+        margin-bottom: 10px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      .soal-latihan {
+        width: 100%;
+        margin-bottom: 20px;
+        break-inside: avoid;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-latihan b {
+        margin-bottom: 5px;
+        color: var(--accent-color);
+        font-size: 1.05em;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .options {
+        padding-left: 15px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 8pt;
+        color: var(--grey-text);
+        padding-top: 10px;
+        margin-top: auto;
+        border-top: 2px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+        line-height: 1.3;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 10px 0 20px 0;
+        background-color: var(--accent-color);
+        color: white;
+        padding: 8px 0;
+        border-radius: 5px;
+      }
+      .pembahasan {
+        background-color: #f4fbf4;
+        border-left: 4px solid #27ae60;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+        font-size: 11pt;
+        line-height: 1.6;
+        border-radius: 0 5px 5px 0;
+      }
+      .materi-box {
+        background-color: #fff8e1;
+        border: 1px solid #ffe0b2;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
+      
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div class="content-wrapper" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <img src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg" alt="Logo Pendidikan" class="cover-image" />
+        <h1 class="cover-title">Bank Soal OSNK<br />Matematika SD/MI</h1>
+        <p class="cover-subtitle">Materi Ringkas & Paket Latihan Intensif</p>
+        <div style="margin-top: 30px; border: 2px solid #2c3e50; padding: 20px; border-radius: 10px;">
+            <p><strong>Daftar Isi:</strong></p>
+            <ul style="text-align: left; list-style-type: none; padding: 0;">
+                <li>📚 Ringkasan Materi (3 Halaman)</li>
+                <li>📝 30 Soal Latihan (7 Halaman)</li>
+                <li>🔑 Pembahasan Lengkap (15 Halaman)</li>
+            </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Materi 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi 1: Bilangan & Operasi Hitung</h1>
+        <h2>A. Operasi Hitung Campuran (Kabataku)</h2>
+        <p>Dalam menyelesaikan soal operasi hitung campuran, urutan pengerjaan sangat penting. Ingat aturan <strong>PEMDAS</strong> atau di Indonesia dikenal dengan istilah <strong>KABATAKU</strong>:</p>
+        <div class="materi-box">
+            <ol>
+                <li><strong>(Kurung):</strong> Kerjakan apa pun yang ada di dalam tanda kurung terlebih dahulu.</li>
+                <li><strong>Pangkat/Akar:</strong> Hitung bentuk pangkat atau akar.</li>
+                <li><strong>KaBa (Kali & Bagi):</strong> Perkalian dan Pembagian setara kedudukannya. Kerjakan dari <strong>KIRI ke KANAN</strong>.</li>
+                <li><strong>TaKu (Tambah & Kurang):</strong> Penjumlahan dan Pengurangan setara. Kerjakan dari <strong>KIRI ke KANAN</strong>.</li>
+            </ol>
+        </div>
+        <p><em>Contoh:</em> $10 + 20 : 5 \times 2$.<br>
+        Salah jika $10+20$ dulu. Benar: Bagi dulu ($20:5=4$), lalu kali ($4 \times 2 = 8$), terakhir tambah ($10+8=18$).</p>
+
+        <h2>B. Bilangan Bulat & Garis Bilangan</h2>
+        <p>Soal cerita sering menggunakan konsep bilangan negatif (suhu di bawah nol, kedalaman laut, atau skor pengurangan).</p>
+        <ul>
+            <li><strong>Penjumlahan dengan negatif:</strong> $A + (-B)$ sama dengan $A - B$.</li>
+            <li><strong>Pengurangan dengan negatif:</strong> $A - (-B)$ sama dengan $A + B$. "Min ketemu min jadi plus".</li>
+            <li><strong>Model "Maju Mundur":</strong> Misal seekor katak naik 5m (positif) lalu turun 3m (negatif). Posisi akhir = $5 + (-3) = 2$m.</li>
+        </ul>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Materi 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi 2: Pola Bilangan & Logika</h1>
+        <h2>A. Pola Barisan Bilangan</h2>
+        <p>Banyak soal OSN menanyakan "angka berikutnya" atau "angka ke-100". Kita harus menemukan rumusnya ($U_n$).</p>
+        <div class="materi-box">
+            <ul>
+                <li><strong>Barisan Aritmatika:</strong> Penambahannya tetap (beda = $b$).<br>
+                Rumus: $U_n = a + (n-1)b$.<br>
+                Contoh: 2, 5, 8, 11... (Beda 3). Suku ke-10 = $2 + 9 \times 3 = 29$.</li>
+                <li><strong>Barisan Persegi:</strong> 1, 4, 9, 16, 25... (Rumus $n^2$).</li>
+                <li><strong>Barisan Persegi Panjang:</strong> 2, 6, 12, 20... (Rumus $n \times (n+1)$).</li>
+            </ul>
+        </div>
+        <h2>B. Teka-Teki Logika & Kriptaritma</h2>
+        <p>Kriptaritma adalah soal di mana angka diganti huruf (misal $AB + A = CD$). Kuncinya:</p>
+        <ul>
+            <li>Setiap huruf mewakili <strong>satu digit</strong> (0-9) yang unik. Huruf beda = angka beda.</li>
+            <li>Huruf pertama dari sebuah bilangan tidak boleh 0.</li>
+            <li>Gunakan logika satuan. Misal $A \times A = ...9$, maka A pasti 3 atau 7.</li>
+        </ul>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Materi 3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi 3: Geometri & Pengukuran</h1>
+        <h2>A. Sudut pada Jam</h2>
+        <p>Jarum jam dan menit sering membentuk sudut tertentu. Rumus cepat menghitung sudut terkecil antara jarum jam (H) dan menit (M) adalah:</p>
+        <div class="materi-box">
+            $$ \text{Sudut} = | 30 \times H - 5,5 \times M | $$
+            <p><small>*Catatan: H adalah angka jam (1-12), M adalah angka menit. Jika hasilnya > 180, kurangkan dari 360.</small></p>
+        </div>
+        <p>Logikanya: Jarum jam bergerak $30^\circ$ per jam ($0.5^\circ$ per menit). Jarum menit bergerak $6^\circ$ per menit.</p>
+
+        <h2>B. Perbandingan Berbalik Nilai (Pekerja & Waktu)</h2>
+        <p>Contoh: "A selesai 3 jam, B selesai 6 jam. Kalau bareng?".</p>
+        <p>Gunakan konsep kecepatan kerja:</p>
+        <ul>
+            <li>Kecepatan A = $\frac{1}{3}$ pekerjaan/jam.</li>
+            <li>Kecepatan B = $\frac{1}{6}$ pekerjaan/jam.</li>
+            <li>Kecepatan Gabungan = $\frac{1}{3} + \frac{1}{6} = \frac{3}{6} = \frac{1}{2}$.</li>
+            <li>Waktu Gabungan = $\frac{1}{\text{Kecepatan Gabungan}} = 2$ jam.</li>
+        </ul>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- SOAL LATIHAN 1-3 (Halaman Baru) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Latihan Soal (Nomor 1-3)</div>
+        
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Di sebuah laboratorium matematika, Profesor Aneh menemukan operasi bilangan baru yang diberi simbol '$\diamond$'. Operasi ini bekerja dengan aturan tertentu. Diketahui $3 \ \diamond \ 2 = 7$, $4 \ \diamond \ 3 = 13$, dan $5 \ \diamond \ 2 = 11$. Para asisten profesor diminta menghitung nilai dari $6 \ \diamond \ 4$. Berapakah hasilnya?
+          </div>
+          <div class="options">
+            <div>A. 20</div><div>B. 22</div><div>C. 24</div><div>D. 25</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Seekor katak terjebak di dasar sumur yang memiliki kedalaman 30 meter. Karena dinding sumur yang licin, setiap siang hari katak tersebut hanya mampu merayap naik setinggi 5 meter, namun saat beristirahat di malam hari, ia merosot turun kembali sejauh 4 meter. Berapa hari yang dibutuhkan katak untuk benar-benar keluar dari sumur tersebut?
+          </div>
+          <div class="options">
+            <div>A. 25 hari</div><div>B. 26 hari</div><div>C. 29 hari</div><div>D. 30 hari</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Aku memikirkan sebuah bilangan misterius. Jika bilangan tersebut dikalikan 4, kemudian hasilnya dikurangi 8, lalu dibagi 2, maka hasil akhirnya adalah 10. Bilangan berapakah yang aku pikirkan?
+          </div>
+          <div class="options">
+            <div>A. 6</div><div>B. 7</div><div>C. 8</div><div>D. 9</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- SOAL LATIHAN 4-5 (Halaman Baru) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Latihan Soal (Nomor 4-5)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Dalam sebuah kompetisi matematika, panitia menerapkan aturan penskoran sebagai berikut: Jawaban Benar mendapat poin +4, Jawaban Salah mendapat poin -2, dan Tidak Menjawab mendapat poin -1. Dari total 25 soal yang diberikan, Budi berhasil menjawab 20 soal saja, dan diketahui 15 di antaranya benar. Berapakah total skor akhir yang diperoleh Budi?
+          </div>
+          <div class="options">
+            <div>A. 45</div><div>B. 50</div><div>C. 55</div><div>D. 60</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Pak Guru menuliskan soal operasi hitung campuran di papan tulis: $12 + 6 \times (5 - 2) : 9$. Ia meminta murid-muridnya mengerjakan sesuai urutan operasi yang benar (Kabataku). Hasil yang tepat dari operasi tersebut adalah...
+          </div>
+          <div class="options">
+            <div>A. 2</div><div>B. 6</div><div>C. 14</div><div>D. 18</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- SOAL LATIHAN 6-10 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Latihan Soal (Nomor 6-10)</div>
+        
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Andi sedang menyusun kelereng membentuk barisan bilangan dengan pola tertentu: 2, 5, 8, 11, dan seterusnya. Jika Andi terus menyusun kelereng dengan pola penambahan yang sama, berapakah jumlah kelereng pada urutan ke-10?
+          </div>
+          <div class="options">
+            <div>A. 27</div><div>B. 29</div><div>C. 30</div><div>D. 32</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Hari ini adalah hari Senin. Budi sedang menghitung hari untuk persiapan ujiannya yang akan dilaksanakan tepat 100 hari lagi dari sekarang. Jatuh pada hari apakah ujian Budi tersebut?
+          </div>
+          <div class="options">
+            <div>A. Senin</div><div>B. Selasa</div><div>C. Rabu</div><div>D. Kamis</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Di sebuah toko alat tulis, harga 1 lusin (12 buah) pensil berkualitas tinggi adalah Rp 36.000. Jika Ani hanya ingin membeli 5 buah pensil tersebut untuk keperluan sekolahnya, berapa rupiah yang harus ia bayar?
+          </div>
+          <div class="options">
+            <div>A. Rp 12.000</div><div>B. Rp 15.000</div><div>C. Rp 18.000</div><div>D. Rp 20.000</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Bilangan prima adalah bilangan yang hanya memiliki dua faktor, yaitu 1 dan bilangan itu sendiri. Berapa banyak bilangan prima yang terletak di antara angka 10 dan 30?
+          </div>
+          <div class="options">
+            <div>A. 4 bilangan</div><div>B. 5 bilangan</div><div>C. 6 bilangan</div><div>D. 7 bilangan</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Perhatikan sebuah jam dinding analog. Pada pukul 04.00 tepat, jarum jam (pendek) dan jarum menit (panjang) akan membentuk dua sudut. Berapakah besar sudut terkecil yang dibentuk oleh kedua jarum tersebut?
+          </div>
+          <div class="options">
+            <div>A. $90^\circ$</div><div>B. $100^\circ$</div><div>C. $120^\circ$</div><div>D. $150^\circ$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- SOAL LATIHAN 11-15 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Latihan Soal (Nomor 11-15)</div>
+        
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Bilangan palindrom adalah bilangan yang bernilai sama jika dibaca dari depan maupun dari belakang (contoh: 121, 353). Berapakah jumlah dari semua bilangan palindrom tiga digit yang terletak di antara 100 dan 200?
+          </div>
+          <div class="options">
+            <div>A. 1350</div><div>B. 1430</div><div>C. 1460</div><div>D. 1540</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Diketahui sebuah teka-teki kriptaritma: $AB + B = BA$, di mana $A$ dan $B$ adalah digit (angka 0-9) yang berbeda dan $AB$ serta $BA$ adalah bilangan dua digit. Tentukan nilai dari hasil perkalian $A \times B$.
+          </div>
+          <div class="options">
+            <div>A. 8</div><div>B. 12</div><div>C. 18</div><div>D. 72</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Kamu diberikan tiga pecahan: $\frac{1}{2}, \frac{2}{3}, \frac{3}{4}$. Kamu harus memasukkan pecahan-pecahan tersebut ke dalam kotak kosong pada persamaan berikut: $\square + \square \times \square$ agar menghasilkan nilai terbesar. Urutan pecahan dari kiri ke kanan yang benar adalah...
+          </div>
+          <div class="options">
+            <div>A. $\frac{1}{2}, \frac{3}{4}, \frac{2}{3}$</div>
+            <div>B. $\frac{3}{4}, \frac{2}{3}, \frac{1}{2}$</div>
+            <div>C. $\frac{1}{2}, \frac{2}{3}, \frac{3}{4}$</div>
+            <div>D. $\frac{2}{3}, \frac{3}{4}, \frac{1}{2}$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Di sebuah peternakan, terdapat hewan Ayam (berkaki 2) dan Sapi (berkaki 4). Jika dihitung jumlah kepalanya ada 30 ekor, dan jika dihitung jumlah kakinya ada 84 kaki. Berapakah selisih antara jumlah sapi dan jumlah ayam di peternakan tersebut?
+          </div>
+          <div class="options">
+            <div>A. 4 ekor</div><div>B. 6 ekor</div><div>C. 8 ekor</div><div>D. 12 ekor</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Rata-rata nilai ujian matematika dari 4 orang siswa adalah 80. Ketika nilai Edo digabungkan ke dalam kelompok tersebut, rata-rata nilai mereka naik menjadi 82. Berapakah nilai ujian Edo?
+          </div>
+          <div class="options">
+            <div>A. 85</div><div>B. 88</div><div>C. 90</div><div>D. 92</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- SOAL LATIHAN 16-20 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Latihan Soal (Nomor 16-20)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Sebuah jam digital menunjukkan pukul 20:20. Jam tersebut akan terus berjalan. Berapa menit lagikah jam tersebut akan menunjukkan susunan angka yang sama namun terbalik (palindrom jam) berikutnya, yaitu pukul 21:12?
+          </div>
+          <div class="options">
+            <div>A. 42 menit</div><div>B. 52 menit</div><div>C. 62 menit</div><div>D. 92 menit</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Jika kita menuliskan semua bilangan bulat dari 1 sampai 100 secara berurutan, berapa kali kita akan menuliskan digit angka "5"? (Ingat, angka 55 memiliki dua digit 5).
+          </div>
+          <div class="options">
+            <div>A. 10 kali</div><div>B. 11 kali</div><div>C. 19 kali</div><div>D. 20 kali</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Saat ini, umur seorang Ayah adalah 4 kali umur Budi. Lima tahun yang akan datang, umur Ayah akan menjadi 3 kali umur Budi. Berapakah umur Ayah saat ini?
+          </div>
+          <div class="options">
+            <div>A. 32 tahun</div><div>B. 36 tahun</div><div>C. 40 tahun</div><div>D. 44 tahun</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Sebuah persegi panjang memiliki ukuran panjang dan lebar tertentu. Jika panjangnya dikurangi 20% dan lebarnya ditambah 20%, bagaimanakah perubahan luas persegi panjang tersebut dibandingkan luas mula-mula?
+          </div>
+          <div class="options">
+            <div>A. Tetap sama</div><div>B. Naik 4%</div><div>C. Turun 4%</div><div>D. Turun 10%</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Keran air A mampu mengisi bak mandi hingga penuh dalam waktu 3 jam. Keran air B mampu mengisi bak yang sama hingga penuh dalam waktu 6 jam. Jika kedua keran dibuka bersamaan, berapa lama waktu yang dibutuhkan agar bak mandi tersebut penuh?
+          </div>
+          <div class="options">
+            <div>A. 1,5 jam</div><div>B. 2 jam</div><div>C. 2,5 jam</div><div>D. 4,5 jam</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- SOAL LATIHAN 21-25 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Latihan Soal (Nomor 21-25)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> Dalam sebuah pertemuan reuni, terdapat 5 orang sahabat lama. Jika setiap orang bersalaman dengan orang lain tepat satu kali, berapakah total jabat tangan yang terjadi dalam pertemuan tersebut?
+          </div>
+          <div class="options">
+            <div>A. 10</div><div>B. 15</div><div>C. 20</div><div>D. 25</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Perhatikan papan catur berukuran $4 \times 4$ petak. Berapa banyak total persegi (dari berbagai ukuran, mulai dari $1 \times 1$ hingga $4 \times 4$) yang dapat ditemukan pada papan tersebut?
+          </div>
+          <div class="options">
+            <div>A. 16</div><div>B. 25</div><div>C. 30</div><div>D. 36</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Pak Dengklek menuliskan bilangan bulat dari 1 sampai 100 di papan tulis. Kemudian ia melakukan permainan penghapusan: ia menghapus dua bilangan secara acak, sebut saja $a$ dan $b$, lalu menggantinya dengan satu bilangan baru yaitu hasil dari $(a + b + ab)$. Ia melakukan hal ini terus menerus hingga tersisa satu bilangan saja di papan tulis. Bilangan berapakah itu?
+          </div>
+          <div class="options">
+            <div>A. $100!$</div><div>B. $101! - 1$</div><div>C. $100! + 1$</div><div>D. $5050$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> Notasi $n!$ (baca: n faktorial) artinya perkalian $1 \times 2 \times 3 \times \dots \times n$. Tentukan digit satuan (angka terakhir) dari hasil penjumlahan deret berikut: $1! + 2! + 3! + 4! + \dots + 2025!$.
+          </div>
+          <div class="options">
+            <div>A. 1</div><div>B. 3</div><div>C. 5</div><div>D. 9</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Sebuah botol kaca yang berisi penuh air ditimbang beratnya adalah 1,5 kg. Jika air dalam botol tersebut dibuang setengahnya, berat botol beserta sisa airnya menjadi 0,9 kg. Berapakah berat botol kaca tersebut dalam keadaan kosong?
+          </div>
+          <div class="options">
+            <div>A. 0,3 kg</div><div>B. 0,4 kg</div><div>C. 0,5 kg</div><div>D. 0,6 kg</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- SOAL LATIHAN 26-30 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Latihan Soal (Nomor 26-30)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> Tentukan sisa pembagian dari bilangan berpangkat besar $2^{2023}$ jika dibagi oleh 7. (Petunjuk: Cari pola sisa pembagian perpangkatan 2 jika dibagi 7).
+          </div>
+          <div class="options">
+            <div>A. 1</div><div>B. 2</div><div>C. 4</div><div>D. 6</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Misalkan $N = 10^{50} - 50$. Jika bilangan $N$ tersebut dituliskan dalam bentuk desimal biasa, berapakah jumlah dari semua digit-digit penyusun bilangan $N$ tersebut?
+          </div>
+          <div class="options">
+            <div>A. 432</div><div>B. 437</div><div>C. 440</div><div>D. 450</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Carilah bilangan bulat positif terkecil yang memiliki sifat unik berikut: jika dibagi 3 bersisa 2, jika dibagi 4 bersisa 3, dan jika dibagi 5 bersisa 4.
+          </div>
+          <div class="options">
+            <div>A. 59</div><div>B. 60</div><div>C. 119</div><div>D. 120</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> Pada pukul 03.30, jarum pendek (jam) tidak tepat berada di angka 3, melainkan sudah bergeser. Berapakah besar sudut terkecil yang dibentuk oleh jarum jam dan jarum menit pada pukul 03.30?
+          </div>
+          <div class="options">
+            <div>A. $75^\circ$</div><div>B. $90^\circ$</div><div>C. $105^\circ$</div><div>D. $180^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> Pak Guru hendak mengajar dan memiliki koleksi pakaian yang terdiri dari 3 kemeja berbeda (Merah, Biru, Putih) dan 4 celana panjang berbeda (Hitam, Abu-abu, Coklat, Jeans). Berapa banyak pasangan setelan (kemeja dan celana) berbeda yang dapat dipilih Pak Guru untuk mengajar?
+          </div>
+          <div class="options">
+            <div>A. 7 setelan</div><div>B. 10 setelan</div><div>C. 12 setelan</div><div>D. 16 setelan</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 1-2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (1-2)</h1>
+        
+        <div class="soal-latihan">
+          <b>1. Jawaban: D (25)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pola Operasi Bilangan (Logika).<br>
+            Analisis pola dari contoh yang diberikan: <br>
+            $3 \diamond 2 = 7 \rightarrow (3 \times 2) + 1 = 7$.<br>
+            $4 \diamond 3 = 13 \rightarrow (4 \times 3) + 1 = 13$.<br>
+            $5 \diamond 2 = 11 \rightarrow (5 \times 2) + 1 = 11$.<br>
+            Ditemukan pola umum: $a \diamond b = (a \times b) + 1$.<br>
+            Maka, $6 \diamond 4 = (6 \times 4) + 1 = 24 + 1 = 25$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: B (26 hari)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Logika Aritmatika (Jebakan "Hari Terakhir").<br>
+            Banyak siswa terkecoh menjawab $30 : (5-4) = 30$ hari. Ini salah.<br>
+            Setiap hari (siang+malam), katak naik bersih $5 - 4 = 1$ meter.<br>
+            Setelah 25 hari, katak sudah naik setinggi $25 \times 1 = 25$ meter.<br>
+            Pada <b>siang hari ke-26</b>, katak naik 5 meter dari posisi 25 meter. $25 + 5 = 30$ meter. Katak sudah sampai di bibir sumur dan keluar, sehingga tidak akan merosot lagi. Jadi totalnya 26 hari.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 3-4 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (3-4)</h1>
+        
+        <div class="soal-latihan">
+          <b>3. Jawaban: B (7)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Bekerja Mundur (Working Backwards).<br>
+            Kita mulai dari hasil akhir dan membalikkan operasinya.<br>
+            Hasil akhir = 10.<br>
+            Langkah terakhir "dibagi 2" $\rightarrow$ kebalikannya <strong>dikali 2</strong>: $10 \times 2 = 20$.<br>
+            Langkah sebelumnya "dikurangi 8" $\rightarrow$ kebalikannya <strong>ditambah 8</strong>: $20 + 8 = 28$.<br>
+            Langkah awal "dikalikan 4" $\rightarrow$ kebalikannya <strong>dibagi 4</strong>: $28 : 4 = 7$.<br>
+            Jadi, bilangan asalnya adalah 7.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: A (45)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Operasi Bilangan Bulat (Skor).<br>
+            Data Soal: Total=25, Dijawab=20, Benar=15.<br>
+            1. Hitung Salah: Dijawab - Benar = $20 - 15 = 5$ soal salah.<br>
+            2. Hitung Kosong: Total - Dijawab = $25 - 20 = 5$ soal kosong.<br>
+            3. Hitung Poin:<br>
+            - Benar: $15 \times 4 = 60$.<br>
+            - Salah: $5 \times (-2) = -10$.<br>
+            - Kosong: $5 \times (-1) = -5$.<br>
+            Total Skor: $60 - 10 - 5 = 45$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 5-6 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (5-6)</h1>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: C (14)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Urutan Operasi (KABATAKU).<br>
+            Soal: $12 + 6 \times (5 - 2) : 9$.<br>
+            1. <strong>Kurung</strong> dulu: $(5 - 2) = 3$.<br>
+            Soal menjadi: $12 + 6 \times 3 : 9$.<br>
+            2. <strong>Kali</strong> (karena di kiri bagi): $6 \times 3 = 18$.<br>
+            Soal menjadi: $12 + 18 : 9$.<br>
+            3. <strong>Bagi</strong>: $18 : 9 = 2$.<br>
+            Soal menjadi: $12 + 2$.<br>
+            4. <strong>Tambah</strong>: $12 + 2 = 14$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>6. Jawaban: B (29)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pola Barisan Aritmatika.<br>
+            Barisan: 2, 5, 8, 11...<br>
+            Beda ($b$) antar suku adalah $+3$.<br>
+            Suku pertama ($a$) adalah 2.<br>
+            Rumus suku ke-n: $U_n = a + (n-1)b$.<br>
+            $U_{10} = 2 + (10-1) \times 3$<br>
+            $U_{10} = 2 + 9 \times 3$<br>
+            $U_{10} = 2 + 27 = 29$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 7-8 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (7-8)</h1>
+        
+        <div class="soal-latihan">
+          <b>7. Jawaban: C (Rabu)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Aritmatika Modulo (Sisa Bagi Hari).<br>
+            Satu minggu berulang setiap 7 hari.<br>
+            Kita cari sisa pembagian 100 dengan 7.<br>
+            $100 : 7 = 14$ sisa <strong>2</strong>.<br>
+            Artinya, 100 hari lagi sama dengan "2 hari setelah hari ini".<br>
+            Senin + 1 = Selasa.<br>
+            Senin + 2 = <strong>Rabu</strong>.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: B (Rp 15.000)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Aritmatika Sosial (Harga Satuan).<br>
+            1. Cari harga satuan pensil.<br>
+            Harga 1 lusin (12 buah) = Rp 36.000.<br>
+            Harga 1 buah = $36.000 : 12 = \text{Rp } 3.000$.<br>
+            2. Hitung harga beli 5 buah.<br>
+            Harga 5 buah = $5 \times 3.000 = \text{Rp } 15.000$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 9-10 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (9-10)</h1>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: C (6 bilangan)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Bilangan Prima.<br>
+            Kita daftar bilangan antara 10 dan 30, lalu cek faktornya.<br>
+            - 11 (Prima)<br>
+            - 13 (Prima)<br>
+            - 15 (Bukan, bisa dibagi 3, 5)<br>
+            - 17 (Prima)<br>
+            - 19 (Prima)<br>
+            - 21 (Bukan, bisa dibagi 3, 7)<br>
+            - 23 (Prima)<br>
+            - 25 (Bukan, bisa dibagi 5)<br>
+            - 27 (Bukan, bisa dibagi 3, 9)<br>
+            - 29 (Prima)<br>
+            Jadi bilangan primanya: 11, 13, 17, 19, 23, 29. Total ada <strong>6</strong> bilangan.
+          </div>
+        </div>
+        
+        <div class="soal-latihan">
+          <b>10. Jawaban: C ($120^\circ$)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Sudut Jam Sederhana.<br>
+            Lingkaran jam dibagi menjadi 12 angka. Satu putaran penuh = $360^\circ$.<br>
+            Jarak antar angka jam = $360^\circ : 12 = 30^\circ$.<br>
+            Pada pukul 04.00:<br>
+            - Jarum pendek di angka 4.<br>
+            - Jarum panjang di angka 12.<br>
+            Jaraknya adalah 4 langkah (dari 12 ke 1, 2, 3, 4).<br>
+            Besar sudut = $4 \times 30^\circ = 120^\circ$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 11-12 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (11-12)</h1>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: C (1460)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pola Bilangan & Penjumlahan Deret.<br>
+            Palindrom antara 100-200 pasti formatnya $1X1$.<br>
+            Daftar bilangannya: 101, 111, 121, 131, 141, 151, 161, 171, 181, 191.<br>
+            Ini membentuk deret aritmatika dengan suku pertama $a=101$, suku terakhir $U_n=191$, dan banyaknya suku $n=10$.<br>
+            Rumus Jumlah ($S_n$): $S_n = \frac{n}{2} (a + U_n)$.<br>
+            $S_{10} = \frac{10}{2} (101 + 191) = 5 \times 292 = 1460$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: D (72)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Kriptaritma (Aljabar).<br>
+            Persamaan: $AB + B = BA$.<br>
+            Uraikan dalam nilai tempat (puluhan dan satuan):<br>
+            $(10A + B) + B = (10B + A)$<br>
+            $10A + 2B = 10B + A$<br>
+            Pindahkan variabel:<br>
+            $10A - A = 10B - 2B$<br>
+            $9A = 8B$.<br>
+            Karena A dan B adalah digit tunggal (0-9) dan $A \neq 0$, satu-satunya solusi yang memenuhi persamaan $9 \times A = 8 \times B$ adalah $A=8$ dan $B=9$.<br>
+            Cek: $89 + 9 = 98$. (Benar).<br>
+            Hasil $A \times B = 8 \times 9 = 72$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 13-14 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (13-14)</h1>
+        
+        <div class="soal-latihan">
+          <b>13. Jawaban: B</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Operasi Pecahan.<br>
+            Tujuan: Mendapatkan hasil terbesar dari $\square + \square \times \square$.<br>
+            Kita harus menempatkan pecahan terbesar untuk operasi penjumlahan utama agar nilainya tidak menyusut banyak karena perkalian pecahan (karena pecahan dikali pecahan nilainya makin kecil).<br>
+            Mari kita hitung opsi yang mungkin:<br>
+            A. $1/2 + (3/4 \times 2/3) = 1/2 + 6/12 = 1/2 + 1/2 = 1$.<br>
+            B. $3/4 + (2/3 \times 1/2) = 3/4 + 2/6 = 9/12 + 4/12 = 13/12 \approx 1,08$.<br>
+            C. $1/2 + (2/3 \times 3/4) = 1$.<br>
+            D. $2/3 + (3/4 \times 1/2) = 2/3 + 3/8 = 16/24 + 9/24 = 25/24 \approx 1,04$.<br>
+            Nilai terbesar adalah 13/12 dari opsi B.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: B (6 ekor)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Sistem Persamaan Linear (SPLDV).<br>
+            Misal Ayam = A, Sapi = S.<br>
+            1. Jumlah Kepala: $A + S = 30$.<br>
+            2. Jumlah Kaki: $2A + 4S = 84$.<br>
+            Kita eliminasi A. Kalikan persamaan (1) dengan 2:<br>
+            $2A + 2S = 60$.<br>
+            Kurangkan persamaan kaki dengan hasil kali ini:<br>
+            $(2A + 4S) - (2A + 2S) = 84 - 60$<br>
+            $2S = 24 \rightarrow S = 12$.<br>
+            Jika Sapi 12, maka Ayam $30 - 12 = 18$.<br>
+            Selisih = $18 - 12 = 6$ ekor.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 15-16 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (15-16)</h1>
+        
+        <div class="soal-latihan">
+          <b>15. Jawaban: C (90)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Statistik (Rata-rata Gabungan).<br>
+            1. Total nilai awal (4 siswa): $4 \times 80 = 320$.<br>
+            2. Total nilai akhir (5 siswa): $5 \times 82 = 410$.<br>
+            3. Nilai Edo adalah selisihnya:<br>
+            Nilai Edo = Total Akhir - Total Awal<br>
+            Nilai Edo = $410 - 320 = 90$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>16. Jawaban: B (52 menit)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Logika Waktu.<br>
+            Waktu saat ini: 20:20.<br>
+            Kita mencari waktu palindrom berikutnya. Format jam palindrom digital biasanya AB:BA.<br>
+            Setelah jam 20, jam berikutnya adalah 21. Palindrom untuk 21 adalah 12 (karena 21 dibalik 12). Jadi waktu target adalah 21:12.<br>
+            Hitung selisih waktu:<br>
+            - Dari 20:20 ke 21:00 = 40 menit.<br>
+            - Dari 21:00 ke 21:12 = 12 menit.<br>
+            Total = $40 + 12 = 52$ menit.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 17-18 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (17-18)</h1>
+        
+        <div class="soal-latihan">
+          <b>17. Jawaban: D (20 kali)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pencacahan Digit.<br>
+            Kita hitung kemunculan angka 5:<br>
+            1. Sebagai Satuan: 5, 15, 25, 35, 45, 55, 65, 75, 85, 95. (Ada 10 angka).<br>
+            2. Sebagai Puluhan: 50, 51, 52, 53, 54, 55, 56, 57, 58, 59. (Ada 10 angka).<br>
+            Total kemunculan = $10 + 10 = 20$.<br>
+            <em>Catatan:</em> Angka 55 dihitung dua kali (sekali di grup satuan, sekali di grup puluhan), ini benar karena 55 terdiri dari dua digit angka 5.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>18. Jawaban: C (40 tahun)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Aljabar Soal Cerita.<br>
+            Misal Umur Ayah = A, Umur Budi = B.<br>
+            1. Kondisi sekarang: $A = 4B$.<br>
+            2. Kondisi 5 tahun lagi: $(A+5) = 3(B+5)$.<br>
+            Substitusikan $A=4B$ ke persamaan kedua:<br>
+            $4B + 5 = 3B + 15$.<br>
+            Pindahkan 3B ke kiri dan 5 ke kanan:<br>
+            $4B - 3B = 15 - 5$<br>
+            $B = 10$.<br>
+            Umur Budi 10 tahun. Umur Ayah = $4 \times 10 = 40$ tahun.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 19-20 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (19-20)</h1>
+        
+        <div class="soal-latihan">
+          <b>19. Jawaban: C (Turun 4%)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Persentase Luas.<br>
+            Trik: Gunakan angka mudah, misal Panjang awal = 10, Lebar awal = 10. Luas awal = $10 \times 10 = 100$.<br>
+            Panjang baru (turun 20%) = $10 - 2 = 8$.<br>
+            Lebar baru (naik 20%) = $10 + 2 = 12$.<br>
+            Luas baru = $8 \times 12 = 96$.<br>
+            Perubahan dari 100 menjadi 96 adalah berkurang 4.<br>
+            Karena basis awalnya 100, maka penurunannya adalah 4%.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: B (2 jam)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Perbandingan Berbalik Nilai (Kecepatan Kerja).<br>
+            - Kecepatan Keran A = 1/3 bak per jam.<br>
+            - Kecepatan Keran B = 1/6 bak per jam.<br>
+            Jika dibuka bersama, kecepatannya dijumlahkan:<br>
+            Kecepatan Total = $1/3 + 1/6$.<br>
+            Samakan penyebut (6):<br>
+            Kecepatan Total = $2/6 + 1/6 = 3/6 = 1/2$ bak per jam.<br>
+            Waktu yang dibutuhkan = 1 dibagi kecepatan total.<br>
+            Waktu = $1 : (1/2) = 2$ jam.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 21-22 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (21-22)</h1>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: A (10)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Kombinasi (Salaman).<br>
+            Masalah ini sama dengan mencari banyaknya garis yang bisa dibuat dari 5 titik.<br>
+            Rumus: Setiap orang salaman dengan $(n-1)$ orang lain. Totalnya dibagi 2 (karena A salaman dengan B sama saja B dengan A).<br>
+            Jumlah Salaman = $\frac{n \times (n-1)}{2}$.<br>
+            Jumlah Salaman = $\frac{5 \times 4}{2} = \frac{20}{2} = 10$.<br>
+            Cara manual: Orang 1 salaman dgn 4 org. Orang 2 dgn 3 sisa. Orang 3 dgn 2 sisa. Orang 4 dgn 1 sisa. $4+3+2+1 = 10$.
+          </div>
+        </div>
+        
+        <div class="soal-latihan">
+          <b>22. Jawaban: C (30)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pola Geometri (Menghitung Persegi).<br>
+            Total persegi pada papan grid $n \times n$ adalah jumlah kuadrat dari 1 sampai $n$.<br>
+            Untuk papan $4 \times 4$:<br>
+            - Ukuran $1 \times 1$: Ada $4 \times 4 = 16$.<br>
+            - Ukuran $2 \times 2$: Ada $3 \times 3 = 9$.<br>
+            - Ukuran $3 \times 3$: Ada $2 \times 2 = 4$.<br>
+            - Ukuran $4 \times 4$: Ada $1 \times 1 = 1$.<br>
+            Total = $16 + 9 + 4 + 1 = 30$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 23-24 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (23-24)</h1>
+        
+        <div class="soal-latihan">
+          <b>23. Jawaban: B ($101! - 1$)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Invarian Aljabar (Tipe OSN).<br>
+            Perhatikan operasi $a \circ b = a + b + ab$.<br>
+            Bentuk ini bisa difaktorkan menjadi: $(a+1)(b+1) - 1$.<br>
+            Operasi ini memiliki sifat unik dimana jika kita menggabungkan banyak bilangan $x_1, x_2, \dots, x_n$, hasil akhirnya adalah perkalian $(x+1)$ dari semua bilangan tersebut, dikurangi 1.<br>
+            Daftar bilangan: 1, 2, 3, ..., 100.<br>
+            Hasil Akhir = $[(1+1)(2+1)(3+1)\dots(100+1)] - 1$.<br>
+            Hasil Akhir = $[2 \times 3 \times 4 \times \dots \times 101] - 1$.<br>
+            Bentuk $[1 \times 2 \times \dots \times 101]$ adalah $101!$.<br>
+            Jadi jawabannya $101! - 1$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: B (3)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Faktorial & Digit Satuan.<br>
+            Kita cari satuan dari setiap suku:<br>
+            - $1! = 1$.<br>
+            - $2! = 2$.<br>
+            - $3! = 6$.<br>
+            - $4! = 24$ (Satuannya 4).<br>
+            - $5! = 120$ (Satuannya 0).<br>
+            - $6! = 720$ (Satuannya 0).<br>
+            Mulai dari $5!$ ke atas, digit satuannya selalu 0 karena mengandung faktor 2 dan 5 ($2 \times 5 = 10$).<br>
+            Jadi kita cukup jumlahkan satuan dari 1! sampai 4!:<br>
+            $1 + 2 + 6 + 4 = 13$.<br>
+            Digit satuannya adalah <strong>3</strong>.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 25-26 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (25-26)</h1>
+        
+        <div class="soal-latihan">
+          <b>25. Jawaban: A (0,3 kg)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Logika Aljabar.<br>
+            1. Berat Botol + Air Penuh = 1,5 kg.<br>
+            2. Berat Botol + 1/2 Air = 0,9 kg.<br>
+            Selisih antara kondisi (1) dan (2) adalah berat dari "setengah air" yang dibuang.<br>
+            Berat 1/2 Air = $1,5 - 0,9 = 0,6$ kg.<br>
+            Maka Berat Air Penuh = $0,6 \times 2 = 1,2$ kg.<br>
+            Berat Botol Kosong = Total Awal - Berat Air Penuh<br>
+            Berat Botol = $1,5 - 1,2 = 0,3$ kg.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: B (2)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pola Sisa Pembagian (Modulo).<br>
+            Cari pola sisa $2^n$ jika dibagi 7:<br>
+            - $2^1 = 2$ (Sisa 2).<br>
+            - $2^2 = 4$ (Sisa 4).<br>
+            - $2^3 = 8$ (Sisa 1).<br>
+            - $2^4 = 16$ (Sisa 2)... Pola berulang setiap 3 angka (2, 4, 1).<br>
+            Pangkatnya adalah 2023. Kita bagi dengan siklus 3:<br>
+            $2023 : 3 = 674$ sisa <strong>1</strong>.<br>
+            Karena sisa 1, berarti hasilnya sama dengan urutan ke-1 pada pola, yaitu 2.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 27-28 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (27-28)</h1>
+        
+        <div class="soal-latihan">
+          <b>27. Jawaban: B (437)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Operasi Bilangan Besar.<br>
+            $10^{50}$ adalah angka 1 diikuti 50 buah nol.<br>
+            $100...000$ (50 nol) - 50.<br>
+            Hasilnya adalah $99...950$.<br>
+            Mari kita lihat strukturnya:<br>
+            - 2 digit terakhir adalah 50.<br>
+            - Sisa digit di depannya adalah angka 9 semua.<br>
+            - Karena total digit awal 51 (1 + 50 nol), dan hasil pengurangan bilangan 100... dengan puluhan akan mengurangi jumlah digit sebanyak 1 (jadi total 50 digit).<br>
+            - Digit paling belakang (0) dan digit kedua dari belakang (5). Sisanya ada $50 - 2 = 48$ digit angka 9.<br>
+            Jumlah digit = $(48 \times 9) + 5 + 0$.<br>
+            Jumlah = $432 + 5 = 437$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: A (59)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> KPK dengan Sisa Negatif.<br>
+            Perhatikan pola sisanya:<br>
+            - Bagi 3 sisa 2 (kurang 1 untuk habis dibagi).<br>
+            - Bagi 4 sisa 3 (kurang 1 untuk habis dibagi).<br>
+            - Bagi 5 sisa 4 (kurang 1 untuk habis dibagi).<br>
+            Karena kekurangannya sama (-1), kita cari KPK dari 3, 4, dan 5.<br>
+            KPK(3, 4, 5) = 60.<br>
+            Bilangan yang dicari adalah $KPK - 1$.<br>
+            Bilangan = $60 - 1 = 59$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN 29-30 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal (29-30)</h1>
+        
+        <div class="soal-latihan">
+          <b>29. Jawaban: A ($75^\circ$)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Sudut Jam Presisi.<br>
+            Pukul 03.30.<br>
+            1. Posisi Jarum Menit: Tepat di angka 6 ($180^\circ$ dari angka 12).<br>
+            2. Posisi Jarum Jam: Di angka 3, tapi sudah bergeser karena lewat 30 menit.<br>
+            Pergeseran = $\frac{30}{60} \times 30^\circ = 15^\circ$.<br>
+            Posisi Jarum Jam = $90^\circ$ (angka 3) + $15^\circ$ = $105^\circ$.<br>
+            3. Selisih Sudut = $|180^\circ - 105^\circ| = 75^\circ$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: C (12 setelan)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Aturan Perkalian (Kombinatorika Dasar).<br>
+            Untuk membentuk satu setelan, Pak Guru harus memilih 1 kemeja DAN 1 celana.<br>
+            - Pilihan Kemeja = 3 opsi.<br>
+            - Pilihan Celana = 4 opsi.<br>
+            Total kombinasi = $3 \times 4 = 12$ pasang setelan berbeda.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+  </body>
+</html>
