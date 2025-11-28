@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Bilangan & Aritmetika</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 38pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 16pt;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #1b5e20;
+      }
+      h3 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        color: #2e7d32;
+      }
+      .soal-latihan, .soal-latihan-n {
+        margin-bottom: 25px;
+        break-inside: avoid;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 18pt;
+        font-weight: 700;
+        margin: 20px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 10px 0;
+        background-color: #f1f8e9;
+      }
+      /* Menggunakan style pembahasan target untuk tips dan solusi */
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--accent-green);
+        padding: 15px;
+        margin-top: 10px;
+        text-align: justify;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 15px;
+        margin: 15px 0;
+        font-style: italic;
+      }
+      .final-answer {
+        font-weight: bold; 
+        color: #0d47a1; 
+        margin-top: 10px;
+      }
+      .step {
+        margin-left: 10px;
+        margin-bottom: 8px;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div class="content-wrapper" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Ruangguru Privat Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">MODUL OSN:<br />Bilangan & Aritmetika</h1>
+        <p class="cover-subtitle">Latihan Soal & Pembahasan Detail</p>
+        <p style="margin-top: 20px; font-size: 14pt;">Jenjang SD/MI Sederajat</p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Trik Hitung & Sifat Bilangan</h1>
+        <div class="materi-konten">
+          <h2>1. Sifat Distributif & Pengelompokan</h2>
+          <p>
+            Dalam olimpiade, jarang sekali kita diminta menghitung manual angka besar. Selalu cari pola pengelompokan.
+          </p>
+          <div class="tips-box">
+            <b>Contoh:</b> $123 \times 7 + 123 \times 3$<br>
+            Jangan hitung satu per satu! Gunakan sifat distributif:<br>
+            $= 123 \times (7 + 3) = 123 \times 10 = 1230$.
+          </div>
+          <p>
+            <b>Selisih Kuadrat:</b> Ingat bentuk $a^2 - b^2 = (a+b) \times (a-b)$.<br>
+            Contoh: $55^2 - 45^2 = (55+45) \times (55-45) = 100 \times 10 = 1000$.
+          </p>
+
+          <h2>2. Bilangan Prima & Faktor</h2>
+          <p>
+            <b>Bilangan Prima:</b> Bilangan yang hanya memiliki 2 faktor (1 dan dirinya sendiri).<br>
+            Ingat: 1 <b>bukan</b> bilangan prima. 2 adalah satu-satunya bilangan prima <b>genap</b>.
+          </p>
+          <div class="pembahasan">
+            <b>Trik Soal Cerita KPK:</b><br>
+            Jika ada kejadian berulang (lampu nyala, lari keliling lapangan, jadwal les) $\rightarrow$ Gunakan KPK.<br><br>
+            <b>Trik Soal Cerita FPB:</b><br>
+            Jika membagi barang ke wadah dengan jumlah sama, memotong tali sama panjang $\rightarrow$ Gunakan FPB.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Materi: Pola Bilangan & Deret</h1>
+        <div class="materi-konten">
+          <h2>3. Digit Satuan (Pola Siklus)</h2>
+          <p>
+            Untuk mencari angka satuan dari pangkat besar, cari pola perulangannya (siklus).
+          </p>
+          <ul>
+            <li>Angka belakang 2: Polanya 2, 4, 8, 6 (berulang tiap 4).</li>
+            <li>Angka belakang 3: Polanya 3, 9, 7, 1 (berulang tiap 4).</li>
+            <li>Angka belakang 7: Polanya 7, 9, 3, 1 (berulang tiap 4).</li>
+            <li>Angka belakang 5 dan 6: Selalu tetap 5 dan 6.</li>
+          </ul>
+
+          <h2>4. Deret Teleskopik</h2>
+          <p>
+            Bentuk pecahan beruntun sering muncul. Kuncinya adalah saling menghilangkan (mencoret).
+          </p>
+          <div class="tips-box">
+            Rumus Penting: $\frac{1}{n \times (n+1)} = \frac{1}{n} - \frac{1}{n+1}$<br>
+            Contoh: $\frac{1}{2 \times 3} = \frac{1}{2} - \frac{1}{3}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 1 (1-4) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 1: Fundamental Olimpiade</div>
+        
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>1.</b> Hitunglah nilai dari $2024 \times 2025 - 2024 \times 2024 + 10$.</div>
+          <div class="options">
+            <div>A. 2024</div>
+            <div>B. 2034</div>
+            <div>C. 2044</div>
+            <div>D. 4059</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>2.</b> FPB dari dua bilangan adalah 12, dan KPK mereka adalah 72. Jika salah satu bilangan tersebut adalah 24, berapakah bilangan yang lain?</div>
+          <div class="options">
+            <div>A. 12</div>
+            <div>B. 36</div>
+            <div>C. 48</div>
+            <div>D. 72</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>3.</b> Berapakah jumlah semua faktor prima dari bilangan 2023?</div>
+          <div class="options">
+            <div>A. 17</div>
+            <div>B. 24</div>
+            <div>C. 41</div>
+            <div>D. 2023</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>4.</b> Manakah di antara pecahan berikut yang nilainya paling besar?</div>
+          <div class="options">
+            <div>A. $\frac{2023}{2024}$</div>
+            <div>B. $\frac{2024}{2025}$</div>
+            <div>C. $\frac{2022}{2023}$</div>
+            <div>D. $\frac{2021}{2022}$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 2 (5-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 1 & 2: Fundamental & Aplikasi</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>5.</b> Diketahui $a$ dan $b$ adalah bilangan prima. Jika jumlahnya $a + b = 99$, maka hasil kali maksimum $a \times b$ adalah...</div>
+          <div class="options">
+            <div>A. 98</div>
+            <div>B. 194</div>
+            <div>C. 2401</div>
+            <div>D. Tidak ada solusi</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>6.</b> Sebuah buku memiliki halaman dari 1 sampai 100. Berapa kali angka "5" muncul pada nomor halaman buku tersebut?</div>
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 11</div>
+            <div>C. 19</div>
+            <div>D. 20</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>7.</b> Hasil dari $1 - 2 + 3 - 4 + 5 - 6 + ... + 99 - 100$ adalah...</div>
+          <div class="options">
+            <div>A. -50</div>
+            <div>B. 50</div>
+            <div>C. 0</div>
+            <div>D. -100</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>8.</b> Ibu memiliki sejumlah permen. Jika dibagikan kepada 5 anak, bersisa 3 permen. Jika dibagikan kepada 7 anak, juga bersisa 3 permen. Jumlah permen minimal yang dimiliki Ibu adalah...</div>
+          <div class="options">
+            <div>A. 35</div>
+            <div>B. 38</div>
+            <div>C. 70</div>
+            <div>D. 73</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 3 (9-12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 2: Aplikasi & Penalaran</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>9.</b> Hari ini adalah hari Jumat. 2025 hari lagi adalah hari...</div>
+          <div class="options">
+            <div>A. Kamis</div>
+            <div>B. Jumat</div>
+            <div>C. Sabtu</div>
+            <div>D. Minggu</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>10.</b> Nilai dari $\frac{1}{2} \times \frac{2}{3} \times \frac{3}{4} \times ... \times \frac{2024}{2025}$ adalah...</div>
+          <div class="options">
+            <div>A. $\frac{1}{2024}$</div>
+            <div>B. $\frac{1}{2025}$</div>
+            <div>C. 1</div>
+            <div>D. 2025</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>11.</b> Adi berlari mengelilingi lapangan setiap 60 detik, sedangkan Budi setiap 72 detik. Mereka mulai berlari dari garis start pada saat yang sama. Setelah berapa detik mereka akan bertemu kembali di garis start untuk kedua kalinya (setelah start)?</div>
+          <div class="options">
+            <div>A. 360</div>
+            <div>B. 432</div>
+            <div>C. 720</div>
+            <div>D. 1200</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>12.</b> Jika $A$ dan $B$ adalah angka berbeda (1-9) dan $AB + B = BA$, maka nilai $A+B$ adalah... (Catatan: $AB$ adalah bilangan dua digit).</div>
+          <div class="options">
+            <div>A. 15</div>
+            <div>B. 16</div>
+            <div>C. 17</div>
+            <div>D. 18</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 4 (13-16) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 2: Aplikasi & Penalaran</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>13.</b> Sebuah bak mandi memiliki dua keran. Keran A dapat mengisi bak penuh dalam 3 jam, sedangkan Keran B dalam 6 jam. Jika kedua keran dibuka bersamaan, berapa lama bak akan penuh?</div>
+          <div class="options">
+            <div>A. 1,5 jam</div>
+            <div>B. 2 jam</div>
+            <div>C. 4,5 jam</div>
+            <div>D. 9 jam</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>14.</b> Berapakah sisa pembagian $3^{2024}$ jika dibagi oleh 5?</div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 2</div>
+            <div>C. 3</div>
+            <div>D. 4</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>15.</b> Rata-rata nilai ulangan 28 siswa adalah 80. Jika nilai dua siswa, Andi dan Budi, digabungkan, rata-ratanya menjadi 78. Berapakah rata-rata nilai Andi dan Budi?</div>
+          <div class="options">
+            <div>A. 48</div>
+            <div>B. 50</div>
+            <div>C. 52</div>
+            <div>D. 60</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>16.</b> Sebuah pecahan jika pembilangnya ditambah 3, nilainya menjadi $\frac{1}{2}$. Jika penyebutnya dikurangi 1, nilainya menjadi $\frac{1}{3}$. Pecahan tersebut adalah...</div>
+          <div class="options">
+            <div>A. $\frac{5}{16}$</div>
+            <div>B. $\frac{4}{13}$</div>
+            <div>C. $\frac{2}{13}$</div>
+            <div>D. $\frac{4}{11}$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 5 (17-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 2 & 3: Aplikasi & HOTS</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>17.</b> Hitunglah: $(1 - \frac{1}{2}) \times (1 - \frac{1}{3}) \times (1 - \frac{1}{4}) \times ... \times (1 - \frac{1}{50})$.</div>
+          <div class="options">
+            <div>A. $\frac{1}{25}$</div>
+            <div>B. $\frac{1}{49}$</div>
+            <div>C. $\frac{1}{50}$</div>
+            <div>D. $\frac{49}{50}$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>18.</b> Harga tiket masuk ke kebun binatang adalah Rp 40.000 untuk dewasa dan Rp 25.000 untuk anak-anak. Jika rombongan terdiri dari 20 orang dan total bayar Rp 650.000, berapa banyak anak-anak dalam rombongan tersebut?</div>
+          <div class="options">
+            <div>A. 8</div>
+            <div>B. 10</div>
+            <div>C. 12</div>
+            <div>D. 15</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>19.</b> Berapakah angka satuan dari $7^{2023} + 9^{2024}$?</div>
+          <div class="options">
+            <div>A. 2</div>
+            <div>B. 4</div>
+            <div>C. 6</div>
+            <div>D. 0</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>20.</b> Jumlah dua bilangan cacah adalah 45 dan selisihnya 9. Hasil kali kedua bilangan tersebut adalah...</div>
+          <div class="options">
+            <div>A. 386</div>
+            <div>B. 405</div>
+            <div>C. 486</div>
+            <div>D. 504</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 6 (21-24) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 3: HOTS & Olimpiade</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>21.</b> Hitunglah nilai dari: $\frac{1}{2 \times 4} + \frac{1}{4 \times 6} + \frac{1}{6 \times 8} + ... + \frac{1}{18 \times 20}$</div>
+          <div class="options">
+            <div>A. $\frac{9}{20}$</div>
+            <div>B. $\frac{9}{40}$</div>
+            <div>C. $\frac{1}{20}$</div>
+            <div>D. $\frac{18}{40}$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>22.</b> Berapa banyak bilangan nol berurutan di akhir dari hasil perkalian $25!$ (faktorial) = $1 \times 2 \times 3 \times ... \times 25$?</div>
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 5</div>
+            <div>C. 6</div>
+            <div>D. 25</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>23.</b> Bilangan palindrom adalah bilangan yang dibaca dari depan dan belakang sama (contoh: 121, 3443). Berapa banyak bilangan palindrom 3 digit yang habis dibagi 5?</div>
+          <div class="options">
+            <div>A. 9</div>
+            <div>B. 10</div>
+            <div>C. 18</div>
+            <div>D. 20</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>24.</b> Tentukan dua digit terakhir dari $5^{2024}$.</div>
+          <div class="options">
+            <div>A. 05</div>
+            <div>B. 25</div>
+            <div>C. 55</div>
+            <div>D. 75</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 7 (25-28) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 3: HOTS & Olimpiade</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>25.</b> Pada sebuah pesta, setiap orang berjabat tangan satu kali dengan setiap orang lainnya. Jika total jabat tangan yang terjadi adalah 66, berapa banyak orang yang hadir di pesta tersebut?</div>
+          <div class="options">
+            <div>A. 11</div>
+            <div>B. 12</div>
+            <div>C. 13</div>
+            <div>D. 33</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>26.</b> Rata-rata dari 5 bilangan bulat berurutan adalah $n$. Jika kita menambahkan 5 bilangan bulat berurutan berikutnya, maka rata-rata dari ke-10 bilangan tersebut adalah...</div>
+          <div class="options">
+            <div>A. $n + 2,5$</div>
+            <div>B. $n + 3$</div>
+            <div>C. $n + 5$</div>
+            <div>D. $n + 10$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>27.</b> Sebuah tangki berisi air $\frac{1}{3}$ bagian. Jika ditambahkan 10 liter air, tangki menjadi terisi $\frac{1}{2}$ bagian. Berapa kapasitas total tangki tersebut?</div>
+          <div class="options">
+            <div>A. 30 Liter</div>
+            <div>B. 40 Liter</div>
+            <div>C. 50 Liter</div>
+            <div>D. 60 Liter</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>28.</b> Jumlah digit dari hasil $10^{50} - 50$ adalah...</div>
+          <div class="options">
+            <div>A. 437</div>
+            <div>B. 444</div>
+            <div>C. 445</div>
+            <div>D. 450</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal 8 (29-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 3: HOTS & Olimpiade</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>29.</b> Berapa banyak bilangan bulat positif $n$ sehingga $\frac{20}{2n - 1}$ merupakan bilangan bulat?</div>
+          <div class="options">
+            <div>A. 2</div>
+            <div>B. 3</div>
+            <div>C. 4</div>
+            <div>D. 6</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>30.</b> Jika $x + \frac{1}{y} = 4$ dan $y + \frac{1}{x} = 8$, maka nilai dari $\frac{x}{y}$ adalah...</div>
+          <div class="options">
+            <div>A. 0,5</div>
+            <div>B. 2</div>
+            <div>C. 4</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- HALAMAN PEMISAH -->
+    <section class="page">
+      <div class="content-wrapper" style="text-align: center; display:flex; flex-direction:column; justify-content:center;">
+        <h1 style="font-size: 30pt; border: none; color: #333;">BAGIAN II:<br>PEMBAHASAN DETAIL</h1>
+        <p style="font-size: 16pt; margin-top: 20px;">Langkah demi langkah menuju solusi.</p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan NO 1-3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal 1-3</h1>
+        
+        <div class="soal-latihan">
+          <b>1. Jawaban: 2034 (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Sifat Distributif.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Soal: $2024 \times 2025 - 2024 \times 2024 + 10$.<br>
+            2. Kelompokkan angka 2024: $2024 \times (2025 - 2024) + 10$.<br>
+            3. Hitung dalam kurung: $2024 \times (1) + 10$.<br>
+            4. Hasil: $2024 + 10 = 2034$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: 36 (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Hubungan FPB & KPK.<br>
+            <b>Rumus:</b> Bilangan A $\times$ Bilangan B = FPB $\times$ KPK.<br>
+            <b>Langkah-langkah:</b><br>
+            1. $24 \times N = 12 \times 72$.<br>
+            2. $N = \frac{12 \times 72}{24}$.<br>
+            3. Sederhanakan: $12$ dan $24$ dicoret menjadi $1$ dan $2$.<br>
+            4. $N = \frac{72}{2} = 36$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: 41 (C)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Faktorisasi Prima.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Cek pembagian: $2023 \div 7 = 289$.<br>
+            2. Faktorkan 289: $289 = 17 \times 17$.<br>
+            3. Faktor prima: 7, 17, 17.<br>
+            4. Jumlah faktor prima: $7 + 17 + 17 = 41$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan NO 4-6 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal 4-6</h1>
+        
+        <div class="soal-latihan">
+          <b>4. Jawaban: $\frac{2024}{2025}$ (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Logika Pecahan (Selisih 1).<br>
+            <b>Analisis:</b><br>
+            Semua pecahan berbentuk $1 - \frac{1}{\text{penyebut}}$.<br>
+            Semakin besar penyebut, semakin kecil pengurangnya, sehingga nilai pecahan semakin mendekati 1 (semakin besar).<br>
+            Di antara pilihan, penyebut 2025 adalah yang terbesar. Maka $\frac{2024}{2025}$ adalah yang terbesar.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: 194 (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Ganjil Genap & Prima.<br>
+            <b>Langkah-langkah:</b><br>
+            1. $a + b = 99$ (Ganjil). Maka salah satu bilangan pasti Genap.<br>
+            2. Satu-satunya prima genap adalah 2. Misal $a=2$.<br>
+            3. $2 + b = 99 \Rightarrow b = 97$ (97 adalah prima).<br>
+            4. Hasil kali: $2 \times 97 = 194$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>6. Jawaban: 20 (D)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Nilai Tempat.<br>
+            <b>Hitungan:</b><br>
+            1. Sebagai Satuan (5, 15, ..., 95): Ada 10 angka.<br>
+            2. Sebagai Puluhan (50, 51, ..., 59): Ada 10 angka.<br>
+            3. Total: $10 + 10 = 20$.<br>
+            (Catatan: Angka 55 dihitung dua kali, satu untuk 5 depan, satu untuk 5 belakang, dan itu benar).
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan NO 7-9 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal 7-9</h1>
+        
+        <div class="soal-latihan">
+          <b>7. Jawaban: -50 (A)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pengelompokan.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Pasangkan $(1-2) + (3-4) + ... + (99-100)$.<br>
+            2. Tiap pasang bernilai -1.<br>
+            3. Total ada 100 bilangan, berarti ada 50 pasang.<br>
+            4. Hasil: $50 \times (-1) = -50$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: 73 (D)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> KPK dengan Sisa.<br>
+            <b>Langkah-langkah:</b><br>
+            1. KPK dari 5 dan 7 adalah 35.<br>
+            2. Rumus: Kelipatan 35 + 3.<br>
+            3. Cek opsi:<br>
+               - $35 \times 1 + 3 = 38$ (Tidak ada di opsi > 50)<br>
+               - $35 \times 2 + 3 = 73$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: Minggu (D)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Modulo 7.<br>
+            <b>Langkah-langkah:</b><br>
+            1. $2025 \div 7$.<br>
+               $2025 = 289 \times 7 + \text{sisa } 2$.<br>
+            2. Sisa 2 hari setelah Jumat.<br>
+            3. Sabtu, Minggu.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan NO 10-12 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal 10-12</h1>
+        
+        <div class="soal-latihan">
+          <b>10. Jawaban: $\frac{1}{2025}$ (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Teleskopik Perkalian.<br>
+            <b>Langkah-langkah:</b><br>
+            1. $\frac{1}{2} \times \frac{2}{3} \times \frac{3}{4} \times ... \times \frac{2024}{2025}$.<br>
+            2. Coret silang: penyebut pecahan depan dengan pembilang pecahan berikutnya.<br>
+            3. Tersisa pembilang pertama (1) dan penyebut terakhir (2025).<br>
+            4. Hasil: $\frac{1}{2025}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: 720 (C)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> KPK (Kejadian Berulang).<br>
+            <b>Langkah-langkah:</b><br>
+            1. $60 = 2^2 \times 3 \times 5$.<br>
+            2. $72 = 2^3 \times 3^2$.<br>
+            3. KPK = $2^3 \times 3^2 \times 5 = 8 \times 9 \times 5 = 360$.<br>
+            4. Pertemuan pertama di 360 detik. Pertemuan kedua di $360 \times 2 = 720$ detik.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: 17 (C)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Aljabar Bilangan.<br>
+            <b>Langkah-langkah:</b><br>
+            1. $AB + B = BA \Rightarrow (10A + B) + B = 10B + A$.<br>
+            2. $10A + 2B = 10B + A \Rightarrow 9A = 8B$.<br>
+            3. Karena A dan B digit (0-9), satu-satunya solusi adalah $A=8$ dan $B=9$.<br>
+            4. $A+B = 8+9 = 17$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan NO 13-15 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal 13-15</h1>
+        
+        <div class="soal-latihan">
+          <b>13. Jawaban: 2 jam (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Kecepatan Kerja Gabungan.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Kecepatan A: $\frac{1}{3}$ bak/jam. Kecepatan B: $\frac{1}{6}$ bak/jam.<br>
+            2. Gabungan: $\frac{1}{3} + \frac{1}{6} = \frac{2}{6} + \frac{1}{6} = \frac{3}{6} = \frac{1}{2}$ bak/jam.<br>
+            3. Waktu Penuh: $1 \div \frac{1}{2} = 2$ jam.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: 1 (A)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pola Sisa Pangkat.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Pola $3^n$ mod 5: $3^1 \rightarrow 3$, $3^2 \rightarrow 4$, $3^3 \rightarrow 2$, $3^4 \rightarrow 1$.<br>
+            2. Siklus berulang setiap 4.<br>
+            3. Pangkat 2024 habis dibagi 4 ($2024 \div 4$ sisa 0).<br>
+            4. Jika habis dibagi, ikuti pola terakhir (pangkat 4), yaitu sisa 1.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: 50 (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Jumlah Total Nilai.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Total Awal (28 siswa): $28 \times 80 = 2240$.<br>
+            2. Total Baru (30 siswa): $30 \times 78 = 2340$.<br>
+            3. Selisih (Nilai Andi+Budi): $2340 - 2240 = 100$.<br>
+            4. Rata-rata Andi & Budi: $100 \div 2 = 50$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan NO 16-18 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal 16-18</h1>
+        
+        <div class="soal-latihan">
+          <b>16. Jawaban: $\frac{5}{16}$ (A)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Uji Opsi / Aljabar.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Cek opsi A ($\frac{5}{16}$):<br>
+               - Atas +3: $\frac{5+3}{16} = \frac{8}{16} = \frac{1}{2}$. (Benar)<br>
+               - Bawah -1: $\frac{5}{16-1} = \frac{5}{15} = \frac{1}{3}$. (Benar)<br>
+            2. Karena cocok, jawabannya A.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>17. Jawaban: $\frac{1}{50}$ (C)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Teleskopik.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Ubah jadi pecahan biasa: $\frac{1}{2} \times \frac{2}{3} \times \frac{3}{4} \times ... \times \frac{49}{50}$.<br>
+            2. Coret diagonal (bawah coret atas).<br>
+            3. Tersisa pembilang awal (1) dan penyebut akhir (50).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>18. Jawaban: 10 (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Metode Andai-andai (Assumption).<br>
+            <b>Langkah-langkah:</b><br>
+            1. Andai semua Dewasa: $20 \times 40.000 = 800.000$.<br>
+            2. Selisih Bayar: $800.000 - 650.000 = 150.000$.<br>
+            3. Selisih Tiket: $40.000 - 25.000 = 15.000$.<br>
+            4. Jumlah Anak: $150.000 \div 15.000 = 10$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan NO 19-21 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal 19-21</h1>
+        
+        <div class="soal-latihan">
+          <b>19. Jawaban: 4 (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pola Digit Satuan.<br>
+            <b>Langkah-langkah:</b><br>
+            1. $7^{2023}$: Pangkat dibagi 4 sisa 3. $7^3$ ujungnya 3.<br>
+            2. $9^{2024}$: Pangkat genap. $9^{\text{genap}}$ ujungnya 1.<br>
+            3. Jumlah: $3 + 1 = 4$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: 486 (C)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Bilangan Besar & Kecil.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Bil Besar = (Jumlah + Selisih) / 2 = $(45+9)/2 = 27$.<br>
+            2. Bil Kecil = (Jumlah - Selisih) / 2 = $(45-9)/2 = 18$.<br>
+            3. Kali: $27 \times 18 = 486$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: $\frac{9}{40}$ (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Teleskopik Beda 2.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Rumus: $\frac{1}{2} \times (\text{Awal} - \text{Akhir})$.<br>
+            2. $\frac{1}{2} \times (\frac{1}{2} - \frac{1}{20})$.<br>
+            3. $\frac{1}{2} \times (\frac{10}{20} - \frac{1}{20}) = \frac{1}{2} \times \frac{9}{20} = \frac{9}{40}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan NO 22-24 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal 22-24</h1>
+        
+        <div class="soal-latihan">
+          <b>22. Jawaban: 6 (C)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Menghitung Faktor 5.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Faktor 5 pada 25!: $\lfloor 25/5 \rfloor + \lfloor 25/25 \rfloor$.<br>
+            2. $5 + 1 = 6$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>23. Jawaban: 10 (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Palindrom Habis Dibagi 5.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Agar habis dibagi 5, digit akhir harus 0 atau 5.<br>
+            2. Palindrom tidak boleh depannya 0. Jadi digit depan & belakang harus 5.<br>
+            3. Bentuk: $5X5$. X bisa 0-9 (10 kemungkinan).<br>
+            4. Total 10 bilangan (505, 515, ..., 595).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: 25 (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pola 2 Digit Terakhir.<br>
+            <b>Analisis:</b><br>
+            $5^1=05$, $5^2=25$, $5^3=125$, $5^4=625$.<br>
+            Untuk pangkat $\ge 2$, dua digit terakhir selalu 25.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan NO 25-27 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal 25-27</h1>
+        
+        <div class="soal-latihan">
+          <b>25. Jawaban: 12 (B)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Kombinasi Salaman.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Rumus: $\frac{N(N-1)}{2} = 66$.<br>
+            2. $N(N-1) = 132$.<br>
+            3. Cari perkalian dua bilangan berurutan hasilnya 132 $\rightarrow 12 \times 11$.<br>
+            4. Jadi $N = 12$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: $n + 2,5$ (A)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Rata-rata Bilangan Berurutan.<br>
+            <b>Contoh:</b><br>
+            1. 5 bilangan awal: 1, 2, 3, 4, 5. Rata-rata $n = 3$.<br>
+            2. 10 bilangan: 1 s.d 10. Rata-rata baru = 5,5.<br>
+            3. Selisih = $5,5 - 3 = 2,5$. Jadi $n + 2,5$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>27. Jawaban: 60 Liter (D)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pecahan.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Selisih pecahan: $\frac{1}{2} - \frac{1}{3} = \frac{3}{6} - \frac{2}{6} = \frac{1}{6}$.<br>
+            2. $\frac{1}{6}$ bagian = 10 Liter.<br>
+            3. Total (1 bagian) = $6 \times 10 = 60$ Liter.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan NO 28-30 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan Soal 28-30</h1>
+        
+        <div class="soal-latihan">
+          <b>28. Jawaban: 437 (A)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Pengurangan Bilangan 10...0.<br>
+            <b>Langkah-langkah:</b><br>
+            1. $10^{50} - 50$ menghasilkan deretan angka 9 dan diakhiri 50.<br>
+            2. Dari 50 digit nol: 2 digit jadi '50', sisanya 48 digit jadi '9'.<br>
+            3. Jumlah = $(48 \times 9) + 5 + 0 = 432 + 5 = 437$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: 2 (A)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Faktor Ganjil.<br>
+            <b>Langkah-langkah:</b><br>
+            1. Penyebut $2n-1$ harus faktor dari 20.<br>
+            2. Karena $2n-1$ ganjil, cari faktor ganjil dari 20: 1 dan 5.<br>
+            3. Ada 2 kemungkinan ($n=1$ dan $n=3$).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: 0,5 (A)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Manipulasi Aljabar.<br>
+            <b>Langkah-langkah:</b><br>
+            1. $x + 1/y = 4 \Rightarrow xy + 1 = 4y$.<br>
+            2. $y + 1/x = 8 \Rightarrow xy + 1 = 8x$.<br>
+            3. Maka $4y = 8x \Rightarrow y = 2x$.<br>
+            4. $\frac{x}{y} = \frac{x}{2x} = \frac{1}{2} = 0,5$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+  </body>
+</html>
