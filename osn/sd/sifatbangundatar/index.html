@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Sifat Bangun Datar & Geometri</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2; /* Penyesuaian warna untuk geometri */
+        --bg-header: #e8f5e9;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt; /* Sedikit disesuaikan agar muat */
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #1b5e20;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #2e7d32;
+      }
+      .soal-latihan {
+        margin-bottom: 20px;
+        break-inside: avoid;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--accent-green);
+        padding: 10px 15px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10.5pt;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+      }
+      .rumus-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      .geo-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+        font-size: 10pt;
+      }
+      .geo-table th, .geo-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      .geo-table th {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+      }
+      /* SVG Styles */
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div class="content-wrapper" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">MODUL OSN:<br />Sifat Bangun Datar</h1>
+        <p class="cover-subtitle">Latihan Soal & Pembahasan Detail</p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Rangkuman Materi: Geometri Datar</h1>
+        
+        <h2>A. Analisis Sifat Segi Banyak (Poligon)</h2>
+        <p>Banyak siswa terkecoh di sini. Ingat aturan utamanya!</p>
+        
+        <div class="rumus-box">
+          <b>Syarat Segi Banyak Beraturan (Regular Polygon):</b><br>
+          Harus memenuhi <b>DUA</b> syarat sekaligus:
+          <ol style="margin-top: 5px; margin-bottom: 0;">
+            <li><b>Sisi Sama Panjang</b></li>
+            <li><b>Sudut Sama Besar</b></li>
+          </ol>
+        </div>
+
+        <ul>
+          <li><b>Contoh Beraturan:</b> Segitiga sama sisi, Persegi, Segienam beraturan.</li>
+          <li><b>Contoh Tidak Beraturan (Jebakan!):</b>
+            <ul>
+              <li><b>Persegi Panjang:</b> Sudutnya semua $90^\circ$ (sama), tapi sisinya beda panjang. $\rightarrow$ <i>Tidak Beraturan</i>.</li>
+              <li><b>Belah Ketupat:</b> Sisinya semua sama panjang, tapi sudutnya ada yang lancip dan tumpul. $\rightarrow$ <i>Tidak Beraturan</i>.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h2>B. Simetri (Pendekatan Benda Konkrit)</h2>
+        <p>Bayangkan kamu memegang kertas atau benda nyata.</p>
+        <ol>
+          <li><b>Simetri Lipat (Cermin):</b><br>
+          Bayangkan melipat kertas. Jika kiri dan kanan saling menutupi pas (tidak ada sisa), itu simetri lipat.
+          <br><i>Ingat:</i> Diagonal Persegi Panjang <b>bukan</b> sumbu simetri. Jika dilipat miring, ujungnya tidak ketemu (menceng).</li>
+          
+          <li style="margin-top: 8px;"><b>Simetri Putar (Rotasi):</b><br>
+          Tusuk jarum di tengah bangun, putar satu putaran penuh ($360^\circ$). Berapa kali dia pas di bingkainya?
+          <ul>
+            <li>Persegi Panjang: 2 kali (posisi awal dan posisi terbalik).</li>
+            <li>Segitiga Sama Sisi: 3 kali.</li>
+          </ul></li>
+        </ol>
+
+        <h2>C. Sifat Diagonal (Kata Kunci)</h2>
+        <table class="geo-table">
+          <tr>
+            <th width="25%">Bangun Datar</th>
+            <th width="30%">Panjang Diagonal</th>
+            <th>Sifat Perpotongan</th>
+          </tr>
+          <tr>
+            <td>Persegi</td>
+            <td>Sama ($=$)</td>
+            <td>Tegak lurus ($90^\circ$) & membagi 2 sama panjang.</td>
+          </tr>
+          <tr>
+            <td>Persegi Panjang</td>
+            <td>Sama ($=$)</td>
+            <td><b>TIDAK</b> tegak lurus.</td>
+          </tr>
+          <tr>
+            <td>Belah Ketupat</td>
+            <td>Beda ($\neq$)</td>
+            <td>Tegak lurus ($90^\circ$).</td>
+          </tr>
+          <tr>
+            <td>Layang-layang</td>
+            <td>Beda ($\neq$)</td>
+            <td>Tegak lurus ($90^\circ$). (Hanya 1 yang membagi 2).</td>
+          </tr>
+          <tr>
+            <td>Jajar Genjang</td>
+            <td>Beda ($\neq$)</td>
+            <td><b>TIDAK</b> tegak lurus.</td>
+          </tr>
+        </table>
+        
+        <div class="tips-box">
+          <b>Tips Olimpiade:</b> Jika soal menyebutkan <b>"Diagonal tegak lurus"</b>, kemungkinannya hanya 3: <b>Persegi, Belah Ketupat, atau Layang-layang</b>.
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h2>D. Logika Garis Sejajar (Aturan Zig-Zag)</h2>
+        <p>Jika ada dua garis sejajar dipotong garis tekuk-tekuk (zig-zag):<br>
+        $$ \text{Total Sudut Menghadap Kiri} = \text{Total Sudut Menghadap Kanan} $$
+        (Hanya berlaku untuk sudut lancip di bagian dalam lipatan).</p>
+
+        <div class="svg-container">
+          <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_zugizi_6614.png" alt="Logika Garis Sejajar" style="max-width: 100%; height: auto; max-height: 250px;">
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 1 (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 1: Konsep Dasar & Identifikasi</div>
+        
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>1.</b> Bangun manakah di bawah ini yang merupakan <b>segi banyak beraturan</b>?</div>
+          <div class="options">
+            <div>A. Belah Ketupat</div>
+            <div>B. Persegi Panjang</div>
+            <div>C. Segitiga Sama Kaki</div>
+            <div>D. Persegi</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>2.</b> Aku adalah segiempat. Aku punya dua pasang sisi sejajar. Sudut hadapku sama besar. Tapi, jika aku dilipat, sisi-sisiku tidak saling menutupi (tidak punya simetri lipat). Siapakah aku?</div>
+          <div class="options">
+            <div>A. Persegi Panjang</div>
+            <div>B. Trapesium Sama Kaki</div>
+            <div>C. Jajar Genjang</div>
+            <div>D. Layang-layang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>3.</b> Perhatikan huruf: <b>H, O, N, S</b>. Huruf manakah yang jika diputar $180^\circ$ posisinya tetap sama, tapi <b>tidak</b> bisa dilipat (tidak punya sumbu simetri)?</div>
+          <div class="options">
+            <div>A. H</div>
+            <div>B. O</div>
+            <div>C. N dan S</div>
+            <div>D. Semua huruf tersebut</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>4.</b> Berapakah jumlah diagonal yang dimiliki oleh segilima (pentagon)?</div>
+          <div class="options">
+            <div>A. 2</div>
+            <div>B. 3</div>
+            <div>C. 5</div>
+            <div>D. 10</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>5.</b> Jarum jam menunjukkan pukul 03.00. Berapakah besar sudut terkecil yang dibentuk?</div>
+          <div class="options">
+            <div>A. $30^\circ$</div>
+            <div>B. $60^\circ$</div>
+            <div>C. $90^\circ$</div>
+            <div>D. $120^\circ$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 1 (6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>6.</b> Bangun datar yang memiliki: (1) sepasang sisi sejajar, (2) kaki-kaki sama panjang, (3) punya 1 simetri lipat. Bangun tersebut adalah ...</div>
+          <div class="options">
+            <div>A. Jajar Genjang</div>
+            <div>B. Trapesium Siku-siku</div>
+            <div>C. Trapesium Sama Kaki</div>
+            <div>D. Belah Ketupat</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>7.</b> Jika kertas persegi panjang diputar $90^\circ$ (seperempat putaran) pada pusatnya, apakah ia menempati bingkainya kembali?</div>
+          <div class="options">
+            <div>A. Ya, selalu.</div>
+            <div>B. Tidak akan.</div>
+            <div>C. Hanya jika persegi panjang itu adalah Persegi.</div>
+            <div>D. Tergantung panjang sisinya.</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>8.</b> Segitiga dengan sudut $40^\circ$ dan $70^\circ$. Jenis segitiga apakah ini?</div>
+          <div class="options">
+            <div>A. Segitiga Siku-siku</div>
+            <div>B. Segitiga Tumpul Sama Kaki</div>
+            <div>C. Segitiga Lancip Sama Kaki</div>
+            <div>D. Segitiga Sembarang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>9.</b> Pernyataan yang <b>SALAH</b> mengenai Belah Ketupat adalah ...</div>
+          <div class="options">
+            <div>A. Semua sisinya sama panjang.</div>
+            <div>B. Kedua diagonalnya sama panjang.</div>
+            <div>C. Kedua diagonalnya berpotongan tegak lurus.</div>
+            <div>D. Sudut yang berhadapan sama besar.</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>10.</b> Berapa banyak sumbu simetri pada bangun setengah lingkaran?</div>
+          <div class="options">
+            <div>A. 0</div>
+            <div>B. 1</div>
+            <div>C. 2</div>
+            <div>D. Tak terhingga</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 2 (11-14) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 2: Analisis Sifat & Visualisasi</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>11.</b> Kertas <b>persegi</b> dilipat sepanjang diagonalnya. Lalu dilipat lagi sepanjang tinggi segitiga yang terbentuk. Bangun apa yang terlihat sekarang (dalam keadaan terlipat)?</div>
+          <div class="options">
+            <div>A. Persegi kecil</div>
+            <div>B. Segitiga siku-siku sama kaki (ukuran 1/4)</div>
+            <div>C. Persegi panjang</div>
+            <div>D. Trapesium</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>12.</b> Pada pukul 09.30, sudut terkecil antara jarum jam dan menit adalah ...</div>
+          <div class="options">
+            <div>A. $90^\circ$</div>
+            <div>B. $100^\circ$</div>
+            <div>C. $105^\circ$</div>
+            <div>D. $120^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>13.</b> Perhatikan jaring-jaring kubus di bawah ini.<br>
+            <div class="svg-container">
+              <svg width="160" height="200" viewBox="0 0 400 500">
+                <!-- Pola 1-4-1 Vertical -->
+                <!-- Kolom 1 (index 0) -->
+                <!-- Baris 0 -->
+                <rect x="100" y="0" width="100" height="100" fill="#fff3e0" stroke="black" stroke-width="2"/>
+                <text x="150" y="60" text-anchor="middle" font-size="40" font-weight="bold">F</text>
+                
+                <!-- Baris 1 -->
+                <rect x="100" y="100" width="100" height="100" fill="#fff3e0" stroke="black" stroke-width="2"/>
+                <text x="150" y="160" text-anchor="middle" font-size="40" font-weight="bold">E</text>
+                
+                <!-- Baris 2 (Utama) -->
+                <rect x="0" y="200" width="100" height="100" fill="#fff3e0" stroke="black" stroke-width="2"/>
+                <text x="50" y="260" text-anchor="middle" font-size="40" font-weight="bold">A</text>
+                
+                <rect x="100" y="200" width="100" height="100" fill="#fff3e0" stroke="black" stroke-width="2"/>
+                <text x="150" y="260" text-anchor="middle" font-size="40" font-weight="bold">B</text>
+                
+                <rect x="200" y="200" width="100" height="100" fill="#fff3e0" stroke="black" stroke-width="2"/>
+                <text x="250" y="260" text-anchor="middle" font-size="40" font-weight="bold">C</text>
+                
+                <!-- Baris 3 -->
+                <rect x="100" y="300" width="100" height="100" fill="#fff3e0" stroke="black" stroke-width="2"/>
+                <text x="150" y="360" text-anchor="middle" font-size="40" font-weight="bold">D</text>
+              </svg>
+            </div>
+          Jika kotak <b>B</b> adalah alas (bawah), kotak manakah yang menjadi tutup (atas)?</div>
+          <div class="options">
+            <div>A. D</div>
+            <div>B. E</div>
+            <div>C. F</div>
+            <div>D. C</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>14.</b> Bangun segiempat: diagonal saling membagi dua sama panjang, tapi <b>tidak tegak lurus</b>. Bangun itu juga tidak punya simetri lipat.</div>
+          <div class="options">
+            <div>A. Persegi Panjang</div>
+            <div>B. Belah Ketupat</div>
+            <div>C. Jajar Genjang</div>
+            <div>D. Trapesium Sama Kaki</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 2 (15-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>15.</b> Bangun beraturan dengan 8 simetri putar memiliki besar sudut dalam sebesar ...</div>
+          <div class="options">
+            <div>A. $108^\circ$</div>
+            <div>B. $120^\circ$</div>
+            <div>C. $135^\circ$</div>
+            <div>D. $144^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>16.</b> Ciri-ciri: (1) 2 pasang sisi sama panjang, (2) sepasang sudut berhadapan sama besar, (3) diagonal utama adalah sumbu simetri.</div>
+          <div class="options">
+            <div>A. Jajar Genjang</div>
+            <div>B. Persegi Panjang</div>
+            <div>C. Layang-layang</div>
+            <div>D. Belah Ketupat</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>17.</b> Berapa banyak total segitiga pada gambar bintang segilima (pentagram)?</div>
+          <div class="options">
+            <div>A. 5</div>
+            <div>B. 8</div>
+            <div>C. 10</div>
+            <div>D. 20</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>18.</b> Jika satu pojok Persegi dipotong lurus, bangun barunya adalah segilima. Jumlah semua sudut dalam bangun baru itu adalah ...</div>
+          <div class="options">
+            <div>A. $360^\circ$</div>
+            <div>B. $450^\circ$</div>
+            <div>C. $540^\circ$</div>
+            <div>D. $720^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>19.</b> Ubin segienam beraturan dipotong menjadi 6 bagian kongruen melewati pusatnya. Potongan kecil itu berbentuk ...</div>
+          <div class="options">
+            <div>A. Segitiga sama kaki</div>
+            <div>B. Segitiga sama sisi</div>
+            <div>C. Segitiga siku-siku</div>
+            <div>D. Belah ketupat</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>20.</b> Manakah bangun yang <b>tidak</b> bisa dipakai menutupi lantai (tesselasi) sendirian tanpa celah?</div>
+          <div class="options">
+            <div>A. Segitiga sama sisi</div>
+            <div>B. Persegi</div>
+            <div>C. Segilima beraturan</div>
+            <div>D. Segienam beraturan</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 3 (21-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 3: HOTS (Logika & Pemecahan Masalah)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>21.</b> Kertas persegi panjang $ABCD$ dilipat sepanjang diagonal $AC$. Daerah yang saling bertumpuk (irisan) berbentuk ...</div>
+          <div class="options">
+            <div>A. Segitiga Siku-siku</div>
+            <div>B. Segitiga Sama Kaki</div>
+            <div>C. Segitiga Sama Sisi</div>
+            <div>D. Jajar Genjang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>22.</b> Antara pukul 12.00 sampai 13.00, berapa kali jarum jam dan menit membentuk garis lurus ($180^\circ$)?</div>
+          <div class="options">
+            <div>A. Tidak pernah</div>
+            <div>B. 1 kali</div>
+            <div>C. 2 kali</div>
+            <div>D. 3 kali</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>23.</b> Empat segitiga siku-siku sama kaki digabungkan. Bangun yang <b>mustahil</b> terbentuk adalah ...</div>
+          <div class="options">
+            <div>A. Persegi</div>
+            <div>B. Persegi Panjang</div>
+            <div>C. Jajar Genjang</div>
+            <div>D. Segilima Beraturan</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>24.</b> Kertas persegi dilipat 2 (horizontal), lalu dilipat 2 lagi (vertikal) jadi persegi kecil. Pojok pusat lipatan digunting lingkaran. Saat dibuka, polanya adalah ...</div>
+          <div class="options">
+            <div>A. Satu lingkaran di tengah</div>
+            <div>B. Dua lingkaran terpisah</div>
+            <div>C. Empat lingkaran terpisah</div>
+            <div>D. Satu lingkaran di setiap pojok kertas</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>25.</b> Bangun segiempat: Diagonal tegak lurus. Satu diagonal membagi dua diagonal lain sama panjang, tapi diagonal lain itu TIDAK membagi diagonal pertama sama panjang.</div>
+          <div class="options">
+            <div>A. Persegi</div>
+            <div>B. Belah Ketupat</div>
+            <div>C. Layang-layang</div>
+            <div>D. Trapesium Siku-siku</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 3 (26-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>26.</b> Pada kubus, garis yang menghubungkan titik tengah alas dengan titik tengah tutup disebut ...</div>
+          <div class="options">
+            <div>A. Rusuk</div>
+            <div>B. Diagonal Sisi</div>
+            <div>C. Diagonal Ruang</div>
+            <div>D. Sumbu Simetri Utama Kubus</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>27.</b> Perhatikan gambar. Berapa nilai $X$?<br>
+          <div class="svg-container">
+            <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_egecd9_2827.png" alt="Soal Geometri Sudut" style="max-width: 100%; height: auto; max-height: 250px;">
+          </div>
+          </div>
+          <div class="options">
+            <div>A. $75^\circ$</div>
+            <div>B. $85^\circ$</div>
+            <div>C. $105^\circ$</div>
+            <div>D. $145^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>28.</b> Huruf: <b>A, H, I, M, O, T, U, V, W, X, Y</b>. Berapa yang punya simetri lipat vertikal?</div>
+          <div class="options">
+            <div>A. 9 huruf</div>
+            <div>B. 10 huruf</div>
+            <div>C. 11 huruf (Semua)</div>
+            <div>D. 8 huruf</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>29.</b> Segitiga sama sisi diputar $60^\circ$ dengan pusat di salah satu titik sudutnya. Gabungannya membentuk ...</div>
+          <div class="options">
+            <div>A. Segienam</div>
+            <div>B. Belah ketupat</div>
+            <div>C. Trapesium</div>
+            <div>D. Bintang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten"><b>30.</b> Segiempat $ABCD$ ada dalam lingkaran. $\angle A = 80^\circ$. Maka $\angle C = ...$</div>
+          <div class="options">
+            <div>A. $80^\circ$</div>
+            <div>B. $90^\circ$</div>
+            <div>C. $100^\circ$</div>
+            <div>D. Tak tentu</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- HALAMAN PEMISAH -->
+    <section class="page">
+      <div class="content-wrapper" style="text-align: center; display:flex; flex-direction:column; justify-content:center;">
+        <h1 style="font-size: 30pt; border: none; color: #333;">BAGIAN II:<br>PEMBAHASAN LENGKAP</h1>
+        <p style="font-size: 16pt; margin-top: 20px;">Visual Thinking & Solusi Detil</p>
+        <div class="tips-box" style="text-align: left; margin-top: 40px;">
+          <b>Tips Guru:</b> Gunakan alat peraga sederhana seperti kertas lipat atau jam dinding untuk menjelaskan konsep-konsep di bagian ini. Pendekatan <i>Concrete-Pictorial-Abstract</i> sangat membantu siswa memahami geometri.
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 (Basic)</h1>
+        
+        <div class="soal-latihan">
+          <b>1. Jawaban: D (Persegi)</b>
+          <div class="pembahasan">
+            <b>Syarat "Beraturan":</b> Sisi Sama + Sudut Sama.
+            <ul>
+              <li>Belah ketupat $\rightarrow$ Sudutnya beda.</li>
+              <li>Persegi Panjang $\rightarrow$ Sisinya beda.</li>
+              <li><b>Persegi</b> $\rightarrow$ Memenuhi keduanya.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: C (Jajar Genjang)</b>
+          <div class="pembahasan">
+            Jajar genjang itu unik. Dia punya sisi sejajar, tapi karena "miring", dia tidak bisa dilipat (tidak ada simetri lipat).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: C (N dan S)</b>
+          <div class="pembahasan">
+            Coba tulis huruf N di kertas, lalu putar kertasnya terbalik ($180^\circ$). Huruf N akan terlihat sama. Tapi N tidak bisa dilipat kiri-kanan maupun atas-bawah. Sama halnya dengan S (dan Z).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: C (5)</b>
+          <div class="pembahasan">
+            Bayangkan segilima. Tarik garis dari satu titik ke titik lain yang tidak bersebelahan. Akan terbentuk gambar bintang di dalamnya. Bintang itu terdiri dari 5 garis (5 diagonal).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: C ($90^\circ$)</b>
+          <div class="pembahasan">
+            Satu putaran jam = 12 angka = $360^\circ$.<br>
+            Setiap lompat 1 angka = $30^\circ$.<br>
+            Jam 03.00 jarum di 12 dan 3. Jaraknya 3 angka.<br>
+            $3 \times 30^\circ = 90^\circ$.
+          </div>
+        </div>
+        
+        <div class="soal-latihan">
+          <b>6. Jawaban: C (Trapesium Sama Kaki)</b>
+          <div class="pembahasan">
+            Sifat kuncinya adalah "kaki sama panjang" dan punya "1 simetri lipat" (tengah-tengah).
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 1 & 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>7. Jawaban: C (Hanya jika Persegi)</b>
+          <div class="pembahasan">
+            Bayangkan HP (persegi panjang). Jika diputar tegak ($90^\circ$), posisinya berubah jadi portrait. Tidak pas di bingkai landscape. Supaya pas, panjang dan lebar harus sama (Persegi).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: C (Lancip Sama Kaki)</b>
+          <div class="pembahasan">
+            Jumlah sudut segitiga = $180^\circ$.<br>
+            Sudut ketiga = $180 - (40+70) = 70^\circ$.<br>
+            Karena ada dua sudut $70^\circ$, kakinya pasti sama. Karena semua $<90^\circ$, maka lancip.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: B (Diagonal sama panjang)</b>
+          <div class="pembahasan">
+            Ingat layang-layang. Belah ketupat itu layang-layang istimewa. Diagonalnya ada yang panjang (vertikal) dan pendek (horizontal). Jadi <b>tidak</b> sama panjang.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>10. Jawaban: B (1)</b>
+          <div class="pembahasan">
+            Busur panah/setengah lingkaran hanya simetris kiri-kanan.
+          </div>
+        </div>
+
+        <h1>Pembahasan: Level 2 (Intermediate)</h1>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: B (Segitiga Siku-siku Sama Kaki)</b>
+          <div class="pembahasan">
+            <b>Visualisasi:</b> Ambil kertas origami (persegi).<br>
+            1. Lipat diagonal $\rightarrow$ Jadi segitiga besar.<br>
+            2. Lipat tinggi (tengah) $\rightarrow$ Jadi segitiga yang lebih kecil lagi (1/4 ukuran asli). Bentuknya tetap segitiga siku-siku.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: C ($105^\circ$)</b>
+          <div class="pembahasan">
+            Jam 09.30.<br>
+            - Jarum Menit: Tepat di angka 6.<br>
+            - Jarum Jam: Di tengah-tengah angka 9 dan 10.<br>
+            - Jarak 6 ke 9 = 3 langkah = $90^\circ$.<br>
+            - Jarak 9 ke 9.30 (setengah langkah) = $15^\circ$.<br>
+            - Total = $90 + 15 = 105^\circ$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>13. Jawaban: C (Kotak F)</b>
+          <div class="pembahasan">
+            <b>Trik Lompat Satu:</b><br>
+            Pada jaring-jaring 1-4-1 (vertikal):<br>
+            Kotak yang "tutup-alas" selalu berselang satu kotak.<br>
+            Urutan vertikal: F - E - B - D.<br>
+            Jika B alas, lompat satu ke atas (E lewati, F kena). Maka F adalah tutup.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: C (Jajar Genjang)</b>
+          <div class="pembahasan">
+            Kata kunci: "Membagi dua tapi tidak tegak lurus".<br>
+            Jika tegak lurus $\rightarrow$ Belah ketupat/Layang-layang.<br>
+            Jika tidak tegak lurus $\rightarrow$ Jajar genjang / P. Panjang.<br>
+            Karena "tidak punya simetri lipat", jawabannya Jajar Genjang.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: C ($135^\circ$)</b>
+          <div class="pembahasan">
+            8 simetri putar = Segidelapan beraturan ($n=8$).<br>
+            Rumus sudut: $\frac{(n-2) \times 180}{n}$.<br>
+            $\frac{6 \times 180}{8} = \frac{1080}{8} = 135^\circ$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>16. Jawaban: C (Layang-layang)</b>
+          <div class="pembahasan">
+            Punya sisi sepasang-sepasang sama panjang (atas pendek, bawah panjang), dan hanya punya 1 sumbu simetri vertikal.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>17. Jawaban: C (10)</b>
+          <div class="pembahasan">
+            1. Segitiga kecil di tiap ujung bintang = 5.<br>
+            2. Segitiga tumpul yang terbentuk dari gabungan 2 segitiga kecil + badan tengah = 5.<br>
+            Total = 10.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>18. Jawaban: C ($540^\circ$)</b>
+          <div class="pembahasan">
+            Persegi (4 sisi) dipotong pojok $\rightarrow$ Sisi bertambah 1 $\rightarrow$ Jadi Segilima (5 sisi).<br>
+            Jumlah sudut segilima = $(5-2) \times 180 = 540^\circ$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>19. Jawaban: B (Segitiga sama sisi)</b>
+          <div class="pembahasan">
+            Segienam beraturan itu spesial. Jarak pusat ke sudut sama dengan panjang sisinya. Jadi jika dipotong 6 lewat pusat, terbentuk 6 segitiga sama sisi sempurna.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 2 & 3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>20. Jawaban: C (Segilima beraturan)</b>
+          <div class="pembahasan">
+            Sudut segilima $108^\circ$.<br>
+            Kita butuh $360^\circ$ agar lantai tertutup rapat.<br>
+            $108 + 108 + 108 = 324$ (Kurang, ada celah).<br>
+            $108 \times 4$ (Kelebihan, numpuk).<br>
+            Jadi segilima tidak bisa ubin (tesselasi).
+          </div>
+        </div>
+
+        <h1>Pembahasan: Level 3 (HOTS)</h1>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: B (Segitiga Sama Kaki)</b>
+          <div class="pembahasan">
+            Lipatlah kertas HVS. Bagian yang "dobel" (irisan) bentuknya selalu segitiga sama kaki. Alasannya karena sifat sudut berseberangan pada garis sejajar yang dilipat.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>22. Jawaban: B (1 kali)</b>
+          <div class="pembahasan">
+            Pukul 12.00 jarum berimpit. Mereka bergerak. Sekitar pukul 12.33, mereka akan membentuk garis lurus ($180^\circ$). Setelah itu jarum menit mengejar ke angka 12 lagi (pukul 13.00). Jadi hanya terjadi 1 kali.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>23. Jawaban: D (Segilima Beraturan)</b>
+          <div class="pembahasan">
+            Segitiga siku-siku punya sudut $45^\circ$ dan $90^\circ$.<br>
+            Segilima beraturan butuh sudut $108^\circ$.<br>
+            Kita tidak bisa membuat $108^\circ$ dari penjumlahan $45^\circ$ dan $90^\circ$. Mustahil.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: A (Satu lingkaran di tengah)</b>
+          <div class="pembahasan">
+            Lipatan memusatkan bagian tengah kertas ke satu pojok lipatan. Jika pojok itu digunting, saat dibuka, guntingan itu ada tepat di tengah kertas (pusat simetri).
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 3 Terakhir -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>25. Jawaban: C (Layang-layang)</b>
+          <div class="pembahasan">
+            Diagonal tegak lurus = Belah ketupat / Layang-layang.<br>
+            Syarat kedua: "Satu membagi dua yang lain, tapi yang lain tidak membagi dia". Ini sifat khas Layang-layang (sumbu simetri membelah sayap, tapi sayap tidak membelah sumbu simetri sama panjang).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: D (Sumbu Simetri)</b>
+          <div class="pembahasan">
+            Garis yang menembus dari pusat alas ke pusat atap kubus adalah poros putaran utama kubus.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>27. Jawaban: A ($75^\circ$)</b>
+          <div class="pembahasan">
+            <b>Logika Zig-Zag:</b><br>
+            Bayangkan arah "mulut" sudutnya.<br>
+            Mulut ke Kiri ($X$) = Mulut ke Kanan ($40^\circ + 35^\circ$).<br>
+            $X = 75^\circ$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: C (11 huruf - Semua)</b>
+          <div class="pembahasan">
+            A, H, I, M, O, T, U, V, W, X, Y semuanya simetris jika dilipat vertikal (kiri ketemu kanan). Coba bayangkan cermin di tengah hurufnya.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: B (Belah Ketupat)</b>
+          <div class="pembahasan">
+            Ambil dua segitiga sama sisi. Tempelkan salah satu sisinya. Bangun gabungannya adalah Belah Ketupat (Jajar genjang yang semua sisinya sama).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: C ($100^\circ$)</b>
+          <div class="pembahasan">
+            <b>Sifat Segiempat dalam Lingkaran:</b><br>
+            Sudut yang berhadapan kalau dijumlah hasilnya $180^\circ$.<br>
+            Sudut A hadap Sudut C.<br>
+            $\angle A + \angle C = 180^\circ$<br>
+            $80^\circ + \angle C = 180^\circ \rightarrow \angle C = 100^\circ$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+      </footer>
+    </section>
+
+  </body>
+</html>
