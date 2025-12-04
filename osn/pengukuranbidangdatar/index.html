@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Pengukuran Bangun Datar</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e8f5e9;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      /* Watermark sesuai referensi */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #1b5e20;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #2e7d32;
+      }
+      .soal-latihan {
+        margin-bottom: 20px;
+        break-inside: avoid;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      /* SETTINGAN FOOTER YANG DIMINTA */
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--accent-green);
+        padding: 10px 15px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10.5pt;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+      }
+      .rumus-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      ul,
+      ol {
+        margin-top: 0;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <!-- Logo Ruangguru sesuai referensi -->
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+
+        <h1 class="cover-title">MODUL OSN:<br />Pengukuran Bangun Datar</h1>
+        <p class="cover-subtitle">Latihan Soal & Pembahasan Detail</p>
+      </div>
+      <!-- Footer Hak Cipta -->
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi & Trik OSN</h1>
+
+        <h2>A. Strategi Mengerjakan Soal Geometri</h2>
+        <p>
+          Dalam mengerjakan soal geometri, hindari hanya menghafal rumus.
+          Gunakan langkah berikut:
+        </p>
+        <div class="tips-box">
+          <ol style="margin-bottom: 0">
+            <li>
+              <b>Visualisasi (Gambar):</b> Selalu gambar bangunnya! Beri label
+              pada sisi-sisi yang diketahui agar lebih mudah dibayangkan.
+            </li>
+            <li>
+              <b>Pergeseran Sisi (Shifting):</b> Teknik ini sangat berguna untuk
+              mencari keliling bangun gabungan (seperti bentuk tangga).
+              Sisi-sisi yang berlekuk bisa "digeser" keluar membentuk persegi
+              panjang utuh.
+            </li>
+            <li>
+              <b>Model Gambar/Kotak:</b> Untuk soal perbandingan (misal $p:l =
+              3:2$) atau selisih luas, gunakan ilustrasi kotak-kotak kecil untuk
+              membantu melihat hubungan antar angka.
+            </li>
+          </ol>
+        </div>
+
+        <h2>B. Rumus Kunci Bangun Datar</h2>
+        <div class="rumus-box">
+          <ul>
+            <li>
+              <b>Persegi:</b> $K = 4s$, $L = s^2$. (Ingat: $s = \sqrt{L}$).
+            </li>
+            <li><b>Persegipanjang:</b> $K = 2(p+l)$, $L = p \times l$.</li>
+            <li>
+              <b>Segitiga:</b> $L = \frac{1}{2} \times a \times t$. <br /><i
+                >Syarat mutlak:</i
+              >
+              Alas ($a$) dan tinggi ($t$) harus
+              <b>saling tegak lurus</b> (membentuk sudut siku-siku).
+            </li>
+          </ul>
+        </div>
+        <div class="tips-box">
+          <b>Bilangan Kuadrat Penting:</b><br />
+          $11^2=121$, $12^2=144$, $13^2=169$, $14^2=196$, $15^2=225$,
+          $16^2=256$, $25^2=625$.
+        </div>
+
+        <h2>C. Triple Pythagoras (Wajib Hafal untuk OSN)</h2>
+        <p>
+          Seringkali soal memberikan segitiga siku-siku dengan sisi miring yang
+          tidak diketahui. Hafalkan pasangan angka istimewa ini agar tidak perlu
+          menghitung manual:
+        </p>
+        <ul>
+          <li><b>3 - 4 - 5</b> (dan kelipatannya: 6-8-10, 9-12-15, dst.)</li>
+          <li><b>5 - 12 - 13</b></li>
+          <li><b>8 - 15 - 17</b></li>
+          <li><b>7 - 24 - 25</b></li>
+        </ul>
+        <p>
+          <i>Contoh:</i> Jika alas 6 cm dan tinggi 8 cm, pasti sisi miringnya 10
+          cm (kelipatan 3-4-5).
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h2>D. Konsep Tumpukan (Overlap)</h2>
+        <p>Untuk mencari luas gabungan dua bangun yang saling menumpuk:</p>
+
+        <div class="svg-container">
+          <!-- Ilustrasi Overlap -->
+          <svg width="200" height="150" viewBox="0 0 200 150">
+            <!-- Kotak A -->
+            <rect
+              x="20"
+              y="20"
+              width="100"
+              height="100"
+              fill="#e0e0e0"
+              stroke="#333"
+              stroke-width="2"
+            />
+            <text x="40" y="45" font-family="Nunito" font-weight="bold">A</text>
+
+            <!-- Kotak B (Overlap) -->
+            <rect
+              x="80"
+              y="50"
+              width="100"
+              height="80"
+              fill="#a5d6a7"
+              stroke="#333"
+              stroke-width="2"
+              fill-opacity="0.6"
+            />
+            <text x="160" y="110" font-family="Nunito" font-weight="bold">
+              B
+            </text>
+
+            <!-- Simbol Irisan -->
+            <text x="90" y="80" font-family="Nunito" font-size="20">∩</text>
+          </svg>
+        </div>
+
+        <div class="rumus-box">
+          <b>Rumus Logika:</b><br />
+          $$ \text{Luas Total Terlihat} = \text{Luas A} + \text{Luas B} -
+          \text{Luas Tumpukan (Overlap)} $$
+          <i>Kenapa dikurang?</i> Karena bagian yang tertumpuk dihitung dua kali
+          jika kita hanya menjumlahkan Luas A + Luas B.
+        </div>
+
+        <h2>E. Prinsip Maksimum/Minimum</h2>
+        <ul>
+          <li>
+            <b>Keliling Tetap, Luas Maksimum:</b> Jika diberikan kawat dengan
+            panjang tertentu untuk membuat persegipanjang, luas terbesar akan
+            dicapai jika bentuknya adalah <b>Persegi</b>.
+          </li>
+          <li>
+            <b>Luas Tetap, Keliling Minimum:</b> Kebalikannya, jika ingin
+            memagari area seluas $X$ m$^2$, pagar terpendek (biaya termurah)
+            dicapai jika tanahnya berbentuk <b>Persegi</b>.
+          </li>
+        </ul>
+
+        <h2>F. Hubungan Sisi dan Luas</h2>
+        <p>Jika sisi sebuah persegi diperbesar $n$ kali lipat, maka:</p>
+        <ul>
+          <li>Kelilingnya menjadi $n$ kali lipat.</li>
+          <li>Luasnya menjadi $n^2$ kali lipat.</li>
+        </ul>
+        <p>
+          <i>Contoh:</i> Sisi naik 20% (menjadi 1,2 kali), maka Luas naik
+          menjadi $1,2 \times 1,2 = 1,44$ kali (naik 44%).
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Mudah (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Mudah: Recall & Pemahaman Dasar (1/2)
+        </div>
+        <p>
+          <i>Tujuan: Mengingat kembali rumus dasar dan hitungan sederhana.</i>
+        </p>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Sebuah persegi memiliki panjang sisi 13 cm. Berapakah
+            keliling dan luas persegi tersebut berturut-turut?
+          </div>
+          <div class="options">
+            <div>A. 52 cm dan 169 cm$^2$</div>
+            <div>B. 26 cm dan 169 cm$^2$</div>
+            <div>C. 52 cm dan 26 cm$^2$</div>
+            <div>D. 169 cm dan 52 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Keliling sebuah persegi adalah 64 cm. Berapakah luas
+            persegi tersebut?
+          </div>
+          <div class="options">
+            <div>A. 128 cm$^2$</div>
+            <div>B. 216 cm$^2$</div>
+            <div>C. 256 cm$^2$</div>
+            <div>D. 324 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Sebuah persegipanjang memiliki panjang 15 cm dan lebar 8
+            cm. Hitunglah luasnya!
+          </div>
+          <div class="options">
+            <div>A. 46 cm$^2$</div>
+            <div>B. 110 cm$^2$</div>
+            <div>C. 120 cm$^2$</div>
+            <div>D. 230 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Luas sebuah persegipanjang adalah 120 cm$^2$. Jika
+            lebarnya 8 cm, berapakah kelilingnya?
+          </div>
+          <div class="options">
+            <div>A. 23 cm</div>
+            <div>B. 30 cm</div>
+            <div>C. 46 cm</div>
+            <div>D. 60 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Sebuah segitiga memiliki alas 12 cm dan tinggi 9 cm.
+            Hitunglah luas segitiga tersebut!
+          </div>
+          <div class="options">
+            <div>A. 54 cm$^2$</div>
+            <div>B. 60 cm$^2$</div>
+            <div>C. 96 cm$^2$</div>
+            <div>D. 108 cm$^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Lanjutan Soal Level Mudah (6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Mudah: Recall & Pemahaman Dasar (2/2)
+        </div>
+        <br />
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Pak Budi memiliki sawah berbentuk persegi dengan luas 441
+            m$^2$. Berapakah panjang sisi sawah Pak Budi?
+          </div>
+          <div class="options">
+            <div>A. 19 m</div>
+            <div>B. 21 m</div>
+            <div>C. 22 m</div>
+            <div>D. 29 m</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Keliling segitiga sama sisi adalah 36 cm. Berapakah
+            panjang sisi segitiga tersebut?
+          </div>
+          <div class="options">
+            <div>A. 9 cm</div>
+            <div>B. 10 cm</div>
+            <div>C. 12 cm</div>
+            <div>D. 18 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Sebuah lukisan berbentuk persegipanjang berukuran 40 cm
+            $\times$ 30 cm. Lukisan itu akan dipasang bingkai kayu. Berapa
+            panjang kayu minimal yang dibutuhkan?
+          </div>
+          <div class="options">
+            <div>A. 70 cm</div>
+            <div>B. 120 cm</div>
+            <div>C. 140 cm</div>
+            <div>D. 1200 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Diketahui luas segitiga adalah 48 cm$^2$. Jika tingginya 8
+            cm, berapakah panjang alasnya?
+          </div>
+          <div class="options">
+            <div>A. 6 cm</div>
+            <div>B. 12 cm</div>
+            <div>C. 16 cm</div>
+            <div>D. 24 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Berapakah hasil dari $\sqrt{225} + \sqrt{625}$?
+          </div>
+          <div class="options">
+            <div>A. 30</div>
+            <div>B. 35</div>
+            <div>C. 40</div>
+            <div>D. 45</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Sedang (11-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level Sedang: Aplikasi & Variasi (1/2)</div>
+        <p>
+          <i
+            >Tujuan: Menerapkan konsep pada situasi nyata atau logika
+            sederhana.</i
+          >
+        </p>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Dua buah persegi memiliki sisi masing-masing 6 cm dan 10
+            cm. Berapakah selisih luas kedua persegi tersebut?
+          </div>
+          <div class="options">
+            <div>A. 16 cm$^2$</div>
+            <div>B. 36 cm$^2$</div>
+            <div>C. 64 cm$^2$</div>
+            <div>D. 100 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Lantai sebuah ruangan berbentuk persegi dengan sisi 6
+            meter. Lantai tersebut akan dipasang keramik berukuran 30 cm
+            $\times$ 30 cm. Berapa banyak keramik yang dibutuhkan? (Hati-hati
+            satuan!)
+          </div>
+          <div class="options">
+            <div>A. 200 buah</div>
+            <div>B. 400 buah</div>
+            <div>C. 600 buah</div>
+            <div>D. 900 buah</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Sebuah taman berbentuk persegipanjang dengan ukuran 20 m
+            $\times$ 15 m. Di sekeliling taman akan ditanami pohon dengan jarak
+            antar pohon 5 meter. Berapa banyak pohon yang dibutuhkan?
+          </div>
+          <div class="options">
+            <div>A. 12 pohon</div>
+            <div>B. 14 pohon</div>
+            <div>C. 16 pohon</div>
+            <div>D. 20 pohon</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Sebuah persegipanjang memiliki keliling 50 cm. Jika
+            panjangnya 15 cm, berapakah luasnya?
+          </div>
+          <div class="options">
+            <div>A. 100 cm$^2$</div>
+            <div>B. 150 cm$^2$</div>
+            <div>C. 200 cm$^2$</div>
+            <div>D. 375 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Perbandingan panjang dan lebar sebuah persegipanjang
+            adalah $3:2$. Jika kelilingnya 60 cm, tentukan luas persegipanjang
+            tersebut!
+          </div>
+          <div class="options">
+            <div>A. 150 cm$^2$</div>
+            <div>B. 200 cm$^2$</div>
+            <div>C. 216 cm$^2$</div>
+            <div>D. 240 cm$^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Lanjutan Soal Level Sedang (16-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level Sedang: Aplikasi & Variasi (2/2)</div>
+        <br />
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Sebuah kertas berbentuk persegi memiliki luas 100 cm$^2$.
+            Kertas tersebut dipotong menjadi dua bagian sama besar sehingga
+            terbentuk dua persegipanjang. Berapakah keliling <b>satu</b> potong
+            persegipanjang tersebut?
+          </div>
+          <div class="options">
+            <div>A. 20 cm</div>
+            <div>B. 25 cm</div>
+            <div>C. 30 cm</div>
+            <div>D. 40 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Pak Tani memagari kebunnya yang berbentuk segitiga
+            siku-siku dengan sisi-sisi tegaknya 6 meter dan 8 meter, serta sisi
+            miringnya 10 meter. Jika biaya pagar Rp50.000 per meter, berapa
+            total biaya yang dikeluarkan?
+          </div>
+          <div class="options">
+            <div>A. Rp900.000</div>
+            <div>B. Rp1.000.000</div>
+            <div>C. Rp1.200.000</div>
+            <div>D. Rp2.400.000</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Keliling sebuah persegi sama dengan keliling sebuah
+            persegipanjang. Panjang sisi persegi adalah 12 cm. Jika lebar
+            persegipanjang adalah 8 cm, berapakah panjang persegipanjang
+            tersebut?
+          </div>
+          <div class="options">
+            <div>A. 14 cm</div>
+            <div>B. 16 cm</div>
+            <div>C. 18 cm</div>
+            <div>D. 20 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Sebuah kolam renang berbentuk persegipanjang berukuran 25
+            m $\times$ 10 m. Di sekeliling kolam dibuat jalan setapak selebar 2
+            meter. Berapakah luas jalan setapak itu?
+          </div>
+          <div class="options">
+            <div>A. 140 m$^2$</div>
+            <div>B. 156 m$^2$</div>
+            <div>C. 250 m$^2$</div>
+            <div>D. 406 m$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Diketahui luas persegi A adalah 16 cm$^2$ dan luas
+            persegi B adalah 64 cm$^2$. Berapakah perbandingan keliling persegi
+            A dan persegi B?
+          </div>
+          <div class="options">
+            <div>A. 1 : 2</div>
+            <div>B. 1 : 3</div>
+            <div>C. 1 : 4</div>
+            <div>D. 2 : 3</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Sulit (21-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Sulit: Penalaran Tingkat Tinggi (1/2)
+        </div>
+        <p>
+          <i
+            >Tujuan: Mengasah logika visual, analisis, dan penyelesaian masalah
+            non-rutin.</i
+          >
+        </p>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> Tiga buah persegi identik (sama persis) disusun memanjang
+            membentuk sebuah persegipanjang. Jika luas gabungan (persegipanjang)
+            tersebut adalah 75 cm$^2$, berapakah keliling persegipanjang
+            tersebut?
+          </div>
+          <div class="options">
+            <div>A. 40 cm</div>
+            <div>B. 50 cm</div>
+            <div>C. 60 cm</div>
+            <div>D. 80 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Keliling sebuah persegipanjang adalah 36 cm. Agar luasnya
+            maksimum (paling besar), berapakah ukuran panjang dan lebarnya?
+          </div>
+          <div class="options">
+            <div>A. 10 cm dan 8 cm</div>
+            <div>B. 12 cm dan 6 cm</div>
+            <div>C. 9 cm dan 9 cm</div>
+            <div>D. 15 cm dan 3 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Sebuah segitiga siku-siku memiliki luas 24 cm$^2$. Jika
+            alasnya 6 cm, berapakah keliling segitiga tersebut? (Petunjuk: Sisi
+            miringnya adalah 10 cm).
+          </div>
+          <div class="options">
+            <div>A. 18 cm</div>
+            <div>B. 20 cm</div>
+            <div>C. 22 cm</div>
+            <div>D. 24 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> <b>Soal Tumpukan (Overlap):</b> Dua lembar kertas persegi
+            dengan panjang sisi 10 cm diletakkan saling menumpuk sebagian. Luas
+            daerah yang bertumpuk adalah 16 cm$^2$. Berapakah luas daerah yang
+            <b>tidak</b> tertutup oleh kertas lain (total luas yang terlihat
+            dari kedua kertas)?
+          </div>
+          <div class="options">
+            <div>A. 184 cm$^2$</div>
+            <div>B. 168 cm$^2$</div>
+            <div>C. 100 cm$^2$</div>
+            <div>D. 84 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Sebuah persegi besar dipotong menjadi 4 persegi kecil
+            yang sama luasnya. Jika keliling persegi besar adalah 80 cm,
+            berapakah keliling satu persegi kecil?
+          </div>
+          <div class="options">
+            <div>A. 20 cm</div>
+            <div>B. 40 cm</div>
+            <div>C. 50 cm</div>
+            <div>D. 60 cm</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Lanjutan Soal Level Sulit (26-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Sulit: Penalaran Tingkat Tinggi (2/2)
+        </div>
+        <br />
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> Sebuah persegi memiliki luas $L$. Jika panjang sisinya
+            ditambah 20%, berapa persen pertambahan luasnya? (Tips: Gunakan
+            pemisalan angka mudah, misal sisi awal = 10).
+          </div>
+          <div class="options">
+            <div>A. 20%</div>
+            <div>B. 40%</div>
+            <div>C. 44%</div>
+            <div>D. 144%</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Lantai berbentuk persegipanjang berukuran 12 m $\times$
+            16 m akan dipasang ubin berbentuk persegi dengan sisi 40 cm. Berapa
+            dus ubin yang harus dibeli jika 1 dus berisi 10 ubin?
+          </div>
+          <div class="options">
+            <div>A. 100 dus</div>
+            <div>B. 120 dus</div>
+            <div>C. 144 dus</div>
+            <div>D. 160 dus</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Selembar karton berbentuk persegipanjang dengan luas 96
+            cm$^2$. Panjang karton 12 cm. Dari karton tersebut akan dibuat
+            persegi dengan sisi terbesar yang mungkin. Berapakah sisa luas
+            karton yang tidak terpakai?
+          </div>
+          <div class="options">
+            <div>A. 16 cm$^2$</div>
+            <div>B. 32 cm$^2$</div>
+            <div>C. 36 cm$^2$</div>
+            <div>D. 48 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> <b>Soal Jumlah & Selisih:</b> Jumlah keliling dua buah
+            persegi adalah 100 cm. Selisih sisi kedua persegi tersebut adalah 5
+            cm. Tentukan luas persegi yang lebih besar!
+          </div>
+          <div class="options">
+            <div>A. 100 cm$^2$</div>
+            <div>B. 144 cm$^2$</div>
+            <div>C. 225 cm$^2$</div>
+            <div>D. 400 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> <b>Soal Optimasi:</b> Pak Andi mempunyai tanah berbentuk
+            persegi seluas 400 m$^2$. Ia menjual separuh tanahnya. Sisa tanahnya
+            dipagari keliling. Berapakah panjang pagar <b>minimal</b> yang
+            dibutuhkan untuk memagari sisa tanah tersebut jika sisa tanah
+            berbentuk persegipanjang dengan rasio panjang:lebar = $2:1$?
+          </div>
+          <div class="options">
+            <div>A. 40 m</div>
+            <div>B. 50 m</div>
+            <div>C. 60 m</div>
+            <div>D. 80 m</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMISAH PEMBAHASAN -->
+    <section class="page">
+      <div
+        class="content-wrapper"
+        style="
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        "
+      >
+        <h1 style="font-size: 30pt; border: none; color: #333">
+          BAGIAN III:<br />PEMBAHASAN LENGKAP
+        </h1>
+        <p style="font-size: 16pt; margin-top: 20px">
+          Kunci Jawaban & Langkah Pengerjaan Detail
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Mudah (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Mudah (1/2)</h1>
+
+        <div class="soal-latihan">
+          <b>1. Jawaban: A</b>
+          <div class="pembahasan">
+            <ul>
+              <li>
+                Keliling ($K$) $= 4 \times s = 4 \times 13 = \mathbf{52}$ cm.
+              </li>
+              <li>
+                Luas ($L$) $= s \times s = 13 \times 13 = \mathbf{169}$ cm$^2$.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: C</b>
+          <div class="pembahasan">
+            Cari sisi ($s$) dulu: $K = 4 \times s \rightarrow 64 = 4 \times s
+            \rightarrow s = 64 : 4 = 16$ cm.<br />
+            Hitung Luas: $L = 16 \times 16 = \mathbf{256}$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: C</b>
+          <div class="pembahasan">
+            Rumus: $L = p \times l = 15 \times 8 = \mathbf{120}$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: C</b>
+          <div class="pembahasan">
+            Cari panjang ($p$): $L = p \times l \rightarrow 120 = p \times 8
+            \rightarrow p = 120 : 8 = 15$ cm.<br />
+            Hitung Keliling: $K = 2 \times (15 + 8) = 2 \times 23 = \mathbf{46}$
+            cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: A</b>
+          <div class="pembahasan">
+            Rumus: $L = \frac{1}{2} \times \text{alas} \times \text{tinggi}$.<br />
+            Hitung: $L = \frac{1}{2} \times 12 \times 9 = 6 \times 9 =
+            \mathbf{54}$ cm$^2$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Mudah (6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Mudah (2/2)</h1>
+
+        <div class="soal-latihan">
+          <b>6. Jawaban: B</b>
+          <div class="pembahasan">
+            Diketahui $L = 441$. Rumus $s = \sqrt{L} = \sqrt{441}$.<br />
+            Trik: Angka belakang 1, berarti akar belakangnya 1 atau 9. Karena
+            $20^2=400$, maka jawabannya pasti sedikit di atas 20, yaitu
+            $\mathbf{21}$ m.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>7. Jawaban: C</b>
+          <div class="pembahasan">
+            Segitiga sama sisi memiliki 3 sisi sama panjang.<br />
+            $s = \text{Keliling} : 3 = 36 : 3 = \mathbf{12}$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: C</b>
+          <div class="pembahasan">
+            "Panjang kayu bingkai" artinya mencari Keliling.<br />
+            $K = 2 \times (40 + 30) = 2 \times 70 = \mathbf{140}$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: B</b>
+          <div class="pembahasan">
+            Rumus balik Luas Segitiga: $\text{alas} = \frac{2 \times
+            \text{Luas}}{\text{tinggi}}$.<br />
+            $a = \frac{2 \times 48}{8} = \frac{96}{8} = \mathbf{12}$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>10. Jawaban: C</b>
+          <div class="pembahasan">
+            $\sqrt{225} = 15$ dan $\sqrt{625} = 25$.<br />
+            Jumlahkan: $15 + 25 = \mathbf{40}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Sedang (11-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Sedang (1/2)</h1>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: C</b>
+          <div class="pembahasan">
+            Luas Persegi 1: $6 \times 6 = 36$ cm$^2$.<br />
+            Luas Persegi 2: $10 \times 10 = 100$ cm$^2$.<br />
+            Selisih: $100 - 36 = \mathbf{64}$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: B</b>
+          <div class="pembahasan">
+            <b>Langkah 1 (Samakan Satuan):</b> Sisi lantai = 6 m = 600 cm.<br />
+            <b>Langkah 2 (Luas Lantai):</b> $L_{lantai} = 600 \times 600 =
+            360.000$ cm$^2$.<br />
+            <b>Langkah 3 (Luas 1 Keramik):</b> $L_{keramik} = 30 \times 30 =
+            900$ cm$^2$.<br />
+            <b>Langkah 4 (Bagi):</b> $360.000 : 900 = 3600 : 9 = \mathbf{400}$
+            buah.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>13. Jawaban: B</b>
+          <div class="pembahasan">
+            <b>Langkah 1:</b> Cari Keliling Taman. $K = 2 \times (20 + 15) = 2
+            \times 35 = 70$ m.<br />
+            <b>Langkah 2:</b> Bagi keliling dengan jarak tanam. Banyak pohon =
+            $70 : 5 = \mathbf{14}$ pohon.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: B</b>
+          <div class="pembahasan">
+            Diketahui $K=50$, berarti $p + l = 50 : 2 = 25$.<br />
+            Jika $p=15$, maka $l = 25 - 15 = 10$ cm.<br />
+            Luas $= 15 \times 10 = \mathbf{150}$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: C</b>
+          <div class="pembahasan">
+            Gunakan <b>Model Kotak/Unit</b>. Rasio $p:l = 3:2$.<br />
+            Total unit keliling $= 2 \times (3 \text{ unit} + 2 \text{ unit}) =
+            10 \text{ unit}$.<br />
+            10 unit = 60 cm $\rightarrow$ 1 unit = 6 cm.<br />
+            $p = 3 \times 6 = 18$ cm. $l = 2 \times 6 = 12$ cm.<br />
+            Luas $= 18 \times 12 = \mathbf{216}$ cm$^2$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Sedang (16-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Sedang (2/2)</h1>
+
+        <div class="soal-latihan">
+          <b>16. Jawaban: C</b>
+          <div class="pembahasan">
+            Luas awal 100 $\rightarrow$ sisi persegi $= \sqrt{100} = 10$ cm.<br />
+            Dipotong 2 sama besar, berarti lebarnya dibagi 2 $\rightarrow$ Lebar
+            baru $= 5$ cm. Panjang tetap $= 10$ cm.<br />
+            Keliling persegipanjang kecil $= 2 \times (10 + 5) = 2 \times 15 =
+            \mathbf{30}$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>17. Jawaban: C</b>
+          <div class="pembahasan">
+            Pagar dipasang di sekeliling, cari Keliling segitiga.<br />
+            $K = 6 + 8 + 10 = 24$ meter.<br />
+            Biaya $= 24 \times 50.000 = 120 \times 10.000 = \mathbf{1.200.000}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>18. Jawaban: B</b>
+          <div class="pembahasan">
+            Keliling Persegi $= 4 \times 12 = 48$ cm.<br />
+            Keliling Persegipanjang $= 48$ cm. Maka $2 \times (p + 8) = 48$.<br />
+            $p + 8 = 24 \rightarrow p = 24 - 8 = \mathbf{16}$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>19. Jawaban: B</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Luas Jalan = Luas Besar - Luas Kecil (Kolam).<br />
+            Luas Kolam $= 25 \times 10 = 250$ m$^2$.<br />
+            Dimensi Besar (Kolam + Jalan kanan/kiri/atas/bawah):<br />
+            Panjang baru $= 25 + 2 + 2 = 29$ m. Lebar baru $= 10 + 2 + 2 = 14$
+            m.<br />
+            Luas Besar $= 29 \times 14 = 406$ m$^2$.<br />
+            Selisih $= 406 - 250 = \mathbf{156}$ m$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: A</b>
+          <div class="pembahasan">
+            Persegi A: $L=16 \rightarrow s=4 \rightarrow \text{Keliling}=16$.<br />
+            Persegi B: $L=64 \rightarrow s=8 \rightarrow \text{Keliling}=32$.<br />
+            Perbandingan $16 : 32$. Sederhanakan (bagi 16) $\rightarrow
+            \mathbf{1 : 2}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Sulit (21-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Sulit (1/3)</h1>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: A</b>
+          <div class="pembahasan">
+            <b>Analisis Luas:</b> 3 persegi luas totalnya 75 cm$^2$. Maka, luas
+            satu persegi $= 75 : 3 = 25$ cm$^2$.<br />
+            <b>Cari Sisi:</b> Sisi satu persegi ($s$) $= \sqrt{25} = 5$ cm.<br />
+            <b>Visualisasi:</b> Tiga persegi $5 \times 5$ disusun memanjang.<br />
+            Panjang total $= 5 + 5 + 5 = 15$ cm. Lebar total $= 5$ cm.<br />
+            <b>Hitung Keliling:</b> $K = 2 \times (15 + 5) = 2 \times 20 =
+            \mathbf{40}$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>22. Jawaban: C</b>
+          <div class="pembahasan">
+            <b>Konsep Optimasi:</b> Untuk keliling yang tetap, luas
+            persegipanjang akan <b>maksimum</b> jika selisih panjang dan
+            lebarnya paling kecil (yaitu 0, alias bentuk Persegi).<br />
+            Cek opsi:<br />
+            A. $10, 8 \rightarrow K=36 \rightarrow L=80$<br />
+            B. $12, 6 \rightarrow K=36 \rightarrow L=72$<br />
+            C. $9, 9 \rightarrow K=36 \rightarrow L=\mathbf{81}$ (Terbesar)<br />
+            Jadi, jawabannya adalah saat bentuknya persegi.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>23. Jawaban: D</b>
+          <div class="pembahasan">
+            <b>Langkah 1:</b> Cari Tinggi ($t$). Rumus $L = \frac{1}{2} \cdot a
+            \cdot t$.<br />
+            $24 = \frac{1}{2} \times 6 \times t \rightarrow 24 = 3 \times t
+            \rightarrow t = 8$ cm.<br />
+            <b>Langkah 2:</b> Cari Sisi Miring. Alas 6, Tinggi 8. Ingat
+            <b>Triple Pythagoras</b> (6, 8, 10). Maka sisi miring = 10 cm.<br />
+            <b>Langkah 3:</b> Keliling $= 6 + 8 + 10 = \mathbf{24}$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: A</b>
+          <div class="pembahasan">
+            <b>Logika Himpunan:</b> Luas total 2 kertas terpisah $= (10 \times
+            10) + (10 \times 10) = 200$ cm$^2$.<br />
+            Jika ditumpuk, ada area yang hilang dari pandangan (tertutup). Area
+            yang hilang adalah area tumpukan (overlap).<br />
+            Luas Terlihat $= \text{Total Luas Awal} - \text{Overlap}$.<br />
+            Luas Terlihat $= 200 - 16 = \mathbf{184}$ cm$^2$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Sulit (26-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Sulit (2/3)</h1>
+
+        <div class="soal-latihan">
+          <b>25. Jawaban: B</b>
+          <div class="pembahasan">
+            <b>Analisis Persegi Besar:</b> $K=80 \rightarrow \text{sisi} = 20$.
+            Luas $= 20 \times 20 = 400$.<br />
+            <b>Analisis Persegi Kecil:</b> Dipotong jadi 4 sama luas. Luas kecil
+            $= 400 : 4 = 100$.<br />
+            Sisi persegi kecil $= \sqrt{100} = 10$.<br />
+            Keliling persegi kecil $= 4 \times 10 = \mathbf{40}$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: C</b>
+          <div class="pembahasan">
+            <b>Pemisalan Angka (Trik Cepat):</b> Misalkan sisi awal $= 10$. Maka
+            Luas awal $= 100$.<br />
+            Sisi bertambah 20%: $20\% \text{ dari } 10 = 2$. Sisi baru $=
+            12$.<br />
+            Luas baru $= 12 \times 12 = 144$.<br />
+            Selisih Luas $= 144 - 100 = 44$.<br />
+            Persentase kenaikan $= \frac{44}{100} \times 100\% = \mathbf{44\%}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>27. Jawaban: B</b>
+          <div class="pembahasan">
+            <b>Langkah 1:</b> Luas Lantai $= 12 \text{ m} \times 16 \text{ m} =
+            1200 \text{ cm} \times 1600 \text{ cm}$.<br />
+            <b>Langkah 2:</b> Jumlah ubin memanjang $= 1600 : 40 = 40$ ubin.
+            Jumlah ubin melebar $= 1200 : 40 = 30$ ubin.<br />
+            Total ubin $= 40 \times 30 = 1200$ ubin.<br />
+            <b>Langkah 3:</b> Konversi ke Dus. $1200 \text{ ubin} : 10 \text{
+            isi/dus} = \mathbf{120}$ dus.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: B</b>
+          <div class="pembahasan">
+            Luas karton $= 96$. Panjang $= 12$, maka Lebar $= 96 : 12 = 8$
+            cm.<br />
+            <b>Logika Potong:</b> Untuk membuat persegi terbesar dari
+            persegipanjang, panjang sisi persegi dibatasi oleh sisi
+            <b>terpendek</b> dari persegipanjang.<br />
+            Sisi persegi $= 8$ cm. Luas persegi $= 64$ cm$^2$.<br />
+            Sisa $= 96 - 64 = \mathbf{32}$ cm$^2$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Sulit (3/3)</h1>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: C</b>
+          <div class="pembahasan">
+            <b>Penyederhanaan:</b> Jumlah Keliling $= 100 \rightarrow 4s_1 +
+            4s_2 = 100 \rightarrow$ Jumlah Sisi $(s_1 + s_2) = 25$.<br />
+            <b>Metode Eliminasi / Ilustrasi:</b><br />
+            Kita punya 2 bilangan: Jumlahnya 25, Selisihnya 5.<br />
+            Bilangan Besar $= (25 + 5) : 2 = 15$.<br />
+            Bilangan Kecil $= (25 - 5) : 2 = 10$.<br />
+            Ditanya Luas Persegi Besar ($s=15$). $L = 15 \times 15 =
+            \mathbf{225}$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: C</b>
+          <div class="pembahasan">
+            Luas awal 400. Dijual separuh, Sisa Luas $= 200$ m$^2$.<br />
+            Bentuk sisa adalah persegipanjang dengan rasio $p:l = 2:1$.<br />
+            Luas $= 2\text{unit} \times 1\text{unit} = 2 \text{ unit}^2$.<br />
+            $2 \text{ unit}^2 = 200 \rightarrow 1 \text{ unit}^2 = 100
+            \rightarrow 1 \text{ unit} = 10$.<br />
+            Maka lebar $= 10$ m, panjang $= 20$ m.<br />
+            Keliling (Pagar) $= 2 \times (20 + 10) = \mathbf{60}$ m.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
