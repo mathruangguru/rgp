@@ -786,7 +786,7 @@
     <section class="page">
       <div class="content-wrapper">
         <div class="kategori-soal">
-          Level Sulit: Penalaran Tingkat Tinggi (1/2)
+          Level Sulit: Penalaran Tingkat Tinggi (1/3)
         </div>
         <p>
           <i
@@ -836,20 +836,114 @@
             <div>D. 24 cm</div>
           </div>
         </div>
-
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Sulit: Penalaran Tingkat Tinggi (2/2)
+        </div>
+        <br />
         <div class="soal-latihan">
           <div class="soal-konten">
-            <b>24.</b> <b>Soal Tumpukan (Overlap):</b> Dua lembar kertas persegi
-            dengan panjang sisi 10 cm diletakkan saling menumpuk sebagian. Luas
-            daerah yang bertumpuk adalah 16 cm$^2$. Berapakah luas daerah yang
-            <b>tidak</b> tertutup oleh kertas lain (total luas yang terlihat
-            dari kedua kertas)?
+            <b>24.</b>Dua persegi identik $ABCD$ dan $PQRS$ memiliki panjang
+            sisi 10 cm. Persegi $PQRS$ diletakkan miring sedemikian rupa
+            sehingga titik sudut $P$ berada tepat di <b>titik pusat</b> persegi
+            $ABCD$. Berapakah luas daerah gabungan (total area yang terlihat)
+            dari kedua persegi tersebut?
+          </div>
+          <!-- SVG Ilustrasi Soal 24 -->
+          <div class="svg-container">
+            <!-- Mengubah viewBox dari 250 250 menjadi 250 300 agar bagian bawah (titik R) muat -->
+            <svg width="250" height="300" viewBox="0 0 250 300">
+              <!-- Square 1 (ABCD) -->
+              <rect
+                x="50"
+                y="50"
+                width="100"
+                height="100"
+                fill="none"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <text x="40" y="45" font-family="Nunito" font-size="12">A</text>
+              <text x="160" y="45" font-family="Nunito" font-size="12">B</text>
+              <text x="160" y="165" font-family="Nunito" font-size="12">C</text>
+              <text x="40" y="165" font-family="Nunito" font-size="12">D</text>
+              <circle cx="100" cy="100" r="2" fill="black" />
+              <!-- Center -->
+
+              <!-- Square 2 (PQRS) - Rotated approx 30 deg -->
+              <g transform="rotate(30, 100, 100)">
+                <rect
+                  x="100"
+                  y="100"
+                  width="100"
+                  height="100"
+                  fill="none"
+                  stroke="#1976d2"
+                  stroke-width="2"
+                  stroke-dasharray="5,5"
+                />
+                <!-- Posisi label disesuaikan sedikit agar tidak terlalu jauh -->
+                <text
+                  x="90"
+                  y="95"
+                  font-family="Nunito"
+                  font-size="12"
+                  fill="#1976d2"
+                >
+                  P
+                </text>
+                <text
+                  x="210"
+                  y="95"
+                  font-family="Nunito"
+                  font-size="12"
+                  fill="#1976d2"
+                >
+                  Q
+                </text>
+                <text
+                  x="210"
+                  y="215"
+                  font-family="Nunito"
+                  font-size="12"
+                  fill="#1976d2"
+                >
+                  R
+                </text>
+                <text
+                  x="90"
+                  y="215"
+                  font-family="Nunito"
+                  font-size="12"
+                  fill="#1976d2"
+                >
+                  S
+                </text>
+              </g>
+
+              <!-- Overlap Area -->
+              <path
+                d="M100,100 L150,128.86 L150,150 L71.2,150 Z"
+                fill="rgba(76, 175, 80, 0.5)"
+                stroke="none"
+              />
+            </svg>
           </div>
           <div class="options">
-            <div>A. 184 cm$^2$</div>
-            <div>B. 168 cm$^2$</div>
-            <div>C. 100 cm$^2$</div>
-            <div>D. 84 cm$^2$</div>
+            <div>A. 150 cm$^2$</div>
+            <div>B. 175 cm$^2$</div>
+            <div>C. 180 cm$^2$</div>
+            <div>D. 190 cm$^2$</div>
           </div>
         </div>
 
@@ -864,6 +958,20 @@
             <div>B. 40 cm</div>
             <div>C. 50 cm</div>
             <div>D. 60 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> Sebuah persegi memiliki luas $L$. Jika panjang sisinya
+            ditambah 20%, berapa persen pertambahan luasnya? (Tips: Gunakan
+            pemisalan angka mudah, misal sisi awal = 10).
+          </div>
+          <div class="options">
+            <div>A. 20%</div>
+            <div>B. 40%</div>
+            <div>C. 44%</div>
+            <div>D. 144%</div>
           </div>
         </div>
       </div>
@@ -883,31 +991,81 @@
           Level Sulit: Penalaran Tingkat Tinggi (2/2)
         </div>
         <br />
-        <div class="soal-latihan">
-          <div class="soal-konten">
-            <b>26.</b> Sebuah persegi memiliki luas $L$. Jika panjang sisinya
-            ditambah 20%, berapa persen pertambahan luasnya? (Tips: Gunakan
-            pemisalan angka mudah, misal sisi awal = 10).
-          </div>
-          <div class="options">
-            <div>A. 20%</div>
-            <div>B. 40%</div>
-            <div>C. 44%</div>
-            <div>D. 144%</div>
-          </div>
-        </div>
 
         <div class="soal-latihan">
           <div class="soal-konten">
-            <b>27.</b> Lantai berbentuk persegipanjang berukuran 12 m $\times$
-            16 m akan dipasang ubin berbentuk persegi dengan sisi 40 cm. Berapa
-            dus ubin yang harus dibeli jika 1 dus berisi 10 ubin?
+            <b>27.</b> <b>Soal Jebakan (Visual):</b> Selembar kertas persegi
+            panjang berukuran $40 \text{ cm} \times 30 \text{ cm}$. Keempat
+            pojoknya digunting berbentuk persegi kecil dengan sisi 5 cm.
+            Berapakah <b>keliling</b> kertas sisa guntingan tersebut?
+          </div>
+          <div class="svg-container">
+            <svg width="200" height="150" viewBox="0 0 200 150">
+              <!-- Gambar Utuh dengan 4 Pojok Terpotong (Seragam) -->
+              <path
+                d="M35,20 L165,20 L165,35 L180,35 L180,115 L165,115 L165,130 L35,130 L35,115 L20,115 L20,35 L35,35 Z"
+                fill="#fff3e0"
+                stroke="#333"
+                stroke-width="2"
+              />
+
+              <!-- Garis putus-putus untuk 4 pojok yang hilang (Seragam) -->
+              <!-- Kiri Atas -->
+              <path
+                d="M20,35 L20,20 L35,20"
+                fill="none"
+                stroke="#999"
+                stroke-dasharray="3,3"
+              />
+              <!-- Kanan Atas -->
+              <path
+                d="M165,20 L180,20 L180,35"
+                fill="none"
+                stroke="#999"
+                stroke-dasharray="3,3"
+              />
+              <!-- Kanan Bawah -->
+              <path
+                d="M180,115 L180,130 L165,130"
+                fill="none"
+                stroke="#999"
+                stroke-dasharray="3,3"
+              />
+              <!-- Kiri Bawah -->
+              <path
+                d="M35,130 L20,130 L20,115"
+                fill="none"
+                stroke="#999"
+                stroke-dasharray="3,3"
+              />
+
+              <!-- Label Dimensi -->
+              <text
+                x="100"
+                y="75"
+                font-family="Nunito"
+                font-size="12"
+                text-anchor="middle"
+                fill="#555"
+              >
+                40 x 30 cm
+              </text>
+              <text
+                x="15"
+                y="18"
+                font-family="Nunito"
+                font-size="10"
+                fill="#999"
+              >
+                5
+              </text>
+            </svg>
           </div>
           <div class="options">
-            <div>A. 100 dus</div>
-            <div>B. 120 dus</div>
-            <div>C. 144 dus</div>
-            <div>D. 160 dus</div>
+            <div>A. 100 cm</div>
+            <div>B. 120 cm</div>
+            <div>C. 140 cm</div>
+            <div>D. 160 cm</div>
           </div>
         </div>
 
@@ -942,17 +1100,91 @@
 
         <div class="soal-latihan">
           <div class="soal-konten">
-            <b>30.</b> <b>Soal Optimasi:</b> Pak Andi mempunyai tanah berbentuk
-            persegi seluas 400 m$^2$. Ia menjual separuh tanahnya. Sisa tanahnya
-            dipagari keliling. Berapakah panjang pagar <b>minimal</b> yang
-            dibutuhkan untuk memagari sisa tanah tersebut jika sisa tanah
-            berbentuk persegipanjang dengan rasio panjang:lebar = $2:1$?
+            <b>30.</b> <b>Soal Luas Segitiga (HOTS):</b> Titik $P$ berada di
+            sembarang tempat di dalam persegi panjang $ABCD$. Dibuat garis dari
+            $P$ ke keempat titik sudut. Jika Luas $\triangle PAB = 15$ cm$^2$
+            dan Luas $\triangle PCD = 25$ cm$^2$, berapakah luas total persegi
+            panjang $ABCD$?
+          </div>
+          <div class="svg-container">
+            <svg width="200" height="120" viewBox="0 0 200 120">
+              <rect
+                x="20"
+                y="20"
+                width="160"
+                height="80"
+                fill="none"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <text x="15" y="15" font-family="Nunito" font-size="12">A</text>
+              <text x="185" y="15" font-family="Nunito" font-size="12">B</text>
+              <text x="185" y="115" font-family="Nunito" font-size="12">C</text>
+              <text x="15" y="115" font-family="Nunito" font-size="12">D</text>
+
+              <!-- Titik P -->
+              <circle cx="90" cy="50" r="2" fill="black" />
+              <text x="95" y="50" font-family="Nunito" font-size="12">P</text>
+
+              <!-- Garis ke sudut -->
+              <line
+                x1="90"
+                y1="50"
+                x2="20"
+                y2="20"
+                stroke="#1976d2"
+                stroke-width="1"
+              />
+              <line
+                x1="90"
+                y1="50"
+                x2="180"
+                y2="20"
+                stroke="#1976d2"
+                stroke-width="1"
+              />
+              <line
+                x1="90"
+                y1="50"
+                x2="180"
+                y2="100"
+                stroke="#1976d2"
+                stroke-width="1"
+              />
+              <line
+                x1="90"
+                y1="50"
+                x2="20"
+                y2="100"
+                stroke="#1976d2"
+                stroke-width="1"
+              />
+
+              <text
+                x="100"
+                y="35"
+                font-family="Nunito"
+                font-size="10"
+                fill="#555"
+              >
+                15
+              </text>
+              <text
+                x="100"
+                y="85"
+                font-family="Nunito"
+                font-size="10"
+                fill="#555"
+              >
+                25
+              </text>
+            </svg>
           </div>
           <div class="options">
-            <div>A. 40 m</div>
-            <div>B. 50 m</div>
-            <div>C. 60 m</div>
-            <div>D. 80 m</div>
+            <div>A. 40 cm$^2$</div>
+            <div>B. 60 cm$^2$</div>
+            <div>C. 80 cm$^2$</div>
+            <div>D. 100 cm$^2$</div>
           </div>
         </div>
       </div>
@@ -1291,14 +1523,20 @@
         </div>
 
         <div class="soal-latihan">
-          <b>24. Jawaban: A</b>
+          <b>24. Jawaban: B</b>
           <div class="pembahasan">
-            <b>Logika Himpunan:</b> Luas total 2 kertas terpisah $= (10 \times
-            10) + (10 \times 10) = 200$ cm$^2$.<br />
-            Jika ditumpuk, ada area yang hilang dari pandangan (tertutup). Area
-            yang hilang adalah area tumpukan (overlap).<br />
-            Luas Terlihat $= \text{Total Luas Awal} - \text{Overlap}$.<br />
-            Luas Terlihat $= 200 - 16 = \mathbf{184}$ cm$^2$.
+            <b>Trik Olimpiade (Rotasi):</b><br />
+            Jika salah satu titik sudut persegi menempati titik pusat persegi
+            lain yang identik, maka luas daerah irisannya <b>selalu sama</b>,
+            tidak peduli seberapa miring posisinya.<br />
+            1. Bayangkan posisi tegak lurus (tidak miring). Maka irisannya
+            berupa persegi kecil dengan ukuran $\frac{1}{2}$ dari sisi
+            aslinya.<br />
+            2. Sisi irisan = $10 : 2 = 5$ cm.<br />
+            3. Luas Irisan = $5 \times 5 = 25$ cm$^2$ (Seperempat dari luas
+            persegi utuh).<br />
+            4. <b>Luas Gabungan</b> = Luas ABCD + Luas PQRS - Luas Irisan.<br />
+            $$100 + 100 - 25 = \mathbf{175} \text{ cm}^2.$$
           </div>
         </div>
       </div>
@@ -1342,15 +1580,16 @@
         </div>
 
         <div class="soal-latihan">
-          <b>27. Jawaban: B</b>
+          <b>27. Jawaban: C</b>
           <div class="pembahasan">
-            <b>Langkah 1:</b> Luas Lantai $= 12 \text{ m} \times 16 \text{ m} =
-            1200 \text{ cm} \times 1600 \text{ cm}$.<br />
-            <b>Langkah 2:</b> Jumlah ubin memanjang $= 1600 : 40 = 40$ ubin.
-            Jumlah ubin melebar $= 1200 : 40 = 30$ ubin.<br />
-            Total ubin $= 40 \times 30 = 1200$ ubin.<br />
-            <b>Langkah 3:</b> Konversi ke Dus. $1200 \text{ ubin} : 10 \text{
-            isi/dus} = \mathbf{120}$ dus.
+            <b>Konsep Geser Sisi (Perimeter Invariance):</b><br />
+            Meskipun pojoknya dipotong, sisi yang "hilang" digantikan oleh sisi
+            potongan yang baru (yang masuk ke dalam).<br />
+            - Sisi mendatar yang hilang diganti sisi mendatar baru.<br />
+            - Sisi tegak yang hilang diganti sisi tegak baru.<br />
+            Maka, keliling bangun baru <b>SAMA DENGAN</b> keliling persegi
+            panjang utuh.<br />
+            $K = 2 \times (40 + 30) = 2 \times 70 = \mathbf{140}$ cm.
           </div>
         </div>
 
@@ -1397,13 +1636,15 @@
         <div class="soal-latihan">
           <b>30. Jawaban: C</b>
           <div class="pembahasan">
-            Luas awal 400. Dijual separuh, Sisa Luas $= 200$ m$^2$.<br />
-            Bentuk sisa adalah persegipanjang dengan rasio $p:l = 2:1$.<br />
-            Luas $= 2\text{unit} \times 1\text{unit} = 2 \text{ unit}^2$.<br />
-            $2 \text{ unit}^2 = 200 \rightarrow 1 \text{ unit}^2 = 100
-            \rightarrow 1 \text{ unit} = 10$.<br />
-            Maka lebar $= 10$ m, panjang $= 20$ m.<br />
-            Keliling (Pagar) $= 2 \times (20 + 10) = \mathbf{60}$ m.
+            <b>Teorema Titik Interior:</b><br />
+            Untuk sembarang titik $P$ di dalam persegi panjang, jumlah luas
+            segitiga yang saling bertolak belakang (atas + bawah) adalah
+            <b>setengah</b> dari luas total persegi panjang.<br />
+            $L_{\triangle PAB} + L_{\triangle PCD} = \frac{1}{2} \times
+            L_{ABCD}$<br />
+            $15 + 25 = 40$ cm$^2$.<br />
+            Ini baru setengah luas total. Maka Luas Total $= 40 \times 2 =
+            \mathbf{80}$ cm$^2$.
           </div>
         </div>
       </div>
