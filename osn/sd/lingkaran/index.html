@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Geometri Lingkaran</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e3f2fd; /* Biru muda untuk nuansa matematika/lingkaran */
+        --highlight-orange: #ff9800;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #0d47a1;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #1565c0;
+      }
+      .soal-latihan {
+        margin-bottom: 20px;
+        break-inside: avoid;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Default 2 kolom */
+        gap: 5px;
+      }
+      .options.single-col {
+        grid-template-columns: 1fr;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+      .pembahasan {
+        background-color: #f1f8e9; /* Hijau muda yang sangat soft */
+        border-left: 4px solid var(--accent-green);
+        padding: 10px 15px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10.5pt;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+      }
+      .rumus-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      /* SVG Styles */
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+      }
+      svg text {
+        font-family: "Nunito", sans-serif;
+        font-size: 12px;
+        fill: #333;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">MODUL OSN:<br />Geometri Lingkaran</h1>
+        <p class="cover-subtitle">
+          Ringkasan Materi, Latihan Soal & Pembahasan
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Ringkasan Materi: Lingkaran</h1>
+
+        <h2>A. Konsep Dasar</h2>
+        <p>
+          Lingkaran adalah kumpulan titik-titik pada garis lengkung yang
+          mempunyai jarak yang sama terhadap pusat lingkaran.
+        </p>
+
+        <h3>Visualisasi Unsur-Unsur Lingkaran</h3>
+        <div class="svg-container">
+          <img
+            src="https://imgix3.ruangguru.com/assets/miscellaneous/png_kywm4n_3895.png"
+            alt="Unsur-unsur Lingkaran"
+            style="max-width: 100%; height: auto; max-height: 200px"
+          />
+        </div>
+
+        <ul style="margin-top: 10px; padding-left: 20px">
+          <li style="margin-bottom: 5px">
+            <b>Titik Pusat ($P$):</b> Titik yang berada tepat di tengah
+            lingkaran. Jarak dari titik ini ke tepian lingkaran selalu sama.
+          </li>
+          <li style="margin-bottom: 5px">
+            <b>Jari-jari ($r$):</b> Garis yang menghubungkan titik pusat dengan
+            satu titik di tepian lingkaran.
+          </li>
+          <li style="margin-bottom: 5px">
+            <b>Diameter ($d$):</b> Garis lurus yang membelah lingkaran menjadi
+            dua bagian sama besar dan <i>wajib</i> melewati titik pusat.
+            Panjangnya 2 kali jari-jari ($d=2r$).
+          </li>
+          <li style="margin-bottom: 5px">
+            <b>Tali Busur:</b> Garis lurus yang menghubungkan dua titik pada
+            tepian lingkaran, tetapi tidak harus melewati titik pusat.
+          </li>
+          <li style="margin-bottom: 5px">
+            <b>Juring:</b> Daerah di dalam lingkaran yang dibatasi oleh dua
+            jari-jari dan satu busur (seperti potongan pizza).
+          </li>
+          <li style="margin-bottom: 5px">
+            <b>Tembereng:</b> Daerah yang dibatasi oleh tali busur dan busur
+            lingkaran (seperti potongan biskuit yang digigit).
+          </li>
+        </ul>
+
+        <h2>B. Rumus Penting</h2>
+        <div class="rumus-box">
+          <b>Nilai $\pi$ (Pi):</b> $\pi \approx \frac{22}{7}$ (untuk $r$
+          kelipatan 7) atau $\pi \approx 3,14$.
+          <ul style="margin-bottom: 0">
+            <li>
+              <b>Keliling ($K$):</b> $K = \pi \times d$ atau $K = 2 \times \pi
+              \times r$
+            </li>
+            <li><b>Luas ($L$):</b> $L = \pi \times r^2$</li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2 (Strategi) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h2>C. Strategi & Trik Olimpiade</h2>
+
+        <h3>1. Strategi Menghitung Luas Irisan (Bentuk Daun)</h3>
+        <p>
+          Untuk menghitung luas daerah irisan dua lengkungan (bentuk daun),
+          gunakan <b>Prinsip Inklusi-Eksklusi</b>. Jangan menghitung manual
+          dengan integral!
+        </p>
+        <div
+          class="rumus-box"
+          style="background-color: #fff3e0; border-color: #ff9800"
+        >
+          <b>Logika Matematika:</b><br />
+          $$ L_{daun} = (\text{Luas Juring 1} + \text{Luas Juring 2}) -
+          \text{Luas Persegi} $$ $$ L_{daun} = (2 \times \frac{1}{4}\pi r^2) -
+          (r \times r) $$
+        </div>
+
+        <div class="svg-container">
+          <!-- SVG Inclusion-Exclusion Logic (Final Fix: No Rotation, Natural Overlap) -->
+          <svg width="600" height="180" viewBox="0 0 600 180">
+            <!-- Group 1: 2 Overlapping Quarter Circles -->
+            <g transform="translate(50, 20)">
+              <!-- Square Outline -->
+              <rect
+                x="0"
+                y="0"
+                width="80"
+                height="80"
+                fill="white"
+                stroke="black"
+                stroke-width="2"
+              />
+
+              <!-- Juring 1 (Center Top-Left) -->
+              <path
+                d="M 0 0 L 0 80 A 80 80 0 0 0 80 0 Z"
+                fill="#42a5f5"
+                fill-opacity="0.5"
+                stroke="black"
+                stroke-width="1"
+              />
+
+              <!-- Juring 2 (Center Bottom-Right) -->
+              <path
+                d="M 80 80 L 80 0 A 80 80 0 0 0 0 80 Z"
+                fill="#42a5f5"
+                fill-opacity="0.5"
+                stroke="black"
+                stroke-width="1"
+              />
+
+              <!-- Label -->
+              <text
+                x="40"
+                y="110"
+                text-anchor="middle"
+                font-size="14"
+                font-weight="bold"
+              >
+                2 x Juring
+              </text>
+              <text
+                x="40"
+                y="130"
+                text-anchor="middle"
+                font-size="12"
+                fill="#555"
+              >
+                (Tumpang Tindih)
+              </text>
+            </g>
+
+            <!-- Minus Sign -->
+            <text x="180" y="60" font-size="36" font-weight="bold">-</text>
+
+            <!-- Group 2: Persegi -->
+            <g transform="translate(220, 20)">
+              <rect
+                x="0"
+                y="0"
+                width="80"
+                height="80"
+                fill="white"
+                stroke="black"
+                stroke-width="2"
+              />
+              <text
+                x="40"
+                y="110"
+                text-anchor="middle"
+                font-size="14"
+                font-weight="bold"
+              >
+                Persegi
+              </text>
+              <text
+                x="40"
+                y="130"
+                text-anchor="middle"
+                font-size="12"
+                fill="#555"
+              >
+                (Luas Total)
+              </text>
+            </g>
+
+            <!-- Equals Sign -->
+            <text x="340" y="60" font-size="36" font-weight="bold">=</text>
+
+            <!-- Group 3: Result (Leaf) -->
+            <g transform="translate(380, 20)">
+              <rect
+                x="0"
+                y="0"
+                width="80"
+                height="80"
+                fill="none"
+                stroke="black"
+                stroke-dasharray="4"
+                stroke-opacity="0.3"
+              />
+              <!-- Leaf Shape (Natural Intersection, No Rotation) -->
+              <path
+                d="M 0 80 A 80 80 0 0 0 80 0 A 80 80 0 0 0 0 80 Z"
+                fill="#4caf50"
+                stroke="black"
+                stroke-width="2"
+              />
+
+              <text
+                x="40"
+                y="110"
+                text-anchor="middle"
+                font-size="14"
+                font-weight="bold"
+                fill="#2e7d32"
+              >
+                Luas Daun
+              </text>
+            </g>
+          </svg>
+        </div>
+
+        <h3>2. Teknik Tali (Belt Problem)</h3>
+        <div class="tips-box">
+          Panjang tali lilitan pipa = $(n \times d) + (\pi \times d)$
+          <ul>
+            <li>$n$: Jumlah diameter yang tertutup garis lurus.</li>
+            <li>
+              Bagian melengkung jika digabungkan selalu totalnya 1 keliling
+              lingkaran penuh.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 1 (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 1: Pemahaman Konsep (Mudah)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Sebuah lingkaran memiliki jari-jari 14 cm. Berapakah
+            panjang diameternya?
+          </div>
+          <div class="options">
+            <div>A. 7 cm</div>
+            <div>B. 14 cm</div>
+            <div>C. 21 cm</div>
+            <div>D. 28 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Jika diameter sebuah lingkaran adalah 20 cm, berapakah
+            keliling lingkaran tersebut? ($\pi = 3,14$)
+          </div>
+          <div class="options">
+            <div>A. 31,4 cm</div>
+            <div>B. 40 cm</div>
+            <div>C. 62,8 cm</div>
+            <div>D. 100 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Hitunglah luas lingkaran yang memiliki jari-jari 7 cm!
+            ($\pi = \frac{22}{7}$)
+          </div>
+          <div class="options">
+            <div>A. 44 cm$^2$</div>
+            <div>B. 144 cm$^2$</div>
+            <div>C. 154 cm$^2$</div>
+            <div>D. 616 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Keliling sebuah lingkaran adalah 88 cm. Berapakah panjang
+            jari-jari lingkaran tersebut?
+          </div>
+          <div class="options">
+            <div>A. 7 cm</div>
+            <div>B. 14 cm</div>
+            <div>C. 21 cm</div>
+            <div>D. 28 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Perhatikan gambar di bawah. Sebuah lingkaran dibagi
+            menjadi 4 bagian.<br />
+            <div class="svg-container">
+              <svg width="100" height="100" viewBox="-55 -55 110 110">
+                <circle
+                  cx="0"
+                  cy="0"
+                  r="50"
+                  fill="white"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <line
+                  x1="-50"
+                  y1="0"
+                  x2="50"
+                  y2="0"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <line
+                  x1="0"
+                  y1="-50"
+                  x2="0"
+                  y2="50"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <path d="M 0 0 L 50 0 A 50 50 0 0 0 0 -50 Z" fill="#bdbdbd" />
+              </svg>
+            </div>
+            Jika jari-jari lingkaran 10 cm, apa nama daerah yang diarsir
+            (abu-abu) dan berapa luasnya? ($\pi = 3,14$)
+          </div>
+          <div class="options single-col">
+            <div>A. Juring, 31,4 cm$^2$</div>
+            <div>B. Tembereng, 78,5 cm$^2$</div>
+            <div>C. Juring, 78,5 cm$^2$</div>
+            <div>D. Juring, 157 cm$^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 1 (6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Sebuah roda sepeda memiliki jari-jari 35 cm. Jika roda
+            tersebut berputar sebanyak 100 kali, berapa meter jarak yang
+            ditempuh?
+          </div>
+          <div class="options">
+            <div>A. 110 m</div>
+            <div>B. 220 m</div>
+            <div>C. 440 m</div>
+            <div>D. 2200 m</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Diketahui luas sebuah lingkaran adalah 154 cm$^2$.
+            Hitunglah diameter lingkaran tersebut!
+          </div>
+          <div class="options">
+            <div>A. 7 cm</div>
+            <div>B. 14 cm</div>
+            <div>C. 21 cm</div>
+            <div>D. 22 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Sebuah taman berbentuk lingkaran dengan diameter 28 meter
+            akan dipasangi pagar di sekelilingnya. Biaya pemasangan
+            Rp50.000,00/m. Berapa total biaya?
+          </div>
+          <div class="options">
+            <div>A. Rp2.200.000</div>
+            <div>B. Rp4.400.000</div>
+            <div>C. Rp8.800.000</div>
+            <div>D. Rp440.000</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Apa nama tali busur terpanjang pada sebuah lingkaran?
+          </div>
+          <div class="options">
+            <div>A. Jari-jari</div>
+            <div>B. Apotema</div>
+            <div>C. Tembereng</div>
+            <div>D. Diameter</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Jika jari-jari lingkaran diperbesar menjadi 2 kali lipat,
+            luas lingkaran yang baru akan menjadi berapa kali lipat luas
+            lingkaran awal?
+          </div>
+          <div class="options">
+            <div>A. 2 kali</div>
+            <div>B. 4 kali</div>
+            <div>C. 8 kali</div>
+            <div>D. 16 kali</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 2 (11-13) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 2: Aplikasi & Analisis (Sedang)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Perhatikan gambar berikut. Bangun datar terdiri dari
+            persegi sisi 4 cm dan setengah lingkaran.<br />
+            <div class="svg-container">
+              <img
+                src="https://imgix3.ruangguru.com/assets/miscellaneous/png_jplzvs_4150.png"
+                alt="Ilustrasi Bangun Gabungan"
+                style="max-width: 100%; height: auto; max-height: 180px"
+              />
+            </div>
+            Hitunglah luas total bangun tersebut!
+          </div>
+          <div class="options">
+            <div>A. 18,28 cm$^2$</div>
+            <div>B. 20,56 cm$^2$</div>
+            <div>C. 22,28 cm$^2$</div>
+            <div>D. 28,28 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Sebuah kolam diameter 40 m dikelilingi jalan setapak
+            lebar 2 m. Berapakah luas jalan setapak (cincin luar)?
+          </div>
+          <div class="options">
+            <div>A. 131,88 m$^2$</div>
+            <div>B. 200,96 m$^2$</div>
+            <div>C. 263,76 m$^2$</div>
+            <div>D. 527,52 m$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Tiga lingkaran identik jari-jari 7 cm saling
+            bersinggungan. Jika titik pusat ketiga lingkaran dihubungkan,
+            berapakah keliling segitiga yang terbentuk?<br />
+            <div class="svg-container">
+              <img
+                src="https://imgix3.ruangguru.com/assets/miscellaneous/png_4oxz85_3049.png"
+                alt="Ilustrasi Tiga Lingkaran Bersinggungan"
+                style="max-width: 100%; height: auto; max-height: 180px"
+              />
+            </div>
+          </div>
+          <div class="options">
+            <div>A. 21 cm</div>
+            <div>B. 42 cm</div>
+            <div>C. 63 cm</div>
+            <div>D. 84 cm</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 2 (14-18) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Keliling sebuah lingkaran sama dengan keliling persegi
+            sisi 11 cm. Berapakah luas lingkaran tersebut?
+          </div>
+          <div class="options">
+            <div>A. 154 cm$^2$</div>
+            <div>B. 616 cm$^2$</div>
+            <div>C. 44 cm$^2$</div>
+            <div>D. 88 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Di dalam sebuah persegi dengan sisi 14 cm, terdapat dua
+            buah juring seperempat lingkaran yang berpusat di sudut
+            berseberangan (membentuk irisan seperti daun).
+            <br />
+            <div class="svg-container">
+              <svg width="100" height="100" viewBox="0 0 100 100">
+                <rect
+                  x="0"
+                  y="0"
+                  width="100"
+                  height="100"
+                  fill="none"
+                  stroke="black"
+                />
+                <path
+                  d="M 0 100 A 100 100 0 0 1 100 0 L 100 100 Z"
+                  fill="#e0e0e0"
+                  fill-opacity="0.5"
+                />
+                <path
+                  d="M 100 0 A 100 100 0 0 0 0 100 L 0 0 Z"
+                  fill="#e0e0e0"
+                  fill-opacity="0.5"
+                />
+                <path
+                  d="M 0 100 A 100 100 0 0 1 100 0 A 100 100 0 0 1 0 100"
+                  fill="#9e9e9e"
+                />
+              </svg>
+            </div>
+            Hitunglah luas daerah irisan (arsir gelap)!
+          </div>
+          <div class="options">
+            <div>A. 56 cm$^2$</div>
+            <div>B. 98 cm$^2$</div>
+            <div>C. 112 cm$^2$</div>
+            <div>D. 154 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Kawat 176 cm dibentuk menjadi lingkaran. Berapakah
+            luasnya?
+          </div>
+          <div class="options">
+            <div>A. 616 cm$^2$</div>
+            <div>B. 1232 cm$^2$</div>
+            <div>C. 2464 cm$^2$</div>
+            <div>D. 5544 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Dua lingkaran memiliki jari-jari dengan perbandingan 3 :
+            5. Berapakah perbandingan luasnya?
+          </div>
+          <div class="options">
+            <div>A. 3 : 5</div>
+            <div>B. 6 : 10</div>
+            <div>C. 9 : 15</div>
+            <div>D. 9 : 25</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Hitunglah keliling daerah "cincin terpotong" (busur
+            besar, busur kecil, 2 garis lurus) jika $R=14$, $r=7$ dan sudut
+            pusat $180^\circ$.
+          </div>
+          <div class="options">
+            <div>A. 44 cm</div>
+            <div>B. 66 cm</div>
+            <div>C. 80 cm</div>
+            <div>D. 132 cm</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 2&3 (19-22) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Pelari mengelilingi lintasan lingkaran 5 putaran sejauh
+            1,1 km. Berapakah diameter lintasan?
+          </div>
+          <div class="options">
+            <div>A. 35 m</div>
+            <div>B. 70 m</div>
+            <div>C. 140 m</div>
+            <div>D. 220 m</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Lingkaran berada di dalam persegi sisi 20 cm (inscribed).
+            Hitung luas daerah pojok (di dalam persegi tapi di luar lingkaran)!
+          </div>
+          <div class="options">
+            <div>A. 21,5 cm$^2$</div>
+            <div>B. 43 cm$^2$</div>
+            <div>C. 86 cm$^2$</div>
+            <div>D. 100 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="kategori-soal">Level 3: HOTS (Pemecahan Masalah)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> Sebuah persegi memiliki panjang sisi 14 cm. Tentukan
+            selisih luas antara lingkaran luar (yang melalui keempat titik sudut
+            persegi) dan lingkaran dalam (yang menyinggung keempat sisi
+            persegi)!<br />
+            <div class="svg-container">
+              <svg width="150" height="150" viewBox="-75 -75 150 150">
+                <!-- Lingkaran Luar -->
+                <circle
+                  cx="0"
+                  cy="0"
+                  r="70"
+                  fill="#e1f5fe"
+                  stroke="black"
+                  stroke-dasharray="4"
+                />
+                <!-- Persegi -->
+                <rect
+                  x="-49.5"
+                  y="-49.5"
+                  width="99"
+                  height="99"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <!-- Lingkaran Dalam -->
+                <circle cx="0" cy="0" r="49.5" fill="#fff9c4" stroke="black" />
+                <text x="-15" y="5" font-size="10">14 cm</text>
+              </svg>
+            </div>
+          </div>
+          <div class="options">
+            <div>A. 77 cm$^2$</div>
+            <div>B. 100 cm$^2$</div>
+            <div>C. 154 cm$^2$</div>
+            <div>D. 308 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Tiga pipa diameter 14 cm diikat tali. Berapakah panjang
+            tali minimal?<br />
+            <div class="svg-container">
+              <img
+                src="https://imgix3.ruangguru.com/assets/miscellaneous/png_yzxorq_6234.png"
+                alt="Ilustrasi Tali Pipa"
+                style="max-width: 100%; height: auto; max-height: 180px"
+              />
+            </div>
+          </div>
+          <div class="options">
+            <div>A. 42 cm</div>
+            <div>B. 44 cm</div>
+            <div>C. 86 cm</div>
+            <div>D. 100 cm</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 3 (23-26) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Di dalam lingkaran besar $R$, ada dua lingkaran kecil
+            diameter $R$ yang saling bersinggungan. Tentukan perbandingan Luas
+            Lingkaran Besar terhadap Total Luas dua Lingkaran Kecil.
+          </div>
+          <div class="options">
+            <div>A. 1 : 1</div>
+            <div>B. 2 : 1</div>
+            <div>C. 4 : 1</div>
+            <div>D. 1 : 2</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> Di dalam sebuah persegi dengan sisi 20 cm, dibuat empat
+            buah seperempat lingkaran yang berpusat di masing-masing titik sudut
+            persegi dengan jari-jari 10 cm. Hitunglah luas daerah yang diarsir
+            (bagian tengah berbentuk bintang)! ($\pi=3,14$)
+          </div>
+          <div class="options">
+            <div>A. 43 cm$^2$</div>
+            <div>B. 57 cm$^2$</div>
+            <div>C. 86 cm$^2$</div>
+            <div>D. 100 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Kambing diikat di sudut kandang $8 \times 6$ m dengan
+            tali 10 m. Berapakah luas maksimum daerah rumput yang dapat dimakan?
+          </div>
+          <div class="options">
+            <div>A. 157,0 m$^2$</div>
+            <div>B. 235,5 m$^2$</div>
+            <div>C. 251,2 m$^2$</div>
+            <div>D. 314,0 m$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> (Soal Cincin) Sebuah tali busur pada lingkaran besar
+            menyinggung lingkaran kecil. Panjang tali busur tersebut adalah 20
+            cm. Hitunglah luas daerah cincin (arsir) di antara kedua
+            lingkaran!<br />
+            <div class="svg-container">
+              <img
+                src="https://imgix3.ruangguru.com/assets/miscellaneous/png_awsxoz_6111.png"
+                alt="Ilustrasi Cincin Lingkaran"
+                style="max-width: 100%; height: auto; max-height: 250px"
+              />
+            </div>
+          </div>
+          <div class="options">
+            <div>A. 100 cm$^2$</div>
+            <div>B. 314 cm$^2$</div>
+            <div>C. 628 cm$^2$</div>
+            <div>D. 1256 cm$^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Soal Level 3 (27-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Empat lingkaran jari-jari 10 cm disusun membentuk persegi
+            saling bersinggungan luar. Hitung luas daerah kosong di tengahnya!
+          </div>
+          <div class="options">
+            <div>A. 21,5 cm$^2$</div>
+            <div>B. 43 cm$^2$</div>
+            <div>C. 86 cm$^2$</div>
+            <div>D. 100 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Sepeda diameter 60 cm dikayuh 500 putaran/menit. Berapa
+            kecepatan sepeda dalam km/jam?
+          </div>
+          <div class="options">
+            <div>A. 18,84 km/jam</div>
+            <div>B. 28,26 km/jam</div>
+            <div>C. 56,52 km/jam</div>
+            <div>D. 113,04 km/jam</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> Sebuah motif batik dibentuk dari 4 juring $45^\circ$
+            (jari-jari 10 cm) yang terpisah. Hitung total keliling keempat
+            juring tersebut!
+          </div>
+          <div class="options">
+            <div>A. 27,85 cm</div>
+            <div>B. 78,5 cm</div>
+            <div>C. 111,4 cm</div>
+            <div>D. 125,6 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> Sebuah lingkaran berada di dalam sebuah segitiga
+            siku-siku sama kaki (sisi siku-siku 20 cm). Tentukan panjang
+            jari-jari lingkaran tersebut!
+          </div>
+          <div class="options">
+            <div>A. 2,93 cm</div>
+            <div>B. 4,14 cm</div>
+            <div>C. 5,86 cm</div>
+            <div>D. 10 cm</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- HALAMAN PEMISAH -->
+    <section class="page">
+      <div
+        class="content-wrapper"
+        style="
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        "
+      >
+        <h1 style="font-size: 30pt; border: none; color: #333">
+          BAGIAN II:<br />PEMBAHASAN LENGKAP
+        </h1>
+        <p style="font-size: 16pt; margin-top: 20px">
+          Visual Thinking & Solusi Detil
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 (Basic)</h1>
+
+        <div class="soal-latihan">
+          <b>1. Jawaban: D (28 cm)</b>
+          <div class="pembahasan">$d = 2 \times r = 2 \times 14 = 28$ cm.</div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: C (62,8 cm)</b>
+          <div class="pembahasan">
+            $K = \pi \times d = 3,14 \times 20 = 62,8$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: C (154 cm$^2$)</b>
+          <div class="pembahasan">
+            $L = \pi \times r^2 = \frac{22}{7} \times 7 \times 7 = 154$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: B (14 cm)</b>
+          <div class="pembahasan">
+            $K = 2\pi r \Rightarrow 88 = 2 \times \frac{22}{7} \times r
+            \Rightarrow r = 14$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: C (Juring, 78,5 cm$^2$)</b>
+          <div class="pembahasan">
+            Daerah tersebut adalah Juring 1/4 lingkaran.<br />
+            Luas = $\frac{1}{4} \times 3,14 \times 10^2 = 78,5$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>6. Jawaban: B (220 m)</b>
+          <div class="pembahasan">
+            Keliling = $2 \times \frac{22}{7} \times 35 = 220$ cm.<br />
+            Jarak = $100 \times 220$ cm = 22.000 cm = 220 m.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>7. Jawaban: B (14 cm)</b>
+          <div class="pembahasan">
+            $L = \pi r^2 \Rightarrow 154 = \frac{22}{7} r^2 \Rightarrow r^2=49
+            \Rightarrow r=7$. Maka $d=14$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: B (Rp4.400.000)</b>
+          <div class="pembahasan">
+            Keliling = $\frac{22}{7} \times 28 = 88$ m. Biaya = $88 \times
+            50.000 = \text{Rp}4.400.000$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: D (Diameter)</b>
+          <div class="pembahasan">
+            Diameter adalah tali busur terpanjang yang melewati titik pusat.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>10. Jawaban: B (4 kali)</b>
+          <div class="pembahasan">
+            Luas berbanding lurus dengan $r^2$. Jika $r$ jadi 2x lipat, Luas
+            jadi $2^2 = 4$ kali lipat.
+          </div>
+        </div>
+
+        <h1>Pembahasan: Level 2 (Intermediate)</h1>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: C (22,28 cm$^2$)</b>
+          <div class="pembahasan">
+            Luas Persegi ($4 \times 4 = 16$) + Luas $\frac{1}{2}$ Lingkaran
+            ($r=2$).<br />
+            $L_{\text{tot}} = 16 + (\frac{1}{2} \times 3,14 \times 4) = 16 +
+            6,28 = 22,28$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: C (263,76 m$^2$)</b>
+          <div class="pembahasan">
+            $r_{\text{kcl}}=20, r_{\text{bsr}}=22$. Luas Jalan = $\pi (R^2 -
+            r^2)$<br />
+            $= 3,14(22^2 - 20^2) = 3,14(484-400) = 3,14 \times 84 = 263,76$
+            m$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>13. Jawaban: B (42 cm)</b>
+          <div class="pembahasan">
+            Pusat membentuk segitiga sama sisi dengan sisi $2r = 14$ cm.<br />
+            Keliling = $3 \times 14 = 42$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: A (154 cm$^2$)</b>
+          <div class="pembahasan">
+            Keliling Persegi = $4 \times 11 = 44$. Keliling Lingkaran = 44.<br />
+            $2 \times \frac{22}{7} \times r = 44 \Rightarrow r = 7$.<br />
+            Luas = $\frac{22}{7} \times 7^2 = 154$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: C (112 cm$^2$)</b>
+          <div class="pembahasan">
+            $L = (2 \times \text{Luas } \frac{1}{4}\odot) - \text{Luas
+            Persegi}$.<br />
+            $L = (2 \times \frac{1}{4} \times \frac{22}{7} \times 14^2) - 14^2 =
+            308 - 196 = 112$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>16. Jawaban: C (2464 cm$^2$)</b>
+          <div class="pembahasan">
+            $K = 176 \Rightarrow 2 \times \frac{22}{7} \times r = 176
+            \Rightarrow r=28$.<br />
+            Luas = $\frac{22}{7} \times 28^2 = 2464$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>17. Jawaban: D (9 : 25)</b>
+          <div class="pembahasan">
+            Perbandingan luas = kuadrat perbandingan jari-jari ($3^2 : 5^2$).
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>18. Jawaban: C (80 cm)</b>
+          <div class="pembahasan">
+            Busur Besar ($22/7 \times 14 = 44$) + Busur Kecil ($22/7 \times 7 =
+            22$) + 2 Garis Lurus ($2 \times 7 = 14$).<br />
+            Total = $44 + 22 + 14 = 80$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>19. Jawaban: B (70 m)</b>
+          <div class="pembahasan">
+            Keliling = $1100 / 5 = 220$ m. $\pi d = 220 \Rightarrow d = 220
+            \times \frac{7}{22} = 70$ m.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: C (86 cm$^2$)</b>
+          <div class="pembahasan">
+            Luas Persegi ($20^2=400$) - Luas Lingkaran ($3,14 \times 10^2 =
+            314$).<br />
+            $400 - 314 = 86$ cm$^2$.
+          </div>
+        </div>
+
+        <h1>Pembahasan: Level 3 (HOTS)</h1>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: C (154 cm$^2$)</b>
+          <div class="pembahasan">
+            <b>Lingkaran Dalam:</b> Diameter = Sisi = 14 cm $\rightarrow r = 7$
+            cm.<br />
+            Luas Dalam $= \frac{22}{7} \times 7 \times 7 = 154$ cm$^2$.<br /><br />
+
+            <b>Lingkaran Luar:</b> Diameter = Diagonal Persegi =
+            $\sqrt{14^2+14^2} = 14\sqrt{2}$.<br />
+            Jari-jari $R = 7\sqrt{2}$.<br />
+            Luas Luar $= \frac{22}{7} \times (7\sqrt{2})^2 = \frac{22}{7} \times
+            98 = 308$ cm$^2$.<br /><br />
+
+            <b>Selisih:</b> $308 - 154 = 154$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>22. Jawaban: C (86 cm)</b>
+          <div class="pembahasan">
+            Tali Lurus = $3d = 3 \times 14 = 42$.<br />
+            Tali Lengkung = $\pi d = 22/7 \times 14 = 44$.<br />
+            Total = $42 + 44 = 86$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>23. Jawaban: B (2 : 1)</b>
+          <div class="pembahasan">
+            $R = 2r$. Luas Besar = $\pi (2r)^2 = 4\pi r^2$.<br />
+            Total Luas Kecil = $2 \times \pi r^2$.<br />
+            Rasio $4:2 = 2:1$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 4 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>24. Jawaban: C (86 cm$^2$)</b>
+          <div class="pembahasan">
+            Luas Arsir = Luas Persegi - 4(Seperempat Lingkaran).<br />
+            $L = 400 - (\text{Luas } 1 \odot) = 400 - 314 = 86$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>25. Jawaban: C (251,2 m$^2$)</b>
+          <div class="pembahasan">
+            Total = Area 3/4 besar + Area sisa 1/4 kecil + Area sisa 1/4
+            kecil.<br />
+            $(\frac{3}{4} \times 3,14 \times 100) + (\frac{1}{4} \times 3,14
+            \times 2^2) + (\frac{1}{4} \times 3,14 \times 4^2)$<br />
+            $= 235,5 + 3,14 + 12,56 = 251,2$ m$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: B (314 cm$^2$)</b>
+          <div class="pembahasan">
+            Tali busur 20, maka setengahnya 10.<br />
+            $R^2 - r^2 = 10^2 = 100$.<br />
+            Luas Cincin = $\pi(R^2 - r^2) = 3,14 \times 100 = 314$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>27. Jawaban: C (86 cm$^2$)</b>
+          <div class="pembahasan">
+            Pusat membentuk persegi sisi 20.<br />
+            Luas kosong = Luas Persegi Pusat - Luas 1 Lingkaran.<br />
+            $400 - 314 = 86$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: C (56,52 km/jam)</b>
+          <div class="pembahasan">
+            Keliling = $0,6\pi \approx 1,884$ m.<br />
+            Jarak/menit = $500 \times 1,884 = 942$ m.<br />
+            Km/jam = $0,942 \times 60 = 56,52$ km/jam.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: C (111,4 cm)</b>
+          <div class="pembahasan">
+            Ada 4 juring terpisah. Keliling 1 juring = Busur + $2r$.<br />
+            Busur = $\frac{45}{360} \times 2 \pi (10) = 7,85$.<br />
+            Keliling 1 juring = $7,85 + 20 = 27,85$. Total = $4 \times 27,85 =
+            111,4$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: C (5,86 cm)</b>
+          <div class="pembahasan">
+            $r = \frac{a+b-c}{2}$. $c = \sqrt{20^2+20^2} = 20\sqrt{2} \approx
+            28,28$.<br />
+            $r = \frac{20+20-28,28}{2} = \frac{11,72}{2} = 5,86$ cm.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
