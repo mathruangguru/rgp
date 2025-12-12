@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Sudut dan Garis</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e3f2fd;
+        --highlight-orange: #ff9800;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 18pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #0d47a1;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #1565c0;
+      }
+      .soal-latihan {
+        margin-bottom: 15px;
+        break-inside: avoid;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      .options.single-col {
+        grid-template-columns: 1fr;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 12pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+      .pembahasan {
+        background-color: #f1f8e9;
+        border-left: 4px solid var(--accent-green);
+        padding: 8px 12px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10pt;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+        font-size: 10.5pt;
+      }
+      .rumus-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      /* SVG Styles */
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+      }
+      svg {
+        max-width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+      svg text {
+        font-family: "Nunito", sans-serif;
+        font-size: 14px;
+        fill: #333;
+      }
+      .halo {
+        paint-order: stroke;
+        stroke: white;
+        stroke-width: 4px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        font-weight: 700;
+      }
+      ul {
+        margin-top: 5px;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 3px;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">MODUL OSN:<br />Sudut dan Garis</h1>
+        <p class="cover-subtitle">
+          Ringkasan Materi, Latihan Soal & Pembahasan<br />
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 2. Materi 1: Dasar & Segitiga -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Ringkasan Materi</h1>
+
+        <h2>A. Konsep Dasar Sudut</h2>
+        <p>
+          Sudut terbentuk dari dua sinar garis yang bertemu pada satu titik
+          pangkal.
+        </p>
+        <ul>
+          <li><b>Titik Sudut (Vertex):</b> Titik temu dua sinar garis.</li>
+          <li><b>Kaki Sudut (Arms):</b> Sinar garis yang membentuk sudut.</li>
+          <li>
+            <b>Satuan:</b> Derajat ($^\circ$). Satu putaran penuh = $360^\circ$.
+          </li>
+        </ul>
+
+        <h3>Visualisasi Jenis-Jenis Sudut</h3>
+        <div class="svg-container">
+          <svg width="600" height="150" viewBox="0 0 600 150">
+            <defs>
+              <marker
+                id="arrow"
+                markerWidth="8"
+                markerHeight="8"
+                refX="7"
+                refY="3"
+                orient="auto"
+                markerUnits="strokeWidth"
+              >
+                <path d="M0,0 L0,6 L9,3 z" fill="black" />
+              </marker>
+            </defs>
+
+            <!-- Lancip -->
+            <g transform="translate(50, 100)">
+              <line
+                x1="0"
+                y1="0"
+                x2="50"
+                y2="0"
+                stroke="black"
+                stroke-width="2"
+                marker-end="url(#arrow)"
+              />
+              <line
+                x1="0"
+                y1="0"
+                x2="40"
+                y2="-40"
+                stroke="black"
+                stroke-width="2"
+                marker-end="url(#arrow)"
+              />
+              <path
+                d="M 15 0 A 15 15 0 0 0 10 -10"
+                fill="none"
+                stroke="black"
+              />
+              <text x="25" y="25" text-anchor="middle" class="halo">
+                Lancip
+              </text>
+              <text x="25" y="40" text-anchor="middle" font-size="10">
+                &lt;90°
+              </text>
+            </g>
+            <!-- Siku-siku -->
+            <g transform="translate(180, 100)">
+              <line
+                x1="0"
+                y1="0"
+                x2="50"
+                y2="0"
+                stroke="black"
+                stroke-width="2"
+                marker-end="url(#arrow)"
+              />
+              <line
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="-45"
+                stroke="black"
+                stroke-width="2"
+                marker-end="url(#arrow)"
+              />
+              <polyline points="0,-12 12,-12 12,0" fill="none" stroke="black" />
+              <text x="10" y="25" text-anchor="middle" class="halo">
+                Siku-siku
+              </text>
+              <text x="10" y="40" text-anchor="middle" font-size="10">90°</text>
+            </g>
+            <!-- Tumpul -->
+            <g transform="translate(310, 100)">
+              <line
+                x1="0"
+                y1="0"
+                x2="50"
+                y2="0"
+                stroke="black"
+                stroke-width="2"
+                marker-end="url(#arrow)"
+              />
+              <line
+                x1="0"
+                y1="0"
+                x2="-35"
+                y2="-35"
+                stroke="black"
+                stroke-width="2"
+                marker-end="url(#arrow)"
+              />
+              <path
+                d="M 15 0 A 15 15 0 0 0 -10 -10"
+                fill="none"
+                stroke="black"
+              />
+              <text x="5" y="25" text-anchor="middle" class="halo">Tumpul</text>
+              <text x="5" y="40" text-anchor="middle" font-size="10">
+                90°-180°
+              </text>
+            </g>
+            <!-- Lurus -->
+            <g transform="translate(480, 100)">
+              <line
+                x1="-35"
+                y1="0"
+                x2="35"
+                y2="0"
+                stroke="black"
+                stroke-width="2"
+              />
+              <circle cx="0" cy="0" r="3" fill="black" />
+              <path d="M 12 0 A 12 12 0 0 0 -12 0" fill="none" stroke="black" />
+              <text x="0" y="25" text-anchor="middle" class="halo">Lurus</text>
+              <text x="0" y="40" text-anchor="middle" font-size="10">180°</text>
+            </g>
+          </svg>
+        </div>
+
+        <h3>Hubungan Antar Sudut</h3>
+        <div class="rumus-box">
+          <ul>
+            <li>
+              <b>Berpenyiku (Komplementer):</b> Dua sudut yang jumlahnya
+              $90^\circ$. <br /><i>Contoh:</i> Penyiku dari $x$ adalah
+              $(90^\circ - x)$.
+            </li>
+            <li>
+              <b>Berpelurus (Suplementer):</b> Dua sudut yang jumlahnya
+              $180^\circ$. <br /><i>Contoh:</i> Pelurus dari $y$ adalah
+              $(180^\circ - y)$.
+            </li>
+            <li>
+              <b>Bertolak Belakang:</b> Dua sudut yang saling membelakangi
+              memiliki besar yang <b>SAMA</b>.
+            </li>
+          </ul>
+        </div>
+
+        <h2>B. Hubungan Sudut pada Bangun Datar</h2>
+
+        <h3>1. Sudut pada Segitiga</h3>
+        <ul>
+          <li>
+            <b>Jumlah Sudut Dalam:</b> $\angle A + \angle B + \angle C =
+            180^\circ$.
+          </li>
+          <li>
+            <b>Teorema Sudut Luar:</b> Besar sudut luar segitiga sama dengan
+            jumlah dua sudut dalam yang tidak berpelurus dengannya ($d = a +
+            c$).
+          </li>
+        </ul>
+        <div class="svg-container">
+          <img
+            src="https://imgix3.ruangguru.com/assets/miscellaneous/png_0jlh9z_6515.png"
+            alt="Sudut Luar Segitiga"
+            style="max-width: 80%; height: auto; max-height: 140px"
+          />
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 3. Materi 2: Garis Sejajar & Tips -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h3>2. Sudut pada Poligon (Segi-$n$)</h3>
+        <ul>
+          <li><b>Jumlah Sudut Dalam:</b> $(n - 2) \times 180^\circ$.</li>
+          <li><b>Jumlah Sudut Luar:</b> Selalu $360^\circ$.</li>
+          <li>
+            <b>Poligon Beraturan:</b> Satu sudut dalam = $\frac{(n - 2) \times
+            180^\circ}{n}$.
+          </li>
+        </ul>
+
+        <h2>C. Garis Sejajar & Transversal</h2>
+        <p>
+          Dua garis sejajar dipotong oleh garis lain (transversal) membentuk
+          pola sudut istimewa.
+        </p>
+
+        <div class="svg-container">
+          <svg width="300" height="160" viewBox="0 0 300 160">
+            <!-- Lines m and n -->
+            <line
+              x1="50"
+              y1="40"
+              x2="250"
+              y2="40"
+              stroke="blue"
+              stroke-width="2"
+            />
+            <text x="260" y="45" fill="blue" class="halo">m</text>
+            <line
+              x1="50"
+              y1="110"
+              x2="250"
+              y2="110"
+              stroke="blue"
+              stroke-width="2"
+            />
+            <text x="260" y="115" fill="blue" class="halo">n</text>
+            <!-- Transversal k -->
+            <line
+              x1="80"
+              y1="140"
+              x2="200"
+              y2="10"
+              stroke="red"
+              stroke-width="2"
+            />
+            <text x="205" y="20" fill="red" class="halo">k</text>
+
+            <!-- Angles - Using Halo to prevent mess -->
+            <text x="185" y="35" class="halo">a</text>
+            <text x="170" y="55" class="halo">b</text>
+            <text x="100" y="100" class="halo">c</text>
+            <text x="115" y="130" class="halo">d</text>
+          </svg>
+        </div>
+        <ul>
+          <li>
+            <b>Sudut Sehadap (F):</b> Menghadap arah sama, besarnya <b>SAMA</b>.
+          </li>
+          <li>
+            <b>Sudut Dalam Berseberangan (Z):</b> Menyeberang di dalam, besarnya
+            <b>SAMA</b>.
+          </li>
+          <li>
+            <b>Sudut Luar Berseberangan:</b> Menyeberang di luar, besarnya
+            <b>SAMA</b>.
+          </li>
+          <li><b>Sudut Dalam Sepihak (U):</b> Jumlahnya <b>$180^\circ$</b>.</li>
+        </ul>
+
+        <h2>D. Tips Juara OSN</h2>
+
+        <div class="tips-box">
+          <b>1. Jarum Jam (Clock Problems)</b><br />
+          <ul>
+            <li>1 putaran = $360^\circ$. Jarak antar angka = $30^\circ$.</li>
+            <li>
+              Jarum pendek geser $0.5^\circ$/menit. Jarum panjang geser
+              $6^\circ$/menit.
+            </li>
+            <li>
+              <b>Rumus Cepat:</b> $\theta = | 30 \times \text{jam} - 5,5 \times
+              \text{menit} |$.
+            </li>
+          </ul>
+        </div>
+
+        <div class="tips-box">
+          <b>2. Garis Bantu (Auxiliary Lines)</b><br />
+          Jika menemukan soal garis sejajar yang patah/zigzag, buatlah
+          <b>garis bantu</b> yang sejajar tepat di titik belokan. Gunakan konsep
+          <b>Z (Dalam Berseberangan)</b> untuk memecah sudut.
+        </div>
+        <div class="svg-container">
+          <svg width="350" height="130" viewBox="0 0 350 130">
+            <!-- Lines -->
+            <line
+              x1="50"
+              y1="20"
+              x2="250"
+              y2="20"
+              stroke="black"
+              stroke-width="2"
+            />
+            <text x="260" y="25" class="halo" font-style="italic">a</text>
+            <line
+              x1="50"
+              y1="100"
+              x2="250"
+              y2="100"
+              stroke="black"
+              stroke-width="2"
+            />
+            <text x="260" y="105" class="halo" font-style="italic">b</text>
+
+            <!-- Zigzag Lines -->
+            <line
+              x1="100"
+              y1="20"
+              x2="150"
+              y2="60"
+              stroke="black"
+              stroke-width="2"
+            />
+            <line
+              x1="150"
+              y1="60"
+              x2="100"
+              y2="100"
+              stroke="black"
+              stroke-width="2"
+            />
+
+            <!-- Helper Line -->
+            <line
+              x1="50"
+              y1="60"
+              x2="250"
+              y2="60"
+              stroke="red"
+              stroke-width="1.5"
+              stroke-dasharray="5,5"
+            />
+            <text x="260" y="65" fill="red" class="halo" font-size="12">
+              Garis Bantu
+            </text>
+
+            <!-- Arcs for Top Z (Red Angles) -->
+            <path
+              d="M 120 20 A 20 20 0 0 1 116 33"
+              fill="none"
+              stroke="red"
+              stroke-width="2"
+            />
+            <path
+              d="M 130 60 A 20 20 0 0 0 134 47"
+              fill="none"
+              stroke="red"
+              stroke-width="2"
+            />
+
+            <!-- Labels Top -->
+            <text x="125" y="32" font-size="12" fill="red" class="halo">x</text>
+            <text x="120" y="55" font-size="12" fill="red" class="halo">x</text>
+
+            <!-- Arcs for Bottom Z (Blue Angles) -->
+            <path
+              d="M 130 60 A 20 20 0 0 1 134 73"
+              fill="none"
+              stroke="blue"
+              stroke-width="2"
+            />
+            <path
+              d="M 120 100 A 20 20 0 0 0 116 87"
+              fill="none"
+              stroke="blue"
+              stroke-width="2"
+            />
+
+            <!-- Labels Bottom -->
+            <text x="120" y="72" font-size="12" fill="blue" class="halo">
+              y
+            </text>
+            <text x="125" y="93" font-size="12" fill="blue" class="halo">
+              y
+            </text>
+
+            <!-- Total Angle Label -->
+            <text x="170" y="65" font-size="12" fill="#333" class="halo">
+              Total = x + y
+            </text>
+          </svg>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 4. Soal Level 1 (No 1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 1: Pemahaman Konsep (Mudah)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Sudut yang besarnya $135^\circ$ termasuk jenis sudut ...
+          </div>
+          <div class="options">
+            <div>A. Lancip</div>
+            <div>B. Siku-siku</div>
+            <div>C. Tumpul</div>
+            <div>D. Lurus</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Berapa besar sudut pelurus dari sudut $75^\circ$?
+          </div>
+          <div class="options">
+            <div>A. $15^\circ$</div>
+            <div>B. $105^\circ$</div>
+            <div>C. $115^\circ$</div>
+            <div>D. $25^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Dua buah garis dikatakan sejajar apabila ...
+          </div>
+          <div class="options single-col">
+            <div>
+              A. Memiliki jarak yang sama di setiap titiknya dan tidak
+              berpotongan
+            </div>
+            <div>B. Berpotongan tegak lurus</div>
+            <div>C. Berhimpit menjadi satu garis</div>
+            <div>D. Memotong di dua titik berbeda</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Perhatikan jam dinding. Pada pukul 03.00, sudut terkecil
+            yang dibentuk oleh jarum panjang dan jarum pendek adalah ...
+            derajat.
+          </div>
+          <div class="options">
+            <div>A. $90^\circ$</div>
+            <div>B. $60^\circ$</div>
+            <div>C. $30^\circ$</div>
+            <div>D. $120^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Sebuah sudut besarnya 3 kali penyikunya. Berapakah besar
+            sudut tersebut?
+          </div>
+          <div class="options">
+            <div>A. $22,5^\circ$</div>
+            <div>B. $45^\circ$</div>
+            <div>C. $60^\circ$</div>
+            <div>D. $67,5^\circ$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 5. Soal Level 1 (No 6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Jumlah sudut dalam sebuah segitiga adalah $180^\circ$.
+            Jika sebuah segitiga siku-siku memiliki salah satu sudut lancip
+            sebesar $35^\circ$, berapakah besar sudut lancip lainnya?
+          </div>
+          <div class="options">
+            <div>A. $65^\circ$</div>
+            <div>B. $55^\circ$</div>
+            <div>C. $45^\circ$</div>
+            <div>D. $35^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Sudut satu putaran penuh adalah $360^\circ$. Berapakah
+            $\frac{2}{3}$ dari sudut satu putaran penuh?
+          </div>
+          <div class="options">
+            <div>A. $120^\circ$</div>
+            <div>B. $180^\circ$</div>
+            <div>C. $270^\circ$</div>
+            <div>D. $240^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Sudut $A$ dan Sudut $B$ saling bertolak belakang. Jika
+            besar Sudut $A = (2x + 10)^\circ$ dan Sudut $B = 70^\circ$, tentukan
+            nilai $x$.
+          </div>
+          <div class="options">
+            <div>A. 50</div>
+            <div>B. 40</div>
+            <div>C. 30</div>
+            <div>D. 20</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Manakah di antara benda berikut yang paling tepat
+            merepresentasikan garis sejajar?
+          </div>
+          <div class="options">
+            <div>A. Pojok buku tulis</div>
+            <div>B. Jarum jam pada pukul 12.00</div>
+            <div>C. Sisi meja yang berhadapan</div>
+            <div>D. Huruf V</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Besar sudut terkecil yang dibentuk oleh arah Utara dan
+            arah Tenggara adalah ...
+          </div>
+          <div class="options">
+            <div>A. $225^\circ$</div>
+            <div>B. $135^\circ$</div>
+            <div>C. $90^\circ$</div>
+            <div>D. $45^\circ$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 6. Soal Level 2 (No 11-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 2: Aplikasi & Logika (Sedang)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Diketahui sudut $P$ dan sudut $Q$ saling berpelurus. Jika
+            $\angle P : \angle Q = 4 : 5$, tentukan besar $\angle Q$.
+          </div>
+          <div class="options">
+            <div>A. $120^\circ$</div>
+            <div>B. $100^\circ$</div>
+            <div>C. $90^\circ$</div>
+            <div>D. $80^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Hitunglah besar sudut terkecil yang dibentuk jarum jam
+            pada pukul 04.30.
+          </div>
+          <div class="options">
+            <div>A. $75^\circ$</div>
+            <div>B. $60^\circ$</div>
+            <div>C. $45^\circ$</div>
+            <div>D. $30^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Garis $m$ dan $n$ sejajar. Garis $l$ memotong keduanya.
+            Jika salah satu sudut dalam sepihak besarnya $110^\circ$, berapakah
+            besar pasangan sudut dalam sepihaknya?
+          </div>
+          <div class="options">
+            <div>A. $120^\circ$</div>
+            <div>B. $110^\circ$</div>
+            <div>C. $90^\circ$</div>
+            <div>D. $70^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Perhatikan segitiga $ABC$. Jika perbandingan sudut
+            $\angle A : \angle B : \angle C = 2 : 3 : 4$, tentukan jenis
+            segitiga $ABC$ berdasarkan besar sudutnya.
+          </div>
+          <div class="options">
+            <div>A. Segitiga Lancip</div>
+            <div>B. Segitiga Tumpul</div>
+            <div>C. Segitiga Siku-siku</div>
+            <div>D. Segitiga Sembarang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Sudut $x$ adalah komplemen dari $y$. Sudut $y$ adalah
+            suplemen dari $130^\circ$. Berapakah besar sudut $x$?
+          </div>
+          <div class="options">
+            <div>A. $40^\circ$</div>
+            <div>B. $50^\circ$</div>
+            <div>C. $60^\circ$</div>
+            <div>D. $130^\circ$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 7. Soal Level 2 (No 16-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Sebuah tangga disandarkan pada tembok. Sudut yang
+            dibentuk tangga dengan lantai adalah $60^\circ$. Berapakah sudut
+            yang dibentuk tangga dengan tembok?
+          </div>
+          <div class="options">
+            <div>A. $90^\circ$</div>
+            <div>B. $60^\circ$</div>
+            <div>C. $45^\circ$</div>
+            <div>D. $30^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Diketahui dua garis sejajar dipotong oleh garis
+            transversal. Jika dua sudut luar berseberangan besarnya
+            masing-masing $(3x - 15)^\circ$ dan $(2x + 10)^\circ$, tentukan
+            nilai $x$.
+          </div>
+          <div class="options">
+            <div>A. 30</div>
+            <div>B. 25</div>
+            <div>C. 20</div>
+            <div>D. 15</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Berapa banyak pasangan sudut lancip yang saling bertolak
+            belakang pada titik potong kedua diagonal sebuah persegi panjang
+            (bukan persegi)?
+          </div>
+          <div class="options">
+            <div>A. 4 pasang</div>
+            <div>B. 3 pasang</div>
+            <div>C. 2 pasang</div>
+            <div>D. 1 pasang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Sebuah roda berputar sebanyak 2,5 putaran. Berapa derajat
+            total perputaran roda tersebut?
+          </div>
+          <div class="options">
+            <div>A. $900^\circ$</div>
+            <div>B. $800^\circ$</div>
+            <div>C. $720^\circ$</div>
+            <div>D. $1080^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Pada pukul berapa tepatnya antara jam 03.00 dan 04.00
+            kedua jarum jam (panjang dan pendek) saling berhimpit?
+          </div>
+          <div class="options">
+            <div>A. 03:15</div>
+            <div>B. 03:16 $\frac{1}{11}$</div>
+            <div>C. 03:16 $\frac{4}{11}$</div>
+            <div>D. 03:17</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 8. Soal Level 3 (No 21-23) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 3: HOTS & Tipe OSN (Sulit)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> <b>Soal Garis Bantu:</b> Dua garis sejajar $a$ dan $b$.
+            Di antara kedua garis tersebut terdapat garis zigzag sederhana.
+            Besar sudut yang menghadap ke kiri berturut-turut adalah $30^\circ$
+            dan $40^\circ$, sedangkan sudut yang menghadap ke kanan adalah
+            $x^\circ$. Berapakah nilai $x$?
+            <div class="svg-container">
+              <svg width="350" height="160" viewBox="0 0 350 160">
+                <defs>
+                  <marker
+                    id="arrow"
+                    markerWidth="6"
+                    markerHeight="6"
+                    refX="5"
+                    refY="3"
+                    orient="auto"
+                    markerUnits="strokeWidth"
+                  >
+                    <path d="M0,0 L0,6 L6,3 z" fill="#555" />
+                  </marker>
+                </defs>
+
+                <!-- Garis Paralel -->
+                <line
+                  x1="50"
+                  y1="30"
+                  x2="300"
+                  y2="30"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <text
+                  x="310"
+                  y="35"
+                  font-family="serif"
+                  font-style="italic"
+                  font-size="16"
+                >
+                  a
+                </text>
+
+                <line
+                  x1="50"
+                  y1="130"
+                  x2="300"
+                  y2="130"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <text
+                  x="310"
+                  y="135"
+                  font-family="serif"
+                  font-style="italic"
+                  font-size="16"
+                >
+                  b
+                </text>
+
+                <!-- Garis Zigzag -->
+                <polyline
+                  points="100,30 200,80 100,130"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2"
+                />
+
+                <!-- Labels -->
+                <path
+                  d="M 140 30 A 40 40 0 0 1 135 48"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="1"
+                />
+                <text x="145" y="45" class="halo" font-size="14">30°</text>
+
+                <path
+                  d="M 140 130 A 40 40 0 0 0 135 112"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="1"
+                />
+                <text x="145" y="123" class="halo" font-size="14">40°</text>
+
+                <path
+                  d="M 175 68 A 30 30 0 0 0 175 92"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="1"
+                />
+                <text
+                  x="155"
+                  y="85"
+                  class="halo"
+                  font-size="14"
+                  font-weight="bold"
+                >
+                  x°
+                </text>
+
+                <!-- Posisi Kiri/Kanan ditukar sesuai request -->
+                <text
+                  x="20"
+                  y="85"
+                  fill="#888"
+                  font-size="14"
+                  font-weight="bold"
+                  text-anchor="start"
+                >
+                  Kiri
+                </text>
+                <text
+                  x="330"
+                  y="85"
+                  fill="#888"
+                  font-size="14"
+                  font-weight="bold"
+                  text-anchor="end"
+                >
+                  Kanan
+                </text>
+
+                <!-- Garis Bantu -->
+                <line
+                  x1="200"
+                  y1="80"
+                  x2="160"
+                  y2="80"
+                  stroke="red"
+                  stroke-width="1"
+                  stroke-dasharray="4,4"
+                  opacity="0.4"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="options">
+            <div>A. $110^\circ$</div>
+            <div>B. $70^\circ$</div>
+            <div>C. $50^\circ$</div>
+            <div>D. $35^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Hitunglah besar sudut terkecil pada pukul 02.24
+            menggunakan rumus akurat.
+          </div>
+          <div class="options">
+            <div>A. $78^\circ$</div>
+            <div>B. $72^\circ$</div>
+            <div>C. $66^\circ$</div>
+            <div>D. $60^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Terdapat $\angle A$ dan $\angle B$. Diketahui $\angle A$
+            adalah pelurus dari $\angle B$. Jika $\angle A$ dikurangi $20^\circ$
+            maka besarnya menjadi 3 kali $\angle B$. Tentukan selisih $\angle A$
+            dan $\angle B$.
+          </div>
+          <div class="options">
+            <div>A. $140^\circ$</div>
+            <div>B. $120^\circ$</div>
+            <div>C. $100^\circ$</div>
+            <div>D. $80^\circ$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 9. Soal Level 3 (No 24-26) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> Sebuah segitiga sama kaki $ABC$ dengan $AB = AC$. Jika
+            sudut di puncak $A$ adalah $40^\circ$, dan dibuat garis bagi $BD$
+            yang membagi $\angle B$ menjadi dua bagian sama besar (titik $D$
+            pada sisi $AC$). Berapakah besar $\angle BDC$?
+            <div class="svg-container">
+              <svg width="200" height="150" viewBox="0 0 200 150">
+                <polygon
+                  points="100,10 50,140 150,140"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <line
+                  x1="50"
+                  y1="140"
+                  x2="125"
+                  y2="75"
+                  stroke="blue"
+                  stroke-width="2"
+                />
+                <text x="90" y="45" font-size="10" class="halo">40°</text>
+                <text x="130" y="75" font-size="10" class="halo">D</text>
+                <text x="35" y="145" font-size="10">B</text>
+                <text x="155" y="145" font-size="10">C</text>
+                <text x="100" y="5" font-size="10">A</text>
+                <text x="110" y="105" font-size="12" fill="red" class="halo">
+                  ?
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="options">
+            <div>A. $80^\circ$</div>
+            <div>B. $75^\circ$</div>
+            <div>C. $70^\circ$</div>
+            <div>D. $65^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Berapa kali jarum panjang dan jarum pendek membentuk
+            sudut siku-siku ($90^\circ$) dalam kurun waktu dari pukul 00.00
+            hingga 12.00?
+          </div>
+          <div class="options">
+            <div>A. 24 kali</div>
+            <div>B. 22 kali</div>
+            <div>C. 12 kali</div>
+            <div>D. 11 kali</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> <b>Logika Garis:</b> Diberikan 5 garis berbeda pada
+            sebuah bidang datar. Tidak ada garis yang sejajar, dan tidak ada
+            tiga garis yang berpotongan di satu titik yang sama. Berapakah
+            jumlah titik potong maksimum yang dapat terbentuk?
+          </div>
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 15</div>
+            <div>C. 20</div>
+            <div>D. 5</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 10. Soal Level 3 (No 27-29) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Sudut interior sebuah poligon beraturan adalah
+            $144^\circ$. Berapa banyak sisi yang dimiliki poligon tersebut?
+          </div>
+          <div class="options">
+            <div>A. 12</div>
+            <div>B. 10</div>
+            <div>C. 9</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Diketahui $\angle K$ dan $\angle L$ saling berpenyiku.
+            Jika besar $\angle K = x^2$ derajat dan besar $\angle L = (5x + 6)$
+            derajat, tentukan nilai $x$ (dengan $x > 0$).
+          </div>
+          <div class="options">
+            <div>A. 9</div>
+            <div>B. 8</div>
+            <div>C. 7</div>
+            <div>D. 6</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> <b>Analisis Garis Bagi:</b> Diketahui garis $m \parallel
+            n$. Garis $k$ memotong keduanya. Dibuat garis bagi (bisector) untuk
+            sepasang sudut dalam sepihak. Jika jumlah kedua sudut sepihak selalu
+            $180^\circ$, berapakah besar sudut $y$ yang terbentuk dari
+            perpotongan kedua garis bagi tersebut?
+            <div class="svg-container">
+              <img
+                src="https://imgix3.ruangguru.com/assets/miscellaneous/png_rrznib_7438.png"
+                alt="Analisis Garis Bagi"
+                style="max-width: 100%; height: auto; max-height: 200px"
+              />
+            </div>
+          </div>
+          <div class="options">
+            <div>A. $60^\circ$</div>
+            <div>B. $75^\circ$</div>
+            <div>C. $85^\circ$</div>
+            <div>D. $90^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> Pada segitiga $ABC$, ditarik garis dari $A$ ke sisi $BC$
+            di titik $D$. Jika $\angle B = 40^\circ$, $\angle C = 60^\circ$, dan
+            $AD$ adalah garis bagi sudut $A$ (membagi $\angle A$ sama besar),
+            hitunglah besar $\angle ADB$.
+            <div class="svg-container">
+              <svg width="200" height="100" viewBox="0 0 200 100">
+                <polygon
+                  points="80,10 20,90 180,90"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <line
+                  x1="80"
+                  y1="10"
+                  x2="100"
+                  y2="90"
+                  stroke="black"
+                  stroke-width="2"
+                  stroke-dasharray="4,4"
+                />
+                <text x="75" y="5" font-size="10">A</text>
+                <text x="10" y="95" font-size="10">B</text>
+                <text x="185" y="95" font-size="10">C</text>
+                <text x="100" y="98" font-size="10">D</text>
+                <text x="85" y="70" font-size="12" fill="red" class="halo">
+                  ?
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="options">
+            <div>A. $110^\circ$</div>
+            <div>B. $100^\circ$</div>
+            <div>C. $90^\circ$</div>
+            <div>D. $80^\circ$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 12. Pembahasan Level 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level (Mudah)</h1>
+
+        <div class="soal-latihan">
+          <b>1. Jawaban: C (Tumpul)</b>
+          <div class="pembahasan">
+            Sudut tumpul besarnya antara $90^\circ$ dan $180^\circ$. Karena
+            $135^\circ$ ada di rentang tersebut, maka termasuk sudut tumpul.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>2. Jawaban: B ($105^\circ$)</b>
+          <div class="pembahasan">
+            Sudut pelurus jumlahnya $180^\circ$. Maka, $180^\circ - 75^\circ =
+            105^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>3. Jawaban: A (Memiliki jarak yang sama...)</b>
+          <div class="pembahasan">
+            Definisi garis sejajar adalah dua garis pada satu bidang yang tidak
+            memiliki titik potong dan jaraknya selalu tetap.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>4. Jawaban: A ($90^\circ$)</b>
+          <div class="pembahasan">
+            Pukul 03.00 jarum panjang di 12, pendek di 3. Jaraknya 3 langkah
+            angka. $3 \times 30^\circ = 90^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>5. Jawaban: D ($67,5^\circ$)</b>
+          <div class="pembahasan">
+            Misal sudut itu $x$. Penyikunya $(90-x)$.<br />
+            $x = 3(90 - x) \Rightarrow x = 270 - 3x \Rightarrow 4x = 270
+            \Rightarrow x = 67,5^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>6. Jawaban: B ($55^\circ$)</b>
+          <div class="pembahasan">
+            Segitiga siku-siku memiliki satu sudut $90^\circ$.<br />
+            $180^\circ - (90^\circ + 35^\circ) = 180^\circ - 125^\circ =
+            55^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>7. Jawaban: D ($240^\circ$)</b>
+          <div class="pembahasan">
+            $\frac{2}{3} \times 360^\circ = 2 \times 120^\circ = 240^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>8. Jawaban: C (30)</b>
+          <div class="pembahasan">
+            Sudut bertolak belakang besarnya sama.<br />
+            $2x + 10 = 70 \Rightarrow 2x = 60 \Rightarrow x = 30$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 13. Pembahasan Level 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>9. Jawaban: C (Sisi meja yang berhadapan)</b>
+          <div class="pembahasan">
+            Sisi meja yang berhadapan umumnya sejajar. Huruf V berpotongan, jam
+            12 berhimpit.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10. Jawaban: B ($135^\circ$)</b>
+          <div class="pembahasan">
+            Utara ke Timur = $90^\circ$. Timur ke Tenggara = $45^\circ$. Total =
+            $90 + 45 = 135^\circ$.
+          </div>
+        </div>
+        <h1>Pembahasan: Level (Sedang)</h1>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: B ($100^\circ$)</b>
+          <div class="pembahasan">
+            Total perbandingan $4+5 = 9$. Sudut pelurus = $180^\circ$.<br />
+            $\angle Q = \frac{5}{9} \times 180^\circ = 5 \times 20^\circ =
+            100^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>12. Jawaban: C ($45^\circ$)</b>
+          <div class="pembahasan">
+            Rumus: $|30h - 5,5m|$. Jam $h=4$, Menit $m=30$.<br />
+            $|30(4) - 5,5(30)| = |120 - 165| = |-45| = 45^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>13. Jawaban: D ($70^\circ$)</b>
+          <div class="pembahasan">
+            Sudut dalam sepihak jumlahnya $180^\circ$.<br />
+            $180^\circ - 110^\circ = 70^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>14. Jawaban: A (Segitiga Lancip)</b>
+          <div class="pembahasan">
+            $2x + 3x + 4x = 180^\circ \Rightarrow 9x = 180^\circ \Rightarrow x =
+            20^\circ$.<br />
+            Sudut-sudutnya: $40^\circ, 60^\circ, 80^\circ$. Karena semua $<
+            90^\circ$, maka segitiga lancip.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>15. Jawaban: A ($40^\circ$)</b>
+          <div class="pembahasan">
+            Cari $y$ dulu (suplemen 130): $y = 180 - 130 = 50^\circ$.<br />
+            Cari $x$ (komplemen $y$): $x = 90 - 50 = 40^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>16. Jawaban: D ($30^\circ$)</b>
+          <div class="pembahasan">
+            Membentuk segitiga siku-siku (lantai tegak lurus tembok).<br />
+            Sudut tembok = $180 - (90 + 60) = 30^\circ$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 14. Pembahasan Level 3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>17. Jawaban: B (25)</b>
+          <div class="pembahasan">
+            Sudut luar berseberangan besarnya SAMA.<br />
+            $3x - 15 = 2x + 10 \Rightarrow 3x - 2x = 10 + 15 \Rightarrow x =
+            25$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>18. Jawaban: D (1 Pasang)</b>
+          <div class="pembahasan">
+            Di titik potong diagonal, terdapat 2 pasang sudut yang bertolak
+            belakang. Satu pasang adalah sudut lancip, satu pasang lagi sudut
+            tumpul (selama bukan persegi).
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>19. Jawaban: A ($900^\circ$)</b>
+          <div class="pembahasan">$2,5 \times 360^\circ = 900^\circ$.</div>
+        </div>
+        <div class="soal-latihan">
+          <b>20. Jawaban: C (03:16 $\frac{4}{11}$)</b>
+          <div class="pembahasan">
+            Rumus berhimpit: Sudut = 0.<br />
+            $|30(3) - 5,5m| = 0 \Rightarrow 90 = 5,5m \Rightarrow m =
+            \frac{90}{5,5} = \frac{180}{11} = 16 \frac{4}{11}$ menit.
+          </div>
+        </div>
+
+        <h1>Pembahasan: Level (Sulit)</h1>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: B ($70^\circ$)</b>
+          <div class="pembahasan">
+            Aturan Zig-zag: Total Sudut Kiri = Total Sudut Kanan.<br />
+            $30^\circ + 40^\circ = x^\circ \Rightarrow x = 70$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>22. Jawaban: B ($72^\circ$)</b>
+          <div class="pembahasan">
+            $h=2, m=24$.<br />
+            $|30(2) - 5,5(24)| = |60 - 132| = |-72| = 72^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>23. Jawaban: C ($100^\circ$)</b>
+          <div class="pembahasan">
+            $\angle A + \angle B = 180^\circ \Rightarrow \angle A = 180 - \angle
+            B$.<br />
+            $(\angle A - 20) = 3 \angle B \Rightarrow (180 - \angle B - 20) = 3
+            \angle B \Rightarrow 160 = 4 \angle B \Rightarrow \angle B =
+            40^\circ$.<br />
+            $\angle A = 140^\circ$. Selisih: $140 - 40 = 100^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>24. Jawaban: B ($75^\circ$)</b>
+          <div class="pembahasan">
+            Segitiga sama kaki $AB=AC, \angle A=40^\circ \Rightarrow \angle B =
+            \angle C = (180-40)/2 = 70^\circ$.<br />
+            Garis bagi $BD$ membagi $\angle B$ jadi $35^\circ$.<br />
+            Pada $\triangle BDC$: $\angle BDC = 180 - (35+70) = 75^\circ$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>25. Jawaban: B (22 kali)</b>
+          <div class="pembahasan">
+            Dalam 1 jam, sudut siku-siku terjadi 2 kali. Namun, pada pukul 03.00
+            dan 09.00 hanya terjadi sekali tepat di jam tersebut. Total dalam 12
+            jam adalah 22 kali.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>26. Jawaban: A (10 titik)</b>
+          <div class="pembahasan">
+            Rumus titik potong maksimum untuk $n$ garis: $\frac{n(n-1)}{2}$.<br />
+            Untuk $n=5$: $\frac{5 \times 4}{2} = 10$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>27. Jawaban: B (10 sisi)</b>
+          <div class="pembahasan">
+            Sudut eksterior = $180 - 144 = 36^\circ$.<br />
+            $n = 360 / 36 = 10$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>28. Jawaban: C (7)</b>
+          <div class="pembahasan">
+            Berpenyiku: Jumlah = $90^\circ$.<br />
+            $x^2 + 5x + 6 = 90 \Rightarrow x^2 + 5x - 84 = 0$.<br />
+            Faktorkan: $(x + 12)(x - 7) = 0$. Karena $x > 0$, maka $x = 7$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>29. Jawaban: D ($90^\circ$)</b>
+          <div class="pembahasan">
+            <b>Teori:</b> Garis bagi dari dua sudut dalam sepihak selalu
+            berpotongan tegak lurus.<br />
+            <b>Hitungan:</b> Misal sudut sepihak $2a$ dan $2b$. $2a+2b=180
+            \Rightarrow a+b=90$. Sudut $y$ pada segitiga = $180-(a+b) =
+            90^\circ$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>30. Jawaban: B ($100^\circ$)</b>
+          <div class="pembahasan">
+            $\angle A = 180 - (40+60) = 80^\circ$. Garis bagi membagi $\angle A$
+            jadi $40^\circ$.<br />
+            Pada $\triangle ABD$: $\angle B = 40^\circ, \angle BAD =
+            40^\circ$.<br />
+            $\angle ADB = 180 - (40+40) = 100^\circ$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
