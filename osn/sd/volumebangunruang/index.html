@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Volume & Luas Bangun Ruang</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e3f2fd;
+        --highlight-orange: #ff9800;
+        --bg-tips: #fff3e0;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      /* Watermark Pattern */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 18pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #0d47a1;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+        break-after: avoid; /* Prevent break after heading */
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #1565c0;
+        break-after: avoid;
+      }
+      .soal-latihan {
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+        /* Critical for printing: prevent breaking inside a question */
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      .options.single-col {
+        grid-template-columns: 1fr;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 12pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+        break-after: avoid;
+      }
+      .pembahasan {
+        background-color: #f1f8e9;
+        border-left: 4px solid var(--accent-green);
+        padding: 8px 12px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10pt;
+      }
+      .tips-box {
+        background-color: var(--bg-tips);
+        border-left: 4px solid var(--highlight-orange);
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+        font-size: 10.5pt;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .concept-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .concept-title {
+        font-weight: 700;
+        color: #0d47a1;
+        margin-bottom: 5px;
+        display: block;
+      }
+      /* SVG Styles */
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+        break-inside: avoid;
+      }
+      svg {
+        max-width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+      svg text {
+        font-family: "Nunito", sans-serif;
+        font-size: 12px;
+        fill: #333;
+      }
+      ul {
+        margin-top: 5px;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 3px;
+      }
+      table.cube-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+        font-size: 10pt;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      table.cube-table th,
+      table.cube-table td {
+        border: 1px solid #ddd;
+        padding: 6px;
+        text-align: center;
+      }
+      table.cube-table th {
+        background-color: #e3f2fd;
+        font-weight: bold;
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+        /* Ensure elements don't break mid-content */
+        h1,
+        h2,
+        h3,
+        .soal-latihan,
+        .concept-box,
+        .tips-box,
+        .kategori-soal {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">MODUL OSN:<br />Volume & Luas Bangun Ruang</h1>
+        <p class="cover-subtitle">
+          Ringkasan Materi, Latihan Soal & Pembahasan<br />
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 2. Materi 1: Konsep Dasar (Page Break Optimized) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Ringkasan Materi & Strategi</h1>
+
+        <h2>A. Konsep Dasar Bangun Ruang</h2>
+        <p>
+          Dalam Olimpiade Matematika (OSN), geometri ruang menuntut kemampuan
+          <b>visualisasi spasial</b> (Concrete-Pictorial-Abstract).
+        </p>
+
+        <div class="concept-box">
+          <span class="concept-title">1. Kubus (Cube)</span>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <div>
+              <ul>
+                <li><b>Rusuk ($s$):</b> 12 buah sama panjang.</li>
+                <li><b>Sisi:</b> 6 buah persegi kongruen.</li>
+                <li><b>Volume:</b> $V = s^3$</li>
+                <li><b>Luas Permukaan:</b> $LP = 6s^2$</li>
+              </ul>
+            </div>
+            <!-- Visualisasi Kubus -->
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <rect
+                x="20"
+                y="25"
+                width="50"
+                height="50"
+                fill="#e3f2fd"
+                stroke="#1565c0"
+                stroke-width="2"
+              />
+              <polyline
+                points="20,25 45,5 95,5 95,55 70,75"
+                fill="none"
+                stroke="#1565c0"
+                stroke-width="2"
+              />
+              <line
+                x1="70"
+                y1="25"
+                x2="95"
+                y2="5"
+                stroke="#1565c0"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <div class="concept-box">
+          <span class="concept-title">2. Balok (Cuboid)</span>
+          <ul>
+            <li><b>Dimensi:</b> Panjang ($p$), Lebar ($l$), Tinggi ($t$).</li>
+            <li><b>Volume:</b> $V = p \times l \times t$</li>
+            <li><b>Luas Permukaan:</b> $LP = 2 \times (pl + pt + lt)$</li>
+          </ul>
+        </div>
+
+        <h3>3. Pangkat Tiga & Akar Pangkat Tiga</h3>
+        <p>
+          Hubungan: $V = s^3 \leftrightarrow s = \sqrt[3]{V}$. Wajib hafal dasar
+          1-10:
+        </p>
+        <table class="cube-table">
+          <tr>
+            <td>$1^3=1$</td>
+            <td>$2^3=8$</td>
+            <td>$3^3=27$</td>
+            <td>$4^3=64$</td>
+            <td>$5^3=125$</td>
+          </tr>
+          <tr>
+            <td>$6^3=216$</td>
+            <td>$7^3=343$</td>
+            <td>$8^3=512$</td>
+            <td>$9^3=729$</td>
+            <td>$10^3=1000$</td>
+          </tr>
+        </table>
+
+        <div class="tips-box">
+          <b>Trik OSN: Menebak $\sqrt[3]{N}$ (Hasil 2 Digit)</b>
+          <ol>
+            <li>
+              Lihat <b>Satuan</b>: Pasangan $2 \leftrightarrow 8$ dan $3
+              \leftrightarrow 7$. Angka lain tetap.
+            </li>
+            <li>
+              Coret 3 angka belakang, lihat <b>angka depan</b>. Cari pangkat
+              tiga terdekat yang tidak melebihi.
+            </li>
+          </ol>
+          <i>Contoh:</i> $\sqrt[3]{12.167}$. Satuan 7 $\to$ <b>3</b>. Depan 12
+          dekat dengan $2^3=8$ $\to$ <b>2</b>. Hasil: <b>23</b>.
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 3. Materi 2: Visualisasi & Trik (Moved to next page to prevent cut-off) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h2>B. Konsep Lanjutan</h2>
+        <h3>1. Bangun Ruang Gabungan</h3>
+        <ul>
+          <li><b>Volume:</b> $V_{total} = V_1 + V_2 + \dots$</li>
+          <li>
+            <b>Luas Permukaan:</b> Hati-hati! Sisi berimpit <b>HILANG</b>.
+            <br />
+            $$ LP_{gabungan} = LP_1 + LP_2 - (2 \times \text{Luas Sisi
+            Berimpit}) $$
+          </li>
+        </ul>
+
+        <h3>2. Volume Benda Tercelup (Displacement)</h3>
+        <div class="concept-box">
+          <b>Prinsip Kenaikan Air:</b>
+          $$ \text{Volume Benda} = \text{Luas Alas Wadah} \times \text{Kenaikan
+          Tinggi Air} $$
+        </div>
+
+        <h3>3. Jebakan Luas Permukaan</h3>
+        <ul>
+          <li>
+            <b>Takikan (Notch):</b> Memotong kubus kecil di pojok $\to$ LP
+            <b>TETAP</b>.
+          </li>
+          <li>
+            <b>Irisan Miring (Slice):</b> Memotong miring (limas) $\to$ LP
+            <b>BERUBAH</b>.
+          </li>
+        </ul>
+
+        <h3>4. Jaring-jaring Kubus (Prinsip Selang Satu)</h3>
+        <p>
+          Pada baris lurus 3 atau 4 kotak, sisi yang berhadapan selalu
+          <b>berselang satu kotak</b>.
+        </p>
+
+        <h3>5. Kubus Dicat (Painted Cube)</h3>
+        <p>Jika kubus $n \times n \times n$ dicat luarnya:</p>
+        <ul>
+          <li>3 sisi (Pojok): Selalu 8.</li>
+          <li>2 sisi (Rusuk): $12 \times (n-2)$.</li>
+          <li>1 sisi (Muka): $6 \times (n-2)^2$.</li>
+          <li>0 sisi (Inti): $(n-2)^3$.</li>
+        </ul>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 4. Soal Level 1 (Items 1-6) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 1: Pemahaman Konsep (Mudah)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Sebuah kubus memiliki panjang rusuk 12 cm. Berapakah
+            volume kubus tersebut?
+          </div>
+          <div class="options">
+            <div>A. 1.331 cm$^3$</div>
+            <div>B. 1.440 cm$^3$</div>
+            <div>C. 1.728 cm$^3$</div>
+            <div>D. 2.744 cm$^3$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Volume sebuah kotak berbentuk kubus adalah 3.375 cm$^3$.
+            Berapakah panjang sisi kotak tersebut?
+          </div>
+          <div class="options">
+            <div>A. 15 cm</div>
+            <div>B. 25 cm</div>
+            <div>C. 35 cm</div>
+            <div>D. 45 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Sebuah balok memiliki panjang 15 cm, lebar 10 cm, dan
+            tinggi 8 cm. Berapakah luas permukaan balok tersebut?
+          </div>
+          <div class="options">
+            <div>A. 350 cm$^2$</div>
+            <div>B. 600 cm$^2$</div>
+            <div>C. 700 cm$^2$</div>
+            <div>D. 1.200 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Pak Budi memiliki akuarium berbentuk balok dengan volume
+            120 liter. Jika panjang akuarium 80 cm dan lebarnya 50 cm, berapakah
+            tinggi akuarium tersebut?
+          </div>
+          <div class="options">
+            <div>A. 20 cm</div>
+            <div>B. 25 cm</div>
+            <div>C. 30 cm</div>
+            <div>D. 40 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Andi menyusun kubus-kubus satuan menjadi sebuah balok
+            berukuran $5 \times 4 \times 3$. Berapa banyak kubus satuan yang
+            diperlukan Andi?
+          </div>
+          <div class="options">
+            <div>A. 12 kubus</div>
+            <div>B. 23 kubus</div>
+            <div>C. 60 kubus</div>
+            <div>D. 120 kubus</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Diketahui $\sqrt[3]{17.576} = n$. Berapakah nilai $n$?
+          </div>
+          <div class="options">
+            <div>A. 16</div>
+            <div>B. 24</div>
+            <div>C. 26</div>
+            <div>D. 36</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 5. Soal 7-12 (Moved here to ensure no cut-off) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Sebuah bak mandi berbentuk kubus mampu menampung 512 liter
+            air sampai penuh. Berapa desimeter kedalaman bak mandi tersebut?
+          </div>
+          <div class="options">
+            <div>A. 6 dm</div>
+            <div>B. 8 dm</div>
+            <div>C. 12 dm</div>
+            <div>D. 64 dm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Dua buah kubus masing-masing memiliki rusuk 4 cm dan 6 cm.
+            Berapakah selisih volume kedua kubus tersebut?
+          </div>
+          <div class="options">
+            <div>A. 152 cm$^3$</div>
+            <div>B. 200 cm$^3$</div>
+            <div>C. 280 cm$^3$</div>
+            <div>D. 308 cm$^3$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Luas alas sebuah balok adalah 48 cm$^2$. Jika volumenya
+            240 cm$^3$, berapakah tinggi balok tersebut?
+          </div>
+          <div class="options">
+            <div>A. 4 cm</div>
+            <div>B. 5 cm</div>
+            <div>C. 6 cm</div>
+            <div>D. 8 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Sebuah jaring-jaring kubus memiliki luas total 294
+            cm$^2$. Berapakah panjang rusuk kubus yang dapat dibentuk dari
+            jaring-jaring tersebut?
+          </div>
+          <div class="options">
+            <div>A. 6 cm</div>
+            <div>B. 7 cm</div>
+            <div>C. 8 cm</div>
+            <div>D. 9 cm</div>
+          </div>
+        </div>
+
+        <div class="kategori-soal">
+          Level 2: Aplikasi & Bangun Gabungan (Sedang)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Dua buah kubus dengan rusuk 10 cm diletakkan berdampingan
+            sehingga salah satu sisinya saling berimpit sempurna membentuk
+            sebuah balok. Berapakah Luas Permukaan bangun gabungan tersebut?
+          </div>
+          <div class="options">
+            <div>A. 600 cm$^2$</div>
+            <div>B. 1.000 cm$^2$</div>
+            <div>C. 1.100 cm$^2$</div>
+            <div>D. 1.200 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Sebuah kolam renang berbentuk balok memiliki ukuran
+            panjang 20 m, lebar 10 m, dan kedalaman 1,5 m. Jika dinding bagian
+            dalam dan dasar kolam akan dipasang keramik, berapakah luas daerah
+            yang akan dipasang keramik?
+          </div>
+          <div class="options">
+            <div>A. 200 m$^2$</div>
+            <div>B. 290 m$^2$</div>
+            <div>C. 490 m$^2$</div>
+            <div>D. 500 m$^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 6. Soal 13-18 (New Page) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Budi memiliki kawat sepanjang 5 meter. Ia ingin membuat
+            kerangka kubus dengan panjang rusuk 15 cm. Berapa banyak kerangka
+            kubus utuh yang dapat dibuat Budi?
+          </div>
+          <div class="options">
+            <div>A. 2 kerangka</div>
+            <div>B. 3 kerangka</div>
+            <div>C. 4 kerangka</div>
+            <div>D. 5 kerangka</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Volume sebuah balok adalah 5 kali volume kubus. Jika
+            rusuk kubus adalah 6 cm, dan balok memiliki alas persegi dengan sisi
+            10 cm, berapakah tinggi balok tersebut?
+          </div>
+          <div class="options">
+            <div>A. 10,0 cm</div>
+            <div>B. 10,8 cm</div>
+            <div>C. 12,0 cm</div>
+            <div>D. 15,0 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Sebuah bangun dibentuk dari kubus besar dengan rusuk 10
+            cm. Di atas kubus besar tersebut, diletakkan kubus kecil dengan
+            rusuk 4 cm. Alas kubus kecil <b>berimpit sepenuhnya</b> dengan
+            bagian tengah sisi atas kubus besar. Hitunglah luas permukaan bangun
+            gabungan tersebut!
+          </div>
+          <div class="options">
+            <div>A. 600 cm$^2$</div>
+            <div>B. 664 cm$^2$</div>
+            <div>C. 696 cm$^2$</div>
+            <div>D. 700 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Sebuah bak air berbentuk balok berisi air $\frac{2}{3}$
+            bagian. Ukuran bak adalah $60 \text{ cm} \times 50 \text{ cm} \times
+            90 \text{ cm}$. Berapa liter air yang harus ditambahkan agar bak
+            tersebut penuh?
+          </div>
+          <div class="options">
+            <div>A. 60 liter</div>
+            <div>B. 90 liter</div>
+            <div>C. 180 liter</div>
+            <div>D. 270 liter</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Sebuah balok kayu berukuran $32 \text{ cm} \times 16
+            \text{ cm} \times 8 \text{ cm}$ dipotong-potong menjadi kubus-kubus
+            kecil dengan rusuk 4 cm. Berapa banyak kubus kecil yang didapat?
+          </div>
+          <div class="options">
+            <div>A. 32 buah</div>
+            <div>B. 48 buah</div>
+            <div>C. 64 buah</div>
+            <div>D. 128 buah</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Perbandingan panjang, lebar, dan tinggi sebuah balok
+            adalah $5:3:2$. Jika volume balok adalah 240 cm$^3$, tentukan luas
+            permukaan balok tersebut.
+          </div>
+          <div class="options">
+            <div>A. 124 cm$^2$</div>
+            <div>B. 240 cm$^2$</div>
+            <div>C. 248 cm$^2$</div>
+            <div>D. 300 cm$^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 7. Soal 19-24 (New Page) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Sebuah wadah berbentuk kubus dengan rusuk 20 cm berisi
+            air penuh. Air tersebut dipindahkan ke wadah berbentuk balok dengan
+            ukuran alas $25 \text{ cm} \times 16 \text{ cm}$. Berapa tinggi air
+            dalam wadah balok tersebut?
+          </div>
+          <div class="options">
+            <div>A. 15 cm</div>
+            <div>B. 20 cm</div>
+            <div>C. 25 cm</div>
+            <div>D. 30 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Sebuah kardus besar berukuran $80 \text{ cm} \times 60
+            \text{ cm} \times 40 \text{ cm}$ akan diisi penuh dengan kotak kue
+            kecil berukuran $20 \text{ cm} \times 10 \text{ cm} \times 5 \text{
+            cm}$. Berapa banyak kotak kue yang dapat dimuat kardus tersebut?
+          </div>
+          <div class="options">
+            <div>A. 100 kotak</div>
+            <div>B. 150 kotak</div>
+            <div>C. 192 kotak</div>
+            <div>D. 240 kotak</div>
+          </div>
+        </div>
+
+        <div class="kategori-soal">Level 3: HOTS & Tipe OSN (Sulit)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> Sebuah kubus kayu pejal dengan rusuk 5 cm seluruh
+            permukaannya dicat warna merah. Kemudian kubus tersebut
+            dipotong-potong menjadi 125 kubus satuan (ukuran 1 cm). Berapa
+            banyak kubus satuan yang memiliki <b>tepat dua sisi</b> berwarna
+            merah?
+          </div>
+          <div class="options">
+            <div>A. 24</div>
+            <div>B. 36</div>
+            <div>C. 48</div>
+            <div>D. 60</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Sebuah balok pejal berukuran $12 \text{ cm} \times 10
+            \text{ cm} \times 8 \text{ cm}$. Balok tersebut dilubangi berbentuk
+            balok kecil dengan penampang $4 \text{ cm} \times 4 \text{ cm}$.
+            Lubang tersebut menembus balok
+            <b>sejajar dengan rusuk panjangnya</b> (rusuk 12 cm). Berapakah
+            volume bangun yang tersisa?
+          </div>
+          <div class="options">
+            <div>A. 768 cm$^3$</div>
+            <div>B. 800 cm$^3$</div>
+            <div>C. 832 cm$^3$</div>
+            <div>D. 900 cm$^3$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Sebuah kubus besar tersusun dari 64 kubus satuan. Jika
+            seluruh permukaan luar kubus besar tersebut dicat, berapakah
+            perbandingan banyaknya kubus satuan yang terkena cat dengan yang
+            tidak terkena cat sama sekali?
+          </div>
+          <div class="options">
+            <div>A. 4 : 1</div>
+            <div>B. 6 : 1</div>
+            <div>C. 7 : 1</div>
+            <div>D. 8 : 1</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> Sebuah bak mandi berbentuk kubus dengan rusuk 1 meter
+            berisi air penuh. Seseorang memasukkan sebuah benda padat bervolume
+            15.000 cm$^3$ ke dalamnya sehingga air tumpah. Berapa liter sisa air
+            di dalam bak?
+          </div>
+          <div class="options">
+            <div>A. 850 liter</div>
+            <div>B. 985 liter</div>
+            <div>C. 995 liter</div>
+            <div>D. 1.000 liter</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 8. Soal 25-27 (New Page - contains big SVG) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Sebuah karton berbentuk persegi panjang berukuran $40
+            \text{ cm} \times 30 \text{ cm}$. Keempat pojok karton dipotong
+            berbentuk persegi dengan sisi 5 cm. Bagian yang tersisa kemudian
+            dilipat ke atas untuk membentuk sebuah kotak terbuka. Berapakah
+            volume kotak yang terbentuk?
+          </div>
+          <div class="options">
+            <div>A. 1.500 cm$^3$</div>
+            <div>B. 3.000 cm$^3$</div>
+            <div>C. 4.500 cm$^3$</div>
+            <div>D. 6.000 cm$^3$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> Terdapat sebuah balok. Jika panjangnya ditambah 20% dan
+            tingginya dikurangi 20%, sedangkan lebarnya tetap, bagaimana
+            perubahan volume balok tersebut?
+          </div>
+          <div class="options">
+            <div>A. Tetap sama</div>
+            <div>B. Bertambah 4%</div>
+            <div>C. Berkurang 4%</div>
+            <div>D. Berkurang 10%</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Perhatikan gambar jaring-jaring berikut! Jika persegi
+            <b>B</b> (yang diarsir) adalah <b>ALAS</b>, manakah persegi yang
+            akan menjadi <b>TUTUP ATAS</b>?
+
+            <div class="svg-container">
+              <svg width="250" height="150" viewBox="0 0 250 150">
+                <g stroke="black" stroke-width="2" fill="none">
+                  <rect x="25" y="50" width="50" height="50" />
+                  <rect x="75" y="50" width="50" height="50" fill="#e0e0e0" />
+                  <!-- B -->
+                  <rect x="125" y="50" width="50" height="50" />
+                  <rect x="175" y="50" width="50" height="50" />
+                  <rect x="75" y="0" width="50" height="50" />
+                  <rect x="75" y="100" width="50" height="50" />
+                </g>
+                <text x="50" y="80" text-anchor="middle" font-weight="bold">
+                  A
+                </text>
+                <text x="100" y="80" text-anchor="middle" font-weight="bold">
+                  B
+                </text>
+                <text x="150" y="80" text-anchor="middle" font-weight="bold">
+                  C
+                </text>
+                <text x="200" y="80" text-anchor="middle" font-weight="bold">
+                  D
+                </text>
+                <text x="100" y="30" text-anchor="middle" font-weight="bold">
+                  E
+                </text>
+                <text x="100" y="130" text-anchor="middle" font-weight="bold">
+                  F
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="options">
+            <div>A. Persegi A</div>
+            <div>B. Persegi C</div>
+            <div>C. Persegi D</div>
+            <div>D. Persegi E</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 9. Soal 28-30 (New Page for Last Questions) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Sebuah akuarium berbentuk balok dengan alas berukuran $50
+            \text{ cm} \times 40 \text{ cm}$ berisi air setinggi 30 cm. Sebuah
+            batu karang dimasukkan ke dalam akuarium hingga tenggelam
+            seluruhnya, yang menyebabkan tinggi air naik menjadi 32 cm.
+            Berapakah volume batu karang tersebut?
+          </div>
+          <div class="options">
+            <div>A. 2.000 cm$^3$</div>
+            <div>B. 4.000 cm$^3$</div>
+            <div>C. 6.000 cm$^3$</div>
+            <div>D. 6.400 cm$^3$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> Sebuah kubus dengan rusuk 3 cm. Di setiap pojoknya (8
+            titik sudut) dipotong/dibuang sebuah kubus kecil dengan rusuk 1 cm
+            (takikan ke dalam). Berapakah luas permukaan bangun yang tersisa?
+          </div>
+          <div class="options">
+            <div>A. 48 cm$^2$</div>
+            <div>B. 50 cm$^2$</div>
+            <div>C. 54 cm$^2$</div>
+            <div>D. 60 cm$^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> Volume sebuah balok adalah bilangan bulat. Panjang,
+            lebar, dan tinggi balok tersebut adalah bilangan prima yang berbeda.
+            Jika volumenya kurang dari 100, ada berapa banyak kemungkinan ukuran
+            balok tersebut?
+          </div>
+          <div class="options">
+            <div>A. 3 kemungkinan</div>
+            <div>B. 4 kemungkinan</div>
+            <div>C. 5 kemungkinan</div>
+            <div>D. 6 kemungkinan</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 10. Pembahasan Level 1 (Items 1-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 (Mudah)</h1>
+        <div class="soal-latihan">
+          <b>1. Jawaban: C (1.728 cm$^3$)</b>
+          <div class="pembahasan">
+            $V = s^3 = 12 \times 12 \times 12 = 1.728$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>2. Jawaban: A (15 cm)</b>
+          <div class="pembahasan">
+            $s = \sqrt[3]{3.375}$. Ekor 5 $\to$ 5. Coret 375, sisa 3 $\to$ 1.
+            Jadi 15.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>3. Jawaban: C (700 cm$^2$)</b>
+          <div class="pembahasan">$LP = 2(150 + 120 + 80) = 2(350) = 700$.</div>
+        </div>
+        <div class="soal-latihan">
+          <b>4. Jawaban: C (30 cm)</b>
+          <div class="pembahasan">
+            $120 \text{ liter} = 120.000 \text{ cm}^3$. $t = 120.000 : (80
+            \times 50) = 30$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>5. Jawaban: C (60 kubus)</b>
+          <div class="pembahasan">$5 \times 4 \times 3 = 60$.</div>
+        </div>
+        <div class="soal-latihan">
+          <b>6. Jawaban: C (26)</b>
+          <div class="pembahasan">
+            Ekor 6 $\to$ 6. Depan 17 dekat $2^3=8$. Jadi 26.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>7. Jawaban: B (8 dm)</b>
+          <div class="pembahasan">
+            $512 \text{ liter} = 512 \text{ dm}^3$. Rusuk = $\sqrt[3]{512} = 8$
+            dm.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>8. Jawaban: A (152 cm$^3$)</b>
+          <div class="pembahasan">$216 - 64 = 152$.</div>
+        </div>
+        <div class="soal-latihan">
+          <b>9. Jawaban: B (5 cm)</b>
+          <div class="pembahasan">
+            $t = V : \text{Luas Alas} = 240 : 48 = 5$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>10. Jawaban: B (7 cm)</b>
+          <div class="pembahasan">$6s^2 = 294 \to s^2 = 49 \to s=7$.</div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 2 (Sedang)</h1>
+        <div class="soal-latihan">
+          <b>11. Jawaban: B (1.000 cm$^2$)</b>
+          <div class="pembahasan">
+            Dua kubus (12 sisi). Berimpit 1 sisi $\times 2$. Sisa 10 sisi. $10
+            \times (10 \times 10) = 1.000$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>12. Jawaban: B (290 m$^2$)</b>
+          <div class="pembahasan">
+            Alas ($20 \times 10 = 200$) + Dinding ($60 \times 1,5 = 90$). Total
+            290.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>13. Jawaban: A (2 kerangka)</b>
+          <div class="pembahasan">
+            1 kerangka = $12 \times 15 = 180$ cm = 1,8 m. $5 : 1,8 = 2$ sisa 1,4
+            m.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>14. Jawaban: B (10,8 cm)</b>
+          <div class="pembahasan">
+            $V_k = 216$. $V_b = 5 \times 216 = 1.080$. $t = 1.080 : 100 = 10,8$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>15. Jawaban: B (664 cm$^2$)</b>
+          <div class="pembahasan">
+            LP Besar (600) + 4 sisi tegak kecil ($4 \times 16 = 64$). Total 664.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>16. Jawaban: B (90 liter)</b>
+          <div class="pembahasan">
+            Volume total 270L. Kurang $1/3$. $1/3 \times 270 = 90$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>17. Jawaban: C (64 buah)</b>
+          <div class="pembahasan">
+            $4.096 : 64 = 64$. Atau $(32/4)(16/4)(8/4) = 8 \times 4 \times 2 =
+            64$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>18. Jawaban: C (248 cm$^2$)</b>
+          <div class="pembahasan">
+            Rasio 5:3:2. Volume $30x^3=240 \to x^3=8 \to x=2$. Dimensi 10, 6, 4.
+            LP = 248.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>19. Jawaban: B (20 cm)</b>
+          <div class="pembahasan">
+            $V_{air} = 8.000$. $t = 8.000 : (25 \times 16) = 20$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>20. Jawaban: C (192 kotak)</b>
+          <div class="pembahasan">
+            $(80/20) \times (60/10) \times (40/5) = 4 \times 6 \times 8 = 192$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 12. Pembahasan Level 3 (Items 21-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 (HOTS)</h1>
+        <div class="soal-latihan">
+          <b>21. Jawaban: B (36)</b>
+          <div class="pembahasan">
+            Rumus rusuk (2 sisi cat): $12(n-2)$. $n=5 \to 12(3) = 36$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>22. Jawaban: A (768 cm$^3$)</b>
+          <div class="pembahasan">
+            Volume awal 960. Lubang sejajar rusuk panjang (12 cm). Volume lubang
+            $4 \times 4 \times 12 = 192$. Sisa $960 - 192 = 768$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>23. Jawaban: C (7 : 1)</b>
+          <div class="pembahasan">
+            Total 64 ($n=4$). Inti (tak kena cat) = $(n-2)^3 = 8$. Kena cat =
+            $64-8=56$. Rasio $56:8 = 7:1$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>24. Jawaban: B (985 liter)</b>
+          <div class="pembahasan">
+            Air tumpah = Volume benda = 15 liter. Sisa $1.000 - 15 = 985$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>25. Jawaban: B (3.000 cm$^3$)</b>
+          <div class="pembahasan">
+            $p=40-10=30$, $l=30-10=20$, $t=5$. Volume $30 \times 20 \times 5 =
+            3.000$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>26. Jawaban: C (Berkurang 4%)</b>
+          <div class="pembahasan">
+            $1,2 \times 0,8 \times 1 = 0,96$. Berkurang $0,04$ atau $4\%$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>27. Jawaban: C (Persegi D)</b>
+          <div class="pembahasan">
+            <b>Visualisasi Lipatan:</b>
+            <ul>
+              <li>B (Alas) diam di tempat.</li>
+              <li>A (Kiri) naik jadi Dinding Kiri.</li>
+              <li>C (Kanan) naik jadi Dinding Kanan.</li>
+              <li>E (Atas) naik jadi Dinding Belakang.</li>
+              <li>F (Bawah) naik jadi Dinding Depan.</li>
+              <li>
+                <b>D</b> (Paling Kanan) akan melipat menutupi C, sehingga
+                menjadi <b>Tutup Atas</b>.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 (HOTS)</h1>
+        <div class="soal-latihan">
+          <b>28. Jawaban: B (4.000 cm$^3$)</b>
+          <div class="pembahasan">
+            Prinsip Kenaikan Air: $V_{benda} = \text{Luas Alas} \times
+            \text{Kenaikan}$.<br />
+            Kenaikan = $32 - 30 = 2$ cm.<br />
+            $V = (50 \times 40) \times 2 = 2.000 \times 2 = 4.000$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>29. Jawaban: C (54 cm$^2$)</b>
+          <div class="pembahasan">
+            <b>Jebakan Takikan:</b> Membuang kubus kecil di pojok menghilangkan
+            3 sisi luar, tapi memunculkan 3 sisi dalam yang luasnya sama persis.
+            <br />
+            Jadi, Luas Permukaan <b>TETAP</b> sama dengan kubus utuh.<br />
+            $LP = 6 \times 3^2 = 54$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>30. Jawaban: C (5 kemungkinan)</b>
+          <div class="pembahasan">
+            Kombinasi 3 prima beda hasil < 100:
+            <ol>
+              <li>$2 \times 3 \times 5 = 30$</li>
+              <li>$2 \times 3 \times 7 = 42$</li>
+              <li>$2 \times 3 \times 11 = 66$</li>
+              <li>$2 \times 3 \times 13 = 78$</li>
+              <li>$2 \times 5 \times 7 = 70$</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
