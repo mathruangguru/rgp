@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Geometri Ruang & Visualisasi Spasial</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e3f2fd;
+        --highlight-orange: #ff9800;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm; /* Tinggi A4 */
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always; /* Memaksa pindah halaman saat print */
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      /* Watermark Background */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 18pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #0d47a1;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #1565c0;
+      }
+      .soal-latihan {
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+        break-inside: avoid; /* Mencegah soal terpotong di tengah halaman */
+        page-break-inside: avoid;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      .options.single-col {
+        grid-template-columns: 1fr;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 12pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+      .pembahasan {
+        background-color: #f1f8e9;
+        border-left: 4px solid var(--accent-green);
+        padding: 8px 12px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10pt;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+        font-size: 10.5pt;
+        break-inside: avoid;
+      }
+      .rumus-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+        break-inside: avoid;
+      }
+      /* SVG Styles */
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+        break-inside: avoid;
+      }
+      svg {
+        max-width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+      svg text {
+        font-family: "Nunito", sans-serif;
+        font-size: 14px;
+        fill: #333;
+      }
+      ul {
+        margin-top: 5px;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 3px;
+      }
+      .row {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .col {
+        flex: 1;
+      }
+
+      /* Print Specific Styles */
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: auto;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm; /* Margin cetak aman */
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+
+        <h1 class="cover-title">MODUL OSN:<br />Geometri Ruang</h1>
+        <p class="cover-subtitle">
+          Ringkasan Materi, Latihan Soal & Pembahasan<br />
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 2. Materi A: Konsep Dasar -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Ringkasan Materi</h1>
+
+        <h2>A. Konsep Dasar Bangun Ruang</h2>
+        <div class="row">
+          <div class="col">
+            <h3>1. Unsur Bangun Ruang</h3>
+            <ul>
+              <li><b>Sisi (Faces/F):</b> Bidang datar pembatas bangun.</li>
+              <li><b>Rusuk (Edges/E):</b> Garis pertemuan dua sisi.</li>
+              <li>
+                <b>Titik Sudut (Vertices/V):</b> Titik pojok pertemuan rusuk.
+              </li>
+            </ul>
+            <div class="rumus-box">
+              <b>Rumus Euler (Bangun Ruang Sisi Datar)</b><br />
+              Untuk bangun ruang konveks berlaku: $$F + V = E + 2$$
+              <i>Contoh Kubus:</i> 6 (Sisi) + 8 (Titik) = 12 (Rusuk) + 2.
+            </div>
+          </div>
+          <div
+            class="col"
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;
+            "
+          >
+            <!-- SVG Visualisasi Kubus -->
+            <svg width="180" height="180" viewBox="0 0 200 200">
+              <!-- Sisi Belakang (dashed) -->
+              <path
+                d="M50 150 L50 50 L150 50"
+                fill="none"
+                stroke="#999"
+                stroke-width="2"
+                stroke-dasharray="5,5"
+              />
+              <line
+                x1="50"
+                y1="150"
+                x2="150"
+                y2="150"
+                stroke="#999"
+                stroke-width="2"
+                stroke-dasharray="5,5"
+              />
+              <line
+                x1="150"
+                y1="50"
+                x2="150"
+                y2="150"
+                stroke="#999"
+                stroke-width="2"
+                stroke-dasharray="5,5"
+              />
+              <!-- Sisi Depan (solid) -->
+              <rect
+                x="20"
+                y="80"
+                width="100"
+                height="100"
+                fill="none"
+                stroke="#333"
+                stroke-width="3"
+              />
+              <rect
+                x="80"
+                y="20"
+                width="100"
+                height="100"
+                fill="none"
+                stroke="#333"
+                stroke-width="3"
+              />
+              <!-- Konektor -->
+              <line
+                x1="20"
+                y1="80"
+                x2="80"
+                y2="20"
+                stroke="#333"
+                stroke-width="3"
+              />
+              <line
+                x1="120"
+                y1="80"
+                x2="180"
+                y2="20"
+                stroke="#333"
+                stroke-width="3"
+              />
+              <line
+                x1="20"
+                y1="180"
+                x2="80"
+                y2="120"
+                stroke="#333"
+                stroke-width="3"
+              />
+              <line
+                x1="120"
+                y1="180"
+                x2="180"
+                y2="120"
+                stroke="#333"
+                stroke-width="3"
+              />
+              <!-- Titik Sudut Merah -->
+              <circle cx="180" cy="20" r="4" fill="red" />
+              <text x="185" y="25" fill="red" font-size="12">Titik Sudut</text>
+            </svg>
+            <div
+              style="
+                font-size: 10pt;
+                font-style: italic;
+                color: #666;
+                margin-top: 5px;
+              "
+            >
+              Visualisasi Kubus Transparan
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 3. Materi B: Strategi Khusus (Dipisah agar tidak terpotong) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h2>B. Strategi Khusus OSN</h2>
+
+        <h3>1. Teknik Buka-Jaring (Unfolding Strategy)</h3>
+        <p>
+          Gunakan teknik ini untuk mencari <b>jarak terpendek</b> semut merayap
+          pada permukaan bangun ruang. Ubah lintasan 3D menjadi garis lurus pada
+          bidang datar 2D.
+        </p>
+
+        <div class="svg-container">
+          <svg width="400" height="120" viewBox="0 0 400 120">
+            <!-- Kotak 1 -->
+            <rect
+              x="50"
+              y="20"
+              width="80"
+              height="80"
+              fill="#fff3e0"
+              stroke="#ff9800"
+              stroke-width="2"
+            />
+            <!-- Kotak 2 -->
+            <rect
+              x="130"
+              y="20"
+              width="80"
+              height="80"
+              fill="#fff3e0"
+              stroke="#ff9800"
+              stroke-width="2"
+            />
+            <!-- Labels -->
+            <text x="90" y="65" text-anchor="middle" font-size="12">
+              Sisi 1
+            </text>
+            <text x="170" y="65" text-anchor="middle" font-size="12">
+              Sisi 2
+            </text>
+            <!-- Lintasan -->
+            <line
+              x1="60"
+              y1="30"
+              x2="200"
+              y2="90"
+              stroke="#1976d2"
+              stroke-width="3"
+              stroke-dasharray="5,5"
+              marker-end="url(#arrow)"
+            />
+            <circle cx="60" cy="30" r="3" fill="#1976d2" />
+            <circle cx="200" cy="90" r="3" fill="#1976d2" />
+            <text x="60" y="20" font-size="10" fill="#1976d2">Start</text>
+            <text x="200" y="110" font-size="10" fill="#1976d2">Finish</text>
+            <text x="220" y="60" font-size="12" fill="#333" font-style="italic">
+              Garis lurus = Jarak Terpendek
+            </text>
+
+            <defs>
+              <marker
+                id="arrow"
+                markerWidth="10"
+                markerHeight="10"
+                refX="0"
+                refY="3"
+                orient="auto"
+                markerUnits="strokeWidth"
+              >
+                <path d="M0,0 L0,6 L9,3 z" fill="#1976d2" />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+
+        <h3>2. Teknik Pewarnaan (Corner-Edge-Face)</h3>
+        <div class="tips-box">
+          Untuk soal kubus besar $n \times n \times n$ yang dicat bagian
+          luarnya:
+          <ul>
+            <li>
+              <b>3 Sisi Cat:</b> Ada di <b>Pojok</b> (Titik Sudut) $\rightarrow$
+              Selalu <b>8</b>.
+            </li>
+            <li>
+              <b>2 Sisi Cat:</b> Ada di <b>Rusuk</b> $\rightarrow$ Rumus: $12
+              \times (n-2)$.
+            </li>
+            <li>
+              <b>1 Sisi Cat:</b> Ada di <b>Tengah Sisi</b> $\rightarrow$ Rumus:
+              $6 \times (n-2)^2$.
+            </li>
+            <li>
+              <b>0 Sisi Cat:</b> Ada di <b>Dalam (Inti)</b> $\rightarrow$ Rumus:
+              $(n-2)^3$.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 4. Soal Level 1 (No 1-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 1: Konsep Dasar (Warm-up)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Sebuah prisma segi-lima beraturan memiliki $x$ sisi, $y$
+            rusuk, dan $z$ titik sudut. Berapakah nilai dari $x + y - z$?
+          </div>
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 15</div>
+            <div>C. 12</div>
+            <div>D. 17</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Berapa banyak bidang diagonal (bidang yang melintang di
+            dalam bangun) yang dimiliki oleh sebuah kubus?
+          </div>
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 6</div>
+            <div>C. 8</div>
+            <div>D. 12</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Aku adalah bangun ruang yang memiliki 5 sisi. Dua sisiku
+            berbentuk segitiga siku-siku yang kongruen, dan 3 sisiku berbentuk
+            persegi panjang. Siapakah aku?
+          </div>
+          <div class="options single-col">
+            <div>A. Prisma Segitiga</div>
+            <div>B. Limas Segitiga</div>
+            <div>C. Prisma Segiempat</div>
+            <div>D. Limas Segiempat</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Sebuah kubus dipotong miring pada salah satu pojoknya
+            (<i>vertex</i>) hingga pojok tersebut hilang dan membentuk permukaan
+            baru. Berapa jumlah rusuk kubus tersebut sekarang?
+          </div>
+          <div class="options">
+            <div>A. 12</div>
+            <div>B. 13</div>
+            <div>C. 14</div>
+            <div>D. 15</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Manakah bangun berikut yang jaring-jaringnya
+            <b>tidak mungkin</b> hanya terdiri dari rangkaian persegi panjang?
+          </div>
+          <div class="options">
+            <div>A. Balok</div>
+            <div>B. Prisma Segitiga</div>
+            <div>C. Kubus</div>
+            <div>D. Prisma Segiempat</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Dadu standar memiliki aturan: jumlah mata dadu pada sisi
+            berhadapan selalu 7. Jika sisi Depan = 2 dan Sisi Kanan = 4,
+            berapakah jumlah mata dadu sisi Belakang dan sisi Kiri?
+          </div>
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 7</div>
+            <div>C. 8</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Sebuah kawat panjang 1 meter akan dibuat kerangka balok
+            berukuran $10 \times 8 \times 5$ cm. Berapa cm sisa kawat yang tidak
+            terpakai?
+          </div>
+          <div class="options">
+            <div>A. 8 cm</div>
+            <div>B. 12 cm</div>
+            <div>C. 5 cm</div>
+            <div>D. 10 cm</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 5. Soal Level 1 & 2 (No 9-13) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Berapa banyak sisi pada bangun ruang sisi lengkung
+            Kerucut?
+          </div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 3</div>
+            <div>C. 4</div>
+            <div>D. 2</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Sebuah jaring-jaring kubus terdiri dari 6 persegi. Jika
+            disusun memanjang vertikal seperti huruf "I" ($1 \times 6$), apakah
+            bisa membentuk kubus?
+          </div>
+          <div class="options single-col">
+            <div>A. Bisa, asalkan dilipat spiral</div>
+            <div>B. Bisa, jika ada perekat yang kuat</div>
+            <div>C. Tidak Bisa, karena sisi akan bertumpuk</div>
+            <div>D. Tidak Bisa, karena jumlah persegi kurang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Bangun gabungan terdiri dari kubus (rusuk 5 cm) dan limas
+            segi empat (tinggi 6 cm) yang alasnya menempel pas di atas kubus.
+            Hitung volume total bangun tersebut.
+          </div>
+          <div class="options">
+            <div>A. 150 cm$^3$</div>
+            <div>B. 175 cm$^3$</div>
+            <div>C. 200 cm$^3$</div>
+            <div>D. 225 cm$^3$</div>
+          </div>
+        </div>
+
+        <div class="kategori-soal">
+          Level 2: Penalaran & Visualisasi (Medium)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Perhatikan jaring-jaring berikut. Jika nomor 3 adalah
+            ALAS kubus, nomor berapakah yang menjadi TUTUP kubus?
+            <div class="svg-container">
+              <svg width="200" height="150" viewBox="0 0 400 300">
+                <rect
+                  x="100"
+                  y="50"
+                  width="50"
+                  height="50"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <text x="125" y="80" text-anchor="middle" font-size="20">
+                  2
+                </text>
+                <rect
+                  x="150"
+                  y="50"
+                  width="50"
+                  height="50"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <text x="175" y="80" text-anchor="middle" font-size="20">
+                  1
+                </text>
+                <rect
+                  x="150"
+                  y="100"
+                  width="50"
+                  height="50"
+                  fill="#e3f2fd"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <text
+                  x="175"
+                  y="130"
+                  text-anchor="middle"
+                  font-size="20"
+                  font-weight="bold"
+                >
+                  3
+                </text>
+                <rect
+                  x="200"
+                  y="100"
+                  width="50"
+                  height="50"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <text x="225" y="130" text-anchor="middle" font-size="20">
+                  4
+                </text>
+                <rect
+                  x="150"
+                  y="150"
+                  width="50"
+                  height="50"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <text x="175" y="180" text-anchor="middle" font-size="20">
+                  5
+                </text>
+                <rect
+                  x="150"
+                  y="200"
+                  width="50"
+                  height="50"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <text x="175" y="230" text-anchor="middle" font-size="20">
+                  6
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 4</div>
+            <div>C. 5</div>
+            <div>D. 6</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Tiga buah kubus rusuk 10 cm disusun memanjang ke samping
+            (berderet). Berapakah luas permukaan bangun gabungan tersebut?
+          </div>
+          <div class="options">
+            <div>A. 1400 cm$^2$</div>
+            <div>B. 1200 cm$^2$</div>
+            <div>C. 1600 cm$^2$</div>
+            <div>D. 1800 cm$^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 6. Soal Level 2 Lanjutan (No 14-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Sebuah kubus pejal dicelupkan ke dalam cat merah. Setelah
+            kering, kubus itu dipotong-potong menjadi 64 kubus satuan kecil.
+            Berapa banyak kubus kecil yang memiliki tepat <b>dua</b> sisi
+            berwarna merah?
+          </div>
+          <div class="options">
+            <div>A. 16</div>
+            <div>B. 32</div>
+            <div>C. 24</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Selembar kertas persegi panjang akan dibuat selimut
+            tabung. Jika digulung ke arah panjang (sisi panjang jadi keliling),
+            volumenya $V_1$. Jika digulung ke arah lebar, volumenya $V_2$. Jika
+            panjang kertas 2 kali lebarnya, tentukan perbandingan $V_1 : V_2$.
+          </div>
+          <div class="options">
+            <div>A. 2 : 1</div>
+            <div>B. 1 : 1</div>
+            <div>C. 1 : 2</div>
+            <div>D. 4 : 1</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Sebuah limas T.ABCD dipotong horizontal tepat di tengah
+            tingginya. Berapakah perbandingan volume limas kecil (bagian atas)
+            dengan volume bagian bawah (limas terpancung)?
+          </div>
+          <div class="options">
+            <div>A. 1 : 4</div>
+            <div>B. 1 : 7</div>
+            <div>C. 1 : 8</div>
+            <div>D. 1 : 2</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Budi melihat tumpukan kubus dari depan terlihat susunan 3
+            kolom dengan tinggi (2, 3, 1). Dari samping kanan terlihat susunan
+            (3, 2). Berapa jumlah <b>minimum</b> kubus yang mungkin menyusun
+            bangunan tersebut?
+          </div>
+          <div class="options">
+            <div>A. 5</div>
+            <div>B. 7</div>
+            <div>C. 6</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Pada jaring-jaring kubus, sisi A ada di kiri sisi B, sisi
+            C ada di kanan sisi B, dan sisi D ada di atas sisi B. Sisi manakah
+            yang berhadapan dengan sisi D?
+          </div>
+          <div class="options">
+            <div>A. Sisi A</div>
+            <div>B. Sisi C</div>
+            <div>C. Sisi Belakang B</div>
+            <div>D. Sisi Bawah B</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Sebuah kolam renang berbentuk prisma trapesium (alasnya
+            trapesium). Kedalaman di ujung dangkal 1 m, di ujung dalam 3 m.
+            Panjang kolam 20 m, lebar 10 m. Hitung volume air kolam tersebut!
+          </div>
+          <div class="options">
+            <div>A. 200 m$^3$</div>
+            <div>B. 400 m$^3$</div>
+            <div>C. 500 m$^3$</div>
+            <div>D. 300 m$^3$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Jika panjang rusuk sebuah kubus ditambah 50%, maka luas
+            permukaannya akan bertambah berapa persen?
+          </div>
+          <div class="options">
+            <div>A. 50%</div>
+            <div>B. 100%</div>
+            <div>C. 125%</div>
+            <div>D. 225%</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 7. Soal Level 3 Part 1 (No 21-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Sebuah semut berjalan mengelilingi permukaan silinder
+            (tabung) dari titik A di alas bawah ke titik B di alas atas yang
+            posisinya tegak lurus di atas A. Semut itu berjalan melingkar tepat
+            satu putaran penuh. Jika tinggi tabung 12 cm dan keliling alas 5 cm,
+            berapa panjang lintasan semut?
+          </div>
+          <div class="options">
+            <div>A. 13 cm</div>
+            <div>B. 12 cm</div>
+            <div>C. 17 cm</div>
+            <div>D. 25 cm</div>
+          </div>
+        </div>
+        <div class="kategori-soal">Level 3: HOTS & Tipe OSN (Sulit)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> <b>Kubus Berlubang:</b> Sebuah kubus besar $4 \times 4
+            \times 4$ disusun dari 64 kubus satuan. Kemudian, semua kubus satuan
+            yang terletak di <b>kolom tegak lurus</b> yang menembus pusat dari
+            depan-belakang, kiri-kanan, dan atas-bawah dibuang. (Ingat: Kolom
+            pusat berukuran $2 \times 2$ yang berpotongan). Berapa kubus satuan
+            yang tersisa?
+          </div>
+          <div class="options">
+            <div>A. 16</div>
+            <div>B. 8</div>
+            <div>C. 32</div>
+            <div>D. 44</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> <b>Teka-teki Tumpukan Dadu:</b> Terdapat 3 buah dadu
+            standar yang ditumpuk vertikal. Diketahui jumlah total mata dadu
+            pada sisi-sisi yang saling berimpit (menempel) adalah 12. Jika angka
+            pada permukaan paling atas tumpukan adalah 4, tentukan angka pada
+            permukaan paling bawah yang menyentuh lantai!
+          </div>
+          <div class="options">
+            <div>A. 2</div>
+            <div>B. 3</div>
+            <div>C. 6</div>
+            <div>D. 5</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> <b>Jarak Terpendek Semut:</b> Seekor semut berada di
+            titik sudut A pada kubus dengan rusuk 6 cm. Semut ingin pergi ke
+            titik sudut G (pojok terjauh) melalui permukaan kubus. Jika semut
+            harus menghindari tepat titik tengah rusuk, manakah yang paling
+            mendekati jarak terpendeknya?
+          </div>
+          <div class="options">
+            <div>A. $6\sqrt{3}$ cm</div>
+            <div>B. 12 cm</div>
+            <div>C. $6\sqrt{5}$ cm</div>
+            <div>D. 10 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> <b>Pewarnaan Kompleks:</b> Sebuah balok berukuran $5
+            \times 4 \times 3$ dicat hijau seluruh permukaannya, lalu dipotong
+            menjadi kubus satuan 1x1x1. Berapakah selisih antara kubus yang
+            terkena cat di 2 sisi dengan kubus yang tidak terkena cat sama
+            sekali?
+          </div>
+          <div class="options">
+            <div>A. 12</div>
+            <div>B. 18</div>
+            <div>C. 16</div>
+            <div>D. 24</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> <b>Rotasi Dadu:</b> Dadu berada di lantai. Posisi awal:
+            Atas=1, Depan=2, Kanan=3. Dadu digulingkan: Maju, Maju, Kanan,
+            Mundur, Kanan. Angka berapa di sisi ATAS sekarang?
+          </div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 2</div>
+            <div>C. 5</div>
+            <div>D. 6</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 8. Soal Level 3 Part 2 (No 26-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> <b>Eksplorasi Euler Bola:</b> Bola sepak standar dijahit
+            dari 12 segilima (pentagon) dan 20 segienam (heksagon). Berapa
+            jumlah titik sudut (<i>vertex</i>) pada bola tersebut?
+          </div>
+          <div class="options">
+            <div>A. 32</div>
+            <div>B. 90</div>
+            <div>C. 60</div>
+            <div>D. 120</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> <b>Potongan Sudut:</b> Setiap titik sudut (pojok) dari
+            sebuah kubus dipotong sehingga menghasilkan permukaan segitiga baru
+            (<i>Truncated Cube</i>). Berapa total rusuk yang dimiliki bangun
+            baru ini?
+          </div>
+          <div class="options">
+            <div>A. 24</div>
+            <div>B. 30</div>
+            <div>C. 48</div>
+            <div>D. 36</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> <b>Visualisasi Proyeksi:</b> Berapa banyak maksimal kubus
+            satuan yang bisa disusun sehingga: Tampak Depan persegi $3 \times
+            3$, Tampak Kanan persegi $3 \times 3$, tapi Tampak Atas hanya 5
+            persegi menyilang (bentuk X)?
+          </div>
+          <div class="options">
+            <div>A. 15</div>
+            <div>B. 13</div>
+            <div>C. 9</div>
+            <div>D. 27</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> <b>Logika Volume:</b> Wadah kerucut terbalik berisi air
+            setengah dari <b>tingginya</b>. Berapakah perbandingan volume air
+            dengan kapasitas total wadah?
+          </div>
+          <div class="options">
+            <div>A. 1 : 2</div>
+            <div>B. 1 : 8</div>
+            <div>C. 1 : 4</div>
+            <div>D. 1 : 16</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> <b>Jaring-jaring:</b> Berapa banyak pola jaring-jaring
+            berbeda (non-kongruen) yang dapat membentuk sebuah kubus?
+          </div>
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 9</div>
+            <div>C. 11</div>
+            <div>D. 15</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 9. Pembahasan Level 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 (Mudah)</h1>
+
+        <div class="soal-latihan">
+          <b>1. Jawaban: C (12)</b>
+          <div class="pembahasan">
+            Prisma segi-5: Sisi ($x$) = 7, Rusuk ($y$) = 15, Titik Sudut ($z$) =
+            10. <br />
+            Maka $x + y - z = 7 + 15 - 10 = 12$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: B (6)</b>
+          <div class="pembahasan">
+            Kubus memiliki 6 bidang diagonal (persegi panjang yang membelah
+            kubus secara miring, contoh ACGE pada kubus ABCD.EFGH).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: A (Prisma Segitiga)</b>
+          <div class="pembahasan">
+            Memiliki 2 sisi alas/tutup (segitiga) dan 3 sisi tegak (persegi
+            panjang).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: D (15)</b>
+          <div class="pembahasan">
+            Rusuk awal kubus = 12. Satu pojok dipotong menghasilkan bidang
+            irisan berbentuk segitiga, sehingga menambah 3 rusuk baru. Total =
+            $12 + 3 = 15$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: B (Prisma Segitiga)</b>
+          <div class="pembahasan">
+            Jaring-jaring prisma segitiga pasti mengandung 2 sisi segitiga,
+            sehingga tidak mungkin <b>hanya</b> terdiri dari persegi panjang
+            saja (seperti balok atau kubus).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>6. Jawaban: C (8)</b>
+          <div class="pembahasan">
+            Depan 2 $\rightarrow$ Belakang 5. Kanan 4 $\rightarrow$ Kiri 3.
+            <br />
+            Jumlah Belakang + Kiri = $5 + 3 = 8$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>7. Jawaban: A (8 cm)</b>
+          <div class="pembahasan">
+            Panjang kerangka = $4 \times (10 + 8 + 5) = 4 \times 23 = 92$ cm.
+            <br />
+            Sisa = $100 - 92 = 8$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: D (2)</b>
+          <div class="pembahasan">
+            Sisi kerucut ada 2: Sisi alas (lingkaran) dan sisi selimut
+            (lengkung).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: C (Tidak Bisa)</b>
+          <div class="pembahasan">
+            Susunan 1x6 akan saling bertumpuk saat dilipat dan tidak akan
+            memiliki sisi yang menutup bagian samping kiri/kanan.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 10. Pembahasan Level 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>10. Jawaban: B (175 cm$^3$)</b>
+          <div class="pembahasan">
+            Vol Kubus = $5^3 = 125$. Vol Limas = $\frac{1}{3} \times 5^2 \times
+            6 = 50$. <br />
+            Total = $125 + 50 = 175$.
+          </div>
+        </div>
+        <h1>Pembahasan: Level 2 (Sedang)</h1>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: D (6)</b>
+          <div class="pembahasan">
+            Gunakan visualisasi lipatan: Jika 3 adalah alas, maka 2 adalah sisi
+            kiri, 4 adalah sisi kanan, 1 adalah sisi belakang, 5 adalah sisi
+            depan. Sisi 6 (yang menempel di bawah 5) akan melipat menjadi tutup.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: A (1400 cm$^2$)</b>
+          <div class="pembahasan">
+            Total sisi jika terpisah = $3 \times 6 = 18$ sisi. Ada 2 sambungan,
+            tiap sambungan menghilangkan 2 sisi (1 dari kubus kiri, 1 dari
+            kanan). Total sisi hilang = 4. <br />
+            Sisa sisi = 14. Luas = $14 \times (10 \times 10) = 1400$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>13. Jawaban: C (24)</b>
+          <div class="pembahasan">
+            Kubus dengan 2 sisi cat berada di rusuk (tetapi bukan pojok). <br />
+            Rumus: $12 \times (n-2)$. Karena 64 kubus = $4^3$, maka $n=4$.
+            <br />
+            Hasil = $12 \times (4-2) = 24$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: A (2 : 1)</b>
+          <div class="pembahasan">
+            Volume tabung $\sim r^2$. Jika digulung arah panjang, keliling
+            lingkaran lebih besar $\rightarrow$ jari-jari lebih besar. <br />
+            Jika panjang = $2 \times$ lebar, maka jari-jari tabung 1 adalah 2
+            kali tabung 2. <br />
+            $V_1 : V_2 = 2 : 1$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: B (1 : 7)</b>
+          <div class="pembahasan">
+            Volume limas kecil (potongan atas) = $(1/2)^3 = 1/8$ dari volume
+            total. <br />
+            Maka volume bagian bawah (terpancung) = $7/8$. Rasio = 1 : 7.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>16. Jawaban: C (6)</b>
+          <div class="pembahasan">
+            Agar tampak depan (2, 3, 1) dan samping (3, 2): <br />
+            Posisi (1,2) tinggi 3. Posisi (2,1) tinggi 2. Posisi (1,3) tinggi 1.
+            Total = $3+2+1=6$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>17. Jawaban: D (Sisi Bawah B)</b>
+          <div class="pembahasan">
+            Jika D terletak di atas B, maka sisi yang berhadapan dengan D (Atas)
+            pastilah sisi yang berada di Bawah B.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- 11. Pembahasan Level 3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>18. Jawaban: B (400 m$^3$)</b>
+          <div class="pembahasan">
+            Luas alas trapesium = $\frac{1+3}{2} \times 20 = 40$ m$^2$. <br />
+            Volume = Luas Alas $\times$ Lebar = $40 \times 10 = 400$ m$^3$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>19. Jawaban: C (125%)</b>
+          <div class="pembahasan">
+            Rusuk menjadi 1,5 kali. Luas permukaan sebanding dengan kuadrat
+            rusuk $\rightarrow (1,5)^2 = 2,25$ kali. <br />
+            Kenaikan = $2,25 - 1 = 1,25 = 125\%$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: A (13 cm)</b>
+          <div class="pembahasan">
+            Buka selimut tabung menjadi persegi panjang. Jarak tempuh semut
+            adalah diagonal dari persegi panjang dengan tinggi 12 cm dan lebar
+            (keliling) 5 cm. <br />
+            Pythagoras: $\sqrt{12^2 + 5^2} = \sqrt{144+25} = \sqrt{169} = 13$
+            cm.
+          </div>
+        </div>
+        <h1>Pembahasan: Level 3 (HOTS)</h1>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: C (32)</b>
+          <div class="pembahasan">
+            Kubus 4x4x4 (genap). Kolom tengah adalah blok 2x2. <br />
+            Jika kita membuang kolom tengah dari arah depan, samping, dan atas,
+            kita membuang semua bagian inti dan bagian tengah sisi. <br />
+            Yang tersisa hanyalah bagian kulit terluar di pojok-pojok. Ada 8
+            pojok, masing-masing terdiri dari blok 2x2x1 (yang menempel pada
+            sisi luar tapi tidak di tengah). Atau sederhananya: Total awal 64.
+            Dibuang 32 (inti dan kolom). Sisa 32.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>22. Jawaban: D (5)</b>
+          <div class="pembahasan">
+            Atas 4 $\rightarrow$ Bawah 3. <br />
+            Diketahui Total Impitan = 12. Impitan ada 2 pasang: (Bawah D1 + Atas
+            D2) dan (Bawah D2 + Atas D3). <br />
+            $3 + (Atas D2 + Bawah D2) + Atas D3 = 12$. <br />
+            $3 + 7 + Atas D3 = 12 \rightarrow 10 + Atas D3 = 12 \rightarrow Atas
+            D3 = 2$. <br />
+            Jika Atas D3 adalah 2, maka Bawah D3 (Lantai) adalah <b>5</b>.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>23. Jawaban: C ($6\sqrt{5}$ cm)</b>
+          <div class="pembahasan">
+            Gunakan teknik <i>Unfolding</i>. Buka sisi kubus menjadi persegi
+            panjang berukuran $12 \times 6$ (dua sisi berdampingan). <br />
+            Diagonal = $\sqrt{12^2 + 6^2} = \sqrt{144 + 36} = \sqrt{180} =
+            6\sqrt{5}$. <br />
+            Catatan: Garis lurus ini secara matematis melewati titik tengah
+            rusuk. Namun, karena soal meminta "paling mendekati" atau jarak
+            optimal dengan pergeseran minimal (limit), jawabannya tetap
+            $6\sqrt{5}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: B (18)</b>
+          <div class="pembahasan">
+            Kubus 2 sisi cat (Rusuk): $4 \times [(5-2) + (4-2) + (3-2)] = 4
+            \times (3+2+1) = 24$. <br />
+            Kubus 0 sisi cat (Inti): $(5-2)(4-2)(3-2) = 3 \times 2 \times 1 =
+            6$. <br />
+            Selisih = $24 - 6 = 18$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>25. Jawaban: A (1)</b>
+          <div class="pembahasan">
+            Simulasi: Awal (Atas 1). Maju (Atas 5). Maju (Atas 6). Kanan (Atas
+            4). Mundur (Atas 5). Kanan (Atas 1).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: C (60)</b>
+          <div class="pembahasan">
+            Gunakan Euler: $V - E + F = 2$. <br />
+            Total Sisi ($F$) = 12 (pentagon) + 20 (heksagon) = 32. <br />
+            Total Rusuk ($E$) = $\frac{12 \times 5 + 20 \times 6}{2} =
+            \frac{180}{2} = 90$. <br />
+            $V - 90 + 32 = 2 \Rightarrow V = 60$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>27. Jawaban: D (36)</b>
+          <div class="pembahasan">
+            Rusuk lama kubus = 12. Setiap pemotongan pojok menghasilkan 3 rusuk
+            baru (segitiga). <br />
+            Total rusuk = $12 + (8 \times 3) = 12 + 24 = 36$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: A (15)</b>
+          <div class="pembahasan">
+            Pola X pada alas terdiri dari 5 kotak. Agar tampak depan dan kanan
+            penuh (3x3), kita harus memaksimalkan tinggi tumpukan pada pola X
+            tersebut. <br />
+            Maksimal: Isi ke-5 posisi tersebut dengan tinggi 3. <br />
+            Total = $5 \times 3 = 15$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: B (1 : 8)</b>
+          <div class="pembahasan">
+            Volume kerucut sebanding dengan pangkat tiga tingginya ($V \sim
+            h^3$). <br />
+            Jika tinggi air $\frac{1}{2}$ tinggi wadah, maka volumenya
+            $(\frac{1}{2})^3 = \frac{1}{8}$ volume total.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: C (11)</b>
+          <div class="pembahasan">
+            Terdapat tepat 11 pola heksomino (susunan 6 persegi) yang dapat
+            dilipat menjadi kubus.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
