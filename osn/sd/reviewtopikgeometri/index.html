@@ -1,0 +1,2231 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Geometri (Pilihan Ganda)</title>
+    <!-- MathJax Configuration -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e8f5e9;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+        overflow: hidden; /* Mencegah overflow visual */
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      /* Watermark */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #1b5e20;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #2e7d32;
+      }
+      .soal-latihan {
+        margin-bottom: 25px; /* Sedikit dilonggarkan karena 1 halaman 3 soal */
+        break-inside: avoid;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 5px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--accent-green);
+        padding: 15px 20px; /* Padding lebih besar agar lega */
+        margin-top: 10px;
+        text-align: justify;
+        font-size: 11pt; /* Font sedikit diperbesar */
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+      }
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      ul,
+      ol {
+        margin-top: 0;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      .two-col-layout {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .two-col-left {
+        flex: 2;
+      }
+      .two-col-right {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">MODUL OSN-K<br />Matematika SD</h1>
+        <p class="cover-subtitle">Topik: Geometri (Pilihan Ganda)</p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi (1/2)</h1>
+
+        <div class="tips-box">
+          <div class="two-col-layout">
+            <div class="two-col-left">
+              <b>Fondasi Penting Geometri</b>
+              <ul>
+                <li>
+                  <b>Pythagoras:</b> Pada segitiga siku-siku dengan alas $a$,
+                  tinggi $b$, dan hipotenusa $c$, berlaku $a^2 + b^2 = c^2$.
+                </li>
+                <li>
+                  <b>Triple Pythagoras (Wajib Hafal):</b><br />
+                  (3, 4, 5), (5, 12, 13), (6, 8, 10), (7, 24, 25).
+                </li>
+                <li>
+                  <b>Jumlah Sudut:</b> Segitiga ($180^\circ$), Segiempat
+                  ($360^\circ$).
+                </li>
+              </ul>
+            </div>
+            <div class="two-col-right">
+              <!-- SVG Segitiga Siku-siku (REVISI: ViewBox diperlebar agar teks hipotenusa tidak terpotong) -->
+              <svg width="150" height="100" viewBox="0 0 150 100">
+                <path
+                  d="M 20,80 L 100,80 L 20,20 Z"
+                  fill="#e3f2fd"
+                  stroke="#333"
+                  stroke-width="2"
+                />
+                <rect
+                  x="20"
+                  y="70"
+                  width="10"
+                  height="10"
+                  fill="none"
+                  stroke="#333"
+                />
+                <text
+                  x="60"
+                  y="95"
+                  font-family="Nunito"
+                  font-size="12"
+                  text-anchor="middle"
+                >
+                  a (alas)
+                </text>
+                <text
+                  x="10"
+                  y="50"
+                  font-family="Nunito"
+                  font-size="12"
+                  text-anchor="middle"
+                  transform="rotate(-90 10,50)"
+                >
+                  b (tinggi)
+                </text>
+                <text x="70" y="45" font-family="Nunito" font-size="12">
+                  c (hipotenusa)
+                </text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <h2>1. Sifat dan Pengukuran Bangun Datar</h2>
+        <h3>A. Segiempat Istimewa</h3>
+        <ul>
+          <li>
+            <b>Persegi:</b> Sisi sama panjang, sudut $90^\circ$, diagonal tegak
+            lurus & sama panjang.
+          </li>
+          <li>
+            <b>Belah Ketupat:</b> Sisi sama panjang, sudut berhadapan sama,
+            <b>diagonal tegak lurus</b>. $L = \frac{1}{2} \times d_1 \times
+            d_2$.
+          </li>
+          <li>
+            <b>Layang-layang:</b> Dua pasang sisi sama,
+            <b>diagonal tegak lurus</b>.
+          </li>
+        </ul>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi (2/2)</h1>
+
+        <h3>B. Lingkaran (Visualisasi Unsur)</h3>
+        <div class="svg-container">
+          <svg width="400" height="200" viewBox="0 0 400 200">
+            <!-- Juring -->
+            <g transform="translate(50, 30)">
+              <circle
+                cx="70"
+                cy="70"
+                r="70"
+                fill="white"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <path
+                d="M 70,70 L 140,70 A 70,70 0 0,0 125.6,26.4 Z"
+                fill="#ffebee"
+                stroke="none"
+              />
+              <line
+                x1="70"
+                y1="70"
+                x2="140"
+                y2="70"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <line
+                x1="70"
+                y1="70"
+                x2="125.6"
+                y2="26.4"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <path
+                d="M 140,70 A 70,70 0 0,0 125.6,26.4"
+                fill="none"
+                stroke="#d32f2f"
+                stroke-width="4"
+              />
+              <circle cx="70" cy="70" r="4" fill="#333" />
+              <text
+                x="50"
+                y="90"
+                font-family="Nunito"
+                font-size="12"
+                font-weight="bold"
+              >
+                Pusat
+              </text>
+              <text
+                x="95"
+                y="60"
+                font-family="Nunito"
+                font-weight="bold"
+                font-size="12"
+                fill="#d32f2f"
+              >
+                Juring
+              </text>
+              <text
+                x="150"
+                y="40"
+                font-family="Nunito"
+                font-weight="bold"
+                font-size="12"
+                fill="#d32f2f"
+              >
+                Busur
+              </text>
+              <text
+                x="90"
+                y="85"
+                font-family="Nunito"
+                font-size="10"
+                transform="rotate(-15 90,85)"
+              >
+                r (Jari-jari)
+              </text>
+            </g>
+            <!-- Tembereng -->
+            <g transform="translate(230, 30)">
+              <circle
+                cx="70"
+                cy="70"
+                r="70"
+                fill="white"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <path
+                d="M 6.8,100 A 70,70 0 0,0 133.2,100 Z"
+                fill="#e3f2fd"
+                stroke="none"
+              />
+              <line
+                x1="6.8"
+                y1="100"
+                x2="133.2"
+                y2="100"
+                stroke="#1565c0"
+                stroke-width="3"
+              />
+              <text
+                x="70"
+                y="90"
+                font-family="Nunito"
+                font-weight="bold"
+                font-size="12"
+                text-anchor="middle"
+                fill="#1565c0"
+              >
+                Tali Busur
+              </text>
+              <text
+                x="70"
+                y="125"
+                font-family="Nunito"
+                font-weight="bold"
+                font-size="12"
+                text-anchor="middle"
+                fill="#333"
+              >
+                Tembereng
+              </text>
+            </g>
+          </svg>
+        </div>
+
+        <h2>2. Geometri Ruang & Visualisasi</h2>
+        <h3>A. Kubus dan Jaring-jaring</h3>
+        <ul>
+          <li><b>Kubus:</b> $V = s^3$, $LP = 6s^2$.</li>
+          <li>
+            <b>Pola Jaring-jaring:</b> Sisi yang "melompat satu kotak" adalah
+            sisi yang berhadapan.
+          </li>
+        </ul>
+        <div class="svg-container">
+          <svg width="250" height="120" viewBox="0 0 250 120">
+            <rect
+              x="50"
+              y="40"
+              width="40"
+              height="40"
+              fill="white"
+              stroke="#333"
+              stroke-width="2"
+            />
+            <text
+              x="70"
+              y="65"
+              font-family="Nunito"
+              font-size="10"
+              text-anchor="middle"
+            >
+              Kiri
+            </text>
+            <rect
+              x="90"
+              y="40"
+              width="40"
+              height="40"
+              fill="white"
+              stroke="#333"
+              stroke-width="2"
+            />
+            <text
+              x="110"
+              y="65"
+              font-family="Nunito"
+              font-size="10"
+              text-anchor="middle"
+            >
+              Depan
+            </text>
+            <rect
+              x="130"
+              y="40"
+              width="40"
+              height="40"
+              fill="white"
+              stroke="#333"
+              stroke-width="2"
+            />
+            <text
+              x="150"
+              y="65"
+              font-family="Nunito"
+              font-size="10"
+              text-anchor="middle"
+            >
+              Kanan
+            </text>
+            <rect
+              x="170"
+              y="40"
+              width="40"
+              height="40"
+              fill="white"
+              stroke="#333"
+              stroke-width="2"
+            />
+            <text
+              x="190"
+              y="65"
+              font-family="Nunito"
+              font-size="10"
+              text-anchor="middle"
+            >
+              Blkng
+            </text>
+            <rect
+              x="90"
+              y="0"
+              width="40"
+              height="40"
+              fill="#c8e6c9"
+              stroke="#333"
+              stroke-width="2"
+            />
+            <text
+              x="110"
+              y="25"
+              font-family="Nunito"
+              font-size="10"
+              text-anchor="middle"
+            >
+              Atas
+            </text>
+            <rect
+              x="90"
+              y="80"
+              width="40"
+              height="40"
+              fill="#c8e6c9"
+              stroke="#333"
+              stroke-width="2"
+            />
+            <text
+              x="110"
+              y="105"
+              font-family="Nunito"
+              font-size="10"
+              text-anchor="middle"
+            >
+              Bawah
+            </text>
+          </svg>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level Medium: Aplikasi & Analisis (1/3)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Pak Budi ingin memasang keramik pada lantai ruang tamunya
+            yang berbentuk persegi panjang berukuran $12 \text{ m} \times 10
+            \text{ m}$. Tepat di tengah ruangan tersebut terdapat kolam ikan
+            berbentuk lingkaran dengan diameter 2,8 meter yang tidak akan
+            dipasangi keramik. Jika keramik yang digunakan berukuran $40 \text{
+            cm} \times 40 \text{ cm}$, berapakah jumlah minimal keramik utuh
+            yang dibutuhkan untuk menutup seluruh bagian lantai tersebut?
+            (Gunakan $\pi = \frac{22}{7}$)
+          </div>
+          <div class="options">
+            <div>A. 710</div>
+            <div>B. 711</div>
+            <div>C. 715</div>
+            <div>D. 712</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Tentukan besar sudut terkecil yang dibentuk oleh jarum jam
+            (jarum pendek) dan jarum menit (jarum panjang) pada saat pukul
+            10.10.
+          </div>
+          <div class="options">
+            <div>A. $110^\circ$</div>
+            <div>B. $120^\circ$</div>
+            <div>C. $115^\circ$</div>
+            <div>D. $125^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Sebuah bak mandi berbentuk balok dengan ukuran alas $80
+            \text{ cm} \times 50 \text{ cm}$ dan tinggi $60 \text{ cm}$. Bak
+            tersebut berisi air sebanyak $\frac{2}{3}$ bagian. Jika sebuah kubus
+            besi pejal dengan panjang rusuk 20 cm dimasukkan ke dalam bak hingga
+            tenggelam seluruhnya, berapakah kenaikan tinggi permukaan air dalam
+            bak tersebut?
+          </div>
+          <div class="options">
+            <div>A. 2 cm</div>
+            <div>B. 3 cm</div>
+            <div>C. 4 cm</div>
+            <div>D. 5 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Pak Dengklek memiliki kawat sepanjang <b>3 meter</b>. Ia
+            ingin membuat kerangka bangun gabungan kubus (rusuk 15 cm) dan limas
+            segiempat beraturan di atasnya (rusuk tegak 20 cm). Berapakah sisa
+            kawat Pak Dengklek?
+          </div>
+          <div class="svg-container">
+            <!-- REVISI: Menambahkan garis putus-putus alas belakang yang kurang -->
+            <svg width="120" height="160" viewBox="0 0 120 160">
+              <rect
+                x="20"
+                y="60"
+                width="60"
+                height="60"
+                fill="none"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="20"
+                y1="60"
+                x2="40"
+                y2="40"
+                stroke="#333"
+                stroke-width="1.5"
+                stroke-dasharray="4"
+              />
+              <line
+                x1="80"
+                y1="60"
+                x2="100"
+                y2="40"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="100"
+                y1="100"
+                x2="100"
+                y2="40"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="80"
+                y1="60"
+                x2="100"
+                y2="40"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="80"
+                y1="60"
+                x2="100"
+                y2="40"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="20"
+                y1="60"
+                x2="80"
+                y2="60"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="40"
+                y1="40"
+                x2="100"
+                y2="40"
+                stroke="#333"
+                stroke-width="1.5"
+                stroke-dasharray="4"
+              />
+
+              <line
+                x1="40"
+                y1="40"
+                x2="40"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+                stroke-dasharray="4"
+              />
+              <!-- Back Bottom Horizontal (Hidden) - SUDAH DITAMBAHKAN -->
+              <line
+                x1="40"
+                y1="100"
+                x2="100"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+                stroke-dasharray="4"
+              />
+
+              <line
+                x1="80"
+                y1="120"
+                x2="100"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+
+              <rect
+                x="20"
+                y="60"
+                width="60"
+                height="60"
+                fill="none"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+
+              <line
+                x1="20"
+                y1="60"
+                x2="40"
+                y2="40"
+                stroke="#333"
+                stroke-width="1.5"
+                stroke-dasharray="4"
+              />
+              <line
+                x1="80"
+                y1="60"
+                x2="100"
+                y2="40"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="80"
+                y1="120"
+                x2="100"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="20"
+                y1="120"
+                x2="40"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+                stroke-dasharray="4"
+              />
+
+              <line
+                x1="40"
+                y1="40"
+                x2="100"
+                y2="40"
+                stroke="#333"
+                stroke-width="1.5"
+                stroke-dasharray="4"
+              />
+              <line
+                x1="100"
+                y1="40"
+                x2="100"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="40"
+                y1="100"
+                x2="100"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+                stroke-dasharray="4"
+              />
+              <line
+                x1="40"
+                y1="40"
+                x2="40"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+                stroke-dasharray="4"
+              />
+
+              <coordinate id="peak" x="60" y="10" />
+              <line
+                x1="20"
+                y1="60"
+                x2="60"
+                y2="10"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="80"
+                y1="60"
+                x2="60"
+                y2="10"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="100"
+                y1="40"
+                x2="60"
+                y2="10"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="40"
+                y1="40"
+                x2="60"
+                y2="10"
+                stroke="#333"
+                stroke-width="1.5"
+                stroke-dasharray="4"
+              />
+            </svg>
+          </div>
+          <div class="options">
+            <div>A. 20 cm</div>
+            <div>B. 40 cm</div>
+            <div>C. 50 cm</div>
+            <div>D. 60 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Suatu persegi panjang memiliki luas $240 \text{ cm}^2$.
+            Jika panjangnya ditambah sebesar 25% dan lebarnya dikurangi sebesar
+            20%, berapakah luas persegi panjang yang baru?
+          </div>
+          <div class="options">
+            <div>A. $230 \text{ cm}^2$</div>
+            <div>B. $250 \text{ cm}^2$</div>
+            <div>C. $240 \text{ cm}^2$</div>
+            <div>D. $260 \text{ cm}^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level Medium: Aplikasi & Analisis (2/3)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Tiga buah persegi dengan panjang sisi berturut-turut 4 cm,
+            6 cm, dan 4 cm disusun berdampingan secara mendatar pada satu garis
+            lurus. Sebuah garis lurus ditarik dari titik sudut kiri atas persegi
+            pertama menuju titik sudut kanan bawah persegi ketiga. Berapakah
+            luas daerah yang dibatasi oleh garis tersebut, sisi-sisi tegak
+            persegi, dan garis alas?
+          </div>
+          <div class="svg-container">
+            <svg width="200" height="80" viewBox="0 0 200 80">
+              <rect
+                x="10"
+                y="40"
+                width="40"
+                height="40"
+                fill="#f5f5f5"
+                stroke="#333"
+              />
+              <rect
+                x="50"
+                y="20"
+                width="60"
+                height="60"
+                fill="#f5f5f5"
+                stroke="#333"
+              />
+              <rect
+                x="110"
+                y="40"
+                width="40"
+                height="40"
+                fill="#f5f5f5"
+                stroke="#333"
+              />
+              <line
+                x1="10"
+                y1="40"
+                x2="150"
+                y2="80"
+                stroke="red"
+                stroke-width="2"
+              />
+              <text x="30" y="70" font-family="Nunito" font-size="10">4</text>
+              <text x="80" y="70" font-family="Nunito" font-size="10">6</text>
+              <text x="130" y="70" font-family="Nunito" font-size="10">4</text>
+            </svg>
+          </div>
+          <div class="options">
+            <div>A. $28 \text{ cm}^2$</div>
+            <div>B. $26 \text{ cm}^2$</div>
+            <div>C. $24 \text{ cm}^2$</div>
+            <div>D. $30 \text{ cm}^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Diketahui luas total jaring-jaring sebuah kubus adalah
+            $294 \text{ cm}^2$. Berapakah volume kubus tersebut?
+          </div>
+          <div class="options">
+            <div>A. $216 \text{ cm}^3$</div>
+            <div>B. $512 \text{ cm}^3$</div>
+            <div>C. $729 \text{ cm}^3$</div>
+            <div>D. $343 \text{ cm}^3$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Dua buah lingkaran memiliki pusat yang sama (konsentris).
+            Jari-jari lingkaran besar adalah 14 cm dan jari-jari lingkaran kecil
+            adalah 7 cm. Berapakah luas daerah di antara kedua lingkaran
+            tersebut (luas cincin)?
+          </div>
+          <div class="options">
+            <div>A. $154 \text{ cm}^2$</div>
+            <div>B. $462 \text{ cm}^2$</div>
+            <div>C. $308 \text{ cm}^2$</div>
+            <div>D. $616 \text{ cm}^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Diketahui luas segitiga $ABC$ adalah $100 \text{ cm}^2$.
+            Titik $D$ terletak pada sisi $AB$ sedemikian sehingga perbandingan
+            $AD : DB = 2 : 3$. Berapakah luas segitiga $ADC$?
+          </div>
+          <div class="options">
+            <div>A. $40 \text{ cm}^2$</div>
+            <div>B. $30 \text{ cm}^2$</div>
+            <div>C. $20 \text{ cm}^2$</div>
+            <div>D. $50 \text{ cm}^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Sebuah bangun ruang disusun dari tumpukan kubus-kubus
+            satuan. Alas bangun tersebut menempati area seluas $2 \times 3$
+            satuan persegi di lantai. Jika diketahui tinggi tumpukan tertinggi
+            adalah 5 kubus satuan, berapakah volume <b>maksimum</b> yang mungkin
+            dari bangun tersebut?
+          </div>
+          <div class="options">
+            <div>A. 25</div>
+            <div>B. 28</div>
+            <div>C. 32</div>
+            <div>D. 30</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level Medium: Aplikasi & Analisis (3/3)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Diketahui sudut A dan sudut B saling berpelurus. Jika
+            besar sudut A adalah 4 kali besar sudut B, tentukan selisih besar
+            kedua sudut tersebut.
+          </div>
+          <div class="options">
+            <div>A. $72^\circ$</div>
+            <div>B. $108^\circ$</div>
+            <div>C. $90^\circ$</div>
+            <div>D. $120^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Sebuah roda sepeda memiliki diameter 70 cm. Roda tersebut
+            menggelinding menempuh jarak sejauh 1,1 km. Berapa kali roda
+            tersebut berputar penuh?
+          </div>
+          <div class="options">
+            <div>A. 400</div>
+            <div>B. 450</div>
+            <div>C. 500</div>
+            <div>D. 550</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Diberikan sebuah persegi dengan panjang sisi 14 cm. Di
+            dalam persegi tersebut, dibuat empat buah seperempat lingkaran
+            dengan jari-jari 7 cm yang berpusat di masing-masing titik sudut
+            persegi. Berapakah luas daerah di dalam persegi yang tidak tertutup
+            oleh keempat seperempat lingkaran tersebut?
+          </div>
+          <div class="svg-container">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <!-- Base Square -->
+              <rect
+                x="0"
+                y="0"
+                width="100"
+                height="100"
+                fill="#ffcc80"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <!-- White Circles at corners -->
+              <path
+                d="M 0,0 L 50,0 A 50,50 0 0,1 0,50 Z"
+                fill="white"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <path
+                d="M 100,0 L 100,50 A 50,50 0 0,1 50,0 Z"
+                fill="white"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <path
+                d="M 100,100 L 50,100 A 50,50 0 0,1 100,50 Z"
+                fill="white"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <path
+                d="M 0,100 L 0,50 A 50,50 0 0,1 50,100 Z"
+                fill="white"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <text
+                x="50"
+                y="55"
+                font-family="Nunito"
+                font-weight="bold"
+                font-size="16"
+                text-anchor="middle"
+              >
+                ?
+              </text>
+            </svg>
+          </div>
+          <div class="options">
+            <div>A. $42 \text{ cm}^2$</div>
+            <div>B. $21 \text{ cm}^2$</div>
+            <div>C. $63 \text{ cm}^2$</div>
+            <div>D. $84 \text{ cm}^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Sebuah balok kayu berukuran $12 \text{ cm} \times 8
+            \text{ cm} \times 30 \text{ cm}$ akan dipotong-potong menjadi
+            kubus-kubus kecil dengan ukuran sama besar. Agar ukuran rusuk kubus
+            tersebut maksimum dan tidak ada kayu yang tersisa, berapa banyak
+            kubus yang diperoleh?
+          </div>
+          <div class="options">
+            <div>A. 180</div>
+            <div>B. 240</div>
+            <div>C. 300</div>
+            <div>D. 360</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Diketahui keliling sebuah persegi panjang adalah 40 cm.
+            Jika panjang dan lebarnya merupakan bilangan prima, berapakah luas
+            maksimum persegi panjang tersebut?
+          </div>
+          <div class="options">
+            <div>A. $51 \text{ cm}^2$</div>
+            <div>B. $99 \text{ cm}^2$</div>
+            <div>C. $91 \text{ cm}^2$</div>
+            <div>D. $100 \text{ cm}^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 4 (HOTS) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Hard: Penalaran Tingkat Tinggi (1/4)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Sebuah kubus besar berukuran $4 \times 4 \times 4$ satuan
+            dicat seluruh permukaannya dengan warna merah. Kubus tersebut
+            kemudian dipotong-potong menjadi kubus kecil berukuran $1 \times 1
+            \times 1$ satuan. Tentukan perbandingan antara jumlah kubus kecil
+            yang memiliki tepat 3 sisi berwarna merah dengan jumlah kubus kecil
+            yang tidak memiliki sisi berwarna merah sama sekali.
+          </div>
+          <div class="options">
+            <div>A. 1 : 1</div>
+            <div>B. 1 : 2</div>
+            <div>C. 2 : 1</div>
+            <div>D. 2 : 3</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Diberikan sebuah persegi panjang $ABCD$. Titik $P$
+            terletak di dalam persegi panjang tersebut. Jika diketahui luas
+            segitiga $APB$ adalah 20 cm$^2$ dan luas segitiga $CPD$ adalah 30
+            cm$^2$, berapakah jumlah luas segitiga $APD$ dan segitiga $BPC$?
+          </div>
+          <div class="svg-container">
+            <svg width="200" height="120" viewBox="0 0 200 120">
+              <rect
+                x="20"
+                y="20"
+                width="160"
+                height="80"
+                fill="none"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <circle cx="120" cy="50" r="3" fill="#333" />
+              <text x="120" y="45" font-family="Nunito" font-size="10">P</text>
+              <line x1="20" y1="20" x2="120" y2="50" stroke="#333" />
+              <line x1="180" y1="20" x2="120" y2="50" stroke="#333" />
+              <line x1="180" y1="100" x2="120" y2="50" stroke="#333" />
+              <line x1="20" y1="100" x2="120" y2="50" stroke="#333" />
+              <text
+                x="100"
+                y="35"
+                font-family="Nunito"
+                font-size="10"
+                fill="blue"
+              >
+                20
+              </text>
+              <text
+                x="100"
+                y="85"
+                font-family="Nunito"
+                font-size="10"
+                fill="blue"
+              >
+                30
+              </text>
+            </svg>
+          </div>
+          <div class="options">
+            <div>A. $40 \text{ cm}^2$</div>
+            <div>B. $60 \text{ cm}^2$</div>
+            <div>C. $70 \text{ cm}^2$</div>
+            <div>D. $50 \text{ cm}^2$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Selembar kertas berbentuk persegi panjang dengan ukuran
+            $20 \text{ cm} \times 15 \text{ cm}$ dilipat sedemikian rupa
+            sehingga titik sudut $A$ bertemu tepat dengan titik sudut $C$ (titik
+            sudut yang berseberangan secara diagonal). Berapakah panjang garis
+            lipatan yang terbentuk pada kertas tersebut?
+          </div>
+          <div class="options">
+            <div>A. 15 cm</div>
+            <div>B. 18,75 cm</div>
+            <div>C. 20 cm</div>
+            <div>D. 22,5 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Terdapat 5 titik berbeda yang terletak pada busur
+            setengah lingkaran. Jika ketiga titik tersebut dihubungkan untuk
+            membentuk sebuah segitiga, berapakah banyak segitiga tumpul yang
+            dapat terbentuk dari kelima titik tersebut?
+          </div>
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 8</div>
+            <div>C. 5</div>
+            <div>D. 15</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Sebuah kolam renang berbentuk balok sedang diisi air.
+            Saat ketinggian air mencapai 1 meter, volume air di dalamnya adalah
+            20.000 liter. Ketika air ditambahkan hingga ketinggiannya mencapai
+            1,5 meter, volume air menjadi 30.000 liter. Berdasarkan data
+            tersebut, berapakah luas alas kolam renang?
+          </div>
+          <div class="options">
+            <div>A. $10 \text{ m}^2$</div>
+            <div>B. $15 \text{ m}^2$</div>
+            <div>C. $20 \text{ m}^2$</div>
+            <div>D. $25 \text{ m}^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 5 (HOTS) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Hard: Penalaran Tingkat Tinggi (2/4)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> Sebuah bangun datar berbentuk 'Hati' tersusun dari sebuah
+            persegi dengan panjang sisi 14 cm yang diputar $45^\circ$, dan dua
+            buah setengah lingkaran yang menempel pada dua sisi atas persegi
+            tersebut. Berapakah keliling bangun gabungan tersebut?
+          </div>
+          <div class="svg-container">
+            <svg width="150" height="150" viewBox="0 0 100 100">
+              <!-- Persegi (Diamond) -->
+              <path
+                d="M 50,90 L 80,60 L 50,30 L 20,60 Z"
+                fill="none"
+                stroke="#333"
+                stroke-width="2"
+                stroke-dasharray="2,2"
+              />
+              <!-- Semicircle 1 (Top Left) -->
+              <path
+                d="M 20,60 A 21.21,21.21 0 0,1 50,30"
+                fill="none"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <!-- Semicircle 2 (Top Right) -->
+              <path
+                d="M 50,30 A 21.21,21.21 0 0,1 80,60"
+                fill="none"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <!-- Lower sides of square (Solid lines for perimeter) -->
+              <path
+                d="M 80,60 L 50,90 L 20,60"
+                fill="none"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <!-- Label -->
+              <text
+                x="60"
+                y="75"
+                font-family="Nunito"
+                font-size="10"
+                fill="#555"
+              ></text>
+            </svg>
+          </div>
+          <div class="options">
+            <div>A. 66 cm</div>
+            <div>B. 88 cm</div>
+            <div>C. 100 cm</div>
+            <div>D. 72 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Diberikan sebuah persegi $ABCD$ dengan panjang sisi 10
+            cm. Titik $E$ terletak pada sisi $BC$. Garis $AE$ memotong diagonal
+            $BD$ di titik $F$. Jika diketahui luas segitiga $AFB$ adalah 20
+            cm$^2$, berapakah panjang ruas garis $BE$?
+          </div>
+          <div class="options">
+            <div>A. 5 cm</div>
+            <div>B. 6 cm</div>
+            <div>C. 6,67 cm</div>
+            <div>D. 7,5 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Sebuah wadah berbentuk kerucut terbalik diisi air dengan
+            debit konstan. Tinggi wadah tersebut adalah 12 cm. Jika waktu yang
+            dibutuhkan agar ketinggian air mencapai 6 cm adalah 2 menit, berapa
+            menit lagikah waktu yang dibutuhkan sampai wadah tersebut terisi
+            penuh?
+          </div>
+          <div class="options">
+            <div>A. 10 menit</div>
+            <div>B. 14 menit</div>
+            <div>C. 12 menit</div>
+            <div>D. 16 menit</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> Pada pukul 03.36, jarum jam (pendek) dan jarum menit
+            (panjang) membentuk dua sudut. Berapakah besar sudut terkecil di
+            antara kedua jarum tersebut?
+          </div>
+          <div class="options">
+            <div>A. $108^\circ$</div>
+            <div>B. $99^\circ$</div>
+            <div>C. $90^\circ$</div>
+            <div>D. $118^\circ$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 6 (HOTS End) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Hard: Penalaran Tingkat Tinggi (3/4)
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Tiga buah pipa paralon yang identik dengan diameter 14 cm
+            disusun menumpuk sehingga penampangnya saling bersinggungan
+            membentuk formasi segitiga (satu di atas, dua di bawah). Sebuah tali
+            diikatkan mengelilingi ketiga pipa tersebut dengan kencang.
+            Hitunglah panjang minimal tali yang dibutuhkan!
+          </div>
+          <div class="svg-container">
+            <svg width="150" height="150" viewBox="0 0 150 150">
+              <circle
+                cx="50"
+                cy="100"
+                r="25"
+                fill="none"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <circle
+                cx="100"
+                cy="100"
+                r="25"
+                fill="none"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <circle
+                cx="75"
+                cy="56.7"
+                r="25"
+                fill="none"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <!-- Tali -->
+              <path
+                d="M 50,125 L 100,125 A 25,25 0 0,0 121.65,87.5 L 96.65,44.2 A 25,25 0 0,0 53.35,44.2 L 28.35,87.5 A 25,25 0 0,0 50,125 Z"
+                fill="none"
+                stroke="blue"
+                stroke-width="2.5"
+              />
+            </svg>
+          </div>
+          <div class="options">
+            <div>A. 72 cm</div>
+            <div>B. 86 cm</div>
+            <div>C. 94 cm</div>
+            <div>D. 100 cm</div>
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> Seekor semut berada di titik sudut $A$ pada sebuah kubus
+            dengan panjang rusuk 6 cm. Semut tersebut ingin merayap menuju titik
+            sudut $G$ (titik sudut terjauh dari $A$) melalui permukaan kubus.
+            Berapakah panjang lintasan terpendek yang dapat ditempuh semut
+            tersebut?
+          </div>
+          <div class="options">
+            <div>A. $6\sqrt{5}$</div>
+            <div>B. $6\sqrt{3}$</div>
+            <div>C. $6\sqrt{2}$</div>
+            <div>D. 12</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Tiga buah persegi dengan panjang sisi berturut-turut 10
+            cm, 8 cm, dan 6 cm disusun berdampingan secara mendatar dengan alas
+            yang segaris. Sebuah garis lurus ditarik dari titik sudut kiri atas
+            persegi terbesar (sisi 10 cm) menuju titik sudut kanan bawah persegi
+            terkecil (sisi 6 cm). Berapakah luas daerah yang berada di bawah
+            garis tersebut namun tetap berada di dalam ketiga persegi?
+          </div>
+          <div class="svg-container">
+            <svg width="240" height="100" viewBox="0 0 240 100">
+              <rect
+                x="0"
+                y="0"
+                width="100"
+                height="100"
+                fill="#f5f5f5"
+                stroke="#333"
+              />
+              <rect
+                x="100"
+                y="20"
+                width="80"
+                height="80"
+                fill="#f5f5f5"
+                stroke="#333"
+              />
+              <rect
+                x="180"
+                y="40"
+                width="60"
+                height="60"
+                fill="#f5f5f5"
+                stroke="#333"
+              />
+              <line
+                x1="0"
+                y1="0"
+                x2="240"
+                y2="100"
+                stroke="red"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div class="options">
+            <div>A. 100</div>
+            <div>B. 140</div>
+            <div>C. 150</div>
+            <div>D. 120</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Hard: Penalaran Tingkat Tinggi (4/4)
+        </div>
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Pada sebuah papan catur berukuran $4 \times 4$ kotak,
+            berapakah banyak total persegi panjang (termasuk persegi) yang dapat
+            ditemukan?
+          </div>
+          <div class="options">
+            <div>A. 64</div>
+            <div>B. 100</div>
+            <div>C. 80</div>
+            <div>D. 120</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> Sebuah bak mandi berbentuk kubus awalnya berisi air
+            penuh. Setelah air dikeluarkan sebanyak $\frac{1}{3}$ bagian dari
+            volume total, ketinggian air dalam bak turun sejauh 15 cm. Berapakah
+            volume air mula-mula dalam bak tersebut?
+          </div>
+          <div class="options">
+            <div>A. $27.000 \text{ cm}^3$</div>
+            <div>B. $64.000 \text{ cm}^3$</div>
+            <div>C. $125.000 \text{ cm}^3$</div>
+            <div>D. $91.125 \text{ cm}^3$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> Diberikan sebuah persegi $ABCD$ dengan luas 100 cm$^2$.
+            Titik $E$ adalah titik tengah sisi $BC$, dan titik $F$ adalah titik
+            tengah sisi $CD$. Garis $AF$ dan garis $DE$ berpotongan di titik
+            $P$. Hitunglah luas segitiga $APD$!
+          </div>
+          <div class="options">
+            <div>A. $20 \text{ cm}^2$</div>
+            <div>B. $15 \text{ cm}^2$</div>
+            <div>C. $25 \text{ cm}^2$</div>
+            <div>D. $30 \text{ cm}^2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Title Page -->
+    <section class="page">
+      <div
+        class="content-wrapper"
+        style="
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        "
+      >
+        <h1 style="font-size: 30pt; border: none; color: #333">
+          BAGIAN III:<br />KUNCI JAWABAN & PEMBAHASAN
+        </h1>
+        <p style="font-size: 16pt; margin-top: 20px">
+          Analisis Langkah demi Langkah
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Content Page 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>1. Jawaban: D (712)</b>
+          <div class="pembahasan">
+            <b>Analisis:</b><br />
+            Diketahui lantai $12 \text{ m} \times 10 \text{ m}$ dan kolam
+            lingkaran $d=2,8$ m. Kita cari sisa luas dan bagi dengan luas
+            keramik.<br />
+            <b>Langkah 1:</b> Hitung Luas Total Lantai dalam cm$^2$.<br />
+            $L_{lantai} = 12 \text{ m} \times 10 \text{ m} = 1200 \text{ cm}
+            \times 1000 \text{ cm} = 1.200.000 \text{ cm}^2$.<br />
+            <b>Langkah 2:</b> Hitung Luas Kolam.<br />
+            Diameter $= 2,8$ m $= 280$ cm $\rightarrow r = 140$ cm.<br />
+            $L_{kolam} = \pi r^2 = \frac{22}{7} \times 140 \times 140 = 22
+            \times 20 \times 140 = 61.600 \text{ cm}^2$.<br />
+            <b>Langkah 3:</b> Hitung Sisa Luas yang perlu dikeramiki.<br />
+            $L_{sisa} = 1.200.000 - 61.600 = 1.138.400 \text{ cm}^2$.<br />
+            <b>Langkah 4:</b> Hitung Kebutuhan Keramik.<br />
+            Luas 1 keramik $= 40 \times 40 = 1.600 \text{ cm}^2$.<br />
+            Jumlah $= 1.138.400 : 1.600 = 711,5$.<br />
+            <b>Kesimpulan:</b> Karena keramik harus utuh, kita bulatkan ke atas
+            menjadi <b>712</b> buah.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>2. Jawaban: C ($115^\circ$)</b>
+          <div class="pembahasan">
+            <b>Analisis:</b> Pukul 10.10.<br />
+            <b>Langkah 1:</b> Posisi Jarum Menit (Panjang).<br />
+            Menit ke-10 $\rightarrow$ Angka 2. Sudut $= 10 \times 6^\circ =
+            60^\circ$.<br />
+            <b>Langkah 2:</b> Posisi Jarum Jam (Pendek).<br />
+            Jarum pendek bergerak dari angka 12 sejauh: $(10 \times 30^\circ) +
+            (10 \text{ menit} \times 0,5^\circ) = 300^\circ + 5^\circ =
+            305^\circ$.<br />
+            <b>Langkah 3:</b> Selisih Sudut.<br />
+            $\Delta = |305^\circ - 60^\circ| = 245^\circ$ (Sudut Refleks).<br />
+            Sudut Terkecil $= 360^\circ - 245^\circ = \mathbf{115^\circ}$.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>3. Jawaban: A (2 cm)</b>
+          <div class="pembahasan">
+            <b>Strategi:</b> Kenaikan tinggi air disebabkan oleh volume benda
+            yang tercelup.<br />
+            <b>Langkah 1:</b> Hitung Volume Benda (Kubus).<br />
+            $V_{kubus} = 20 \times 20 \times 20 = 8.000 \text{ cm}^3$.<br />
+            <b>Langkah 2:</b> Hitung Luas Alas Wadah (Balok).<br />
+            $L_{alas} = 80 \times 50 = 4.000 \text{ cm}^2$.<br />
+            <b>Langkah 3:</b> Hitung Kenaikan ($t$).<br />
+            $V_{naik} = L_{alas} \times t \Rightarrow 8.000 = 4.000 \times
+            t$.<br />
+            $t = 2$ cm.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Content Page 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <!-- Pembahasan No 4 -->
+        <div class="soal-latihan">
+          <b>4. Jawaban: B (40 cm)</b>
+          <div class="pembahasan">
+            <b>Analisis Kerangka:</b><br />
+            Bangun gabungan terdiri dari Kubus di bawah dan Limas di atasnya.<br />
+            - Kubus memiliki 12 rusuk. Tapi rusuk atas (tutup kubus) berimpit
+            dengan alas limas. Jadi kita hitung 12 rusuk kubus penuh (alas limas
+            otomatis terbentuk dari tutup kubus).<br />
+            - Limas memiliki 4 rusuk tegak tambahan.<br />
+            <b>Hitungan:</b><br />
+            Panjang Total $= (12 \times 15) + (4 \times 20) = 180 + 80 = 260$
+            cm.<br />
+            Kawat Tersedia $= 3$ m $= 300$ cm.<br />
+            Sisa $= 300 - 260 = \mathbf{40}$ cm.
+          </div>
+        </div>
+        <!-- Pembahasan No 5 -->
+        <div class="soal-latihan">
+          <b>5. Jawaban: C ($240 \text{ cm}^2$)</b>
+          <div class="pembahasan">
+            <b>Strategi:</b> Gunakan faktor pengali.<br />
+            Luas Awal $= L$.<br />
+            Panjang Baru $= 1,25 \times p$ (naik 25%).<br />
+            Lebar Baru $= 0,8 \times l$ (turun 20%).<br />
+            Luas Baru $= (1,25p) \times (0,8l) = (1,25 \times 0,8) \times (p
+            \times l)$.<br />
+            $1,25 \times 0,8 = 1$.<br />
+            Jadi, Luas Baru $= 1 \times L = \mathbf{240}$ cm$^2$ (Tetap).
+          </div>
+        </div>
+        <!-- Pembahasan No 6 -->
+        <div class="soal-latihan">
+          <b>6. Jawaban: A ($28 \text{ cm}^2$)</b>
+          <div class="pembahasan">
+            <b>Analisis Visual:</b> Garis lurus memotong ketiga persegi dari
+            ujung kiri atas (tinggi 4) ke ujung kanan bawah (tinggi 0).<br />
+            Daerah di bawah garis ini membentuk sebuah
+            <b>Segitiga Siku-siku Besar</b>.<br />
+            <b>Dimensi Segitiga:</b><br />
+            Alas $= 4 + 6 + 4 = 14$ cm.<br />
+            Tinggi $= 4$ cm.<br />
+            <b>Luas:</b> $\frac{1}{2} \times 14 \times 4 = \mathbf{28}$ cm$^2$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Content Page 3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <!-- Pembahasan No 7 -->
+        <div class="soal-latihan">
+          <b>7. Jawaban: D ($343 \text{ cm}^3$)</b>
+          <div class="pembahasan">
+            <b>Langkah 1:</b> Cari luas satu sisi.<br />
+            Jaring-jaring kubus terdiri dari 6 persegi identik.<br />
+            Luas 1 sisi $= 294 : 6 = 49 \text{ cm}^2$.<br />
+            <b>Langkah 2:</b> Cari panjang rusuk ($s$).<br />
+            $s = \sqrt{49} = 7$ cm.<br />
+            <b>Langkah 3:</b> Hitung Volume.<br />
+            $V = s^3 = 7^3 = \mathbf{343}$ cm$^3$.
+          </div>
+        </div>
+        <!-- Pembahasan No 8 -->
+        <div class="soal-latihan">
+          <b>8. Jawaban: B ($462 \text{ cm}^2$)</b>
+          <div class="pembahasan">
+            <b>Rumus Luas Cincin:</b> $L = \pi (R^2 - r^2)$.<br />
+            $L = \frac{22}{7} (14^2 - 7^2) = \frac{22}{7} (196 - 49)$.<br />
+            $L = \frac{22}{7} \times 147 = 22 \times 21 = \mathbf{462}$ cm$^2$.
+          </div>
+        </div>
+        <!-- Pembahasan No 9 -->
+        <div class="soal-latihan">
+          <b>9. Jawaban: A ($40 \text{ cm}^2$)</b>
+          <div class="pembahasan">
+            <b>Konsep:</b> Dua segitiga dengan tinggi yang sama memiliki
+            perbandingan luas sama dengan perbandingan alasnya.<br />
+            Diketahui $AD : DB = 2 : 3$. Maka $AD : AB = 2 : 5$.<br />
+            Luas $\Delta ADC = \frac{AD}{AB} \times \text{Luas Total}$.<br />
+            Luas $\Delta ADC = \frac{2}{5} \times 100 = \mathbf{40}$ cm$^2$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Content Page 4 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <!-- Pembahasan No 10 -->
+        <div class="soal-latihan">
+          <b>10. Jawaban: D (30)</b>
+          <div class="pembahasan">
+            <b>Logika Maksimum:</b><br />
+            Alas $2 \times 3$ berarti ada 6 posisi tumpukan.<br />
+            Soal menyatakan "tinggi maksimum adalah 5". Untuk mendapatkan volume
+            terbesar, kita asumsikan tidak ada batasan lain (seperti tampak
+            samping yang lebih rendah).<br />
+            Kita isi semua 6 posisi dengan tinggi maksimal 5.<br />
+            Volume Maksimum $= 6 \text{ kolom} \times 5 \text{ tumpuk} =
+            \mathbf{30}$ kubus.
+          </div>
+        </div>
+        <!-- Pembahasan No 11 -->
+        <div class="soal-latihan">
+          <b>11. Jawaban: B ($108^\circ$)</b>
+          <div class="pembahasan">
+            <b>Persamaan:</b><br />
+            1) $A + B = 180^\circ$ (Berpelurus).<br />
+            2) $A = 4B$.<br />
+            Substitusi: $4B + B = 180 \Rightarrow 5B = 180 \Rightarrow B =
+            36^\circ$.<br />
+            $A = 4 \times 36 = 144^\circ$.<br />
+            Selisih $= 144 - 36 = \mathbf{108^\circ}$.
+          </div>
+        </div>
+        <!-- Pembahasan No 12 -->
+        <div class="soal-latihan">
+          <b>12. Jawaban: C (500)</b>
+          <div class="pembahasan">
+            <b>Langkah 1:</b> Hitung Keliling Roda.<br />
+            $K = \pi d = \frac{22}{7} \times 70 = 220$ cm.<br />
+            <b>Langkah 2:</b> Konversi Jarak Tempuh.<br />
+            $1,1 \text{ km} = 1.100 \text{ m} = 110.000$ cm.<br />
+            <b>Langkah 3:</b> Hitung Putaran.<br />
+            $\text{Putaran} = \frac{110.000}{220} = \mathbf{500}$ kali.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Content Page 5 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <!-- Pembahasan No 13 -->
+        <div class="soal-latihan">
+          <b>13. Jawaban: A ($42 \text{ cm}^2$)</b>
+          <div class="pembahasan">
+            <b>Analisis:</b> 4 seperempat lingkaran di pojok = 1 lingkaran penuh
+            di tengah.<br />
+            Luas Arsiran = Luas Persegi - Luas 1 Lingkaran.<br />
+            $L_{persegi} = 14 \times 14 = 196$.<br />
+            $L_{lingkaran} = \frac{22}{7} \times 7 \times 7 = 154$.<br />
+            $L_{arsir} = 196 - 154 = \mathbf{42}$ cm$^2$.
+          </div>
+        </div>
+        <!-- Pembahasan No 14 -->
+        <div class="soal-latihan">
+          <b>14. Jawaban: D (360)</b>
+          <div class="pembahasan">
+            <b>Strategi:</b> Cari FPB untuk ukuran rusuk kubus.<br />
+            FPB(12, 8, 30) = 2 cm.<br />
+            <b>Hitung Potongan:</b><br />
+            $p: 12/2 = 6$. $l: 8/2 = 4$. $t: 30/2 = 15$.<br />
+            Total $= 6 \times 4 \times 15 = \mathbf{360}$ buah.
+          </div>
+        </div>
+        <!-- Pembahasan No 15 -->
+        <div class="soal-latihan">
+          <b>15. Jawaban: C ($91 \text{ cm}^2$)</b>
+          <div class="pembahasan">
+            <b>Langkah 1:</b> $K=40 \Rightarrow p+l = 20$.<br />
+            <b>Langkah 2:</b> Cari pasangan prima $(p, l)$ yang jumlahnya 20.<br />
+            Pasangan yang mungkin: (3, 17) dan (7, 13).<br />
+            <b>Langkah 3:</b> Cek Luas.<br />
+            $3 \times 17 = 51$.<br />
+            $7 \times 13 = 91$ (Maksimum).<br />
+            Jadi, luas maksimum $\mathbf{91}$ cm$^2$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Content Page 6 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <!-- Pembahasan No 16 -->
+        <div class="soal-latihan">
+          <b>16. Jawaban: A (1 : 1)</b>
+          <div class="pembahasan">
+            <b>Kubus 3 sisi cat:</b> Selalu di 8 pojok. Jumlah = 8.<br />
+            <b>Kubus 0 sisi cat (inti):</b> Kubus di dalam yang tidak tersentuh
+            luar.<br />
+            Rumus $= (n-2)^3$ dengan $n=4$.<br />
+            Jumlah $= (4-2)^3 = 2^3 = 8$.<br />
+            Rasio $8 : 8 = \mathbf{1 : 1}$.
+          </div>
+        </div>
+        <!-- Pembahasan No 17 -->
+        <div class="soal-latihan">
+          <b>17. Jawaban: D ($50 \text{ cm}^2$)</b>
+          <div class="pembahasan">
+            <b>Teorema:</b> Pada titik sembarang di dalam persegi panjang,
+            jumlah luas segitiga yang saling bertolak belakang adalah sama.<br />
+            $L_{atas} + L_{bawah} = L_{kiri} + L_{kanan}$.<br />
+            $20 + 30 = L_{kiri} + L_{kanan} = 50$.<br />
+            Jadi, luas $\Delta APD + \Delta BPC = \mathbf{50}$ cm$^2$.
+          </div>
+        </div>
+        <!-- Pembahasan No 18 -->
+        <div class="soal-latihan">
+          <b>18. Jawaban: B (18,75 cm)</b>
+          <div class="pembahasan">
+            <b>Analisis:</b> Garis lipatan adalah sumbu simetri yang tegak lurus
+            membagi diagonal AC.<br />
+            Diagonal $AC = \sqrt{20^2 + 15^2} = 25$.<br />
+            Segitiga siku-siku kecil yang terbentuk sebangun dengan $\Delta
+            ABC$.<br />
+            Menggunakan perbandingan kesebangunan pada segitiga lipatan:<br />
+            Panjang Lipatan $= \frac{\text{Diagonal} \times \text{Sisi
+            Miring}}{\text{Sisi Tegak}}$.<br />
+            Perhitungan eksak menghasilkan $\mathbf{18,75}$ cm.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Content Page 7 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <!-- Pembahasan No 19 -->
+        <div class="soal-latihan">
+          <b>19. Jawaban: A (10)</b>
+          <div class="pembahasan">
+            <b>Kombinatorik:</b><br />
+            Memilih 3 titik dari 5 titik: $C(5,3) = \frac{5 \times 4}{2 \times
+            1} = 10$.<br />
+            Karena titik-titik berada pada setengah lingkaran, semua segitiga
+            yang terbentuk pasti tumpul (berdasarkan sifat sudut keliling).<br />
+            Jadi, jawabannya $\mathbf{10}$.
+          </div>
+        </div>
+        <!-- Pembahasan No 20 -->
+        <div class="soal-latihan">
+          <b>20. Jawaban: C ($20 \text{ m}^2$)</b>
+          <div class="pembahasan">
+            <b>Analisis Perubahan:</b><br />
+            Ketinggian air naik dari 1 m ke 1,5 m. Kenaikan $\Delta t = 0,5$
+            m.<br />
+            Volume bertambah dari 20.000 ke 30.000. Kenaikan $\Delta V = 10.000$
+            liter $= 10 \text{ m}^3$.<br />
+            <b>Hitung Luas Alas:</b><br />
+            $\text{Luas Alas} = \frac{\Delta V}{\Delta t} = \frac{10}{0,5} =
+            \mathbf{20} \text{ m}^2$.
+          </div>
+        </div>
+        <!-- Pembahasan No 21 -->
+        <div class="soal-latihan">
+          <b>21. Jawaban: D (72 cm)</b>
+          <div class="pembahasan">
+            <b>Komponen Keliling:</b><br />
+            1. Dua sisi lurus persegi bagian bawah: $14 + 14 = 28$ cm.<br />
+            2. Dua busur setengah lingkaran di atas = 1 Lingkaran penuh.<br />
+            Diameter $= 14$ cm. Keliling Lingkaran $= \frac{22}{7} \times 14 =
+            44$ cm.<br />
+            <b>Total:</b> $28 + 44 = \mathbf{72}$ cm.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Content Page 8 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <!-- Pembahasan No 22 -->
+        <div class="soal-latihan">
+          <b>22. Jawaban: C (6,67 cm)</b>
+          <div class="pembahasan">
+            <b>Strategi:</b> Kesebangunan Kupu-kupu ($\Delta BEF \sim \Delta
+            DAF$).<br />
+            Diketahui Luas $\Delta AFB = 20$. Luas $\Delta ABD = 50$. Maka Luas
+            $\Delta AFD = 30$.<br />
+            Rasio Luas = Rasio Alas (karena tinggi sama dari A ke BD).<br />
+            $BF : FD = \text{Luas } AFB : \text{Luas } AFD = 20 : 30 = 2 :
+            3$.<br />
+            Akibat kesebangunan, $BE : DA = BF : FD = 2 : 3$.<br />
+            $BE = \frac{2}{3} \times DA = \frac{2}{3} \times 10 = \mathbf{6,67}$
+            cm.
+          </div>
+        </div>
+        <!-- Pembahasan No 23 -->
+        <div class="soal-latihan">
+          <b>23. Jawaban: B (14 menit)</b>
+          <div class="pembahasan">
+            <b>Konsep Kesebangunan Volume:</b> Volume kerucut berbanding lurus
+            dengan pangkat tiga dari tingginya ($V \sim h^3$).<br />
+            Saat tinggi air 6 cm (setengah dari tinggi total 12 cm), rasio
+            tinggi adalah $1:2$.<br />
+            Rasio volume air $= (1/2)^3 = 1/8$ dari volume penuh.<br />
+            Waktu untuk mengisi $1/8$ bagian = 2 menit.<br />
+            Waktu untuk mengisi penuh ($8/8$) = $8 \times 2 = 16$ menit.<br />
+            Waktu yang <b>dibutuhkan lagi</b> (sisa) = $16 - 2 = \mathbf{14}$
+            menit.
+          </div>
+        </div>
+        <!-- Pembahasan No 24 -->
+        <div class="soal-latihan">
+          <b>24. Jawaban: A ($108^\circ$)</b>
+          <div class="pembahasan">
+            <b>Hitungan Sudut:</b><br />
+            Jarum Menit (36): $36 \times 6^\circ = 216^\circ$.<br />
+            Jarum Jam (3 lewat 36): $3 \times 30^\circ + (36/60 \times 30^\circ)
+            = 90 + 18 = 108^\circ$.<br />
+            Selisih $= 216 - 108 = \mathbf{108^\circ}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Content Page 9 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <!-- Pembahasan No 25 -->
+        <div class="soal-latihan">
+          <b>25. Jawaban: B (86 cm)</b>
+          <div class="pembahasan">
+            <b>Rumus Sabuk Lilitan:</b> $n \cdot d + \pi \cdot d$.<br />
+            Disini $n=3$ dan $d=14$.<br />
+            Panjang Lurus $= 3 \times 14 = 42$.<br />
+            Panjang Lengkung $= \frac{22}{7} \times 14 = 44$.<br />
+            Total $= 42 + 44 = \mathbf{86}$ cm.
+          </div>
+        </div>
+        <!-- Pembahasan No 26 -->
+        <div class="soal-latihan">
+          <b>26. Jawaban: A ($6\sqrt{5}$)</b>
+          <div class="pembahasan">
+            <b>Buka Jaring-jaring:</b><br />
+            Lintasan terpendek di permukaan kubus adalah garis lurus pada
+            jaring-jaring.<br />
+            Untuk ke pojok terjauh, kita melewati 2 sisi mendatar dan 1 sisi
+            tegak.<br />
+            Alas segitiga $= 12$ cm, Tinggi $= 6$ cm.<br />
+            $c = \sqrt{12^2 + 6^2} = \sqrt{144 + 36} = \sqrt{180} =
+            \mathbf{6\sqrt{5}}$.
+          </div>
+        </div>
+        <!-- Pembahasan No 27 -->
+        <div class="soal-latihan">
+          <b>27. Jawaban: D ($120 \text{ cm}^2$)</b>
+          <div class="pembahasan">
+            <b>Analisis Grafik:</b><br />
+            Garis ditarik dari koordinat $(0, 10)$ ke $(24, 0)$.<br />
+            Garis ini membentuk segitiga siku-siku besar dengan alas 24 dan
+            tinggi 10.<br />
+            Karena tinggi persegi menurun (10, 8, 6), garis lurus dari puncak
+            persegi pertama (10) ke dasar persegi terakhir (0) akan selalu
+            berada di dalam atau tepat pada batas persegi-persegi tersebut.<br />
+            Jadi, luas daerah di bawah garis adalah luas segitiga itu
+            sendiri.<br />
+            Luas $= \frac{1}{2} \times 24 \times 10 = \mathbf{120}$ cm$^2$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Content Page 10 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <!-- Pembahasan No 28 -->
+        <div class="soal-latihan">
+          <b>28. Jawaban: B (100)</b>
+          <div class="pembahasan">
+            <b>Rumus Persegi Panjang pada Grid $n \times m$:</b><br />
+            $\frac{n(n+1)}{2} \times \frac{m(m+1)}{2}$.<br />
+            Untuk $4 \times 4$:<br />
+            $\frac{4 \times 5}{2} = 10$.<br />
+            Total $= 10 \times 10 = \mathbf{100}$.
+          </div>
+        </div>
+        <!-- Pembahasan No 29 -->
+        <div class="soal-latihan">
+          <b>29. Jawaban: D ($91.125 \text{ cm}^3$)</b>
+          <div class="pembahasan">
+            <b>Analisis:</b><br />
+            Volume air yang keluar adalah $1/3$ bagian, yang menyebabkan tinggi
+            turun 15 cm.<br />
+            Artinya, $1/3$ dari tinggi kubus adalah 15 cm.<br />
+            Tinggi total kubus $= 15 \times 3 = 45$ cm.<br />
+            Karena ini kubus, sisi alas juga 45 cm.<br />
+            <b>Volume Total:</b><br />
+            $V = 45 \times 45 \times 45 = \mathbf{91.125}$ cm$^3$.
+          </div>
+        </div>
+        <!-- Pembahasan No 30 -->
+        <div class="soal-latihan">
+          <b>30. Jawaban: A ($20 \text{ cm}^2$)</b>
+          <div class="pembahasan">
+            <b>Metode Koordinat:</b><br />
+            Misalkan $A(0,10), B(10,10), C(10,0), D(0,0)$.<br />
+            Titik E (tengah BC) di $(10, 5)$. Titik F (tengah CD) di $(5,
+            0)$.<br />
+            Garis AF melalui $(0,10)$ dan $(5,0) \rightarrow y = -2x + 10$.<br />
+            Garis DE melalui $(0,0)$ dan $(10,5) \rightarrow y = 0,5x$.<br />
+            Cari titik potong P: $-2x+10 = 0,5x \Rightarrow 2,5x = 10
+            \Rightarrow x=4$.<br />
+            Substitusi $x=4 \rightarrow y=2$. Jadi P ada di $(4,2)$.<br />
+            Luas $\Delta APD$ (alas AD vertikal, tinggi horizontal P):<br />
+            Alas AD $= 10$. Tinggi (jarak x titik P dari sumbu y) $= 4$.<br />
+            Luas $= \frac{1}{2} \times 10 \times 4 = \mathbf{20}$ cm$^2$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
