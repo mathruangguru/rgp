@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Penyajian dan Analisis Data</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e8f5e9;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      /* Watermark sesuai referensi */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #1b5e20;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #2e7d32;
+      }
+      .soal-latihan {
+        margin-bottom: 15px;
+        break-inside: avoid;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      /* SETTINGAN FOOTER YANG DIMINTA */
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--accent-green);
+        padding: 10px 15px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10.5pt;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+      }
+      .rumus-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      .chart-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin: 10px 0;
+      }
+      .chart-item {
+        border: 1px solid #eee;
+        padding: 10px;
+        text-align: center;
+        border-radius: 8px;
+        background: #fdfdfd;
+      }
+      .chart-caption {
+        font-size: 9pt;
+        color: #666;
+        margin-top: 5px;
+        font-weight: bold;
+      }
+      ul,
+      ol {
+        margin-top: 0;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      /* Style tambahan untuk Tabel dalam Soal */
+      table.data-table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 300px;
+        margin: 10px auto;
+        font-size: 10pt;
+      }
+      table.data-table th,
+      table.data-table td {
+        border: 1px solid #ccc;
+        padding: 6px;
+        text-align: center;
+      }
+      table.data-table th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          /* Ubah height menjadi auto agar jika konten sedikit berlebih tidak terpotong (clipped) */
+          height: auto;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+          overflow: visible;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+        .content-wrapper {
+          /* Pastikan konten mengambil ruang yang dibutuhkan */
+          flex-grow: 1;
+        }
+        /* Pastikan footer tetap di bawah, tapi jika konten panjang dia akan terdorong ke halaman berikutnya dengan aman */
+        .page-footer {
+          margin-top: 50px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <!-- Logo Ruangguru sesuai referensi -->
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+
+        <h1 class="cover-title">MODUL OSN:<br />Penyajian & Analisis Data</h1>
+        <p class="cover-subtitle">
+          Statistika Dasar SD: Materi, Soal & Pembahasan
+        </p>
+      </div>
+      <!-- Footer Hak Cipta -->
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi Lengkap</h1>
+
+        <h2>A. Pengumpulan dan Penyajian Data</h2>
+        <p>
+          Statistika adalah ilmu yang mempelajari cara pengumpulan, penyajian,
+          dan pengolahan data. Berikut adalah visualisasi jenis-jenis penyajian
+          data:
+        </p>
+
+        <h3>1. Jenis Penyajian Data</h3>
+        <ul>
+          <li>
+            <b>Tabel Frekuensi:</b> Daftar yang memuat data dan jumlah
+            kemunculannya.
+          </li>
+          <li>
+            <b>Diagram Gambar (Piktogram):</b> Menggunakan simbol gambar untuk
+            mewakili jumlah tertentu.
+            <div class="svg-container">
+              <svg width="300" height="80" viewBox="0 0 300 80">
+                <text x="0" y="25" font-family="Nunito" font-size="12">
+                  Kelas 1:
+                </text>
+                <circle cx="80" cy="20" r="8" fill="#90caf9" />
+                <circle cx="100" cy="20" r="8" fill="#90caf9" />
+                <circle cx="120" cy="20" r="8" fill="#90caf9" />
+
+                <text x="0" y="55" font-family="Nunito" font-size="12">
+                  Kelas 2:
+                </text>
+                <circle cx="80" cy="50" r="8" fill="#90caf9" />
+                <circle cx="100" cy="50" r="8" fill="#90caf9" />
+                <circle cx="120" cy="50" r="8" fill="#90caf9" />
+                <circle cx="140" cy="50" r="8" fill="#90caf9" />
+                <circle cx="160" cy="50" r="8" fill="#90caf9" />
+
+                <rect
+                  x="200"
+                  y="10"
+                  width="90"
+                  height="60"
+                  fill="none"
+                  stroke="#333"
+                  rx="5"
+                />
+                <text
+                  x="210"
+                  y="30"
+                  font-family="Nunito"
+                  font-size="10"
+                  font-weight="bold"
+                >
+                  Keterangan:
+                </text>
+                <circle cx="215" cy="50" r="6" fill="#90caf9" />
+                <text x="230" y="53" font-family="Nunito" font-size="10">
+                  = 10 Siswa
+                </text>
+              </svg>
+            </div>
+          </li>
+          <li>
+            <b>Diagram Batang:</b> Tinggi batang menunjukkan frekuensi.
+            <div class="svg-container">
+              <svg width="250" height="150" viewBox="0 0 250 150">
+                <!-- Axes -->
+                <line
+                  x1="30"
+                  y1="130"
+                  x2="230"
+                  y2="130"
+                  stroke="#333"
+                  stroke-width="2"
+                />
+                <!-- X Axis -->
+                <line
+                  x1="30"
+                  y1="130"
+                  x2="30"
+                  y2="10"
+                  stroke="#333"
+                  stroke-width="2"
+                />
+                <!-- Y Axis -->
+
+                <!-- Grid Lines -->
+                <line x1="30" y1="90" x2="230" y2="90" stroke="#ddd" />
+                <line x1="30" y1="50" x2="230" y2="50" stroke="#ddd" />
+                <line x1="30" y1="10" x2="230" y2="10" stroke="#ddd" />
+
+                <!-- Labels Y -->
+                <text x="10" y="130" font-family="Nunito" font-size="10">
+                  0
+                </text>
+                <text x="10" y="90" font-family="Nunito" font-size="10">
+                  10
+                </text>
+                <text x="10" y="50" font-family="Nunito" font-size="10">
+                  20
+                </text>
+                <text x="10" y="10" font-family="Nunito" font-size="10">
+                  30
+                </text>
+
+                <!-- Bars -->
+                <rect x="50" y="50" width="30" height="80" fill="#ef5350" />
+                <text
+                  x="60"
+                  y="145"
+                  font-family="Nunito"
+                  font-size="10"
+                  text-anchor="middle"
+                >
+                  A
+                </text>
+
+                <rect x="100" y="10" width="30" height="120" fill="#66bb6a" />
+                <text
+                  x="115"
+                  y="145"
+                  font-family="Nunito"
+                  font-size="10"
+                  text-anchor="middle"
+                >
+                  B
+                </text>
+
+                <rect x="150" y="70" width="30" height="60" fill="#42a5f5" />
+                <text
+                  x="165"
+                  y="145"
+                  font-family="Nunito"
+                  font-size="10"
+                  text-anchor="middle"
+                >
+                  C
+                </text>
+              </svg>
+            </div>
+          </li>
+          <li>
+            <b>Diagram Garis:</b> Cocok untuk data yang
+            <b>berubah terhadap waktu</b>.
+            <div class="svg-container">
+              <svg width="250" height="150" viewBox="0 0 250 150">
+                <!-- Axes -->
+                <line
+                  x1="30"
+                  y1="130"
+                  x2="230"
+                  y2="130"
+                  stroke="#333"
+                  stroke-width="2"
+                />
+                <line
+                  x1="30"
+                  y1="130"
+                  x2="30"
+                  y2="10"
+                  stroke="#333"
+                  stroke-width="2"
+                />
+
+                <!-- Grid -->
+                <line x1="30" y1="90" x2="230" y2="90" stroke="#eee" />
+                <line x1="30" y1="50" x2="230" y2="50" stroke="#eee" />
+
+                <!-- Line -->
+                <polyline
+                  points="50,110 100,50 150,90 200,30"
+                  fill="none"
+                  stroke="#1976d2"
+                  stroke-width="2"
+                />
+
+                <!-- Points -->
+                <circle cx="50" cy="110" r="3" fill="#1976d2" />
+                <circle cx="100" cy="50" r="3" fill="#1976d2" />
+                <circle cx="150" cy="90" r="3" fill="#1976d2" />
+                <circle cx="200" cy="30" r="3" fill="#1976d2" />
+
+                <text
+                  x="120"
+                  y="145"
+                  font-family="Nunito"
+                  font-size="10"
+                  text-anchor="middle"
+                >
+                  Waktu
+                </text>
+                <text
+                  x="10"
+                  y="70"
+                  font-family="Nunito"
+                  font-size="10"
+                  transform="rotate(-90 10,70)"
+                >
+                  Nilai
+                </text>
+              </svg>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <ul>
+          <li>
+            <b>Diagram Lingkaran:</b> Menyatakan data dalam bentuk juring
+            lingkaran.
+            <div class="svg-container">
+              <svg width="150" height="150" viewBox="0 0 150 150">
+                <!-- 75% sector (270 deg) -->
+                <path d="M75,75 L75,5 A70,70 0 1,1 5,75 Z" fill="#ffcc80" />
+                <text x="90" y="100" font-family="Nunito" font-size="12">
+                  75%
+                </text>
+
+                <!-- 25% sector (90 deg) -->
+                <path d="M75,75 L5,75 A70,70 0 0,1 75,5 Z" fill="#80deea" />
+                <text x="40" y="60" font-family="Nunito" font-size="12">
+                  25%
+                </text>
+              </svg>
+            </div>
+            <ul>
+              <li>
+                Satuan Derajat: Total $360^\circ$. Rumus: $\frac{\text{Nilai
+                Data}}{\text{Total}} \times 360^\circ$.
+              </li>
+              <li>
+                Satuan Persen: Total $100\%$. Rumus: $\frac{\text{Nilai
+                Data}}{\text{Total}} \times 100\%$.
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <h2>B. Ukuran Pemusatan Data (Tendensi Sentral)</h2>
+        <div class="rumus-box">
+          <h3>1. Mean (Rata-rata Hitung)</h3>
+          <p>Nilai yang mewakili himpunan atau sekelompok data.</p>
+          $$ \bar{x} = \frac{\text{Jumlah seluruh data}}{\text{Banyaknya data}}
+          $$
+          <b>Segitiga Ajaib OSN:</b>
+          $$ \text{Jumlah Data} = \text{Rata-rata} \times \text{Banyak Data} $$
+          <b>Rata-rata Gabungan:</b>
+          $$ \bar{x}_{gab} = \frac{(n_A \times \bar{x}_A) + (n_B \times
+          \bar{x}_B)}{n_A + n_B} $$
+        </div>
+
+        <div class="tips-box">
+          <h3>2. Median (Nilai Tengah)</h3>
+          Nilai yang membagi data menjadi dua bagian sama besar setelah data
+          <b>diurutkan</b>.
+          <ul>
+            <li>
+              <b>Data Ganjil:</b> Nilai tepat di tengah. Posisi
+              ke-$\frac{n+1}{2}$.
+            </li>
+            <li><b>Data Genap:</b> Rata-rata dua nilai tengah.</li>
+          </ul>
+        </div>
+
+        <h3>3. Modus</h3>
+        <p>
+          Nilai yang paling sering muncul (frekuensi tertinggi). Bisa Unimodal
+          (1), Bimodal (2), atau Multimodal (>2).
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h2>C. Jangkauan (Range)</h2>
+        <div class="rumus-box">
+          $$ \text{Range} = \text{Nilai Terbesar} - \text{Nilai Terkecil} $$
+        </div>
+
+        <h2>D. Tips Trik Matematika OSN</h2>
+        <div class="tips-box">
+          <ol style="margin-bottom: 0">
+            <li>
+              <b>Rata-rata Gabungan (Metode Alligation/Silang):</b><br />
+              Gunakan selisih untuk mencari perbandingan jumlah siswa ($n_A$ dan
+              $n_B$). $$ \frac{n_A}{n_B} = \frac{|\bar{x}_{gab} -
+              \bar{x}_B|}{|\bar{x}_{gab} - \bar{x}_A|} $$
+            </li>
+            <li>
+              <b>Manipulasi Data:</b><br />
+              - Jika semua data <b>ditambah</b> $k$, rata-rata ikut bertambah
+              $k$.<br />
+              - Jika semua data <b>dikali</b> $k$, rata-rata ikut dikali $k$.
+            </li>
+            <li>
+              <b>Deret Aritmatika:</b><br />
+              Untuk data bilangan berurutan (misal: 1, 2, 3, 4, 5), maka
+              <b>Mean = Median</b>.
+            </li>
+            <li>
+              <b>Strategi Pilihan Ganda:</b><br />
+              Gunakan eliminasi jawaban yang tidak masuk akal. Untuk soal
+              piktogram, selalu cek satuannya (misal 1 gambar = 20 orang).
+            </li>
+          </ol>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Mudah (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level Mudah: Pemahaman Dasar (1/2)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Hasil ulangan Matematika Andi adalah: 80, 70, 90, 80, 80,
+            70, 90. Modus dari nilai Andi adalah ...
+          </div>
+          <div class="options">
+            <div>A. 70</div>
+            <div>B. 80</div>
+            <div>C. 85</div>
+            <div>D. 90</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Rata-rata dari data: 6, 8, 7, 9, 10 adalah ...
+          </div>
+          <div class="options">
+            <div>A. 7</div>
+            <div>B. 8</div>
+            <div>C. 8,5</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Perhatikan tabel nilai berikut:
+            <table class="data-table">
+              <tr>
+                <th>Nilai</th>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+              </tr>
+              <tr>
+                <th>Frekuensi</th>
+                <td>3</td>
+                <td>5</td>
+                <td>4</td>
+                <td>2</td>
+              </tr>
+            </table>
+            Banyak siswa yang mendapatkan nilai di atas 7 adalah ...
+          </div>
+          <div class="options">
+            <div>A. 2 siswa</div>
+            <div>B. 4 siswa</div>
+            <div>C. 6 siswa</div>
+            <div>D. 11 siswa</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Sebuah piktogram menunjukkan hasil panen jeruk. Jika satu
+            gambar jeruk penuh mewakili 20 kg, maka 3 gambar jeruk penuh dan
+            satu setengah gambar jeruk seperti gambar di bawah mewakili ...
+            <div class="svg-container">
+              <svg width="200" height="50" viewBox="0 0 200 50">
+                <!-- 3 Full Oranges -->
+                <circle
+                  cx="30"
+                  cy="25"
+                  r="15"
+                  fill="#ff9800"
+                  stroke="#f57c00"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="70"
+                  cy="25"
+                  r="15"
+                  fill="#ff9800"
+                  stroke="#f57c00"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="110"
+                  cy="25"
+                  r="15"
+                  fill="#ff9800"
+                  stroke="#f57c00"
+                  stroke-width="2"
+                />
+                <!-- 1 Half Orange -->
+                <path
+                  d="M150,10 A15,15 0 0,1 150,40 Z"
+                  fill="#ff9800"
+                  stroke="#f57c00"
+                  stroke-width="2"
+                />
+                <line
+                  x1="150"
+                  y1="10"
+                  x2="150"
+                  y2="40"
+                  stroke="#f57c00"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="options">
+            <div>A. 60 kg</div>
+            <div>B. 70 kg</div>
+            <div>C. 75 kg</div>
+            <div>D. 80 kg</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Data berat badan 5 siswa (kg) adalah: 35, 32, 38, 32, 40.
+            Median data tersebut adalah ...
+          </div>
+          <div class="options">
+            <div>A. 32 kg</div>
+            <div>B. 35 kg</div>
+            <div>C. 36,5 kg</div>
+            <div>D. 38 kg</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Lanjutan Soal Level Mudah (6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level Mudah: Pemahaman Dasar (2/2)</div>
+        <br />
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Jika jumlah seluruh data adalah 450 dan banyaknya data
+            adalah 15, maka rata-ratanya adalah ...
+          </div>
+          <div class="options">
+            <div>A. 25</div>
+            <div>B. 30</div>
+            <div>C. 35</div>
+            <div>D. 45</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Pada diagram batang berikut, tinggi batang untuk kategori
+            "Suka Bakso" adalah 12 cm (secara visual). Jika skala diagram adalah
+            1 cm = 5 anak, banyak anak yang suka bakso adalah ...
+            <div class="svg-container">
+              <svg width="200" height="120" viewBox="0 0 200 120">
+                <!-- Axes -->
+                <line
+                  x1="30"
+                  y1="10"
+                  x2="30"
+                  y2="100"
+                  stroke="#333"
+                  stroke-width="1.5"
+                />
+                <line
+                  x1="30"
+                  y1="100"
+                  x2="180"
+                  y2="100"
+                  stroke="#333"
+                  stroke-width="1.5"
+                />
+                <!-- Bar Bakso (Height represents 12cm visual scale) -->
+                <rect x="40" y="20" width="30" height="80" fill="#2196f3" />
+                <text
+                  x="55"
+                  y="115"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="#333"
+                >
+                  Bakso
+                </text>
+                <!-- Other Bar -->
+                <rect x="90" y="60" width="30" height="40" fill="#9e9e9e" />
+                <text
+                  x="105"
+                  y="115"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="#333"
+                >
+                  Soto
+                </text>
+                <!-- Arrow for height -->
+                <line
+                  x1="25"
+                  y1="20"
+                  x2="25"
+                  y2="100"
+                  stroke="#e91e63"
+                  stroke-width="1"
+                  stroke-dasharray="2,2"
+                />
+                <text
+                  x="15"
+                  y="60"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="#e91e63"
+                  transform="rotate(-90, 15, 60)"
+                >
+                  12 cm
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="options">
+            <div>A. 17 anak</div>
+            <div>B. 50 anak</div>
+            <div>C. 60 anak</div>
+            <div>D. 72 anak</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Diketahui data: 5, 5, 6, $x$, 7, 8. Jika modus data
+            tersebut adalah 5, nilai $x$ yang mungkin adalah ...
+          </div>
+          <div class="options">
+            <div>A. 5</div>
+            <div>B. 6</div>
+            <div>C. 7</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Rata-rata nilai ulangan 4 siswa adalah 80. Jumlah total
+            nilai keempat siswa tersebut adalah ...
+          </div>
+          <div class="options">
+            <div>A. 240</div>
+            <div>B. 300</div>
+            <div>C. 320</div>
+            <div>D. 360</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Penjualan buku selama 5 hari: Senin (20), Selasa (15),
+            Rabu (25), Kamis (30), Jumat (20). Jangkauan (selisih terbesar dan
+            terkecil) data tersebut adalah ...
+          </div>
+          <div class="options">
+            <div>A. 10 buku</div>
+            <div>B. 15 buku</div>
+            <div>C. 20 buku</div>
+            <div>D. 25 buku</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Sedang (11-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Sedang: Aplikasi & Penalaran (1/2)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Rata-rata nilai 9 orang siswa adalah 75. Jika nilai
+            seorang siswa baru ditambahkan, rata-ratanya menjadi 76. Nilai siswa
+            baru tersebut adalah ...
+          </div>
+          <div class="options">
+            <div>A. 76</div>
+            <div>B. 80</div>
+            <div>C. 84</div>
+            <div>D. 85</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Jika jumlah total siswa adalah 20 orang, maka nilai $p$
+            adalah ...
+            <table class="data-table">
+              <tr>
+                <th>Nilai</th>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+              </tr>
+              <tr>
+                <th>Frekuensi</th>
+                <td>2</td>
+                <td>4</td>
+                <td>6</td>
+                <td>$p$</td>
+                <td>3</td>
+              </tr>
+            </table>
+          </div>
+          <div class="options">
+            <div>A. 3</div>
+            <div>B. 4</div>
+            <div>C. 5</div>
+            <div>D. 6</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Berdasarkan tabel pada soal nomor 12, median dari data
+            tersebut adalah ...
+          </div>
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 7</div>
+            <div>C. 7,5</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Rata-rata dari 5 bilangan adalah 12. Jika salah satu
+            bilangan yaitu 16 dikeluarkan, rata-rata dari 4 bilangan sisanya
+            adalah ...
+          </div>
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 11</div>
+            <div>C. 12</div>
+            <div>D. 13</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Nilai rata-rata 18 siswa putri adalah 72, dan rata-rata
+            12 siswa putra adalah 70. Rata-rata nilai seluruh siswa di kelas
+            tersebut adalah ...
+          </div>
+          <div class="options">
+            <div>A. 71,0</div>
+            <div>B. 71,2</div>
+            <div>C. 71,4</div>
+            <div>D. 71,5</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Lanjutan Soal Level Sedang (16-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level Sedang: Aplikasi & Penalaran (2/2)
+        </div>
+        <br />
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Dalam diagram lingkaran berikut, juring "Renang" (warna
+            biru) bersudut $90^\circ$. Jika total siswa 200 anak, banyak siswa
+            yang gemar renang adalah ...
+            <div class="svg-container">
+              <svg width="100" height="100" viewBox="0 0 150 150">
+                <g transform="translate(75, 75)">
+                  <!-- Renang 90 deg (Blue) -->
+                  <path
+                    d="M0,0 L0,-60 A60,60 0 0,1 60,0 Z"
+                    fill="#2196f3"
+                    stroke="white"
+                  />
+                  <text
+                    x="20"
+                    y="-20"
+                    font-size="10"
+                    fill="white"
+                    font-weight="bold"
+                  >
+                    Renang
+                  </text>
+                  <!-- Other slices (Visual representation) -->
+                  <path
+                    d="M0,0 L60,0 A60,60 0 1,1 0,-60 Z"
+                    fill="#e0e0e0"
+                    stroke="white"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="options">
+            <div>A. 25 anak</div>
+            <div>B. 40 anak</div>
+            <div>C. 50 anak</div>
+            <div>D. 100 anak</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Diberikan data terurut: 4, 5, $x$, 8, 9, 10. Jika
+            rata-rata data tersebut adalah 7, maka nilai $x$ adalah ...
+          </div>
+          <div class="options">
+            <div>A. 5</div>
+            <div>B. 6</div>
+            <div>C. 7</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Diketahui data: 7, 8, 6, 7, 6, 8, 7, $y$, 9. Jika modus
+            data tersebut adalah 7, manakah nilai $y$ yang paling tepat?
+          </div>
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 7</div>
+            <div>C. 8</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Sebuah diagram garis menunjukkan suhu badan pasien
+            seperti di bawah. Penurunan suhu paling drastis terjadi pada
+            interval ...
+            <div class="svg-container">
+              <svg width="300" height="120" viewBox="0 0 300 120">
+                <!-- Grid lines -->
+                <line x1="30" y1="20" x2="280" y2="20" stroke="#eee" />
+                <line x1="30" y1="50" x2="280" y2="50" stroke="#eee" />
+                <line x1="30" y1="80" x2="280" y2="80" stroke="#eee" />
+
+                <!-- Axes -->
+                <line x1="30" y1="10" x2="30" y2="100" stroke="#333" />
+                <line x1="30" y1="100" x2="280" y2="100" stroke="#333" />
+
+                <!-- Points & Line -->
+                <polyline
+                  points="50,20 120,50 190,65"
+                  fill="none"
+                  stroke="#e91e63"
+                  stroke-width="2"
+                />
+
+                <!-- 08.00 - 39C (y=20) -->
+                <circle cx="50" cy="20" r="4" fill="#e91e63" />
+                <text x="50" y="115" text-anchor="middle" font-size="10">
+                  08.00
+                </text>
+                <text x="50" y="15" text-anchor="middle" font-size="10">
+                  39°
+                </text>
+
+                <!-- 09.00 - 38C (y=50) -->
+                <circle cx="120" cy="50" r="4" fill="#e91e63" />
+                <text x="120" y="115" text-anchor="middle" font-size="10">
+                  09.00
+                </text>
+                <text x="120" y="45" text-anchor="middle" font-size="10">
+                  38°
+                </text>
+
+                <!-- 10.00 - 37.5C (y=65) -->
+                <circle cx="190" cy="65" r="4" fill="#e91e63" />
+                <text x="190" y="115" text-anchor="middle" font-size="10">
+                  10.00
+                </text>
+                <text x="190" y="60" text-anchor="middle" font-size="10">
+                  37,5°
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="options">
+            <div>A. 07.00 -- 08.00</div>
+            <div>B. 08.00 -- 09.00</div>
+            <div>C. 09.00 -- 10.00</div>
+            <div>D. Tidak ada penurunan</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Rata-rata berat 5 anak adalah 40 kg. Jika anak terberat
+            diganti anak lain seberat 35 kg, rata-rata menjadi 38 kg. Berat anak
+            yang diganti adalah ...
+          </div>
+          <div class="options">
+            <div>A. 40 kg</div>
+            <div>B. 42 kg</div>
+            <div>C. 45 kg</div>
+            <div>D. 48 kg</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Sulit (21-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level Sulit: Analisis Kompleks (1/2)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> Ada 4 bilangan bulat positif berbeda. Rata-ratanya adalah
+            25. Bilangan terbesar adalah 35. Berapakah bilangan terkecil yang
+            <b>mungkin</b>?
+          </div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 2</div>
+            <div>C. 5</div>
+            <div>D. 10</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Rata-rata nilai kelas 6A adalah 78. Rata-rata kelas 6B
+            adalah 85. Jika digabung rata-ratanya menjadi 80. Perbandingan
+            banyak siswa kelas 6A dan 6B adalah ...
+          </div>
+          <div class="options">
+            <div>A. 2 : 5</div>
+            <div>B. 5 : 2</div>
+            <div>C. 3 : 2</div>
+            <div>D. 2 : 3</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Diberikan data: 4, 6, 7, 8, $a$, $b$. Diketahui rata-rata
+            data adalah 7 dan modusnya adalah 7 (modus tunggal). Jika $a < b$,
+            maka nilai $a \times b$ adalah ...
+          </div>
+          <div class="options">
+            <div>A. 35</div>
+            <div>B. 49</div>
+            <div>C. 70</div>
+            <div>D. 77</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> Rata-rata ulangan sekelompok siswa adalah 70. Jika 2
+            siswa bernilai 40 dan 50 diabaikan, rata-ratanya menjadi 75. Banyak
+            siswa mula-mula adalah ...
+          </div>
+          <div class="options">
+            <div>A. 10 siswa</div>
+            <div>B. 12 siswa</div>
+            <div>C. 15 siswa</div>
+            <div>D. 20 siswa</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Median dari 5 bilangan bulat berurutan adalah $n$.
+            Rata-rata dari 5 bilangan tersebut adalah ...
+          </div>
+          <div class="options">
+            <div>A. $n-2$</div>
+            <div>B. $n$</div>
+            <div>C. $n+2$</div>
+            <div>D. $5n$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Sulit (26-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level Sulit: Analisis Kompleks (2/2)</div>
+        <br />
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> Rata-rata nilai lulus adalah 80, rata-rata nilai tidak
+            lulus adalah 50. Jika rata-rata seluruh siswa adalah 74, berapa
+            persen siswa yang lulus?
+          </div>
+          <div class="options">
+            <div>A. 60%</div>
+            <div>B. 75%</div>
+            <div>C. 80%</div>
+            <div>D. 85%</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Tiga tahun lalu, rata-rata usia Ayah, Ibu, Kakak (3
+            orang) adalah 30 tahun. Sekarang, rata-rata usia mereka bertiga
+            ditambah Adik (4 orang) adalah 27 tahun. Usia Adik sekarang adalah
+            ...
+          </div>
+          <div class="options">
+            <div>A. 6 tahun</div>
+            <div>B. 7 tahun</div>
+            <div>C. 8 tahun</div>
+            <div>D. 9 tahun</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Rata-rata 10 bilangan adalah $A$. Jika setiap bilangan
+            ditambah 2, kemudian hasilnya dikalikan 3, rata-rata barunya adalah
+            ...
+          </div>
+          <div class="options">
+            <div>A. $3A$</div>
+            <div>B. $A + 6$</div>
+            <div>C. $3A + 2$</div>
+            <div>D. $3A + 6$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> Perhatikan tabel berikut:
+            <table class="data-table">
+              <tr>
+                <th>Nilai</th>
+                <td>60</td>
+                <td>70</td>
+                <td>80</td>
+                <td>90</td>
+              </tr>
+              <tr>
+                <th>Frekuensi</th>
+                <td>4</td>
+                <td>$x$</td>
+                <td>6</td>
+                <td>2</td>
+              </tr>
+            </table>
+            Jika median data adalah 70, nilai minimum $x$ adalah ...
+          </div>
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 5</div>
+            <div>C. 6</div>
+            <div>D. 7</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> Rata-rata dari 10 bilangan asli (bulat positif)
+            <b>berbeda</b> adalah 10. Berapakah bilangan terbesar yang mungkin
+            ada dalam data tersebut?
+          </div>
+          <div class="options">
+            <div>A. 45</div>
+            <div>B. 50</div>
+            <div>C. 55</div>
+            <div>D. 91</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMISAH PEMBAHASAN -->
+    <section class="page">
+      <div
+        class="content-wrapper"
+        style="
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        "
+      >
+        <h1 style="font-size: 30pt; border: none; color: #333">
+          BAGIAN III:<br />PEMBAHASAN LENGKAP
+        </h1>
+        <p style="font-size: 16pt; margin-top: 20px">
+          Kunci Jawaban & Langkah Pengerjaan Detail
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Mudah (1/2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Mudah (1/2)</h1>
+
+        <div class="soal-latihan">
+          <b>1. Jawaban: B (80)</b>
+          <div class="pembahasan">
+            Nilai 80 muncul sebanyak 3 kali, paling banyak dibandingkan nilai
+            lainnya.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: B (8)</b>
+          <div class="pembahasan">
+            $\text{Mean} = \frac{6+8+7+9+10}{5} = \frac{40}{5} = \mathbf{8}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: C (6 siswa)</b>
+          <div class="pembahasan">
+            Nilai di atas 7 adalah nilai 8 dan 9.<br />
+            Siswa nilai 8 = 4 orang.<br />
+            Siswa nilai 9 = 2 orang.<br />
+            Total = $4 + 2 = \mathbf{6}$ siswa.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: B (70 kg)</b>
+          <div class="pembahasan">
+            3 gambar penuh + setengah gambar = $3,5$ gambar.<br />
+            Total = $3,5 \times 20 \text{ kg} = \mathbf{70}$ kg.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: B (35)</b>
+          <div class="pembahasan">
+            Urutkan data dari terkecil: 32, 32, <b>35</b>, 38, 40.<br />
+            Median adalah data yang di tengah = 35.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Mudah (2/2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Mudah (2/2)</h1>
+
+        <div class="soal-latihan">
+          <b>6. Jawaban: B (30)</b>
+          <div class="pembahasan">
+            Rata-rata = $\frac{\text{Jumlah Data}}{\text{Banyak Data}} =
+            \frac{450}{15} = \mathbf{30}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>7. Jawaban: C (60 anak)</b>
+          <div class="pembahasan">
+            $12 \text{ cm} \times 5 \text{ anak/cm} = \mathbf{60}$ anak.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: A (5)</b>
+          <div class="pembahasan">
+            Awal: 5(2), 6(1), 7(1), 8(1). Agar modus adalah 5, maka jumlah angka
+            5 harus terbanyak. Jika $x=5$, maka angka 5 muncul 3 kali.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: C (320)</b>
+          <div class="pembahasan">
+            Jumlah = Rata-rata $\times$ Banyak siswa = $80 \times 4 =
+            \mathbf{320}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>10. Jawaban: B (15)</b>
+          <div class="pembahasan">
+            Terbesar = 30 (Kamis). Terkecil = 15 (Selasa).<br />
+            Jangkauan = $30 - 15 = \mathbf{15}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Sedang (1/2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Sedang (1/2)</h1>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: D (85)</b>
+          <div class="pembahasan">
+            Jumlah awal (9 siswa) = $9 \times 75 = 675$.<br />
+            Jumlah akhir (10 siswa) = $10 \times 76 = 760$.<br />
+            Siswa baru = $760 - 675 = \mathbf{85}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: C (5)</b>
+          <div class="pembahasan">
+            Total siswa = 20.<br />
+            Yang diketahui = $2 + 4 + 6 + 3 = 15$.<br />
+            $p = 20 - 15 = \mathbf{5}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>13. Jawaban: B (7)</b>
+          <div class="pembahasan">
+            Data ada 20. Median ada di antara data ke-10 dan ke-11.<br />
+            - Data ke-1 s.d 2: Nilai 5<br />
+            - Data ke-3 s.d 6: Nilai 6<br />
+            - Data ke-7 s.d 12: Nilai 7<br />
+            Jadi data ke-10 dan ke-11 bernilai 7. Median = $\mathbf{7}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: B (11)</b>
+          <div class="pembahasan">
+            Total 5 bilangan = $5 \times 12 = 60$.<br />
+            Dikeluarkan 16 $\rightarrow$ Sisa total = $60 - 16 = 44$.<br />
+            Rata-rata baru (4 bilangan) = $44 : 4 = \mathbf{11}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: B (71,2)</b>
+          <div class="pembahasan">
+            $\text{Mean gabungan} = \frac{(18 \times 72) + (12 \times
+            70)}{18+12}$<br />
+            $= \frac{1296 + 840}{30} = \frac{2136}{30} = \mathbf{71,2}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Sedang (2/2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Sedang (2/2)</h1>
+        <div class="soal-latihan">
+          <b>16. Jawaban: C (50 anak)</b>
+          <div class="pembahasan">
+            Sudut $90^\circ$ berarti $\frac{90}{360} = \frac{1}{4}$ bagian.<br />
+            Banyak siswa = $\frac{1}{4} \times 200 = \mathbf{50}$ anak.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>17. Jawaban: B (6)</b>
+          <div class="pembahasan">
+            Total data seharusnya = $6 \times 7 = 42$.<br />
+            Jumlah yang ada = $4+5+8+9+10 = 36$.<br />
+            $x = 42 - 36 = \mathbf{6}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>18. Jawaban: B (7)</b>
+          <div class="pembahasan">
+            Data: 7, 8, 6, 7, 6, 8, 7, y, 9.<br />
+            Nilai 7 muncul 3 kali. Agar modus semakin kuat (paling dominan),
+            sebaiknya $y$ juga bernilai 7.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>19. Jawaban: B (08.00 -- 09.00)</b>
+          <div class="pembahasan">
+            Pkl 08.00 ke 09.00 turun $1^\circ$C ($39 \to 38$).<br />
+            Pkl 09.00 ke 10.00 turun $0,5^\circ$C ($38 \to 37,5$).<br />
+            Penurunan terbesar pukul 08.00-09.00.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: C (45 kg)</b>
+          <div class="pembahasan">
+            Selisih rata-rata = $40 - 38 = 2$ kg.<br />
+            Selisih total berat = $2 \times 5 = 10$ kg.<br />
+            Anak lama lebih berat 10 kg dari anak baru (35 kg).<br />
+            Berat anak lama = $35 + 10 = \mathbf{45}$ kg.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Sulit (1/2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Sulit (1/2)</h1>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: A (1)</b>
+          <div class="pembahasan">
+            Jumlah 4 bilangan = $4 \times 25 = 100$.<br />
+            Agar satu bilangan ($A$) sekecil mungkin, bilangan lain ($B, C, D$)
+            harus sebesar mungkin.<br />
+            Misal $D=35$ (Terbesar). Sisa $A+B+C = 65$.<br />
+            Syarat: Berbeda dan positif. Ambil $C=34, B=30$.<br />
+            $A = 65 - (34+30) = 1$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>22. Jawaban: B (5 : 2)</b>
+          <div class="pembahasan">
+            Gunakan selisih silang:<br />
+            Selisih 6A ke Gabungan: $|78 - 80| = 2$. (Milik 6B)<br />
+            Selisih 6B ke Gabungan: $|85 - 80| = 5$. (Milik 6A)<br />
+            Perbandingan Siswa A : B = $\mathbf{5 : 2}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>23. Jawaban: C (70)</b>
+          <div class="pembahasan">
+            Rata-rata 7, total data (6 bilangan) = 42.<br />
+            Data: $4+6+7+8 = 25$. Sisa $a+b = 42-25=17$.<br />
+            Syarat modus tunggal 7: Angka 7 harus muncul paling banyak (minimal
+            2 kali).<br />
+            Maka salah satu ($a$) harus 7. Jika $a=7$, maka $b=10$.<br />
+            $a \times b = 7 \times 10 = \mathbf{70}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: B (12 siswa)</b>
+          <div class="pembahasan">
+            $\frac{70n - (40+50)}{n-2} = 75$<br />
+            $70n - 90 = 75n - 150 \rightarrow 5n = 60 \rightarrow n =
+            \mathbf{12}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>25. Jawaban: B (n)</b>
+          <div class="pembahasan">
+            Untuk deret bilangan bulat berurutan (aritmatika) dengan jumlah
+            ganjil, nilai <b>Mean selalu sama dengan Median</b>.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level Sulit (2/2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level Sulit (2/2)</h1>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: C (80%)</b>
+          <div class="pembahasan">
+            Selisih Lulus (80) vs Gabungan (74) = 6.<br />
+            Selisih Tidak Lulus (50) vs Gabungan (74) = 24.<br />
+            Rasio Lulus : Tidak = $24 : 6 = 4 : 1$.<br />
+            Persentase Lulus = $\frac{4}{5} \times 100\% = \mathbf{80\%}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>27. Jawaban: D (9 tahun)</b>
+          <div class="pembahasan">
+            Total usia 3 orang (dulu) = 90. Total usia 3 orang (sekarang) = $90
+            + (3 \times 3) = 99$.<br />
+            Total usia 4 orang (sekarang) = $27 \times 4 = 108$.<br />
+            Usia Adik = $108 - 99 = \mathbf{9}$ tahun.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: D ($3A + 6$)</b>
+          <div class="pembahasan">
+            Operasi pada data berlaku sama pada rata-rata.<br />
+            Ditambah 2: $A+2$. Dikalikan 3: $3(A+2) = \mathbf{3A+6}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: B (5)</b>
+          <div class="pembahasan">
+            Data: 60(4), 70(x), 80(6), 90(2).<br />
+            Kanan (80, 90) ada 8 data. Kiri (60) ada 4 data.<br />
+            Agar median jatuh di 70, kelompok kiri+tengah harus lebih banyak
+            dari kanan.<br />
+            $4 + x > 8 \rightarrow x > 4$. Minimal bulat = $\mathbf{5}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: C (55)</b>
+          <div class="pembahasan">
+            Total 10 bilangan = 100.<br />
+            Agar satu bilangan maksimal, 9 bilangan lain harus minimal (1, 2,
+            ..., 9).<br />
+            Jumlah 1 s.d 9 = 45.<br />
+            Bilangan terbesar = $100 - 45 = \mathbf{55}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
