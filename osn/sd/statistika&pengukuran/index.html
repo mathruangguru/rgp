@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Modul OSN: Review & Problem Solving (Statistika dan Pengukuran)
+    </title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e8f5e9;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 28pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      /* Watermark */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #1b5e20;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #2e7d32;
+      }
+      .soal-latihan {
+        margin-bottom: 20px;
+        break-inside: avoid;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--accent-green);
+        padding: 10px 15px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10.5pt;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+      }
+      .rumus-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      ul,
+      ol {
+        margin-top: 0;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <!-- Logo -->
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+
+        <h1 class="cover-title">
+          MODUL OSN:<br />Review & Problem Solving (Statistika dan Pengukuran)
+        </h1>
+        <p class="cover-subtitle">Latihan Soal & Pembahasan Detail</p>
+      </div>
+      <!-- Footer -->
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1: Statistika -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi & Trik OSN</h1>
+
+        <h2>A. Statistika: Data dan Pemusatan Data</h2>
+        <p>
+          Dalam olimpiade, hindari "kerja kuli" (menghitung manual angka besar).
+          Gunakan logika dan sifat data untuk menyelesaikan masalah.
+        </p>
+        <div class="rumus-box">
+          <b>1. Konsep Rata-rata (Mean)</b>
+          <ul>
+            <li>
+              <b>Konsep Pemerataan (Levelling):</b> Bayangkan nilai data sebagai
+              tumpukan balok. Rata-rata adalah tinggi tumpukan jika semua balok
+              disusun sama tinggi.
+            </li>
+            <li>
+              <b>Metode Neraca (Balance Method):</b> Jumlah deviasi (selisih)
+              nilai di atas rata-rata harus sama dengan jumlah deviasi nilai di
+              bawah rata-rata.
+            </li>
+            <li>
+              <b>Rumus Gabungan:</b><br />
+              $$ \bar{x}_{gab} = \frac{n_1 \cdot \bar{x}_1 + n_2 \cdot
+              \bar{x}_2}{n_1 + n_2} $$
+            </li>
+          </ul>
+        </div>
+
+        <div class="tips-box">
+          <b>Tips Olimpiade: Median dan Modus</b>
+          <ul>
+            <li>
+              <b>Median:</b> Hati-hati dengan data yang belum urut. Jika jumlah
+              data ganjil ($2n+1$), median ada di posisi ke-$(n+1)$.
+            </li>
+            <li>
+              <b>Eksplorasi Bilangan:</b> Soal olimpiade sering menggabungkan
+              statistika dengan teori bilangan. Contoh: "Tentukan nilai maksimum
+              X jika median Y dan modus Z". Gunakan urutan data $x_1 \le x_2 \le
+              x_3 \dots$ untuk memvisualisasikannya.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2: Pengukuran -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi (Lanjutan)</h1>
+        <h2>B. Pengukuran: Kecepatan dan Debit</h2>
+        <p>
+          Gunakan pendekatan <i>Bar Model</i> (Model Batang) untuk
+          memvisualisasikan jarak dan waktu, terutama pada soal susul-menyusul.
+        </p>
+
+        <div class="rumus-box">
+          <b>2. Logika Gerak (Kinematika)</b>
+          <ul>
+            <li>
+              <b>Papasan (Berlawanan Arah):</b><br />
+              Kedua objek bekerja sama memperpendek jarak.<br />
+              $$ Waktu = \frac{\text{Jarak Awal}}{\text{Kecepatan}_1 +
+              \text{Kecepatan}_2} $$
+            </li>
+            <li>
+              <b>Menyusul (Searah):</b><br />
+              Objek belakang harus "membayar" ketertinggalan jarak dengan
+              selisih kecepatan.<br />
+              $$ Waktu = \frac{\text{Selisih Jarak}}{\text{Kecepatan}_{cepat} -
+              \text{Kecepatan}_{lambat}} $$
+            </li>
+          </ul>
+        </div>
+
+        <h2>C. Jebakan Klasik Olimpiade (Hati-hati!)</h2>
+        <div
+          class="tips-box"
+          style="background-color: #ffebee; border-left-color: #f44336"
+        >
+          <ul>
+            <li>
+              <b>Kecepatan Rata-rata:</b><br />
+              $$ \text{Kec. Rata-rata} \neq \frac{V_1 + V_2}{2} $$ Rumus yang
+              benar adalah: $$ \bar{v} = \frac{\text{Total Jarak}}{\text{Total
+              Waktu}} $$
+            </li>
+            <li>
+              <b>Panjang Kereta:</b><br />
+              Saat kereta melewati jembatan/terowongan, jarak tempuh adalah
+              <b>Panjang Jembatan + Panjang Kereta</b>.
+            </li>
+            <li>
+              <b>Bilangan "Berbeda" (Distinct):</b><br />
+              Jika soal menyebut "bilangan bulat berbeda", pastikan tidak ada
+              angka yang sama saat melakukan pemisalan (misal: jangan gunakan 1,
+              1, ...).
+            </li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level 1 (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 1: Konsep Dasar & Jebakan Logika (1-5)
+        </div>
+        <p><i>Tujuan: Membangun kepekaan terhadap jebakan soal umum.</i></p>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Rata-rata nilai ulangan dari 4 siswa adalah 78. Jika nilai
+            Dodi dimasukkan ke dalam data tersebut, rata-ratanya naik menjadi
+            80. Berapakah nilai ulangan Dodi?
+          </div>
+          <div class="options">
+            <div>A. 82</div>
+            <div>B. 88</div>
+            <div>C. 86</div>
+            <div>D. 90</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> (Jebakan Logika) Sebuah wadah berisi penuh air memiliki
+            berat total 500 gram. Jika wadah tersebut hanya berisi setengah air,
+            berat totalnya menjadi 320 gram. Berapakah berat wadah kosong
+            tersebut?
+          </div>
+          <div class="options">
+            <div>A. 180 gram</div>
+            <div>B. 320 gram</div>
+            <div>C. 140 gram</div>
+            <div>D. 360 gram</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> (Jebakan Kecepatan) Jarak kota A dan B adalah 60 km. Ayah
+            menempuh kota A ke B dengan sepeda motor. Ia menempuh 30 km pertama
+            dengan kecepatan 30 km/jam, dan 30 km sisanya dengan kecepatan 60
+            km/jam. Berapakah kecepatan rata-rata Ayah sepanjang perjalanan?
+          </div>
+          <div class="options">
+            <div>A. 40 km/jam</div>
+            <div>B. 45 km/jam</div>
+            <div>C. 50 km/jam</div>
+            <div>D. 35 km/jam</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Sebuah jam dinding mengalami kerusakan sehingga setiap
+            jamnya terlambat 2 menit (lebih lambat 2 menit dari waktu
+            sebenarnya). Jam tersebut dicocokkan pada pukul 08.00 pagi. Pukul
+            berapakah yang ditunjukkan jam tersebut ketika waktu yang sebenarnya
+            adalah pukul 18.00 pada hari yang sama?
+          </div>
+          <div class="options">
+            <div>A. 18.20</div>
+            <div>B. 17.00</div>
+            <div>C. 17.20</div>
+            <div>D. 17.40</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Perhatikan data terurut berikut: 3, 5, $x$, 8, 8, 9. Jika
+            rata-rata dari data tersebut adalah 7, tentukan nilai median dari
+            data tersebut.
+          </div>
+          <div class="options">
+            <div>A. 7</div>
+            <div>B. 8</div>
+            <div>C. 8,5</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level 1 (6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 1: Konsep Dasar & Jebakan Logika (6-10)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Hari ini adalah hari Rabu. Jatuh pada hari apakah 100 hari
+            yang akan datang?
+          </div>
+          <div class="options">
+            <div>A. Jumat</div>
+            <div>B. Kamis</div>
+            <div>C. Sabtu</div>
+            <div>D. Senin</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Andi berlari dengan kecepatan 4 m/detik. Budi mengejar
+            Andi dari belakang dengan kecepatan 6 m/detik. Jika jarak awal
+            mereka adalah 30 meter, berapa detik waktu yang dibutuhkan Budi
+            untuk menyusul Andi?
+          </div>
+          <div class="options">
+            <div>A. 10 detik</div>
+            <div>B. 7,5 detik</div>
+            <div>C. 15 detik</div>
+            <div>D. 5 detik</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Rata-rata berat badan 10 siswa adalah 40 kg. Jika satu
+            siswa yang memiliki berat 31 kg tidak diikutsertakan dalam
+            perhitungan, berapa rata-rata berat badan siswa sisanya?
+          </div>
+          <div class="options">
+            <div>A. 40,9 kg</div>
+            <div>B. 41 kg</div>
+            <div>C. 39 kg</div>
+            <div>D. 40 kg</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Pipa A dapat mengisi kolam renang anak-anak hingga penuh
+            dalam waktu 20 menit. Pipa B dapat mengisi kolam yang sama hingga
+            penuh dalam waktu 30 menit. Jika kedua pipa dibuka bersamaan, berapa
+            menit waktu yang dibutuhkan agar kolam penuh?
+          </div>
+          <div class="options">
+            <div>A. 25 menit</div>
+            <div>B. 50 menit</div>
+            <div>C. 10 menit</div>
+            <div>D. 12 menit</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Terdapat dua kelompok data. Kelompok A terdiri dari 3
+            bilangan dengan rata-rata 10. Kelompok B terdiri dari 2 bilangan
+            dengan rata-rata 20. Berapakah rata-rata gabungan dari seluruh
+            bilangan di kedua kelompok tersebut?
+          </div>
+          <div class="options">
+            <div>A. 15</div>
+            <div>B. 16</div>
+            <div>C. 14</div>
+            <div>D. 13</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level 2 (11-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 2: Aplikasi dan Analisis (11-15)</div>
+        <p>
+          <i
+            >Tujuan: Menggabungkan beberapa konsep dengan variasi soal
+            cerita.</i
+          >
+        </p>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Rata-rata nilai ulangan matematika dari 18 siswa adalah
+            75. Setelah nilai dua siswa susulan dimasukkan, rata-ratanya menjadi
+            76. Jika nilai kedua siswa susulan tersebut sama, berapakah nilai
+            mereka masing-masing?
+          </div>
+          <div class="options">
+            <div>A. 84</div>
+            <div>B. 85</div>
+            <div>C. 86</div>
+            <div>D. 170</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Jarak kota P dan Q adalah 240 km. Budi berangkat dari P
+            ke Q pukul 07.00 dengan kecepatan 40 km/jam. Candra berangkat dari Q
+            ke P pada pukul yang sama dengan kecepatan 60 km/jam. Pukul berapa
+            mereka berpapasan?
+          </div>
+          <div class="options">
+            <div>A. 09.00</div>
+            <div>B. 09.36</div>
+            <div>C. 09.24</div>
+            <div>D. 09.30</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Sebuah akuarium berbentuk balok kosong memiliki ukuran 60
+            cm $\times$ 40 cm $\times$ 50 cm. Akuarium diisi air dengan debit 12
+            liter/menit. Berapa menit waktu yang dibutuhkan hingga akuarium
+            terisi $\frac{3}{4}$ bagian?
+          </div>
+          <div class="options">
+            <div>A. 7 menit 30 detik</div>
+            <div>B. 8 menit</div>
+            <div>C. 10 menit</div>
+            <div>D. 7 menit</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Rata-rata umur Ayah, Ibu, dan Budi adalah 30 tahun.
+            Rata-rata umur Ayah dan Ibu adalah 40 tahun. Berapakah umur Budi?
+          </div>
+          <div class="options">
+            <div>A. 5 tahun</div>
+            <div>B. 10 tahun</div>
+            <div>C. 15 tahun</div>
+            <div>D. 20 tahun</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Sebuah kereta api sepanjang 150 meter melaju dengan
+            kecepatan 72 km/jam. Kereta tersebut akan melewati sebuah jembatan
+            yang panjangnya 250 meter. Berapa detik waktu yang dibutuhkan kereta
+            untuk melewati jembatan sepenuhnya?
+          </div>
+          <div class="options">
+            <div>A. 12,5 detik</div>
+            <div>B. 7,5 detik</div>
+            <div>C. 25 detik</div>
+            <div>D. 20 detik</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level 2 (16-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 2: Aplikasi dan Analisis (16-20)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Nilai rata-rata sekelompok siswa adalah 7. Jika ditambah
+            satu siswa yang nilainya 9, rata-ratanya menjadi 7,2. Berapa banyak
+            siswa dalam kelompok mula-mula?
+          </div>
+          <div class="options">
+            <div>A. 9 siswa</div>
+            <div>B. 10 siswa</div>
+            <div>C. 8 siswa</div>
+            <div>D. 11 siswa</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Perbandingan uang Ali dan Budi adalah 3 : 4. Perbandingan
+            uang Budi dan Cici adalah 2 : 5. Jika rata-rata uang mereka bertiga
+            adalah Rp34.000, berapakah uang Cici?
+          </div>
+          <div class="options">
+            <div>A. Rp40.000</div>
+            <div>B. Rp50.000</div>
+            <div>C. Rp60.000</div>
+            <div>D. Rp34.000</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Mobil A berangkat dari Jakarta pukul 08.00 dengan
+            kecepatan 60 km/jam. Mobil B menyusul dari tempat yang sama pukul
+            08.30 dengan kecepatan 80 km/jam. Pukul berapa Mobil B berhasil
+            menyusul Mobil A?
+          </div>
+          <div class="options">
+            <div>A. 09.30</div>
+            <div>B. 10.00</div>
+            <div>C. 09.45</div>
+            <div>D. 10.15</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Data nilai 10 siswa: 6, 7, 8, 6, 9, 8, $x$, 7, 8, 9. Jika
+            modusnya tunggal (hanya satu) dan modus tersebut adalah 8, tentukan
+            nilai rata-rata data tersebut (dibulatkan 2 desimal).
+          </div>
+          <div class="options">
+            <div>A. 7,50</div>
+            <div>B. 7,55</div>
+            <div>C. 7,65</div>
+            <div>D. 8,00</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Seseorang berlari mengelilingi lapangan berbentuk persegi
+            panjang dengan ukuran 100 m $\times$ 50 m. Ia berlari dengan
+            kecepatan 3 m/detik. Berapa menit waktu yang ia butuhkan untuk
+            mengelilingi lapangan sebanyak 5 kali putaran?
+          </div>
+          <div class="options">
+            <div>A. 8 menit</div>
+            <div>B. 9 menit</div>
+            <div>C. 8 menit 30 detik</div>
+            <div>D. 8 menit 20 detik</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level 3 (21-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 3: Pemecahan Masalah & Logika (21-25)
+        </div>
+        <p>
+          <i
+            >Tujuan: Mengasah logika heuristik, optimasi, dan analisis tingkat
+            lanjut.</i
+          >
+        </p>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> Budi berkendara dari kota X ke kota Y dengan kecepatan 40
+            km/jam. Kemudian ia kembali dari kota Y ke kota X melalui jalan yang
+            sama dengan kecepatan 60 km/jam. Berapakah kecepatan rata-rata Budi
+            untuk seluruh perjalanan pulang-pergi?
+          </div>
+          <div class="options">
+            <div>A. 45 km/jam</div>
+            <div>B. 52 km/jam</div>
+            <div>C. 48 km/jam</div>
+            <div>D. 50 km/jam</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Rata-rata nilai Matematika siswa putri di kelas 6A adalah
+            85, sedangkan rata-rata siswa putra adalah 78. Jika rata-rata
+            gabungan seluruh siswa kelas tersebut adalah 82, tentukan
+            perbandingan banyak siswa putra dan siswa putri.
+          </div>
+          <div class="options">
+            <div>A. 4 : 3</div>
+            <div>B. 3 : 4</div>
+            <div>C. 3 : 7</div>
+            <div>D. 4 : 7</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Sebuah bus berangkat dari terminal A setiap 15 menit
+            sekali menuju terminal B. Sebuah mobil berangkat dari terminal B
+            menuju terminal A. Mobil tersebut berpapasan dengan bus dari arah
+            berlawanan setiap 12 menit sekali. Jika kecepatan bus adalah 60
+            km/jam, berapakah kecepatan mobil tersebut?
+          </div>
+          <div class="options">
+            <div>A. 15 km/jam</div>
+            <div>B. 12 km/jam</div>
+            <div>C. 18 km/jam</div>
+            <div>D. 10 km/jam</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> Diketahui 5 bilangan bulat positif berbeda $a, b, c, d,
+            e$. Rata-rata kelima bilangan tersebut adalah 15. Jika $a$ adalah
+            bilangan terkecil dan $e$ adalah bilangan terbesar, berapa nilai
+            maksimum yang mungkin untuk $e$ jika median dari data tersebut
+            adalah 12?
+          </div>
+          <div class="options">
+            <div>A. 48</div>
+            <div>B. 46</div>
+            <div>C. 45</div>
+            <div>D. 47</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Sebuah kran A dapat mengisi bak dalam 3 jam. Kran B dapat
+            mengisi bak yang sama dalam 4 jam. Sedangkan lubang pembuangan C
+            dapat mengosongkan bak penuh dalam 6 jam. Jika bak dalam keadaan
+            kosong dan ketiganya dibuka bersamaan, berapa jam waktu yang
+            diperlukan agar bak penuh?
+          </div>
+          <div class="options">
+            <div>A. 2 jam</div>
+            <div>B. 2 jam 24 menit</div>
+            <div>C. 2 jam 30 menit</div>
+            <div>D. 3 jam</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level 3 (26-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 3: Pemecahan Masalah & Logika (26-30)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> Rata-rata dari 4 bilangan adalah 20. Jika bilangan
+            pertama ditambah 2, bilangan kedua dikurang 2, bilangan ketiga
+            dikali 2, dan bilangan keempat dibagi 2, maka keempat bilangan baru
+            tersebut menjadi sama nilainya. Tentukan bilangan terbesar dari
+            keempat bilangan awal tersebut.
+          </div>
+          <div class="options">
+            <div>A. 34,22</div>
+            <div>B. 36,11</div>
+            <div>C. 35,56</div>
+            <div>D. 32,00</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Agar sampai tepat waktu di sekolah, Andi harus bersepeda
+            dengan kecepatan tertentu. Jika ia bersepeda dengan kecepatan 15
+            km/jam, ia akan tiba 8 menit lebih awal. Jika ia bersepeda dengan
+            kecepatan 10 km/jam, ia akan terlambat 12 menit. Berapakah jarak
+            rumah Andi ke sekolah?
+          </div>
+          <div class="options">
+            <div>A. 10 km</div>
+            <div>B. 12 km</div>
+            <div>C. 8 km</div>
+            <div>D. 15 km</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Terdapat 5 data bilangan asli yang telah diurutkan: $x_1,
+            x_2, x_3, x_4, x_5$. Rata-ratanya 10, mediannya 11, dan modusnya 12.
+            Jika jangkauan (selisih data terbesar dan terkecil) adalah 7,
+            tentukan hasil kali $x_1$ dan $x_2$.
+          </div>
+          <div class="options">
+            <div>A. 45</div>
+            <div>B. 60</div>
+            <div>C. 55</div>
+            <div>D. 50</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> Ali berlari pada lintasan melingkar dengan kecepatan
+            konstan. Ia berpapasan dengan Budi (yang berlari berlawanan arah)
+            setiap 20 detik. Jika Ali berlari searah dengan Budi dan menyusul
+            Budi, ia akan bertemu Budi setiap 100 detik. Berapa perbandingan
+            kecepatan Ali dan Budi?
+          </div>
+          <div class="options">
+            <div>A. 2 : 3</div>
+            <div>B. 3 : 2</div>
+            <div>C. 5 : 1</div>
+            <div>D. 1 : 5</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> Sebuah jam dinding berdentang sesuai angkanya setiap jam
+            (misal jam 3 berdentang 3 kali) dan berdentang 1 kali setiap
+            setengah jam (lewat 30 menit). Berapa kali total jam tersebut
+            berdentang mulai dari pukul 09.15 sampai pukul 15.45 pada hari yang
+            sama?
+          </div>
+          <div class="options">
+            <div>A. 39</div>
+            <div>B. 45</div>
+            <div>C. 46</div>
+            <div>D. 52</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMISAH PEMBAHASAN -->
+    <section class="page">
+      <div
+        class="content-wrapper"
+        style="
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        "
+      >
+        <h1 style="font-size: 30pt; border: none; color: #333">
+          BAGIAN III:<br />PEMBAHASAN LENGKAP
+        </h1>
+        <p style="font-size: 16pt; margin-top: 20px">
+          Kunci Jawaban & Langkah Pengerjaan Detail<br />
+          <i>(Panduan Mengajar untuk Guru)</i>
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 1 (1-4) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 (1-4)</h1>
+
+        <div class="soal-latihan">
+          <b>1. Jawaban: B (88)</b>
+          <div class="pembahasan">
+            <b>Panduan Mengajar:</b> Ajak siswa berpikir tentang "Total Nilai"
+            alih-alih rumus rata-rata.
+            <ul>
+              <li>
+                Langkah 1: Hitung total nilai 4 siswa = $4 \times 78 = 312$.
+              </li>
+              <li>
+                Langkah 2: Hitung target total nilai 5 siswa = $5 \times 80 =
+                400$.
+              </li>
+              <li>
+                Langkah 3: Selisihnya adalah nilai yang harus disumbangkan Dodi
+                = $400 - 312 = \mathbf{88}$.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: C (140 gram)</b>
+          <div class="pembahasan">
+            <b>Panduan Mengajar:</b> Gunakan Bar Model (Model Batang) untuk
+            memisahkan berat wadah dan air.
+            <ul>
+              <li>Kondisi 1: Wadah + Air Full = 500 gram.</li>
+              <li>Kondisi 2: Wadah + 1/2 Air = 320 gram.</li>
+              <li>
+                Selisih kedua kondisi adalah berat 1/2 Air = $500 - 320 = 180$
+                gram.
+              </li>
+              <li>Maka, berat Air Penuh = $180 \times 2 = 360$ gram.</li>
+              <li>
+                Berat Wadah = Total - Air Full = $500 - 360 = \mathbf{140}$
+                gram.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: A (40 km/jam)</b>
+          <div class="pembahasan">
+            <b>Jebakan Klasik:</b> Ingatkan siswa bahwa Kecepatan Rata-rata
+            $\neq$ Rata-rata dari angka kecepatan ($30+60)/2 = 45 \to$ SALAH!).
+            <ul>
+              <li>
+                Langkah 1: Hitung waktu berangkat = 30 km / 30 km/jam = 1 jam.
+              </li>
+              <li>
+                Langkah 2: Hitung waktu lanjut = 30 km / 60 km/jam = 0,5 jam.
+              </li>
+              <li>
+                Langkah 3: Gunakan rumus dasar $\bar{v} = \frac{\text{Total
+                Jarak}}{\text{Total Waktu}}$.
+              </li>
+              <li>
+                $\bar{v} = \frac{60 \text{ km}}{1,5 \text{ jam}} = \mathbf{40}$
+                km/jam.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: D (17.40)</b>
+          <div class="pembahasan">
+            <b>Logika Waktu:</b>
+            <ul>
+              <li>Hitung durasi sebenarnya: 08.00 s.d. 18.00 adalah 10 jam.</li>
+              <li>
+                Hitung akumulasi keterlambatan: 10 jam $\times$ 2 menit/jam = 20
+                menit.
+              </li>
+              <li>
+                Waktu yang ditunjuk jarum jam = Waktu Sebenarnya -
+                Keterlambatan.
+              </li>
+              <li>$18.00 - 20 \text{ menit} = \mathbf{17.40}$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 2 (5-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 (5-8)</h1>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: B (8)</b>
+          <div class="pembahasan">
+            <b>Langkah Logis:</b>
+            <ul>
+              <li>
+                Total data yang seharusnya (agar rata-rata 7 dari 6 data) = $6
+                \times 7 = 42$.
+              </li>
+              <li>Jumlah data yang diketahui = $3+5+8+8+9 = 33$.</li>
+              <li>Maka nilai $x = 42 - 33 = 9$.</li>
+              <li>Urutkan data lengkap: 3, 5, 8, 8, 9, 9.</li>
+              <li>
+                Median (nilai tengah data ke-3 dan ke-4) = $\frac{8+8}{2} =
+                \mathbf{8}$.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>6. Jawaban: A (Jumat)</b>
+          <div class="pembahasan">
+            <b>Konsep Modulo:</b> Hari berulang setiap 7 hari.
+            <ul>
+              <li>$100 \div 7 = 14$ sisa 2.</li>
+              <li>Artinya 100 hari setara dengan geser 2 hari ke depan.</li>
+              <li>Rabu + 2 hari = Kamis, <b>Jumat</b>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>7. Jawaban: C (15 detik)</b>
+          <div class="pembahasan">
+            <b>Logika Kejar-kejaran:</b>
+            <ul>
+              <li>
+                Bayangkan Budi mendekati Andi hanya dengan selisih kecepatannya.
+              </li>
+              <li>Kecepatan relatif (mendekat) = $6 - 4 = 2$ m/detik.</li>
+              <li>
+                Waktu untuk menutup jarak 30 m = $\frac{30}{2} = \mathbf{15}$
+                detik.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: B (41 kg)</b>
+          <div class="pembahasan">
+            <b>Strategi Pengurangan Data:</b>
+            <ul>
+              <li>Total berat awal = $10 \times 40 = 400$ kg.</li>
+              <li>
+                Total berat setelah satu siswa keluar = $400 - 31 = 369$ kg.
+              </li>
+              <li>Sisa siswa = 9 orang.</li>
+              <li>Rata-rata baru = $369 \div 9 = \mathbf{41}$ kg.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 3 (9-12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 & 2 (9-12)</h1>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: D (12 menit)</b>
+          <div class="pembahasan">
+            <b>Konsep Laju Kerja (Work Rate):</b>
+            <ul>
+              <li>Pipa A mengisi 1/20 kolam per menit.</li>
+              <li>Pipa B mengisi 1/30 kolam per menit.</li>
+              <li>
+                Laju gabungan = $\frac{1}{20} + \frac{1}{30} = \frac{3}{60} +
+                \frac{2}{60} = \frac{5}{60} = \frac{1}{12}$ bagian per menit.
+              </li>
+              <li>Waktu penuh = $\frac{1}{1/12} = \mathbf{12}$ menit.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>10. Jawaban: C (14)</b>
+          <div class="pembahasan">
+            <b>Rata-rata Gabungan:</b>
+            <ul>
+              <li>Total Kelompok A = $3 \times 10 = 30$.</li>
+              <li>Total Kelompok B = $2 \times 20 = 40$.</li>
+              <li>Total Gabungan = $30 + 40 = 70$.</li>
+              <li>Jumlah seluruh data = $3 + 2 = 5$.</li>
+              <li>Rata-rata = $70 \div 5 = \mathbf{14}$.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: B (85)</b>
+          <div class="pembahasan">
+            <b>Analisis Selisih:</b>
+            <ul>
+              <li>Total Nilai Awal = $18 \times 75 = 1350$.</li>
+              <li>Total Nilai Akhir (20 siswa) = $20 \times 76 = 1520$.</li>
+              <li>Total nilai 2 siswa susulan = $1520 - 1350 = 170$.</li>
+              <li>Nilai masing-masing = $170 \div 2 = \mathbf{85}$.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: C (09.24)</b>
+          <div class="pembahasan">
+            <b>Konsep Papasan:</b>
+            <ul>
+              <li>
+                Kecepatan gabungan (saling mendekat) = $40 + 60 = 100$ km/jam.
+              </li>
+              <li>
+                Waktu temu = $\frac{\text{Jarak}}{\text{Kec. Gabungan}} =
+                \frac{240}{100} = 2,4$ jam.
+              </li>
+              <li>
+                Ubah 0,4 jam ke menit: $0,4 \times 60 = 24$ menit. Jadi 2 jam 24
+                menit.
+              </li>
+              <li>Waktu berpapasan = $07.00 + 02.24 = \mathbf{09.24}$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 4 (13-16) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 2 (13-16)</h1>
+
+        <div class="soal-latihan">
+          <b>13. Jawaban: A (7 menit 30 detik)</b>
+          <div class="pembahasan">
+            <b>Langkah Pengerjaan:</b>
+            <ul>
+              <li>
+                Hitung Volume Total: $60 \times 40 \times 50 = 120.000$ cm$^3 =
+                120$ liter.
+              </li>
+              <li>
+                Target Volume (3/4 bagian): $\frac{3}{4} \times 120 = 90$ liter.
+              </li>
+              <li>
+                Waktu = $\frac{\text{Volume}}{\text{Debit}} = \frac{90}{12} =
+                7,5$ menit.
+              </li>
+              <li>7,5 menit = <b>7 menit 30 detik</b>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: B (10 tahun)</b>
+          <div class="pembahasan">
+            <b>Logika Total Umur:</b>
+            <ul>
+              <li>Total (Ayah + Ibu + Budi) = $30 \times 3 = 90$ tahun.</li>
+              <li>Total (Ayah + Ibu) = $40 \times 2 = 80$ tahun.</li>
+              <li>Umur Budi = Selisihnya = $90 - 80 = \mathbf{10}$ tahun.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: D (20 detik)</b>
+          <div class="pembahasan">
+            <b>Jebakan Panjang:</b> Jelaskan bahwa kereta baru dianggap
+            "melewati" jika seluruh badan kereta sudah keluar.
+            <ul>
+              <li>
+                Jarak tempuh = Panjang Jembatan + Panjang Kereta = $250 + 150 =
+                400$ meter.
+              </li>
+              <li>
+                Kecepatan = 72 km/jam. Ubah ke m/detik $\to \frac{72.000}{3.600}
+                = 20$ m/detik.
+              </li>
+              <li>Waktu = $\frac{400}{20} = \mathbf{20}$ detik.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>16. Jawaban: A (9 siswa)</b>
+          <div class="pembahasan">
+            <b>Pemodelan Aljabar:</b>
+            <ul>
+              <li>Misal jumlah siswa awal = $n$. Total nilai = $7n$.</li>
+              <li>Persamaan rata-rata baru: $\frac{7n + 9}{n + 1} = 7,2$.</li>
+              <li>$7n + 9 = 7,2(n + 1) \to 7n + 9 = 7,2n + 7,2$.</li>
+              <li>$9 - 7,2 = 7,2n - 7n \to 1,8 = 0,2n$.</li>
+              <li>$n = 1,8 \div 0,2 = \mathbf{9}$ siswa.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 5 (17-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 2 (17-20)</h1>
+
+        <div class="soal-latihan">
+          <b>17. Jawaban: C (Rp60.000)</b>
+          <div class="pembahasan">
+            <b>Menyamakan Rasio (Ratio Equalization):</b>
+            <ul>
+              <li>A : B = 3 : 4</li>
+              <li>B : C = 2 : 5 $\to$ Kalikan dua agar B sama $\to$ 4 : 10.</li>
+              <li>Rasio gabungan A : B : C = 3 : 4 : 10. Total unit = 17.</li>
+              <li>Total uang = $3 \times 34.000 = 102.000$.</li>
+              <li>Nilai 1 unit = $102.000 \div 17 = 6.000$.</li>
+              <li>Uang Cici = 10 unit $\times$ 6.000 = <b>Rp60.000</b>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>18. Jawaban: B (10.00)</b>
+          <div class="pembahasan">
+            <b>Konsep Menyusul dengan Jarak Curian (Head Start):</b>
+            <ul>
+              <li>Mobil A berangkat 30 menit (0,5 jam) lebih awal.</li>
+              <li>Jarak curian = $60 \text{ km/jam} \times 0,5 = 30$ km.</li>
+              <li>
+                Waktu menyusul = $\frac{\text{Jarak Curian}}{\text{Selisih
+                Kecepatan}} = \frac{30}{80 - 60} = \frac{30}{20} = 1,5$ jam.
+              </li>
+              <li>Waktu tersusul = $08.30 + 01.30 = \mathbf{10.00}$.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>19. Jawaban: B (7,55)</b>
+          <div class="pembahasan">
+            <b>Analisis Modus:</b>
+            <ul>
+              <li>Frekuensi data: 6(2), 7(3), 8(3), 9(2).</li>
+              <li>
+                Agar modus <b>tunggal</b> bernilai 8, maka $x$ wajib bernilai 8
+                (agar 8 muncul 4 kali).
+              </li>
+              <li>Total data = $6(2)+7(3)+8(4)+9(2) = 12+21+32+18 = 83$.</li>
+              <li>
+                Banyak data = 11. Rata-rata = $83 \div 11 \approx
+                \mathbf{7,55}$.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: D (8 menit 20 detik)</b>
+          <div class="pembahasan">
+            <b>Langkah Pengerjaan:</b>
+            <ul>
+              <li>Keliling lapangan = $2 \times (100 + 50) = 300$ m.</li>
+              <li>Jarak 5 putaran = $5 \times 300 = 1500$ m.</li>
+              <li>Waktu = $\frac{1500}{3} = 500$ detik.</li>
+              <li>
+                Konversi: $500 \div 60 = 8$ sisa 20. Jadi
+                <b>8 menit 20 detik</b>.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 6 (21-24) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 (21-24)</h1>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: C (48 km/jam)</b>
+          <div class="pembahasan">
+            <b>Rata-rata Harmonik:</b> Digunakan untuk rata-rata kecepatan
+            pulang-pergi dengan jarak sama. $$ \bar{v} = \frac{2 \times v_1
+            \times v_2}{v_1 + v_2} $$ $$ \bar{v} = \frac{2 \times 40 \times
+            60}{40 + 60} = \frac{4800}{100} = \mathbf{48} \text{ km/jam} $$
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>22. Jawaban: B (3 : 4)</b>
+          <div class="pembahasan">
+            <b>Metode Selisih Silang (Alligation):</b> Cara cepat menentukan
+            rasio campuran.
+            <ul>
+              <li>
+                Selisih nilai Putra ke Rata-rata = $|78 - 82| = 4$. (Ini menjadi
+                porsi Putri)
+              </li>
+              <li>
+                Selisih nilai Putri ke Rata-rata = $|85 - 82| = 3$. (Ini menjadi
+                porsi Putra)
+              </li>
+              <li>Rasio jumlah Putra : Putri = <b>3 : 4</b>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>23. Jawaban: A (15 km/jam)</b>
+          <div class="pembahasan">
+            <b>Konsep Kecepatan Relatif & Headway:</b>
+            <ul>
+              <li>
+                Jarak antar bus (Headway) = $V_{bus} \times \text{Interval} = 60
+                \times (15/60) = 15$ km.
+              </li>
+              <li>
+                Mobil berpapasan tiap 12 menit (0,2 jam). Ini artinya dalam 0,2
+                jam, Mobil dan Bus bersama-sama menutup jarak 15 km tersebut.
+              </li>
+              <li>$(V_{bus} + V_{mobil}) \times 0,2 = 15$.</li>
+              <li>$60 + V_{mobil} = 75 \to V_{mobil} = \mathbf{15}$ km/jam.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: D (47)</b>
+          <div class="pembahasan">
+            <b>Strategi Optimasi:</b> Agar satu bilangan ($e$) maksimum,
+            bilangan lain harus minimum.
+            <ul>
+              <li>Total jumlah = $15 \times 5 = 75$.</li>
+              <li>
+                Urutan data: $a, b, 12, d, e$. Median harus di posisi ke-3
+                (nilai 12).
+              </li>
+              <li>Agar $e$ maksimum, buat $a, b, d$ sekecil mungkin.</li>
+              <li>$a, b$ adalah bilangan bulat positif berbeda: $a=1, b=2$.</li>
+              <li>$d$ harus lebih besar dari 12: $d=13$.</li>
+              <li>
+                $1 + 2 + 12 + 13 + e = 75 \to 28 + e = 75 \to e = \mathbf{47}$.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 7 (25-28) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 (25-27)</h1>
+
+        <div class="soal-latihan">
+          <b>25. Jawaban: B (2 jam 24 menit)</b>
+          <div class="pembahasan">
+            <b>Laju Bersih (Net Rate):</b>
+            <ul>
+              <li>Laju Masuk A = 1/3 bak/jam. Laju Masuk B = 1/4 bak/jam.</li>
+              <li>Laju Keluar C = 1/6 bak/jam.</li>
+              <li>
+                Total = $1/3 + 1/4 - 1/6 = \frac{4+3-2}{12} = 5/12$ bak/jam.
+              </li>
+              <li>Waktu penuh = $12/5 = 2,4$ jam = <b>2 jam 24 menit</b>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: C (35,56)</b>
+          <div class="pembahasan">
+            <b>Pemodelan Aljabar Mundur:</b>
+            <ul>
+              <li>Misal hasil akhir operasi tersebut adalah $K$.</li>
+              <li>Bilangan awal: $(K-2), (K+2), (K/2), (2K)$.</li>
+              <li>Total awal = $4 \times 20 = 80$.</li>
+              <li>$(K-2) + (K+2) + 0,5K + 2K = 80$.</li>
+              <li>$4,5K = 80 \to K = 160/9$.</li>
+              <li>
+                Bilangan terbesar adalah $2K = 320/9 \approx \mathbf{35,56}$.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>27. Jawaban: A (10 km)</b>
+          <div class="pembahasan">
+            <b>Analisis Selisih Waktu:</b>
+            <ul>
+              <li>
+                Selisih waktu tiba = 8 menit (awal) - (-12 menit (telat)) = 20
+                menit = 1/3 jam.
+              </li>
+              <li>Selisih waktu tempuh = Waktu lambat - Waktu cepat.</li>
+              <li>
+                $\frac{J}{10} - \frac{J}{15} = \frac{1}{3}$. Samakan penyebut
+                (30).
+              </li>
+              <li>
+                $\frac{3J - 2J}{30} = \frac{1}{3} \to \frac{J}{30} = \frac{1}{3}
+                \to J = \mathbf{10}$ km.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 8 (29-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 (28-30)</h1>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: D (50)</b>
+          <div class="pembahasan">
+            <b>Deduksi Logika Statistik:</b>
+            <ul>
+              <li>Data urut: $x_1, x_2, 11, x_4, x_5$. (Median 11)</li>
+              <li>
+                Modus 12: Karena terurut dan median 11, maka $x_4=12, x_5=12$.
+              </li>
+              <li>
+                Jumlah total = $10 \times 5 = 50$. Sisa untuk $x_1+x_2 = 50 -
+                (11+12+12) = 15$.
+              </li>
+              <li>
+                Jangkauan 7: $x_5 - x_1 = 7 \to 12 - x_1 = 7 \to x_1 = 5$.
+              </li>
+              <li>
+                Maka $x_2 = 15 - 5 = 10$. Hasil kali $5 \times 10 =
+                \mathbf{50}$.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: B (3 : 2)</b>
+          <div class="pembahasan">
+            <b>Sistem Persamaan Kecepatan:</b>
+            <ul>
+              <li>
+                Waktu berpapasan (berlawanan) $\propto$ 1/Jumlah Kecepatan.
+              </li>
+              <li>Waktu menyusul (searah) $\propto$ 1/Selisih Kecepatan.</li>
+              <li>Rasio $(V_a+V_b) : (V_a-V_b) = 100 : 20 = 5 : 1$.</li>
+              <li>
+                Jika $V_a+V_b=5$ dan $V_a-V_b=1$, dengan eliminasi didapat
+                $2V_a=6 \to V_a=3$ dan $V_b=2$.
+              </li>
+              <li>Rasio <b>3 : 2</b>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: C (46)</b>
+          <div class="pembahasan">
+            <b>Pencacahan Manual (Counting):</b>
+            <ul>
+              <li>Jam penuh (09.15 - 15.45): Pukul 10, 11, 12, 1, 2, 3.</li>
+              <li>Jumlah dentang: $10+11+12+1+2+3 = 39$.</li>
+              <li>
+                Dentang setengah jam: 09.30, 10.30, 11.30, 12.30, 13.30, 14.30,
+                15.30 (Total 7 kali).
+              </li>
+              <li>Total = $39 + 7 = \mathbf{46}$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
