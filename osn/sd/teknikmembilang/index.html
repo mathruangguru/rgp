@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Teknik Membilang & Teori Bilangan</title>
+    <!-- Konfigurasi MathJax untuk merender rumus matematika -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <!-- Font Nunito agar ramah untuk anak-anak -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e8f5e9;
+        --bg-tips: #fff3e0;
+        --border-tips: #ff9800;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0; /* Background abu-abu untuk tampilan web */
+        margin: 0;
+        padding: 0;
+        -webkit-print-color-adjust: exact; /* Agar warna background tercetak */
+        print-color-adjust: exact;
+      }
+
+      /* Format Halaman A4 */
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm; /* Padding standar dokumen */
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: auto;
+      }
+
+      /* Watermark */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+
+      /* Wrapper Konten Utama */
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+
+      /* Styling Cover */
+      .cover-page {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 30pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+        margin-top: 0;
+      }
+
+      /* Heading */
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        margin-top: 0;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #1b5e20;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+
+      /* Komponen Soal & Pembahasan */
+      .soal-latihan {
+        margin-bottom: 20px;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+        /* KUNCI AGAR TIDAK TERPOTONG SAAT PRINT */
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+        font-weight: normal;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Dua kolom */
+        gap: 5px;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+
+      /* Kotak-kotak Informasi */
+      .rumus-box,
+      .tips-box,
+      .pembahasan {
+        border-radius: 4px;
+        padding: 10px 15px;
+        margin: 10px 0;
+        text-align: justify;
+        /* Mencegah kotak terpotong */
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .rumus-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid var(--accent-blue);
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        font-style: italic;
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--accent-green);
+        margin-top: 5px;
+        font-size: 10.5pt;
+      }
+
+      /* List Styling */
+      ul,
+      ol {
+        margin-top: 0;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+
+      /* Footer Custom sesuai permintaan */
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+
+      /* Media Query Print */
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm; /* Padding print standar */
+        }
+        .page:last-child {
+          page-break-after: auto;
+        }
+        .page::before {
+          opacity: 0.05;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">
+          MODUL PERSIAPAN OSNK:<br />Teknik Membilang & Sifat Bilangan
+        </h1>
+        <p class="cover-subtitle">Latihan Soal & Pembahasan Detail</p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi & Strategi</h1>
+
+        <h2>A. Teknik Membilang (Counting)</h2>
+        <p>Dalam olimpiade, dilarang menebak! Gunakan metode sistematis:</p>
+        <div class="rumus-box">
+          <ol style="margin-bottom: 0">
+            <li>
+              <b>Listing (Mendaftar Sistematis):</b> Tulis semua kemungkinan
+              secara urut agar tidak ada yang terlewat.<br />
+              <i>Contoh:</i> Jumlah dua mata dadu = 5.<br />
+              List: $(1,4), (2,3), (3,2), (4,1)$. Ada 4 cara.
+            </li>
+            <li>
+              <b>Aturan Pengisian Tempat (Filling Slots):</b> Digunakan untuk
+              menyusun bilangan atau antrean.<br />
+              <i>Contoh:</i> Banyak bilangan 3 digit ganjil.
+              <ul>
+                <li>Ratusan (1-9): 9 cara</li>
+                <li>Puluhan (0-9): 10 cara</li>
+                <li>Satuan (1,3,5,7,9): 5 cara</li>
+                <li>Total: $9 \times 10 \times 5 = 450$ bilangan.</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <h2>B. Operasi & Sifat Bilangan</h2>
+        <p>Kunci dalam mengerjakan soal teori bilangan:</p>
+        <div class="rumus-box">
+          <ul>
+            <li>
+              <b>Paritas (Ganjil/Genap):</b>
+              <ul>
+                <li>Ganjil $\pm$ Ganjil = Genap</li>
+                <li>Ganjil $\pm$ Genap = Ganjil</li>
+                <li>
+                  Perkalian bernilai <b>Genap</b> jika minimal ada satu bilangan
+                  genap.
+                </li>
+                <li>
+                  Perkalian bernilai <b>Ganjil</b> hanya jika semua bilangan
+                  ganjil.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Bilangan Prima:</b> Hanya punya 2 faktor (1 dan dirinya
+              sendiri).<br />
+              Ingat: <b>2</b> adalah satu-satunya bilangan prima genap.
+            </li>
+            <li>
+              <b>Keterbagian & Sisa Bagi (Modulo):</b>
+              <ul>
+                <li>Habis dibagi 3: Jumlah semua digitnya habis dibagi 3.</li>
+                <li>Habis dibagi 4: Dua digit terakhir habis dibagi 4.</li>
+                <li>Habis dibagi 9: Jumlah semua digitnya habis dibagi 9.</li>
+                <li>
+                  <b>Pola Sisa:</b> Jika bilangan dibagi $A$ sisa $x$ dan dibagi
+                  $B$ sisa $y$, perhatikan selisih antara pembagi dan sisa
+                  (biasanya konstan).
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="tips-box">
+          <b>STRATEGI JUARA (Digunakan di Pembahasan):</b>
+          <ol>
+            <li>
+              <b>Analisis Paritas (Ganjil/Genap):</b> Sangat ampuh untuk
+              mengeleminasi jawaban pada soal persamaan atau bilangan prima.
+              <i>(Lihat Pembahasan No. 15, 21, & 29)</i>
+            </li>
+            <li>
+              <b>Skenario Terburuk (Worst Case):</b> Untuk soal pengambilan
+              acak, asumsikan kejadian paling sial dulu.
+              <i>(Lihat Pembahasan No. 22)</i>
+            </li>
+            <li>
+              <b>Cari Pola & Sisa (Modulo):</b> Untuk angka berulang atau sisa
+              pembagian, fokus pada siklus atau selisih pembagi.
+              <i>(Lihat Pembahasan No. 17 & 28)</i>
+            </li>
+            <li>
+              <b>Hati-hati Definisi:</b> Bilangan <i>Asli</i> mulai dari 1.
+              Bilangan <i>Cacah</i> mulai dari 0. Bilangan <i>Prima</i> mulai
+              dari 2.
+            </li>
+            <li>
+              <b>Cek Ekstrem:</b> Selalu cek nilai terkecil atau terbesar yang
+              mungkin terjadi (Kasus batas).
+            </li>
+          </ol>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Mudah (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 1: Pondasi (Konsep Dasar) - Bagian 1
+        </div>
+        <p>
+          <i>Tujuan: Memastikan pemahaman definisi dan ketelitian mendaftar.</i>
+        </p>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Tuliskan banyaknya pasangan bilangan cacah $(a, b)$ dengan
+            syarat $a < b$ dan $a + b = 10$.
+          </div>
+          <div class="options">
+            <div>A. 4 pasang</div>
+            <div>B. 5 pasang</div>
+            <div>C. 6 pasang</div>
+            <div>D. 9 pasang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Diketahui hasil kali dua bilangan asli adalah 36. Berapa
+            banyak pasangan bilangan yang mungkin jika urutan diperhatikan
+            (misal: $4 \times 9$ berbeda dengan $9 \times 4$)?
+          </div>
+          <div class="options">
+            <div>A. 5 pasang</div>
+            <div>B. 8 pasang</div>
+            <div>C. 9 pasang</div>
+            <div>D. 10 pasang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Berapakah selisih positif antara bilangan prima terbesar
+            yang kurang dari 30 dan bilangan komposit terkecil yang lebih dari
+            10?
+          </div>
+          <div class="options">
+            <div>A. 13</div>
+            <div>B. 17</div>
+            <div>C. 19</div>
+            <div>D. 21</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Aku adalah bilangan dua digit. Digit puluhanku adalah
+            bilangan prima ganjil terkecil. Digit satuanku adalah bilangan genap
+            terbesar satu digit. Bilangan berapakah aku?
+          </div>
+          <div class="options">
+            <div>A. 28</div>
+            <div>B. 38</div>
+            <div>C. 39</div>
+            <div>D. 58</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Ada berapa bilangan asli antara 1 sampai 60 yang merupakan
+            kelipatan 6 tetapi BUKAN kelipatan 5?
+          </div>
+          <div class="options">
+            <div>A. 6 bilangan</div>
+            <div>B. 8 bilangan</div>
+            <div>C. 9 bilangan</div>
+            <div>D. 10 bilangan</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Mudah (6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 1: Pondasi (Konsep Dasar) - Bagian 2
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Dua bilangan cacah genap berurutan dikalikan hasilnya 80.
+            Berapakah jumlah kedua bilangan tersebut?
+          </div>
+          <div class="options">
+            <div>A. 16</div>
+            <div>B. 18</div>
+            <div>C. 20</div>
+            <div>D. 24</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Tentukan bilangan asli terkecil yang dapat dinyatakan
+            sebagai penjumlahan dua bilangan prima berbeda dalam tepat 2 cara
+            berbeda.
+          </div>
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 12</div>
+            <div>C. 14</div>
+            <div>D. 16</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Hasil bagi bilangan $A$ oleh $B$ adalah 5 sisa 0. Jika
+            jumlah $A + B = 48$, tentukan selisih $A$ dan $B$.
+          </div>
+          <div class="options">
+            <div>A. 8</div>
+            <div>B. 32</div>
+            <div>C. 40</div>
+            <div>D. 48</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Berapa banyak bilangan 2 digit (10-99) yang jumlah
+            angka-angka penyusunnya sama dengan 7?
+          </div>
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 7</div>
+            <div>C. 8</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Sebuah bilangan jika dikalikan 4, lalu dikurangi 5,
+            hasilnya 35. Bilangan berapakah itu?
+          </div>
+          <div class="options">
+            <div>A. 7</div>
+            <div>B. 8</div>
+            <div>C. 10</div>
+            <div>D. 15</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Sedang (11-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 2: Aplikasi (Penerapan Konsep) - Bagian 1
+        </div>
+        <p>
+          <i
+            >Tujuan: Melatih logika dan penggabungan konsep (himpunan,
+            paritas).</i
+          >
+        </p>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Berapa banyak bilangan asli kurang dari 100 yang BUKAN
+            merupakan kelipatan 3 maupun kelipatan 5?
+          </div>
+          <div class="options">
+            <div>A. 46</div>
+            <div>B. 47</div>
+            <div>C. 53</div>
+            <div>D. 66</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Diketahui $A$ dan $B$ adalah bilangan prima. Jika $A
+            \times B$ adalah bilangan ganjil dan $A + B = 30$, tentukan nilai
+            <b>terbesar</b> yang mungkin untuk hasil kali $A \times B$.
+          </div>
+          <div class="options">
+            <div>A. 161</div>
+            <div>B. 209</div>
+            <div>C. 221</div>
+            <div>D. 247</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Tentukan banyaknya bilangan 3 digit yang dapat dibentuk
+            dari angka $2, 3, 5$ di mana angka boleh berulang, dan hasil kali
+            ketiga angkanya adalah bilangan ganjil.
+          </div>
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 8</div>
+            <div>C. 9</div>
+            <div>D. 27</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Budi membagikan kelerengnya kepada 5 orang temannya
+            bersisa 3. Jika dibagikan kepada 6 orang temannya bersisa 4. Berapa
+            jumlah kelereng terkecil yang dimiliki Budi?
+          </div>
+          <div class="options">
+            <div>A. 28</div>
+            <div>B. 33</div>
+            <div>C. 58</div>
+            <div>D. 60</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Jumlah dua bilangan prima adalah 2019. Tentukan hasil
+            kali kedua bilangan prima tersebut.
+          </div>
+          <div class="options">
+            <div>A. 2017</div>
+            <div>B. 2021</div>
+            <div>C. 4034</div>
+            <div>D. 4038</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Sedang (16-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 2: Aplikasi (Penerapan Konsep) - Bagian 2
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Berapa banyak pasangan bilangan bulat positif $(x, y)$
+            dengan syarat $x \le y$ yang memenuhi persamaan $\frac{1}{x} +
+            \frac{1}{y} = \frac{1}{6}$?
+          </div>
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 5</div>
+            <div>C. 6</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Diberikan bilangan $N = 123456789123456789...$ (angka 1-9
+            berulang terus). Jika $N$ memiliki 2024 digit, berapakah digit
+            terakhirnya?
+          </div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 4</div>
+            <div>C. 7</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Bilangan 4 digit $3A5B$ habis dibagi 9 dan habis dibagi
+            4. Tentukan nilai $A$ terbesar yang mungkin.
+          </div>
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 6</div>
+            <div>C. 7</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Berapa banyak bilangan palindrom (dibaca dari depan dan
+            belakang sama) antara 200 sampai 500?
+          </div>
+          <div class="options">
+            <div>A. 29</div>
+            <div>B. 30</div>
+            <div>C. 31</div>
+            <div>D. 40</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Dalam sebuah antrean tiket, posisi Andi adalah urutan
+            ke-15 dari depan dan urutan ke-20 dari belakang. Berapa total orang
+            dalam antrean tersebut?
+          </div>
+          <div class="options">
+            <div>A. 33</div>
+            <div>B. 34</div>
+            <div>C. 35</div>
+            <div>D. 36</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Level Sulit (21-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 3: Olimpiade (HOTS, Analisis & Strategi) - Bagian 1
+        </div>
+        <p>
+          <i
+            >Tujuan: Simulasi tingkat OSN Kabupaten. Membutuhkan strategi
+            pemecahan masalah.</i
+          >
+        </p>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> Berapa banyak pasangan bilangan bulat positif $(m, n)$
+            yang memenuhi persamaan $m^2 - n^2 = 96$?
+          </div>
+          <div class="options">
+            <div>A. 2 pasang</div>
+            <div>B. 4 pasang</div>
+            <div>C. 6 pasang</div>
+            <div>D. 12 pasang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Di dalam laci terdapat 10 kaos kaki merah, 12 kaos kaki
+            biru, dan 14 kaos kaki hitam. Berapa minimal kaos kaki yang harus
+            diambil secara acak (mata tertutup) untuk memastikan kita
+            mendapatkan sepasang kaos kaki dengan warna yang sama?
+          </div>
+          <div class="options">
+            <div>A. 3</div>
+            <div>B. 4</div>
+            <div>C. 11</div>
+            <div>D. 13</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Berapa banyak bilangan bulat positif $n$ sehingga nilai
+            dari pecahan $\frac{n+45}{n+2}$ juga merupakan bilangan bulat
+            positif?
+          </div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 2</div>
+            <div>C. 3</div>
+            <div>D. 4</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> Lima bilangan asli berbeda $a, b, c, d, e$ diurutkan dari
+            kecil ke besar ($a < b < c < d < e$). Rata-ratanya adalah 20. Jika
+            rata-rata 3 bilangan pertama adalah 15, dan rata-rata 3 bilangan
+            terakhir adalah 25, tentukan nilai $c$ (bilangan tengah).
+          </div>
+          <div class="options">
+            <div>A. 15</div>
+            <div>B. 20</div>
+            <div>C. 25</div>
+            <div>D. 30</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Berapa banyak bilangan 3 digit yang hasil kali
+            angka-angkanya adalah 12?
+          </div>
+          <div class="options">
+            <div>A. 12</div>
+            <div>B. 15</div>
+            <div>C. 18</div>
+            <div>D. 21</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Lanjutan Soal Level Sulit (26-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 3: Olimpiade (HOTS, Analisis & Strategi) - Bagian 2
+        </div>
+        <br />
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> Jumlah 5 bilangan asli berurutan adalah bilangan kuadrat
+            sempurna. Tentukan jumlah terkecil yang mungkin dari 5 bilangan
+            tersebut.
+          </div>
+          <div class="options">
+            <div>A. 25</div>
+            <div>B. 36</div>
+            <div>C. 100</div>
+            <div>D. 225</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Diberikan kartu angka 1, 2, 3, 4, 5. Berapa banyak
+            bilangan 5 digit yang dapat dibentuk jika angka 1 dan 5
+            <b>tidak boleh</b> berdampingan?
+          </div>
+          <div class="options">
+            <div>A. 48</div>
+            <div>B. 60</div>
+            <div>C. 72</div>
+            <div>D. 120</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Sebuah bilangan jika dibagi 3 sisa 2, dibagi 4 sisa 3,
+            dan dibagi 5 sisa 4. Tentukan bilangan bulat positif terkecil yang
+            memenuhi sifat tersebut.
+          </div>
+          <div class="options">
+            <div>A. 59</div>
+            <div>B. 60</div>
+            <div>C. 119</div>
+            <div>D. 120</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> Ada berapa banyak cara menuliskan bilangan 50 sebagai
+            penjumlahan dari 5 bilangan ganjil yang berbeda?
+          </div>
+          <div class="options">
+            <div>A. 0</div>
+            <div>B. 1</div>
+            <div>C. 5</div>
+            <div>D. 10</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> Diberikan bilangan 3 digit $ABC$ (dimana $A, B, C$
+            berbeda dan tidak nol). Jika $ABC + BCA + CAB = 2664$, tentukan
+            himpunan digit $\{A, B, C\}$ yang memenuhi.
+          </div>
+          <div class="options">
+            <div>A. $\{6, 8, 9\}$</div>
+            <div>B. $\{7, 8, 9\}$</div>
+            <div>C. $\{5, 7, 9\}$</div>
+            <div>D. $\{6, 7, 8\}$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMISAH PEMBAHASAN -->
+    <section class="page">
+      <div
+        class="content-wrapper"
+        style="
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100%;
+        "
+      >
+        <h1 style="font-size: 30pt; border: none; color: #333">
+          BAGIAN III:<br />PEMBAHASAN LENGKAP
+        </h1>
+        <p style="font-size: 16pt; margin-top: 20px">
+          Kunci Jawaban & Langkah Pengerjaan Detail
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 1 (Bagian 1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 (Bagian 1)</h1>
+
+        <div class="soal-latihan">
+          <b>1. Jawaban: B (5 pasang)</b>
+          <div class="pembahasan">
+            Kita mencari pasangan bilangan cacah $(a,b)$ dengan $a \ge 0$
+            (karena cacah) yang jumlahnya 10, dimana $a < b$.<br />
+            Daftar pasangan: $(0,10), (1,9), (2,8), (3,7), (4,6)$. Total ada 5
+            pasang.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: C (9 pasang)</b>
+          <div class="pembahasan">
+            Faktor dari 36 adalah 1, 2, 3, 4, 6, 9, 12, 18, 36. Karena urutan
+            diperhatikan (misal $1 \times 36$ dan $36 \times 1$ dihitung
+            berbeda), maka kita hitung jumlah faktornya. Total ada 9 faktor yang
+            bisa membentuk pasangan $(a,b)$ dimana $a \times b = 36$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: B (17)</b>
+          <div class="pembahasan">
+            Bilangan prima terbesar < 30 adalah 29. Bilangan komposit (bukan
+            prima) terkecil > 10 adalah 12 (karena 11 adalah prima).<br />
+            Selisih: $29 - 12 = 17$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: B (38)</b>
+          <div class="pembahasan">
+            Digit puluhan: Bilangan prima ganjil terkecil adalah 3 (ingat 2
+            adalah prima genap).<br />
+            Digit satuan: Bilangan genap 1 digit terbesar adalah 8.<br />
+            Jadi bilangannya adalah 38.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: B (8 bilangan)</b>
+          <div class="pembahasan">
+            Kelipatan 6 antara 1-60: $6, 12, 18, 24, 30, 36, 42, 48, 54, 60$
+            (Ada 10 bilangan).<br />
+            Dari daftar tersebut, cari yang kelipatan 5 (atau kelipatan
+            KPK(6,5)=30): $30, 60$.<br />
+            Jumlah yang BUKAN kelipatan 5: $10 - 2 = 8$ bilangan.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 1 (Bagian 2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 (Bagian 2)</h1>
+
+        <div class="soal-latihan">
+          <b>6. Jawaban: B (18)</b>
+          <div class="pembahasan">
+            Cari dua bilangan genap berurutan $2n$ dan $2n+2$ yang dikalikan
+            hasilnya 80.<br />
+            Bilangan tersebut adalah 8 dan 10.<br />
+            Jumlah keduanya: $8 + 10 = 18$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>7. Jawaban: D (16)</b>
+          <div class="pembahasan">
+            Cek opsi jawaban:<br />
+            10 = 3+7 (1 cara).<br />
+            12 = 5+7 (1 cara).<br />
+            14 = 3+11 (1 cara).<br />
+            16 = 3+13 dan 5+11 (2 cara berbeda).<br />
+            Jadi bilangan terkecilnya adalah 16.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: B (32)</b>
+          <div class="pembahasan">
+            Diketahui $A/B = 5$, maka $A = 5B$.<br />
+            Substitusi ke $A+B=48$: $5B + B = 48 \rightarrow 6B = 48 \rightarrow
+            B = 8$.<br />
+            $A = 5 \times 8 = 40$.<br />
+            Selisih $A - B = 40 - 8 = 32$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: B (7)</b>
+          <div class="pembahasan">
+            Bilangan 2 digit yang jumlah angkanya 7:<br />
+            16, 25, 34, 43, 52, 61, 70.<br />
+            Total ada 7 bilangan.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>10. Jawaban: C (10)</b>
+          <div class="pembahasan">
+            Gunakan operasi kebalikan:<br />
+            $(35 + 5) \div 4 = 40 \div 4 = 10$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 2 (Bagian 1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 2 (Bagian 1)</h1>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: C (53)</b>
+          <div class="pembahasan">
+            Gunakan Prinsip Inklusi-Eksklusi. Total bilangan 1-99 adalah 99.<br />
+            Kelipatan 3: $n(3) = \lfloor 99/3 \rfloor = 33$.<br />
+            Kelipatan 5: $n(5) = \lfloor 99/5 \rfloor = 19$.<br />
+            Kelipatan 15 (irisan): $n(15) = \lfloor 99/15 \rfloor = 6$.<br />
+            Gabungan ($3 \cup 5$) = $33 + 19 - 6 = 46$.<br />
+            Yang BUKAN = Total - Gabungan = $99 - 46 = 53$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: C (221)</b>
+          <div class="pembahasan">
+            Hasil kali ganjil berarti kedua bilangan prima harus ganjil.<br />
+            Cari pasangan prima ganjil yang jumlahnya 30:<br />
+            (7, 23) $\rightarrow 7 \times 23 = 161$.<br />
+            (11, 19) $\rightarrow 11 \times 19 = 209$.<br />
+            (13, 17) $\rightarrow 13 \times 17 = 221$.<br />
+            Nilai terbesar adalah 221.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>13. Jawaban: B (8)</b>
+          <div class="pembahasan">
+            Agar hasil kali tiga bilangan ganjil, maka <b>semua</b> angka
+            penyusunnya harus ganjil.<br />
+            Angka yang tersedia: 2, 3, 5. Yang ganjil hanya 3 dan 5 (2
+            pilihan).<br />
+            Banyak bilangan = $2 \times 2 \times 2 = 8$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: A (28)</b>
+          <div class="pembahasan">
+            Bagi 5 sisa 3 (kurang 2).<br />
+            Bagi 6 sisa 4 (kurang 2).<br />
+            Karena selisihnya konstan (-2), cari KPK(5,6) lalu kurangi 2.<br />
+            KPK(5,6) = 30.<br />
+            Jumlah kelereng = $30 - 2 = 28$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 2 (Bagian 2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 2 (Bagian 2)</h1>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: C (4034)</b>
+          <div class="pembahasan">
+            Jumlah dua bilangan prima = 2019 (Ganjil).<br />
+            Penjumlahan yang menghasilkan ganjil pasti terdiri dari (Genap +
+            Ganjil).<br />
+            Satu-satunya prima genap adalah 2.<br />
+            Jadi bilangan pertama = 2, bilangan kedua = $2019 - 2 = 2017$.<br />
+            Hasil kali = $2 \times 2017 = 4034$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>16. Jawaban: B (5)</b>
+          <div class="pembahasan">
+            Persamaan $\frac{1}{x} + \frac{1}{y} = \frac{1}{6}$ dapat diubah
+            menjadi $(x-6)(y-6) = 36$.<br />
+            Cari pasangan faktor dari 36. Karena syarat $x \le y$, kita ambil
+            pasangan faktor $a \times b = 36$ dimana $a \le b$:<br />
+            $(1,36), (2,18), (3,12), (4,9), (6,6)$.<br />
+            Ada 5 solusi.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>17. Jawaban: D (8)</b>
+          <div class="pembahasan">
+            Pola berulang setiap 9 digit (1,2,3,4,5,6,7,8,9).<br />
+            Cari sisa pembagian posisi digit dengan panjang pola: $2024 \pmod
+            9$.<br />
+            Jumlah digit 2024 adalah $2+0+2+4=8$. Sisa baginya adalah 8.<br />
+            Maka digit ke-2024 sama dengan digit ke-8 pada pola, yaitu angka 8.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>18. Jawaban: D (8)</b>
+          <div class="pembahasan">
+            Agar $3A5B$ habis dibagi 4, dua digit terakhir $5B$ harus habis
+            dibagi 4. Kemungkinan $B \in \{2, 6\}$ (52 atau 56).<br />
+            Agar habis dibagi 9, jumlah digit $3+A+5+B = 8+A+B$ harus kelipatan
+            9.<br />
+            Kasus 1: Jika $B=2 \rightarrow 10+A$ kelipatan 9. Maka $A=8$.<br />
+            Kasus 2: Jika $B=6 \rightarrow 14+A$ kelipatan 9. Maka $A=4$.<br />
+            Nilai $A$ terbesar adalah 8.
+          </div>
+        </div>
+        <div class="soal-latihan">
+          <b>19. Jawaban: B (30)</b>
+          <div class="pembahasan">
+            Bilangan palindrom 3 digit berbentuk $ABA$.<br />
+            Digit A (Ratusan) hanya bisa angka 2, 3, 4 (karena rentang 200-500).
+            Ada 3 pilihan.<br />
+            Digit B (Tengah) bebas dari 0-9. Ada 10 pilihan.<br />
+            Total bilangan = $3 \times 10 = 30$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 3 (Bagian 1) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 (Bagian 1)</h1>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: B (34)</b>
+          <div class="pembahasan">
+            Gunakan rumus posisi: Total = (Posisi Depan + Posisi Belakang) -
+            1.<br />
+            Total = $(15 + 20) - 1 = 35 - 1 = 34$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: B (4 pasang)</b>
+          <div class="pembahasan">
+            $m^2 - n^2 = (m-n)(m+n) = 96$.<br />
+            Agar solusi bilangan bulat ada, kedua faktor $(m-n)$ dan $(m+n)$
+            harus memiliki paritas yang sama (keduanya genap, karena hasil
+            kalinya genap).<br />
+            Cari pasangan faktor genap dari 96:<br />
+            1. $2 \times 48 \rightarrow m=25, n=23$.<br />
+            2. $4 \times 24 \rightarrow m=14, n=10$.<br />
+            3. $6 \times 16 \rightarrow m=11, n=5$.<br />
+            4. $8 \times 12 \rightarrow m=10, n=2$.<br />
+            Total 4 pasang.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>22. Jawaban: B (4)</b>
+          <div class="pembahasan">
+            Gunakan Prinsip Sarang Merpati (Pigeonhole Principle) dengan
+            skenario terburuk (worst case).<br />
+            Ada 3 warna (Merah, Biru, Hitam).<br />
+            Skenario tersial: Ambil 1 Merah, 1 Biru, 1 Hitam. (Sudah ambil 3
+            kaos kaki tapi belum ada yang sepasang).<br />
+            Ambilan ke-4 PASTI akan menyamai salah satu warna yang sudah ada.<br />
+            Jadi minimal ambil 4.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>23. Jawaban: A (1)</b>
+          <div class="pembahasan">
+            $\frac{n+45}{n+2} = \frac{(n+2)+43}{n+2} = 1 + \frac{43}{n+2}$.<br />
+            Agar hasilnya bulat, maka $(n+2)$ harus merupakan faktor dari 43.<br />
+            Faktor 43 adalah 1 dan 43.<br />
+            Jika $n+2=1 \rightarrow n=-1$ (bukan bulat positif).<br />
+            Jika $n+2=43 \rightarrow n=41$ (bulat positif).<br />
+            Hanya ada 1 nilai $n$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Level 3 (Bagian 2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 (Bagian 2)</h1>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: B (20)</b>
+          <div class="pembahasan">
+            Total jumlah 5 bilangan = $20 \times 5 = 100$.<br />
+            Jumlah 3 bilangan pertama ($a,b,c$) = $15 \times 3 = 45$.<br />
+            Jumlah 3 bilangan terakhir ($c,d,e$) = $25 \times 3 = 75$.<br />
+            Jika kita jumlahkan kedua kelompok: $(a+b+c) + (c+d+e) = 45 + 75 =
+            120$.<br />
+            Perhatikan bahwa $c$ dihitung dua kali.<br />
+            Total asli + $c = 120 \rightarrow 100 + c = 120$.<br />
+            Maka $c = 20$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>25. Jawaban: B (15)</b>
+          <div class="pembahasan">
+            Cari kombinasi 3 angka (1-9) yang hasil kalinya 12:<br />
+            - Kombinasi {1, 2, 6}: Permutasinya $3! = 6$ bilangan.<br />
+            - Kombinasi {1, 3, 4}: Permutasinya $3! = 6$ bilangan.<br />
+            - Kombinasi {2, 2, 3}: Permutasinya $3!/2! = 3$ bilangan (karena ada
+            angka kembar).<br />
+            Total: $6 + 6 + 3 = 15$ bilangan.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: A (25)</b>
+          <div class="pembahasan">
+            Misalkan 5 bilangan berurutan itu $n-2, n-1, n, n+1, n+2$.<br />
+            Jumlahnya = $5n$.<br />
+            Agar $5n$ menjadi bilangan kuadrat sempurna, $n$ harus minimal
+            bernilai 5 (agar menjadi $5 \times 5 = 25$).<br />
+            Maka jumlah terkecilnya adalah 25.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>27. Jawaban: C (72)</b>
+          <div class="pembahasan">
+            Total permutasi 5 angka = $5! = 120$.<br />
+            Hitung kondisi yang TIDAK diinginkan (1 dan 5 berdampingan). Anggap
+            (1,5) satu paket.<br />
+            Permutasi 4 objek = $4! \times 2!$ (posisi 1,5 bisa tukar) = $24
+            \times 2 = 48$.<br />
+            Banyak cara 1 dan 5 TIDAK berdampingan = Total - Berdampingan = $120
+            - 48 = 72$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+    <!-- Pembahasan Level 3 (Bagian 2) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 (Bagian 2)</h1>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: A (59)</b>
+          <div class="pembahasan">
+            Perhatikan polanya:<br />
+            Bagi 3 sisa 2 (kurang 1).<br />
+            Bagi 4 sisa 3 (kurang 1).<br />
+            Bagi 5 sisa 4 (kurang 1).<br />
+            Cari KPK(3,4,5) lalu kurangi 1.<br />
+            KPK(3,4,5) = 60.<br />
+            Bilangan terkecil = $60 - 1 = 59$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: A (0)</b>
+          <div class="pembahasan">
+            Ingat sifat paritas penjumlahan:<br />
+            Ganjil + Ganjil + Ganjil + Ganjil + Ganjil = Ganjil.<br />
+            Hasil penjumlahan 5 bilangan ganjil PASTI ganjil.<br />
+            Sedangkan 50 adalah bilangan GENAP.<br />
+            Maka tidak mungkin (0 cara).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: B (\{7, 8, 9\})</b>
+          <div class="pembahasan">
+            Persamaan cryptarithm ini dapat disederhanakan menjadi:<br />
+            $111(A+B+C) = 2664$.<br />
+            $A+B+C = 2664 / 111 = 24$.<br />
+            Kita mencari himpunan 3 digit berbeda yang jumlahnya 24.<br />
+            Kombinasi maksimal adalah $9+8+7 = 24$.<br />
+            Jadi himpunannya adalah $\{7, 8, 9\}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
