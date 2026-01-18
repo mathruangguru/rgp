@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Pola, Kombinasi, dan Logika</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e8f5e9;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      /* Watermark */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #1b5e20;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #2e7d32;
+      }
+      .soal-latihan {
+        margin-bottom: 20px;
+        break-inside: avoid;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 400; /* Normal weight, tidak bold */
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 4px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 10px 0 20px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--accent-green);
+        padding: 10px 15px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10.5pt;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+      }
+      .rumus-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      ul,
+      ol {
+        margin-top: 0;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">MODUL LENGKAP:<br />PERSIAPAN OSNK SD</h1>
+        <p class="cover-subtitle">Topik: Pola, Kombinasi, dan Logika</p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- MATERI 1 (Pola & Pencacahan) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi (1/3)</h1>
+
+        <h2>1. Pola Bilangan dan Gambar</h2>
+        <p>
+          Kemampuan mengenali pola adalah dasar dari logika matematika. Berikut
+          jenis pola utama:
+        </p>
+        <div class="rumus-box">
+          <ul>
+            <li>
+              <b>Barisan Aritmatika:</b> Pola dengan beda (selisih) yang
+              tetap.<br />
+              <i>Contoh:</i> 3, 7, 11, 15 (Selalu ditambah 4).
+            </li>
+            <li>
+              <b>Barisan Geometri:</b> Pola dengan rasio (pengali) yang
+              tetap.<br />
+              <i>Contoh:</i> 2, 6, 18, 54 (Selalu dikali 3).
+            </li>
+            <li>
+              <b>Pola Bertingkat:</b> Selisih antar suku belum sama, tetapi
+              selisih dari selisihnya sama.<br />
+              <i>Contoh:</i> 1, 3, 6, 10 (Selisih: +2, +3, +4...).
+            </li>
+            <li>
+              <b>Barisan Fibonacci:</b> Angka selanjutnya adalah hasil
+              penjumlahan dua angka sebelumnya.<br />
+              <i>Contoh:</i> 1, 1, 2, 3, 5, 8... (1+1=2, 1+2=3, dst).
+            </li>
+          </ul>
+        </div>
+
+        <h2>2. Prinsip Pencacahan (Counting)</h2>
+        <p>Gunakan metode sistematis untuk menghitung banyak kemungkinan.</p>
+        <div
+          class="tips-box"
+          style="border-left-color: #e91e63; background-color: #fce4ec"
+        >
+          <b>Aturan Perkalian (Filling Slots):</b><br />
+          Digunakan jika kejadian terjadi secara <b>berurutan</b> (DAN).<br />
+          <i>Contoh:</i> 3 baju dan 2 celana $\rightarrow 3 \times 2 = 6$
+          pasang.
+        </div>
+        <div
+          class="tips-box"
+          style="border-left-color: #1976d2; background-color: #e3f2fd"
+        >
+          <b>Aturan Penjumlahan:</b><br />
+          Digunakan jika kejadian <b>saling lepas</b> (ATAU/Pilihan).<br />
+          <i>Contoh:</i> Naik 3 bus atau 2 kereta $\rightarrow 3 + 2 = 5$
+          pilihan.
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- MATERI 2 (Logika Dasar) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi (2/3)</h1>
+
+        <h2>3. Logika & Strategi Penyelesaian</h2>
+
+        <h3>A. Prinsip Sarang Merpati (Pigeonhole Principle)</h3>
+        <p>
+          "Jika ada $n$ sarang dan $n+1$ merpati, maka pasti ada satu sarang
+          yang berisi minimal 2 merpati."<br />
+          <i>Strategi:</i> Selalu bayangkan skenario terburuk (mengambil semua
+          variasi yang berbeda dulu) sebelum menemukan yang sama.
+        </p>
+
+        <h3>B. Paritas (Ganjil-Genap)</h3>
+        <p>
+          Sifat bilangan sering membantu mengeliminasi jawaban yang tidak
+          mungkin.
+        </p>
+        <ul>
+          <li>
+            Ganjil $\times$ Ganjil = <b>Ganjil</b> (Hanya ini yang hasilnya
+            ganjil).
+          </li>
+          <li>Genap $\times$ Apapun = <b>Genap</b>.</li>
+          <li>Ganjil + Ganjil = <b>Genap</b>.</li>
+        </ul>
+
+        <h3>C. Teknik Penjumlahan Gauss</h3>
+        <p>
+          Untuk menjumlahkan deret panjang: Pasangkan ujung awal dan akhir. $$
+          \text{Jumlah} = \frac{\text{Banyak Bilangan} \times (\text{Awal} +
+          \text{Akhir})}{2} $$
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- MATERI 3 (Visualisasi) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi (3/3)</h1>
+
+        <h3>D. Prinsip Inklusi-Eksklusi</h3>
+        <p>Agar data irisan tidak terhitung ganda.</p>
+        <div class="rumus-box">
+          $$ \text{Total} = (\text{Suka A} + \text{Suka B}) - \text{Irisan (Suka
+          Keduanya)} + \text{Tidak Suka Keduanya} $$
+        </div>
+
+        <h3>E. Bar Model (Model Batang)</h3>
+        <p>
+          Pendekatan visual (Singapore Math) untuk menyelesaikan soal aljabar
+          perbandingan tanpa variabel $x$ dan $y$ yang rumit.
+        </p>
+
+        <div class="svg-container">
+          <svg width="400" height="180" viewBox="0 0 400 180">
+            <!-- Bar A -->
+            <rect
+              x="50"
+              y="30"
+              width="100"
+              height="40"
+              fill="#b2ebf2"
+              stroke="#00bcd4"
+              stroke-width="2"
+            />
+            <text x="30" y="55" font-family="Nunito" font-weight="bold">A</text>
+            <text
+              x="100"
+              y="55"
+              font-family="Nunito"
+              font-size="14"
+              text-anchor="middle"
+              fill="#006064"
+            >
+              1 Unit
+            </text>
+
+            <!-- Bar B -->
+            <rect
+              x="50"
+              y="80"
+              width="100"
+              height="40"
+              fill="#b2ebf2"
+              stroke="#00bcd4"
+              stroke-width="2"
+            />
+            <rect
+              x="150"
+              y="80"
+              width="50"
+              height="40"
+              fill="#ffe0b2"
+              stroke="#ff9800"
+              stroke-width="2"
+            />
+
+            <text x="30" y="105" font-family="Nunito" font-weight="bold">
+              B
+            </text>
+            <text
+              x="100"
+              y="105"
+              font-family="Nunito"
+              font-size="14"
+              text-anchor="middle"
+              fill="#006064"
+            >
+              1 Unit
+            </text>
+            <text
+              x="175"
+              y="105"
+              font-family="Nunito"
+              font-size="14"
+              text-anchor="middle"
+              fill="#e65100"
+            >
+              +20
+            </text>
+
+            <!-- Brace -->
+            <path
+              d="M 210 30 Q 230 30 230 75 T 210 120"
+              fill="none"
+              stroke="#333"
+              stroke-width="2"
+            />
+
+            <!-- Label -->
+            <text
+              x="240"
+              y="80"
+              font-family="Nunito"
+              font-weight="bold"
+              font-size="16"
+            >
+              Total = 100
+            </text>
+          </svg>
+        </div>
+        <div class="tips-box">
+          <b>Analisis Gambar:</b><br />
+          1. Total nilai adalah 100.<br />
+          2. Buang bagian "lebihnya" (+20) dari total: $100 - 20 = 80$.<br />
+          3. Sisa 80 dibagi rata ke 2 unit yang sama besar: $80 : 2 = 40$.<br />
+          4. Jadi, A = 40 dan B = 40 + 20 = 60.
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL 1-5 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 1: Mudah (1-5)</div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >1. Tentukan tiga bilangan selanjutnya dari barisan berikut: $2, 5,
+            8, 11, \dots$</span
+          >
+          <div class="options">
+            <div>A. 12, 13, 14</div>
+            <div>B. 13, 16, 19</div>
+            <div>C. 14, 17, 20</div>
+            <div>D. 15, 18, 21</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >2. Perhatikan pola huruf berikut: O, S, N, K, O, S, N, K, \dots.
+            Huruf apakah yang berada pada urutan ke-25?</span
+          >
+          <div class="options">
+            <div>A. O</div>
+            <div>B. S</div>
+            <div>C. N</div>
+            <div>D. K</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >3. Ada 4 jalan dari kota A ke kota B, dan 3 jalan dari kota B ke
+            kota C. Berapa banyak cara Budi pergi dari A ke C melalui B?</span
+          >
+          <div class="options">
+            <div>A. 7 cara</div>
+            <div>B. 12 cara</div>
+            <div>C. 10 cara</div>
+            <div>D. 64 cara</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >4. Sebuah dadu dilempar satu kali. Himpunan mata dadu ganjil yang
+            mungkin muncul adalah...</span
+          >
+          <div class="options">
+            <div>A. {2, 4, 6}</div>
+            <div>B. {1, 2, 3}</div>
+            <div>C. {3, 5, 7}</div>
+            <div>D. {1, 3, 5}</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >5. Budi sedang menumpuk koin. Tumpukan pertama 1 koin, tumpukan
+            kedua 3 koin, tumpukan ketiga 6 koin, tumpukan keempat 10 koin.
+            Berapa koin pada tumpukan kelima?</span
+          >
+          <div class="options">
+            <div>A. 13 koin</div>
+            <div>B. 14 koin</div>
+            <div>C. 15 koin</div>
+            <div>D. 21 koin</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL 6-10 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 1: Mudah (6-10)</div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >6. Jika nilai kata HARI = 4, MAKAN = 5, dan BELAJAR = 7, maka nilai
+            dari kata MATEMATIKA adalah...</span
+          >
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 9</div>
+            <div>C. 8</div>
+            <div>D. 11</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >7. Dalam sebuah antrian, Andi berada di urutan ke-5 dari depan dan
+            ke-5 dari belakang. Berapa jumlah orang dalam antrian
+            tersebut?</span
+          >
+          <div class="options">
+            <div>A. 8 orang</div>
+            <div>B. 9 orang</div>
+            <div>C. 10 orang</div>
+            <div>D. 11 orang</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >8. Berapa banyak bilangan ganjil yang terletak antara 10 dan
+            20?</span
+          >
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 6</div>
+            <div>C. 5</div>
+            <div>D. 7</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >9. Perhatikan pola logika berikut: $2 \rightarrow 4$, $3
+            \rightarrow 9$, $5 \rightarrow 25$. Maka $10 \rightarrow
+            \dots$</span
+          >
+          <div class="options">
+            <div>A. 20</div>
+            <div>B. 50</div>
+            <div>C. 101</div>
+            <div>D. 100</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >10. Terdapat 3 orang anak: Ali, Budi, dan Cici. Mereka ingin duduk
+            berjajar di bangku panjang. Ada berapa banyak susunan posisi duduk
+            berbeda yang mungkin terjadi?</span
+          >
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 3</div>
+            <div>C. 9</div>
+            <div>D. 5</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL 11-15 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 2: Sedang (11-15)</div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >11. Perhatikan barisan bilangan: $1, 2, 4, 7, 11, 16, \dots$.
+            Berapakah bilangan ke-10 dari barisan tersebut?</span
+          >
+          <div class="options">
+            <div>A. 37</div>
+            <div>B. 42</div>
+            <div>C. 56</div>
+            <div>D. 46</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >12. Sebuah amuba membelah diri menjadi 2 setiap 15 menit. Jika
+            mula-mula ada 1 amuba, berapa banyak amuba setelah 1 jam?</span
+          >
+          <div class="options">
+            <div>A. 8</div>
+            <div>B. 32</div>
+            <div>C. 16</div>
+            <div>D. 64</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >13. Berapa banyak bilangan dua angka (10-99) yang tidak memuat
+            angka 0 sama sekali?</span
+          >
+          <div class="options">
+            <div>A. 90</div>
+            <div>B. 81</div>
+            <div>C. 72</div>
+            <div>D. 89</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >14. Dalam sebuah pertemuan, ada 6 orang yang saling berjabat tangan
+            satu sama lain tepat satu kali. Berapa total jabat tangan yang
+            terjadi?</span
+          >
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 12</div>
+            <div>C. 15</div>
+            <div>D. 30</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >15. Jika kemarin adalah hari Selasa, maka 100 hari lagi dari hari
+            ini adalah hari apa?</span
+          >
+          <div class="options">
+            <div>A. Jumat</div>
+            <div>B. Sabtu</div>
+            <div>C. Kamis</div>
+            <div>D. Minggu</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL 16-20 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 2: Sedang (16-20)</div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >16. Berapakah hasil dari penjumlahan 10 bilangan ganjil pertama ($1
+            + 3 + 5 + \dots$)?</span
+          >
+          <div class="options">
+            <div>A. 50</div>
+            <div>B. 100</div>
+            <div>C. 81</div>
+            <div>D. 121</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >17. Ayah memiliki kode koper 3 digit. Angka pertama adalah bilangan
+            genap (bukan 0), angka kedua bilangan prima ganjil kurang dari 10,
+            dan angka ketiga bilangan ganjil. Berapa banyak kemungkinan kode
+            koper?</span
+          >
+          <div class="options">
+            <div>A. 120</div>
+            <div>B. 90</div>
+            <div>C. 75</div>
+            <div>D. 60</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >18. Lampu merah menyala setiap 2 detik, kuning setiap 3 detik,
+            hijau setiap 4 detik. Pada detik ke berapa ketiga lampu itu menyala
+            bersamaan untuk pertama kalinya?</span
+          >
+          <div class="options">
+            <div>A. Detik ke-24</div>
+            <div>B. Detik ke-10</div>
+            <div>C. Detik ke-12</div>
+            <div>D. Detik ke-6</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >19. Diketahui A lebih tinggi dari B. C lebih pendek dari A tapi
+            lebih tinggi dari B. D lebih tinggi dari A. Siapakah yang paling
+            pendek?</span
+          >
+          <div class="options">
+            <div>A. B</div>
+            <div>B. C</div>
+            <div>C. A</div>
+            <div>D. D</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >20. Sebuah buku memiliki halaman dari 1 sampai 50. Berapa kali
+            angka "3" muncul pada penomoran halaman tersebut sebagai
+            digit?</span
+          >
+          <div class="options">
+            <div>A. 5 kali</div>
+            <div>B. 15 kali</div>
+            <div>C. 14 kali</div>
+            <div>D. 10 kali</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL 21-25 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 3: Sulit (21-25)</div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >21. Tentukan angka satuan dari hasil perpangkatan $3^{2025}$.</span
+          >
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 9</div>
+            <div>C. 3</div>
+            <div>D. 7</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >22. Di pulau Ksatria (Jujur) dan Penjahat (Bohong), kamu bertemu A
+            dan B. A berkata: "Kami berdua adalah Penjahat." Kesimpulan yang
+            benar adalah...</span
+          >
+          <div class="options">
+            <div>A. A Ksatria, B Penjahat</div>
+            <div>B. A Penjahat, B Ksatria</div>
+            <div>C. A dan B keduanya Penjahat</div>
+            <div>D. A dan B keduanya Ksatria</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >23. Berapa banyak persegi (dari berbagai ukuran, $1\times1$ hingga
+            $4\times4$) yang dapat ditemukan pada papan catur berukuran $4
+            \times 4$?</span
+          >
+          <div class="options">
+            <div>A. 16</div>
+            <div>B. 20</div>
+            <div>C. 100</div>
+            <div>D. 30</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >24. Di laci ada kaos kaki Merah, Biru, dan Hijau. Berapa minimal
+            kaos kaki yang harus diambil agar <b>pasti</b> mendapatkan sepasang
+            warna yang sama?</span
+          >
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 3</div>
+            <div>C. 5</div>
+            <div>D. 2</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >25. Bilangan palindrom adalah bilangan yang dibaca dari depan dan
+            belakang sama (contoh: 121, 353). Berapa banyak bilangan palindrom 3
+            digit yang dapat dibuat?</span
+          >
+          <div class="options">
+            <div>A. 100</div>
+            <div>B. 81</div>
+            <div>C. 90</div>
+            <div>D. 99</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL 26-30 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 3: Sulit (26-30)</div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >26. Bilangan $1, 2, \dots, n$ ditulis di papan. Satu dihapus,
+            rata-rata sisanya $35 \frac{7}{17}$. Bilangan yang dihapus
+            adalah...</span
+          >
+          <div class="options">
+            <div>A. 17</div>
+            <div>B. 7</div>
+            <div>C. 35</div>
+            <div>D. 6</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >27. Berapa banyak bilangan bulat positif kurang dari 500 yang habis
+            dibagi 3 atau 5, tetapi <b>tidak</b> habis dibagi oleh keduanya
+            (tidak habis dibagi 15)?</span
+          >
+          <div class="options">
+            <div>A. 265</div>
+            <div>B. 232</div>
+            <div>C. 133</div>
+            <div>D. 199</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >28. Dalam turnamen catur sistem *round-robin* (setiap peserta
+            bertemu 1 kali), terjadi total 21 pertandingan. Jumlah pesertanya
+            adalah...</span
+          >
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 7</div>
+            <div>C. 8</div>
+            <div>D. 42</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >29. Pola huruf segitiga: Baris 1 (A), Baris 2 (B, C), Baris 3 (D,
+            E, F). Huruf apakah yang terletak di <b>awal</b> Baris ke-10?</span
+          >
+          <div class="options">
+            <div>A. T</div>
+            <div>B. U</div>
+            <div>C. S</div>
+            <div>D. R</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >30. Ada 5 keranjang apel dengan rata-rata isi 20 buah. Jika
+            keranjang terbanyak diambil, rata-rata sisanya menjadi 15 buah.
+            Berapa isi keranjang yang diambil?</span
+          >
+          <div class="options">
+            <div>A. 25</div>
+            <div>B. 35</div>
+            <div>C. 40</div>
+            <div>D. 50</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL 31-35 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Latihan Tambahan: Simulasi OSNK (31-35)</div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >31. (Teknik Gauss Teleskopik) Hitunglah hasil dari: $1 - 2 + 3 - 4
+            + 5 - 6 + \dots + 99 - 100$.</span
+          >
+          <div class="options">
+            <div>A. 50</div>
+            <div>B. -50</div>
+            <div>C. 100</div>
+            <div>D. -100</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >32. (Inklusi-Eksklusi) Di kelas ada 30 siswa. 15 siswa suka
+            Matematika, 18 siswa suka IPA, dan 5 siswa tidak suka keduanya.
+            Berapa banyak siswa yang suka Matematika DAN IPA?</span
+          >
+          <div class="options">
+            <div>A. 5</div>
+            <div>B. 8</div>
+            <div>C. 10</div>
+            <div>D. 12</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >33. (Cryptarithm) Jika $AB$ adalah bilangan dua digit, dan berlaku
+            $AB + B = BA$, berapakah nilai $A + B$?</span
+          >
+          <div class="options">
+            <div>A. 15</div>
+            <div>B. 16</div>
+            <div>C. 17</div>
+            <div>D. 18</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >34. Diketahui hasil kali 3 buah bilangan bulat adalah bilangan
+            Ganjil. Maka jumlah ketiga bilangan tersebut adalah...</span
+          >
+          <div class="options">
+            <div>A. Pasti Ganjil</div>
+            <div>B. Pasti Genap</div>
+            <div>C. Bisa Ganjil atau Genap</div>
+            <div>D. Nol</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <span class="soal-konten"
+            >35. Berapa banyak digit angka yang dibutuhkan untuk memberi nomor
+            halaman buku dari halaman 1 sampai halaman 120?</span
+          >
+          <div class="options">
+            <div>A. 120</div>
+            <div>B. 240</div>
+            <div>C. 252</div>
+            <div>D. 263</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan Cover -->
+    <section class="page">
+      <div
+        class="content-wrapper"
+        style="
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        "
+      >
+        <h1 style="font-size: 30pt; border: none; color: #333">
+          BAGIAN III:<br />PEMBAHASAN LENGKAP
+        </h1>
+        <p style="font-size: 16pt; margin-top: 20px">
+          Kunci Jawaban & Panduan Guru
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 1-4 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 (1-4)</h1>
+
+        <div class="soal-latihan">
+          <b>1. Jawaban: C</b>
+          <div class="pembahasan">
+            <strong>Analisis Pola:</strong> Barisan ini bertambah 3 secara
+            tetap.<br />
+            2 $\xrightarrow{+3}$ 5 $\xrightarrow{+3}$ 8 $\xrightarrow{+3}$
+            11.<br />
+            <strong>Lanjutan:</strong><br />
+            $11 + 3 = 14$<br />
+            $14 + 3 = 17$<br />
+            $17 + 3 = 20$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: A</b>
+          <div class="pembahasan">
+            <strong>Pola Berulang:</strong> O-S-N-K (terdiri dari 4 huruf).<br />
+            <strong>Cara Hitung:</strong> Cari sisa pembagian urutan dengan
+            panjang pola.<br />
+            $25 \div 4 = 6$ sisa <strong>1</strong>.<br />
+            Karena sisa 1, maka jawabannya adalah huruf ke-1 dari pola, yaitu
+            <strong>O</strong>.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: B</b>
+          <div class="pembahasan">
+            <strong>Aturan Perkalian:</strong><br />
+            Perjalanan dari A ke B ada 4 pilihan.<br />
+            Perjalanan dari B ke C ada 3 pilihan.<br />
+            Karena perjalanannya berurutan (A ke B <strong>LALU</strong> ke C),
+            kita kalikan:<br />
+            $4 \times 3 = 12$ cara.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: D</b>
+          <div class="pembahasan">
+            Mata dadu standar: {1, 2, 3, 4, 5, 6}.<br />
+            Bilangan Ganjil: Angka yang tidak habis dibagi 2.<br />
+            Himpunan mata dadu ganjil: <strong>{1, 3, 5}</strong>.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 5-8 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 (5-8)</h1>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: C</b>
+          <div class="pembahasan">
+            <strong>Pola Bertingkat (Bilangan Segitiga):</strong><br />
+            Tumpukan 1: 1<br />
+            Tumpukan 2: 1 + 2 = 3<br />
+            Tumpukan 3: 3 + 3 = 6<br />
+            Tumpukan 4: 6 + 4 = 10<br />
+            Tumpukan 5: 10 + <strong>5</strong> = <strong>15</strong>.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>6. Jawaban: A</b>
+          <div class="pembahasan">
+            <strong>Analisis Logika:</strong> Nilai angka adalah
+            <strong>jumlah huruf</strong> penyusun kata.<br />
+            HARI (4 huruf) = 4.<br />
+            MAKAN (5 huruf) = 5.<br />
+            MATEMATIKA (M-A-T-E-M-A-T-I-K-A) ada <strong>10</strong> huruf.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>7. Jawaban: B</b>
+          <div class="pembahasan">
+            <strong>Hati-hati:</strong> Jika dijumlah langsung (5+5), Andi
+            terhitung dua kali.<br />
+            <strong>Rumus Posisi:</strong> (Urutan Depan + Urutan Belakang) -
+            1.<br />
+            $(5 + 5) - 1 = 10 - 1 = 9$ orang.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: C</b>
+          <div class="pembahasan">
+            Bilangan ganjil > 10 dan < 20:<br />
+            11, 13, 15, 17, 19.<br />
+            Total ada <strong>5</strong> bilangan.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 9-12 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 1 & 2 (9-12)</h1>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: D</b>
+          <div class="pembahasan">
+            <strong>Pola Kuadrat:</strong> Angka hasil adalah angka awal
+            dipangkatkan dua ($n^2$).<br />
+            $2 \rightarrow 4 (2^2)$<br />
+            $3 \rightarrow 9 (3^2)$<br />
+            $5 \rightarrow 25 (5^2)$<br />
+            Maka, $10 \rightarrow 10^2 = 100$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>10. Jawaban: A</b>
+          <div class="pembahasan">
+            <strong>Permutasi:</strong> Menyusun 3 objek berbeda.<br />
+            Ali di kursi 1: 3 pilihan.<br />
+            Budi di kursi 2: 2 pilihan.<br />
+            Cici di kursi 3: 1 pilihan.<br />
+            $3 \times 2 \times 1 = 6$ cara.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: D</b>
+          <div class="pembahasan">
+            <strong>Pola Selisih Bertingkat:</strong><br />
+            1 $\xrightarrow{+1}$ 2 $\xrightarrow{+2}$ 4 $\xrightarrow{+3}$ 7
+            $\xrightarrow{+4}$ 11 $\xrightarrow{+5}$ 16.<br />
+            Lanjutannya: 22 (+6), 29 (+7), 37 (+8), <strong>46</strong> (+9).
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: C</b>
+          <div class="pembahasan">
+            <strong>Deret Geometri:</strong><br />
+            Durasi = 1 jam = 60 menit. Amuba membelah setiap 15 menit.<br />
+            Banyak pembelahan = $60 \div 15 = 4$ kali.<br />
+            Jumlah = Awal $\times 2^{\text{kali pembelahan}}$<br />
+            $1 \times 2^4 = 1 \times 16 = 16$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 13-16 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 2 (13-16)</h1>
+
+        <div class="soal-latihan">
+          <b>13. Jawaban: B</b>
+          <div class="pembahasan">
+            Bilangan dua angka (10 s.d 99).<br />
+            Digit Puluhan: 1-9 (9 pilihan).<br />
+            Digit Satuan: 1-9 (9 pilihan, karena 0 tidak boleh).<br />
+            Total = $9 \times 9 = 81$ bilangan.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: C</b>
+          <div class="pembahasan">
+            <strong>Kombinasi (Jabat Tangan):</strong><br />
+            Setiap orang bersalaman dengan 5 orang lainnya. Ada 6 orang.<br />
+            $6 \times 5 = 30$.<br />
+            Tapi A-B dan B-A itu satu salaman yang sama. Maka bagi 2.<br />
+            $30 \div 2 = 15$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: A</b>
+          <div class="pembahasan">
+            Kemarin Selasa $\rightarrow$ Hari ini <strong>Rabu</strong>.<br />
+            Cari sisa hari: $100 \div 7 = 14$ sisa <strong>2</strong>.<br />
+            Hitung 2 hari setelah Rabu $\rightarrow$ Kamis,
+            <strong>Jumat</strong>.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>16. Jawaban: B</b>
+          <div class="pembahasan">
+            <strong>Rumus Cepat:</strong> Jumlah $n$ bilangan ganjil pertama
+            adalah $n^2$.<br />
+            Di sini $n=10$.<br />
+            Jumlah = $10^2 = 100$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 17-20 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 2 (17-20)</h1>
+
+        <div class="soal-latihan">
+          <b>17. Jawaban: D</b>
+          <div class="pembahasan">
+            <strong>Filling Slots:</strong><br />
+            Digit 1 (Genap non-0): {2, 4, 6, 8} $\rightarrow$ 4 opsi.<br />
+            Digit 2 (Prima ganjil < 10): {3, 5, 7} $\rightarrow$ 3 opsi.<br />
+            Digit 3 (Ganjil): {1, 3, 5, 7, 9} $\rightarrow$ 5 opsi.<br />
+            Total = $4 \times 3 \times 5 = 60$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>18. Jawaban: C</b>
+          <div class="pembahasan">
+            <strong>KPK (Kelipatan Persekutuan Terkecil):</strong><br />
+            Cari KPK dari 2, 3, dan 4.<br />
+            Kelipatan 4: 4, 8, <strong>12</strong>...<br />
+            Kelipatan 3: 3, 6, 9, <strong>12</strong>...<br />
+            KPK adalah 12. Jadi pada detik ke-12.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>19. Jawaban: A</b>
+          <div class="pembahasan">
+            Susun urutan tinggi badan:<br />
+            1. A > B<br />
+            2. C < A dan C > B (Berarti A > C > B)<br />
+            3. D > A (Berarti D paling tinggi)<br />
+            Urutan: D > A > C > B. Paling pendek adalah <strong>B</strong>.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: B</b>
+          <div class="pembahasan">
+            Hitung manual kemunculan angka 3:<br />
+            - Satuan: 3, 13, 23, 33, 43 (Ada 5)<br />
+            - Puluhan: 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 (Ada 10)<br />
+            Total = $5 + 10 = 15$ kali. (Perhatikan angka 33 dihitung dua kali
+            karena punya dua angka 3).
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 21-24 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 (21-24)</h1>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: C</b>
+          <div class="pembahasan">
+            <strong>Pola Angka Satuan $3^n$:</strong><br />
+            $3^1=3, 3^2=9, 3^3=27 (\text{ujung } 7), 3^4=81 (\text{ujung }
+            1)$.<br />
+            Pola berulang tiap 4 angka: 3, 9, 7, 1.<br />
+            $2025 \div 4 = 506$ sisa <strong>1</strong>.<br />
+            Sisa 1 berarti angka satuannya sama dengan urutan ke-1, yaitu
+            <strong>3</strong>.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>22. Jawaban: B</b>
+          <div class="pembahasan">
+            <strong>Analisis Kontradiksi:</strong><br />
+            A berkata: "Kami berdua penjahat".<br />
+            - Jika A Jujur (Ksatria), pernyataannya benar. Berarti A adalah
+            penjahat. Ini kontradiksi (Ksatria tidak mungkin Penjahat).<br />
+            - Maka A pasti <strong>Penjahat</strong> (Pembohong).<br />
+            Karena A pembohong, pernyataannya "Kami berdua penjahat" adalah
+            SALAH. Artinya, TIDAK keduanya penjahat. Karena A sudah pasti
+            penjahat, maka B haruslah <strong>Ksatria</strong>.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>23. Jawaban: D</b>
+          <div class="pembahasan">
+            <strong>Rumus Persegi pada Grid $n \times n$:</strong><br />
+            Jumlahkan kuadrat dari 1 sampai $n$.<br />
+            Untuk $4 \times 4$: $1^2 + 2^2 + 3^2 + 4^2$<br />
+            $1 + 4 + 9 + 16 = 30$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: A</b>
+          <div class="pembahasan">
+            <strong>Prinsip Sarang Merpati:</strong><br />
+            Ada 3 warna (Sarang).<br />
+            Skenario tersial: Ambil 3 kaos kaki, dapat Merah, Biru, Hijau (semua
+            beda).<br />
+            Ambil 1 lagi (total 4), pasti warnanya sama dengan salah satu yang
+            sudah ada.<br />
+            Jadi minimal ambil <strong>4</strong>.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 25-28 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 (25-28)</h1>
+
+        <div class="soal-latihan">
+          <b>25. Jawaban: C</b>
+          <div class="pembahasan">
+            <strong>Konsep Palindrom (ABA):</strong><br />
+            Digit Pertama (A): 1-9 (9 opsi).<br />
+            Digit Kedua (B): 0-9 (10 opsi).<br />
+            Digit Ketiga (A): Harus sama dengan digit pertama (1 opsi).<br />
+            $9 \times 10 \times 1 = 90$ bilangan.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: B</b>
+          <div class="pembahasan">
+            Rata-rata pecahan per 17 memberi petunjuk bahwa jumlah bilangan yang
+            tersisa ($S_{sisa}$) dibagi banyak bilangan sisa ($n-1$)
+            menghasilkan penyebut 17. Ini biasanya berarti $n-1$ adalah
+            kelipatan 17.<br />
+            Coba $n-1 = 68$ (maka $n=69$).<br />
+            Jumlah 1-69 = $\frac{69 \times 70}{2} = 2415$.<br />
+            Jumlah Sisa = $68 \times (35 + \frac{7}{17}) = (68 \times 35) + (68
+            \times \frac{7}{17}) = 2380 + 28 = 2408$.<br />
+            Bilangan dihapus = Awal - Sisa = $2415 - 2408 = 7$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>27. Jawaban: D</b>
+          <div class="pembahasan">
+            <strong>Himpunan (Irisan):</strong><br />
+            Semesta < 500 (1 sampai 499).<br />
+            Habis bagi 3 ($N_3$) = $499 \div 3 = 166$.<br />
+            Habis bagi 5 ($N_5$) = $499 \div 5 = 99$.<br />
+            Habis bagi 15 ($N_{15}$) = $499 \div 15 = 33$ (Ini irisan).<br />
+            Target: (Hanya 3) + (Hanya 5).<br />
+            $(166 - 33) + (99 - 33) = 133 + 66 = 199$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: B</b>
+          <div class="pembahasan">
+            <strong>Rumus Pertandingan:</strong> $\frac{n(n-1)}{2} = 21$.<br />
+            $n(n-1) = 42$.<br />
+            Cari dua angka berurutan yang dikalikan hasilnya 42. Yaitu 7 dan
+            6.<br />
+            Jadi $n=7$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 29-32 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Level 3 & Tambahan (29-32)</h1>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: A</b>
+          <div class="pembahasan">
+            <strong>Pola Segitiga:</strong><br />
+            Jumlah huruf di 9 baris pertama = $1+2+3+\dots+9 = 45$.<br />
+            Maka huruf pertama di baris 10 adalah urutan ke-46.<br />
+            Alfabet ada 26 huruf. $46 - 26 = 20$.<br />
+            Huruf ke-20 adalah <strong>T</strong>.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: C</b>
+          <div class="pembahasan">
+            Total apel awal = $5 \text{ keranjang} \times 20 = 100$.<br />
+            Sisa (setelah 1 diambil) = 4 keranjang.<br />
+            Total sisa = $4 \times 15 = 60$.<br />
+            Keranjang yang diambil = Total Awal - Total Sisa = $100 - 60 = 40$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>31. Jawaban: B</b>
+          <div class="pembahasan">
+            <strong>Pengelompokan:</strong><br />
+            $(1-2) + (3-4) + (5-6) + \dots + (99-100)$.<br />
+            Setiap kurung bernilai -1.<br />
+            Ada 100 bilangan, berarti ada 50 pasang kurung.<br />
+            Total = $50 \times (-1) = -50$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>32. Jawaban: B</b>
+          <div class="pembahasan">
+            <strong>Inklusi-Eksklusi:</strong><br />
+            Total = (Suka A + Suka B - Irisan) + Tidak Suka Keduanya.<br />
+            $30 = (15 + 18 - x) + 5$.<br />
+            $30 = 33 - x + 5$.<br />
+            $30 = 38 - x \rightarrow x = 8$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 33-35 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Tambahan (33-35)</h1>
+
+        <div class="soal-latihan">
+          <b>33. Jawaban: C</b>
+          <div class="pembahasan">
+            <strong>Aljabar Nilai Tempat:</strong><br />
+            $AB$ bernilai $10A + B$.<br />
+            Persamaan: $(10A + B) + B = 10B + A$.<br />
+            $10A + 2B = 10B + A$.<br />
+            $9A = 8B$.<br />
+            Karena A dan B adalah digit satuan (0-9), maka solusi tunggalnya
+            adalah $A=8$ dan $B=9$.<br />
+            $A + B = 8 + 9 = 17$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>34. Jawaban: A</b>
+          <div class="pembahasan">
+            <strong>Logika Paritas:</strong><br />
+            Agar hasil kali menjadi GANJIL, maka <strong>semua</strong> faktor
+            pengalinya harus GANJIL.<br />
+            (Karena jika ada satu saja Genap, hasilnya jadi Genap).<br />
+            Maka Bil 1, 2, 3 semuanya Ganjil.<br />
+            Jumlah = Ganjil + Ganjil + Ganjil = Genap + Ganjil =
+            <strong>Ganjil</strong>.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>35. Jawaban: C</b>
+          <div class="pembahasan">
+            <strong>Hitung per kelompok digit:</strong><br />
+            - Hal 1-9 (1 digit): 9 halaman $\times$ 1 = 9 digit.<br />
+            - Hal 10-99 (2 digit): 90 halaman $\times$ 2 = 180 digit.<br />
+            - Hal 100-120 (3 digit): 21 halaman $\times$ 3 = 63 digit.<br />
+            Total = $9 + 180 + 63 = 252$ digit.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        &nbsp;|&nbsp;
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
