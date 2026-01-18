@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modul OSN: Review & Problem Solving</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e8f5e9;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+      }
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+      /* Watermark sesuai referensi */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        z-index: 1;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #1b5e20;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: #2e7d32;
+      }
+      .soal-latihan {
+        margin-bottom: 20px;
+        break-inside: avoid;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      /* SETTINGAN FOOTER YANG DIMINTA */
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--accent-green);
+        padding: 10px 15px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10.5pt;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+      }
+      .rumus-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      ul,
+      ol {
+        margin-top: 0;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cover Page -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <!-- Logo Ruangguru sesuai referensi -->
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+
+        <h1 class="cover-title">
+          MODUL PENGAYAAN<br />OLIMPIADE MATEMATIKA SD
+        </h1>
+        <p class="cover-subtitle">
+          Review & Problem Solving: Pola, Kombinatorik, & Logika
+        </p>
+      </div>
+      <!-- Footer Hak Cipta -->
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 1 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi (1/3)</h1>
+        <p>
+          Untuk menghadapi soal OSN-K, sekadar mengalikan angka tidak cukup.
+          Berikut adalah teknik-teknik kunci yang harus dikuasai siswa.
+        </p>
+
+        <h2>1. Prinsip Penjumlahan & Perkalian (Refined)</h2>
+        <ul>
+          <li>
+            <b>Aturan Perkalian (Filling Slots):</b> Digunakan ketika kejadian
+            terjadi dalam beberapa <i>tahap</i> beruntun (Kata kunci: DAN).
+            Buatlah kotak-kotak (slot) untuk setiap tahap.
+          </li>
+          <li>
+            <b>Aturan Penjumlahan (Cases):</b> Digunakan ketika kita membagi
+            masalah menjadi beberapa <i>kasus</i> yang saling lepas/terpisah
+            (Kata kunci: ATAU).
+          </li>
+        </ul>
+        <div class="tips-box">
+          <b>Tips:</b> Seringkali kita menggabungkan keduanya.
+          <i
+            >Bagilah masalah menjadi kasus-kasus besar (Jumlah), lalu hitung
+            setiap kasus dengan metode pengisian tempat (Kali).</i
+          >
+        </div>
+
+        <h2>2. Prinsip Inklusi-Eksklusi (Diagram Venn)</h2>
+        <p>
+          Digunakan untuk menghindari perhitungan ganda (<i>double counting</i
+          >).
+        </p>
+        <div class="rumus-box">
+          <b>Rumus Penting:</b><br />
+          <ul>
+            <li>Untuk 2 Himpunan: $|A \cup B| = |A| + |B| - |A \cap B|$</li>
+            <li>
+              Untuk 3 Himpunan: $|A \cup B \cup C| = |A| + |B| + |C| - (|A \cap
+              B| + |A \cap C| + |B \cap C|) + |A \cap B \cap C|$
+            </li>
+          </ul>
+          <i>Contoh:</i> Banyaknya bilangan habis dibagi 3 ATAU 5 = (habis 3) +
+          (habis 5) - (habis 15).
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 2 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi (2/3)</h1>
+        <h2>3. Teknik Komplemen (Complementary Counting)</h2>
+        <p>
+          Kadang lebih mudah menghitung apa yang <b>TIDAK</b> kita inginkan,
+          lalu mengurangkannya dari total semesta.
+        </p>
+        <div class="rumus-box">
+          $$ \text{Kejadian Diinginkan} = \text{Total Kejadian} - \text{Kejadian
+          TIDAK Diinginkan} $$
+        </div>
+        <p>
+          <b>Kapan dipakai?</b> Jika soal memuat kata "paling sedikit", "minimal
+          satu", atau "jangan ada yang berdampingan".
+        </p>
+
+        <h2>4. Permutasi dengan Unsur Identik</h2>
+        <p>
+          Jika kita menyusun $n$ objek di mana ada $k$ objek yang sama,
+          rumusnya:
+        </p>
+        <div class="rumus-box">
+          $$ \text{Banyak Cara} = \frac{n!}{k_1! \times k_2! \times \dots} $$
+        </div>
+        <p>
+          <i>Contoh:</i> Menyusun kata "KATAK" (5 huruf, ada 2 huruf K dan 2
+          huruf A). $\to \frac{5!}{2! \times 2!} = 30$.
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Halaman Materi 3 -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian I: Ringkasan Materi (3/3)</h1>
+        <h2>5. Teknik Sekat (Stars and Bars / Separator)</h2>
+        <p>
+          Digunakan untuk membagikan $n$ benda <b>identik</b> ke dalam $k$ wadah
+          <b>berbeda</b>.
+        </p>
+        <ul>
+          <li>Jika setiap wadah <b>boleh kosong</b>: $C(n+k-1, k-1)$</li>
+          <li>Jika setiap wadah <b>minimal berisi 1</b>: $C(n-1, k-1)$</li>
+        </ul>
+        <div class="tips-box">
+          <i>Contoh:</i> Mencari banyaknya solusi $a + b + c = 10$ (bilangan
+          bulat positif). Ini sama dengan membagi 10 bola ke 3 kotak (minimal
+          1).<br />
+          Rumus: $C(10-1, 3-1) = C(9,2)$.
+        </div>
+
+        <h2>6. Prinsip Sarang Merpati (Pigeonhole Principle)</h2>
+        <p>
+          Jika ada $n+1$ merpati masuk ke $n$ sarang, maka <b>pasti</b> ada satu
+          sarang yang berisi minimal 2 merpati.
+        </p>
+        <div class="rumus-box">
+          <b>Advanced:</b> Jika ada $kn + 1$ merpati masuk $n$ sarang, pasti ada
+          sarang berisi minimal $k+1$ merpati.
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 1 (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Bagian II: Problem Solving</h1>
+        <div class="kategori-soal">
+          Level 1: Konsep Dasar dengan Variasi (Soal 1-5)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Dari angka 0, 1, 2, 3, 4, 5 akan dibentuk bilangan genap
+            yang terdiri dari 3 digit berbeda. Banyaknya bilangan yang terbentuk
+            adalah...
+          </div>
+          <div class="options">
+            <div>A. 48</div>
+            <div>B. 50</div>
+            <div>C. 52</div>
+            <div>D. 60</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> Banyaknya bilangan asli dari 1 sampai 200 yang habis
+            dibagi 4 atau 7, tetapi tidak habis dibagi oleh keduanya adalah...
+          </div>
+          <div class="options">
+            <div>A. 57</div>
+            <div>B. 64</div>
+            <div>C. 71</div>
+            <div>D. 78</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Terdapat 5 pasang suami istri. Banyaknya cara memilih 2
+            orang (satu laki-laki dan satu perempuan) jika mereka <b>bukan</b>
+            pasangan suami istri adalah...
+          </div>
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 20</div>
+            <div>C. 24</div>
+            <div>D. 25</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Sebuah dadu dilempar 3 kali. Banyaknya kemungkinan jumlah
+            mata dadu yang muncul sama dengan 5 adalah...
+          </div>
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 5</div>
+            <div>C. 6</div>
+            <div>D. 8</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Banyaknya cara menyusun huruf pada kata "OLIMPIADE"
+            sedemikian sehingga huruf vokal selalu berkumpul menjadi satu
+            blok/kesatuan adalah...
+          </div>
+          <div class="options">
+            <div>A. 1.440</div>
+            <div>B. 3.600</div>
+            <div>C. 4.320</div>
+            <div>D. 7.200</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 2 (6-10) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 1: Konsep Dasar dengan Variasi (Soal 6-10)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Di sebuah rak buku terdapat 4 buku Matematika berbeda, 3
+            buku IPA berbeda, dan 2 buku Bahasa berbeda. Buku-buku dalam satu
+            kelompok mata pelajaran harus selalu diletakkan berdampingan. Ada
+            berapa cara menyusun buku tersebut?
+          </div>
+          <div class="options">
+            <div>A. 288</div>
+            <div>B. 864</div>
+            <div>C. 1.728</div>
+            <div>D. 3.456</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Digit satuan dari hasil penjumlahan $1^{2025} + 2^{2025} +
+            3^{2025} + \dots + 9^{2025}$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 0</div>
+            <div>B. 1</div>
+            <div>C. 5</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Banyaknya persegi panjang (termasuk persegi) yang dapat
+            dibentuk pada papan catur ukuran $5 \times 5$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 100</div>
+            <div>B. 150</div>
+            <div>C. 200</div>
+            <div>D. 225</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Andi memiliki 10 permen identik yang akan dibagikan kepada
+            3 adiknya. Setiap adik harus mendapatkan setidaknya 1 permen.
+            Banyaknya cara pembagian yang mungkin adalah...
+          </div>
+          <div class="options">
+            <div>A. 28</div>
+            <div>B. 36</div>
+            <div>C. 45</div>
+            <div>D. 66</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Dalam sebuah pertemuan, setiap orang berjabat tangan
+            dengan orang lain tepat satu kali. Jika total jabat tangan yang
+            terjadi adalah 66, maka banyaknya orang yang hadir adalah...
+          </div>
+          <div class="options">
+            <div>A. 11</div>
+            <div>B. 12</div>
+            <div>C. 13</div>
+            <div>D. 14</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 3 (11-15) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 2: Analisis Kasus & Logika (Soal 11-15)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Banyaknya bilangan 3 digit yang hasil kali digit-digitnya
+            sama dengan 24 adalah... (Contoh: 234 karena $2 \times 3 \times 4 =
+            24$, atau 831).
+          </div>
+          <div class="options">
+            <div>A. 15</div>
+            <div>B. 18</div>
+            <div>C. 21</div>
+            <div>D. 24</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Pada sebuah lingkaran terdapat 8 titik. Banyaknya
+            segiempat yang dapat dibentuk dari titik-titik tersebut dan
+            banyaknya titik potong diagonal di dalam lingkaran berturut-turut
+            adalah...
+          </div>
+          <div class="options">
+            <div>A. 56 dan 56</div>
+            <div>B. 56 dan 70</div>
+            <div>C. 70 dan 28</div>
+            <div>D. 70 dan 70</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Banyaknya bilangan cacah 4 digit (boleh ada digit
+            berulang) yang <b>sama sekali tidak</b> memuat digit 5 adalah...
+          </div>
+          <div class="options">
+            <div>A. 4.374</div>
+            <div>B. 5.184</div>
+            <div>C. 5.832</div>
+            <div>D. 6.561</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Sebuah kelas terdiri dari 45 siswa. Diketahui 25 siswa
+            suka Matematika, 20 siswa suka IPA, dan 18 siswa suka Bahasa
+            Inggris. Diketahui pula 7 siswa suka Mat & IPA, 8 siswa suka IPA &
+            Ing, 9 siswa suka Mat & Ing. Jika ada 3 siswa yang suka ketiganya,
+            maka banyaknya siswa yang <b>tidak</b> suka ketiganya adalah...
+          </div>
+          <div class="options">
+            <div>A. 3</div>
+            <div>B. 5</div>
+            <div>C. 8</div>
+            <div>D. 10</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Banyaknya himpunan bagian dari $A = \{1, 2, 3, 4, 5, 6\}$
+            yang memuat elemen 1 tetapi <b>tidak</b> memuat elemen 6 adalah...
+          </div>
+          <div class="options">
+            <div>A. 8</div>
+            <div>B. 16</div>
+            <div>C. 32</div>
+            <div>D. 64</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 4 (16-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Level 2: Analisis Kasus & Logika (Soal 16-20)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Banyaknya cara menyusun kata "MISSISSIPPI" agar keempat
+            huruf S <b>tidak</b> ada yang berdampingan sama sekali adalah...
+          </div>
+          <div class="options">
+            <div>A. 3.675</div>
+            <div>B. 7.000</div>
+            <div>C. 7.350</div>
+            <div>D. 14.700</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Di dalam kantong terdapat 6 bola merah, 6 bola putih, 6
+            bola biru, dan 6 bola hitam. Andi mengambil bola secara acak. Berapa
+            minimal bola yang harus diambil agar <b>pasti</b> didapatkan 3 bola
+            dengan warna yang sama?
+          </div>
+          <div class="options">
+            <div>A. 8</div>
+            <div>B. 9</div>
+            <div>C. 10</div>
+            <div>D. 13</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Disediakan angka 1, 2, 3, 4, 5. Banyaknya bilangan 5
+            digit (tanpa pengulangan) yang dapat dibentuk jika angka 1 harus
+            muncul <b>sebelum</b> angka 2 adalah...
+          </div>
+          <div class="options">
+            <div>A. 24</div>
+            <div>B. 48</div>
+            <div>C. 60</div>
+            <div>D. 120</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Banyaknya solusi bilangan bulat non-negatif dari
+            persamaan $a + b + c = 12$ dengan syarat $a \ge 2$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 45</div>
+            <div>B. 55</div>
+            <div>C. 66</div>
+            <div>D. 78</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Seekor semut berjalan pada bidang kartesius dari titik
+            $(0,0)$ menuju $(4,3)$. Semut hanya boleh berjalan ke Kanan (x+1)
+            atau ke Atas (y+1). Banyaknya rute berbeda yang bisa ditempuh semut
+            adalah...
+          </div>
+          <div class="options">
+            <div>A. 21</div>
+            <div>B. 28</div>
+            <div>C. 35</div>
+            <div>D. 42</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 5 (21-25) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 3: Soal Tipe OSN (Soal 21-25)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> Banyaknya bilangan asli $n < 1000$ sedemikian sehingga
+            jumlah digit-digitnya sama dengan 11 adalah...
+          </div>
+          <div class="options">
+            <div>A. 55</div>
+            <div>B. 68</div>
+            <div>C. 69</div>
+            <div>D. 70</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Sebuah bilangan 6 digit berbentuk $AABBCC$ (dua digit
+            pertama sama, dua tengah sama, dua akhir sama, $A \ne 0$). Banyaknya
+            bilangan seperti itu yang habis dibagi 3 adalah...
+          </div>
+          <div class="options">
+            <div>A. 100</div>
+            <div>B. 270</div>
+            <div>C. 300</div>
+            <div>D. 330</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Terdapat 7 anak tangga. Budi ingin naik ke lantai atas.
+            Sekali melangkah, Budi bisa naik 1 tangga atau 2 tangga. Namun, anak
+            tangga ke-4 rusak sehingga tidak boleh diinjak. Banyaknya cara Budi
+            sampai ke puncak adalah...
+          </div>
+          <div class="options">
+            <div>A. 6</div>
+            <div>B. 8</div>
+            <div>C. 10</div>
+            <div>D. 12</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> Banyaknya cara menempatkan 8 benteng (rook) pada papan
+            catur $8 \times 8$ sedemikian sehingga tidak ada yang saling serang,
+            TETAPI benteng-benteng tersebut hanya boleh diletakkan pada petak
+            putih saja adalah...
+          </div>
+          <div class="options">
+            <div>A. 24</div>
+            <div>B. 576</div>
+            <div>C. 2.304</div>
+            <div>D. 40.320</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Misalkan $S = \{1, 2, 3, \dots, 20\}$. Banyaknya himpunan
+            bagian dari $S$ yang terdiri dari 3 anggota $\{a, b, c\}$ sedemikian
+            sehingga $a + b + c$ habis dibagi 3 adalah...
+          </div>
+          <div class="options">
+            <div>A. 360</div>
+            <div>B. 380</div>
+            <div>C. 384</div>
+            <div>D. 400</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Soal Page 6 (26-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Level 3: Soal Tipe OSN (Soal 26-30)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> Sebuah "Bilangan Tangga" didefinisikan sebagai bilangan
+            yang digit-digitnya naik tegas (contoh: 125, 369, 1478). Banyaknya
+            Bilangan Tangga yang bernilai antara 300 sampai 800 adalah...
+          </div>
+          <div class="options">
+            <div>A. 26</div>
+            <div>B. 30</div>
+            <div>C. 35</div>
+            <div>D. 40</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Dalam sebuah turnamen catur <i>round-robin</i> (setiap
+            pemain bertemu pemain lain 1 kali), total poin yang diperebutkan
+            adalah 1 jika menang (1-0), dan masing-masing 1/2 jika seri. Jika
+            total peserta ada 10 orang, dan 3 peserta terendah memiliki poin
+            yang sama, total poin maksimum yang mungkin dikumpulkan oleh juara 1
+            adalah...
+          </div>
+          <div class="options">
+            <div>A. 7</div>
+            <div>B. 8</div>
+            <div>C. 8,5</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Banyaknya bilangan kuadrat sempurna yang dapat membagi
+            $10!$ (faktorial sepuluh) adalah...
+          </div>
+          <div class="options">
+            <div>A. 30</div>
+            <div>B. 60</div>
+            <div>C. 72</div>
+            <div>D. 90</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> Kita ingin mewarnai grid $1 \times 5$ (1 baris, 5 kotak
+            berderet) dengan 3 warna (Merah, Kuning, Hijau) sedemikian sehingga
+            petak yang bersebelahan (sisi bertemu) memiliki warna berbeda.
+            Banyaknya cara pewarnaan adalah...
+          </div>
+          <div class="options">
+            <div>A. 48</div>
+            <div>B. 54</div>
+            <div>C. 72</div>
+            <div>D. 96</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> Koefisien dari suku $x^3 y^4$ dalam penjabaran binomial
+            $(2x + y)^7$ adalah...
+          </div>
+          <div class="options">
+            <div>A. 35</div>
+            <div>B. 70</div>
+            <div>C. 140</div>
+            <div>D. 280</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMISAH PEMBAHASAN -->
+    <section class="page">
+      <div
+        class="content-wrapper"
+        style="
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        "
+      >
+        <h1 style="font-size: 30pt; border: none; color: #333">
+          BAGIAN III:<br />PEMBAHASAN LENGKAP
+        </h1>
+        <p style="font-size: 16pt; margin-top: 20px">
+          Kunci Jawaban & Langkah Pengerjaan Detail
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 1 (1-4) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan (Soal 1-4)</h1>
+
+        <div class="soal-latihan">
+          <b>1. Jawaban: C (52)</b>
+          <div class="pembahasan">
+            Bilangan genap ditentukan oleh satuan (0, 2, 4).
+            <ul>
+              <li>
+                Kasus 1 (Satuan 0): Ratusan (1-5) ada 5 cara. Puluhan (sisa 4)
+                ada 4 cara. $5 \times 4 \times 1 = 20$.
+              </li>
+              <li>
+                Kasus 2 (Satuan 2 atau 4): Ada 2 pilihan satuan. Ratusan tidak
+                boleh 0 dan tidak boleh sama dengan satuan (5-1=4 cara). Puluhan
+                sisa 4 cara. $4 \times 4 \times 2 = 32$.
+              </li>
+            </ul>
+            Total = $20 + 32 = \mathbf{52}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: B (64)</b>
+          <div class="pembahasan">
+            Gunakan diagram Venn/Prinsip Inklusi. Semesta 1-200.<br />
+            $n(4) = \lfloor 200/4 \rfloor = 50$.<br />
+            $n(7) = \lfloor 200/7 \rfloor = 28$.<br />
+            $n(KPK(4,7)) = n(28) = \lfloor 200/28 \rfloor = 7$.<br />
+            Yang diminta adalah (Hanya habis 4) + (Hanya habis 7) = $(50 - 7) +
+            (28 - 7) = 43 + 21 = \mathbf{64}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: B (20)</b>
+          <div class="pembahasan">
+            Memilih 1 laki-laki: 5 cara.<br />
+            Memilih 1 perempuan: 4 cara (karena tidak boleh memilih istri dari
+            laki-laki yang terpilih).<br />
+            Total = $5 \times 4 = \mathbf{20}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: C (6)</b>
+          <div class="pembahasan">
+            Kombinasi 3 dadu berjumlah 5:
+            <ul>
+              <li>(1, 1, 3): Permutasinya $3!/2! = 3$.</li>
+              <li>(1, 2, 2): Permutasinya $3!/2! = 3$.</li>
+            </ul>
+            Total = $3 + 3 = \mathbf{6}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 2 (5-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan (Soal 5-8)</h1>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: D (7.200)</b>
+          <div class="pembahasan">
+            Huruf: Vokal (O, I, I, A, E) dan Konsonan (L, M, P, D). Anggap blok
+            vokal sebagai 1 kesatuan. Maka kita menyusun: \{Blok Vokal, L, M, P,
+            D\} $\to 5! = 120$. Di dalam blok vokal, ada permutasi: (O, I, I, A,
+            E) $\to 5!/2! = 60$ (dibagi 2! karena huruf I ada 2). Total cara =
+            $120 \times 60 = \mathbf{7.200}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>6. Jawaban: C (1.728)</b>
+          <div class="pembahasan">
+            Susun kelompok mata pelajaran (Mat, IPA, Bhs): $3! = 6$.<br />
+            Susun internal buku Matematika: $4! = 24$.<br />
+            Susun internal buku IPA: $3! = 6$.<br />
+            Susun internal buku Bahasa: $2! = 2$.<br />
+            Total = $6 \times 24 \times 6 \times 2 = \mathbf{1.728}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>7. Jawaban: C (5)</b>
+          <div class="pembahasan">
+            Pola satuan bilangan berpangkat berulang setiap 4. Karena $2025 \div
+            4$ bersisa 1, maka digit satuannya sama dengan pangkat 1.<br />
+            $1^1 + 2^1 + \dots + 9^1 = 45$. Digit satuannya adalah $\mathbf{5}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: D (225)</b>
+          <div class="pembahasan">
+            Rumus banyak persegi panjang pada grid $m \times n$:
+            $\frac{m(m+1)}{2} \times \frac{n(n+1)}{2}$.<br />
+            Untuk $5 \times 5$: $\frac{5 \times 6}{2} \times \frac{5 \times
+            6}{2} = 15 \times 15 = \mathbf{225}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 3 (9-12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan (Soal 9-12)</h1>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: B (36)</b>
+          <div class="pembahasan">
+            Menggunakan Teorema Sekat (Stars and Bars) dengan syarat tiap kotak
+            terisi minimal 1.<br />
+            Rumus: $C(n-1, k-1) = C(10-1, 3-1) = C(9, 2) = \frac{9 \times 8}{2}
+            = \mathbf{36}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>10. Jawaban: B (12)</b>
+          <div class="pembahasan">
+            Rumus jabat tangan $n$ orang: $C(n, 2) = 66$.<br />
+            $\frac{n(n-1)}{2} = 66 \to n(n-1) = 132$.<br />
+            Bilangan berurutan yang hasil kalinya 132 adalah $12 \times 11$.
+            Jadi $n = \mathbf{12}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: C (21)</b>
+          <div class="pembahasan">
+            Faktor dari 24 yang mungkin jadi digit (1-9). Kombinasi yang
+            mungkin:
+            <ul>
+              <li>\{1, 4, 6\}: Permutasi $3! = 6$.</li>
+              <li>\{1, 3, 8\}: Permutasi $3! = 6$.</li>
+              <li>\{2, 3, 4\}: Permutasi $3! = 6$.</li>
+              <li>\{2, 2, 6\}: Permutasi $3!/2! = 3$.</li>
+            </ul>
+            Total = $6 + 6 + 6 + 3 = \mathbf{21}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: D (70 dan 70)</b>
+          <div class="pembahasan">
+            Banyak segiempat = memilih 4 titik dari 8 = $C(8,4) = 70$.<br />
+            Setiap segiempat konveks memiliki tepat 1 titik potong diagonal di
+            dalam. Maka banyaknya titik potong = banyaknya segiempat =
+            $\mathbf{70}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 4 (13-16) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan (Soal 13-16)</h1>
+
+        <div class="soal-latihan">
+          <b>13. Jawaban: C (5.832)</b>
+          <div class="pembahasan">
+            Digit pertama (ribuan): 1-9 kecuali 5 (8 pilihan).<br />
+            Digit lainnya: 0-9 kecuali 5 (9 pilihan).<br />
+            Total = $8 \times 9 \times 9 \times 9 = 8 \times 729 =
+            \mathbf{5.832}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: A (3)</b>
+          <div class="pembahasan">
+            Menggunakan Prinsip Inklusi-Eksklusi:<br />
+            $n(A \cup B \cup C) = (25+20+18) - (7+8+9) + 3 = 63 - 24 + 3 =
+            42$.<br />
+            Total siswa = 45.<br />
+            Siswa yang tidak suka ketiganya = $45 - 42 = \mathbf{3}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: B (16)</b>
+          <div class="pembahasan">
+            Angka 1 wajib masuk (1 cara). Angka 6 dilarang masuk (1 cara).<br />
+            Sisa angka \{2, 3, 4, 5\} bebas masuk atau tidak (2 pilihan per
+            angka).<br />
+            Total = $1 \times 1 \times 2^4 = \mathbf{16}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>16. Jawaban: C (7.350)</b>
+          <div class="pembahasan">
+            Gunakan metode celah (<i>Gap Method</i>).<br />
+            Susun huruf selain S (M, I, I, I, I, P, P) ada 7 huruf.<br />
+            Permutasinya: $\frac{7!}{1! 4! 2!} = \frac{5040}{48} = 105$.<br />
+            7 huruf ini menciptakan 8 celah (termasuk ujung kiri-kanan).<br />
+            Kita tempatkan 4 huruf S pada 8 celah tersebut: $C(8,4) = 70$.<br />
+            Total = $105 \times 70 = \mathbf{7.350}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 5 (17-20) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan (Soal 17-20)</h1>
+
+        <div class="soal-latihan">
+          <b>17. Jawaban: B (9)</b>
+          <div class="pembahasan">
+            Prinsip Sarang Merpati (Pigeonhole Principle).<br />
+            Sarang = 4 warna. Target = 3 bola sama.<br />
+            Kondisi terburuk (sial) adalah terambil masing-masing 2 bola tiap
+            warna ($2 \times 4 = 8$ bola).<br />
+            Pengambilan ke-9 pasti akan membuat salah satu warna menjadi 3 bola.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>18. Jawaban: C (60)</b>
+          <div class="pembahasan">
+            Total permutasi 5 angka berbeda adalah $5! = 120$.<br />
+            Dalam semesta permutasi tersebut, posisi angka 1 relatif terhadap
+            angka 2 hanya ada dua kemungkinan: 1 sebelum 2 atau 2 sebelum 1.
+            Karena peluangnya simetris (sama besar), maka:<br />
+            Total = $120 \div 2 = \mathbf{60}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>19. Jawaban: C (66)</b>
+          <div class="pembahasan">
+            Persamaan $a+b+c=12$ dengan $a \ge 2$.<br />
+            Misalkan $a' = a - 2$ (dimana $a' \ge 0$). Substitusi $a = a' +
+            2$.<br />
+            $(a'+2) + b + c = 12 \Rightarrow a' + b + c = 10$.<br />
+            Sekarang semua variabel $\ge 0$. Gunakan Stars and Bars (boleh
+            kosong):<br />
+            $C(10+3-1, 3-1) = C(12, 2) = \frac{12 \times 11}{2} = \mathbf{66}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: C (35)</b>
+          <div class="pembahasan">
+            Semut harus melangkah Kanan (4 kali) dan Atas (3 kali). Total 7
+            langkah.<br />
+            Ini adalah permutasi dengan unsur yang sama:<br />
+            $\frac{7!}{4! \times 3!} = \frac{5040}{24 \times 6} = \mathbf{35}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 6 (21-24) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan (Soal 21-24)</h1>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: C (69)</b>
+          <div class="pembahasan">
+            Mencari solusi $a+b+c=11$ ($a,b,c \ge 0$). Total = $C(13,2) =
+            78$.<br />
+            Kurangi kasus tidak valid (digit $\ge 10$):
+            <ul>
+              <li>$a \ge 10$: $a'+b+c=1 \to C(3,2) = 3$ solusi.</li>
+              <li>$b \ge 10$: 3 solusi.</li>
+              <li>$c \ge 10$: 3 solusi.</li>
+            </ul>
+            Total valid = $78 - (3+3+3) = \mathbf{69}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>22. Jawaban: C (300)</b>
+          <div class="pembahasan">
+            Bilangan $N = AABBCC$. Nilai $N$ habis dibagi 3 jika jumlah digitnya
+            $2(A+B+C)$ habis dibagi 3, yang berarti $A+B+C$ kelipatan 3.<br />
+            Total kombinasi digit $(A,B,C)$ adalah $9 \times 10 \times 10 =
+            900$.<br />
+            Karena distribusi modulo 3 dari penjumlahan digit yang acak, tepat
+            1/3 dari total bilangan akan habis dibagi 3.<br />
+            Total = $900 \div 3 = \mathbf{300}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>23. Jawaban: A (6)</b>
+          <div class="pembahasan">
+            Karena tangga ke-4 rusak, Budi <b>harus</b> mendarat di tangga 3,
+            lalu melompat langsung ke tangga 5 (langkah +2), baru melanjutkan ke
+            7. Rute: Start $\to$ 3 $\to$ 5 $\to$ 7.
+            <ul>
+              <li>Start ke 3: (1,1,1), (1,2), (2,1) $\to$ 3 cara.</li>
+              <li>3 ke 5: Hanya 1 cara (lompat 2).</li>
+              <li>5 ke 7: (1,1), (2) $\to$ 2 cara.</li>
+            </ul>
+            Total = $3 \times 1 \times 2 = \mathbf{6}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: B (576)</b>
+          <div class="pembahasan">
+            Agar 8 benteng tidak saling serang, harus ada 1 benteng di tiap
+            baris dan kolom. Pada papan catur, petak putih di baris ganjil
+            berada di kolom genap, dan sebaliknya.
+            <ul>
+              <li>
+                4 benteng di baris ganjil (1,3,5,7) harus menempati kolom genap
+                (2,4,6,8). Banyak cara = $4! = 24$.
+              </li>
+              <li>
+                4 benteng di baris genap (2,4,6,8) harus menempati kolom ganjil
+                (1,3,5,7). Banyak cara = $4! = 24$.
+              </li>
+            </ul>
+            Total = $24 \times 24 = \mathbf{576}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 7 (25-27) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan (Soal 25-27)</h1>
+
+        <div class="soal-latihan">
+          <b>25. Jawaban: C (384)</b>
+          <div class="pembahasan">
+            Kelompokkan angka berdasarkan sisa bagi 3:<br />
+            Tipe 0 (3,6,..,18): 6 angka. Tipe 1 (1,4,..,19): 7 angka. Tipe 2
+            (2,5,..,20): 7 angka.<br />
+            Agar jumlah 3 angka habis dibagi 3, kombinasi yang mungkin:
+            <ul>
+              <li>(0,0,0): $C(6,3) = 20$.</li>
+              <li>(1,1,1): $C(7,3) = 35$.</li>
+              <li>(2,2,2): $C(7,3) = 35$.</li>
+              <li>(0,1,2): $6 \times 7 \times 7 = 294$.</li>
+            </ul>
+            Total = $20+35+35+294 = \mathbf{384}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: C (35)</b>
+          <div class="pembahasan">
+            Bilangan tangga 3 digit. Pasti $a < b < c$. Kita hanya perlu memilih
+            3 angka berbeda, urutan otomatis terkunci dari kecil ke besar. Digit
+            pertama harus $\ge 3$ dan $\le 7$ (karena sampai 800).
+            <ul>
+              <li>Kepala 3: Pilih 2 digit dari \{4..9\} ($C(6,2)=15$).</li>
+              <li>Kepala 4: Pilih 2 digit dari \{5..9\} ($C(5,2)=10$).</li>
+              <li>
+                Kepala 5: $C(4,2)=6$. Kepala 6: $C(3,2)=3$. Kepala 7:
+                $C(2,2)=1$.
+              </li>
+            </ul>
+            Total = $\mathbf{35}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>27. Jawaban: D (9)</b>
+          <div class="pembahasan">
+            Total poin turnamen = $C(10,2) = 45$.<br />
+            Untuk memaksimalkan poin Juara 1, kita harus meminimalkan poin
+            peserta lain, termasuk 3 peserta terendah.<br />
+            3 peserta terendah bisa saja memiliki poin 1 (jika mereka saling
+            seri dan kalah lawan semua peserta di atasnya).<br />
+            Sisa poin $45 - 3 = 42$ diperebutkan oleh 7 orang teratas.<br />
+            Sangat dimungkinkan Juara 1 memenangkan seluruh pertandingan (9 kali
+            menang = 9 poin). Sisa poin $42-9=33$ dibagi ke 6 orang lainnya
+            (rata-rata 5,5 poin), yang masih logis (lebih besar dari poin
+            peserta terendah).<br />
+            Jadi, skor maksimum teoretis adalah $\mathbf{9}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- Pembahasan 8 (28-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan (Soal 28-30)</h1>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: A (30)</b>
+          <div class="pembahasan">
+            $10! = 2^8 \cdot 3^4 \cdot 5^2 \cdot 7^1$.<br />
+            Agar kuadrat sempurna ($k^2$), pangkat faktor prima harus genap.
+            <ul>
+              <li>Pangkat 2 bisa: 0, 2, 4, 6, 8 (5 opsi).</li>
+              <li>Pangkat 3 bisa: 0, 2, 4 (3 opsi).</li>
+              <li>Pangkat 5 bisa: 0, 2 (2 opsi).</li>
+              <li>Pangkat 7 bisa: 0 (1 opsi).</li>
+            </ul>
+            Total = $5 \times 3 \times 2 \times 1 = \mathbf{30}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: A (48)</b>
+          <div class="pembahasan">
+            Kotak 1: 3 pilihan warna.<br />
+            Kotak 2: 2 pilihan (beda dengan K1).<br />
+            Kotak 3: 2 pilihan (beda dengan K2).<br />
+            Dst.<br />
+            Total = $3 \times 2 \times 2 \times 2 \times 2 = \mathbf{48}$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: D (280)</b>
+          <div class="pembahasan">
+            Suku binomial umum: $C(n,k) a^{n-k} b^k$.<br />
+            Untuk $(2x+y)^7$, suku $x^3 y^4$ terjadi saat memilih $(2x)^3$ dan
+            $(y)^4$.<br />
+            Koefisien = $C(7,3) \cdot 2^3 \cdot 1^4 = 35 \cdot 8 =
+            \mathbf{280}$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
