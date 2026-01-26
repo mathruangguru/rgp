@@ -1,0 +1,1423 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulasi OSN-K Matematika SD 2025</title>
+    <!-- Konfigurasi MathJax -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: {
+          fontCache: "global",
+        },
+        startup: {
+          typeset: true,
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <!-- Font Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --grey-text: #8d8e8d;
+        --accent-green: #4caf50;
+        --accent-blue: #1976d2;
+        --bg-header: #e8f5e9;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+        font-size: 11pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+      }
+      .page:last-of-type {
+        page-break-after: avoid;
+        margin-bottom: 1cm;
+      }
+
+      /* --- COVER STYLING --- */
+      .cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .cover-image {
+        max-width: 9cm;
+        height: auto;
+        margin-bottom: 40px;
+      }
+      .cover-title {
+        font-size: 34pt;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.2;
+        color: #333;
+        border-bottom: none;
+      }
+      .cover-subtitle {
+        font-size: 16pt;
+        color: var(--secondary-text);
+        font-weight: 700;
+      }
+
+      /* Watermark */
+      .page::before {
+        content: "";
+        background-image: url("https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 12cm;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        opacity: 0.04;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .cover-page::before {
+        opacity: 0;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        flex-grow: 1;
+      }
+
+      /* Typography */
+      h1 {
+        font-size: 20pt;
+        text-align: center;
+        border-bottom: 2px solid var(--primary-text);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        color: var(--primary-text);
+      }
+      h2 {
+        font-size: 14pt;
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        color: #1b5e20;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+
+      /* Soal Styling */
+      .soal-latihan {
+        margin-bottom: 20px;
+        break-inside: avoid;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #eee;
+      }
+      .soal-latihan:last-child {
+        border-bottom: none;
+      }
+      .soal-konten {
+        text-align: justify;
+        display: block;
+        margin-bottom: 5px;
+        position: relative;
+      }
+      /* Indentasi hanging agar nomor soal rapi */
+      .soal-konten b {
+        display: inline-block;
+        width: 25px;
+      }
+
+      .options {
+        padding-left: 20px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+
+      /* --- FOOTER --- */
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        z-index: 2;
+        position: relative;
+      }
+
+      .kategori-soal {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: 700;
+        margin: 15px 0;
+        border-top: 2px solid var(--primary-text);
+        border-bottom: 2px solid var(--primary-text);
+        padding: 8px 0;
+        background-color: var(--bg-header);
+      }
+
+      /* Pembahasan & Tips */
+      .pembahasan {
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--accent-green);
+        padding: 10px 15px;
+        margin-top: 5px;
+        text-align: justify;
+        font-size: 10.5pt;
+        margin-left: 20px;
+      }
+      .tips-box {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 10px 15px;
+        margin: 10px 0;
+        font-style: italic;
+        border-radius: 4px;
+        font-size: 10.5pt;
+      }
+
+      /* SVG Styling */
+      .svg-container {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      svg text {
+        font-family: "Nunito", sans-serif;
+      }
+
+      ul,
+      ol {
+        margin-top: 0;
+        padding-left: 20px;
+        margin-bottom: 0;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+
+      /* Print Settings */
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          padding: 1.5cm;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- COVER PAGE -->
+    <section class="page cover-page">
+      <div
+        class="content-wrapper"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="https://imgix3.ruangguru.com/assets/miscellaneous/jpeg_xmlvzq_8324.jpeg"
+          alt="Logo"
+          class="cover-image"
+        />
+        <h1 class="cover-title">SIMULASI OSN-K<br />MATEMATIKA SD 2025</h1>
+        <p class="cover-subtitle">
+          Tingkat Kabupaten/Kota<br />
+          <span style="font-size: 12pt; font-weight: normal">
+            Waktu: 120 Menit | Jumlah Soal: 30 Pilihan Ganda
+          </span>
+        </p>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PETUNJUK PENGERJAAN -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Petunjuk Pengerjaan</h1>
+        <div class="tips-box">
+          <ol>
+            <li>Berdoalah sebelum mengerjakan soal.</li>
+            <li>
+              Tulislah identitas Anda pada lembar jawaban yang disediakan.
+            </li>
+            <li>Pilihlah satu jawaban yang paling tepat (A, B, C, atau D).</li>
+            <li>
+              Gunakan kertas buram untuk menghitung.
+              <b>Dilarang menggunakan kalkulator</b> atau alat bantu hitung
+              lainnya.
+            </li>
+            <li>
+              Ilustrasi gambar tidak selalu dibuat menurut skala sebenarnya.
+            </li>
+            <li>
+              Periksa kembali pekerjaan Anda sebelum diserahkan kepada pengawas.
+            </li>
+          </ol>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL HALAMAN 1 (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Bagian 1: Kemampuan Dasar (Mudah)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>1.</b> Hasil operasi hitung dari $12 \times (15 + 25) : 5 - 14$
+            adalah ....
+          </div>
+          <div class="options">
+            <div>A. 82</div>
+            <div>B. 84</div>
+            <div>C. 96</div>
+            <div>D. 106</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>2.</b> FPB dari 48, 72, dan 96 adalah ....
+          </div>
+          <div class="options">
+            <div>A. 12</div>
+            <div>B. 16</div>
+            <div>C. 24</div>
+            <div>D. 36</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>3.</b> Sebuah taman berbentuk persegi panjang dengan panjang 26
+            meter dan lebar 12 meter. Di sekeliling taman akan ditanami pohon
+            dengan jarak antar pohon 2 meter. Jika di setiap pojok taman harus
+            ada pohon, banyak pohon yang dibutuhkan adalah ....
+          </div>
+          <div class="options">
+            <div>A. 36</div>
+            <div>B. 37</div>
+            <div>C. 38</div>
+            <div>D. 74</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>4.</b> Perhatikan pola bilangan berikut: 3, 7, 11, 15, ...<br />
+            Bilangan ke-20 dari pola tersebut adalah ....
+          </div>
+          <div class="options">
+            <div>A. 75</div>
+            <div>B. 77</div>
+            <div>C. 79</div>
+            <div>D. 81</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>5.</b> Ibu membeli $2\frac{1}{2}$ kg gula pasir, kemudian membeli
+            lagi $1\frac{3}{4}$ kg. Gula tersebut digunakan untuk membuat kue
+            sebanyak $3\frac{1}{4}$ kg. Sisa gula pasir Ibu adalah ... kg.
+          </div>
+          <div class="options">
+            <div>A. $1$</div>
+            <div>B. $1\frac{1}{4}$</div>
+            <div>C. $1\frac{1}{2}$</div>
+            <div>D. $2$</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL HALAMAN 2 (6-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>6.</b> Besar sudut terkecil yang dibentuk oleh jarum panjang dan
+            jarum pendek pada pukul 03.30 adalah ....
+          </div>
+          <div class="options">
+            <div>A. $75^\circ$</div>
+            <div>B. $85^\circ$</div>
+            <div>C. $90^\circ$</div>
+            <div>D. $105^\circ$</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>7.</b> Rata-rata nilai ulangan Matematika dari 9 siswa adalah 78.
+            Jika nilai Budi dimasukkan, rata-ratanya menjadi 79. Nilai ulangan
+            Budi adalah ....
+          </div>
+          <div class="options">
+            <div>A. 85</div>
+            <div>B. 86</div>
+            <div>C. 87</div>
+            <div>D. 88</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>8.</b> Pak Andi memiliki persediaan beras 1,2 ton. Ia menjual 7,5
+            kuintal beras tersebut kepada pedagang pasar. Sisa beras Pak Andi
+            sekarang adalah ... kg.
+          </div>
+          <div class="options">
+            <div>A. 45</div>
+            <div>B. 450</div>
+            <div>C. 550</div>
+            <div>D. 4500</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL HALAMAN 3 (9-12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">Bagian 2: Kemampuan Analisis (Sedang)</div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>9.</b> Tiga buah lampu berkedip bersamaan pada pukul 08.00. Lampu
+            A berkedip setiap 6 detik, lampu B setiap 8 detik, dan lampu C
+            setiap 12 detik. Ketiga lampu akan berkedip bersamaan lagi untuk
+            kedua kalinya pada pukul ....
+          </div>
+          <div class="options">
+            <div>A. 08.00 lewat 12 detik</div>
+            <div>B. 08.00 lewat 24 detik</div>
+            <div>C. 08.00 lewat 36 detik</div>
+            <div>D. 08.00 lewat 48 detik</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>10.</b> Umur Ayah saat ini 4 kali umur Budi. Lima tahun yang akan
+            datang, umur Ayah menjadi 3 kali umur Budi. Selisih umur mereka saat
+            ini adalah ... tahun.
+          </div>
+          <div class="options">
+            <div>A. 25</div>
+            <div>B. 30</div>
+            <div>C. 35</div>
+            <div>D. 40</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>11.</b> Bilangan $N$ adalah bilangan asli dua angka terbesar yang
+            memenuhi sifat: jika $N$ dibagi 5 bersisa 3, dan jika $N$ dibagi 7
+            bersisa 2. Nilai $N$ adalah ....
+          </div>
+          <div class="options">
+            <div>A. 73</div>
+            <div>B. 83</div>
+            <div>C. 93</div>
+            <div>D. 98</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>12.</b> Sebuah bak mandi berbentuk balok berukuran $80 \text{ cm}
+            \times 60 \text{ cm} \times 50 \text{ cm}$ terisi air $\frac{2}{3}$
+            bagian. Berapa liter air yang harus ditambahkan agar bak mandi
+            tersebut penuh?
+          </div>
+          <div class="options">
+            <div>A. 60 liter</div>
+            <div>B. 80 liter</div>
+            <div>C. 120 liter</div>
+            <div>D. 240 liter</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL HALAMAN 4 (13-15) - ADA GAMBAR -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>13.</b> Perhatikan gambar di bawah ini. Sebuah persegi besar
+            dengan keliling 40 cm dipotong menjadi 4 persegi panjang kecil yang
+            identik dengan irisan sejajar. Keliling satu persegi panjang kecil
+            tersebut adalah ....
+          </div>
+          <div class="svg-container">
+            <svg width="200" height="150" viewBox="0 0 120 120">
+              <rect
+                x="20"
+                y="20"
+                width="80"
+                height="80"
+                fill="none"
+                stroke="#333"
+                stroke-width="2.5"
+              />
+              <line
+                x1="40"
+                y1="20"
+                x2="40"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="60"
+                y1="20"
+                x2="60"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <line
+                x1="80"
+                y1="20"
+                x2="80"
+                y2="100"
+                stroke="#333"
+                stroke-width="1.5"
+              />
+              <text
+                x="60"
+                y="115"
+                font-size="10"
+                text-anchor="middle"
+                fill="#555"
+              >
+                Keliling Persegi Besar = 40 cm
+              </text>
+            </svg>
+          </div>
+          <div class="options">
+            <div>A. 20 cm</div>
+            <div>B. 25 cm</div>
+            <div>C. 30 cm</div>
+            <div>D. 35 cm</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>14.</b> Budi menuliskan bilangan asli secara berurutan:
+            12345678910111213... dan seterusnya. Digit ke-100 yang ditulis Budi
+            adalah ....
+          </div>
+          <div class="options">
+            <div>A. 0</div>
+            <div>B. 1</div>
+            <div>C. 5</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>15.</b> Rata-rata 5 bilangan asli berbeda adalah 15. Jika
+            bilangan terbesar adalah 25, maka bilangan terkecil yang mungkin
+            dari kelima bilangan tersebut adalah ....
+          </div>
+          <div class="options">
+            <div>A. 1</div>
+            <div>B. 3</div>
+            <div>C. 4</div>
+            <div>D. 5</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL HALAMAN 5 (16-19) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>16.</b> Dalam sebuah kompetisi sepak bola, tim yang menang
+            mendapat poin 3, kalah poin -1, dan seri poin 1. Tim Elang bermain
+            10 kali dengan hasil 6 kali menang dan 1 kali seri. Sisanya kalah.
+            Total poin Tim Elang adalah ....
+          </div>
+          <div class="options">
+            <div>A. 15</div>
+            <div>B. 16</div>
+            <div>C. 17</div>
+            <div>D. 18</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>17.</b> Harga sepasang sepatu setelah didiskon 20% adalah
+            Rp160.000,00. Harga sepatu tersebut sebelum didiskon adalah ....
+          </div>
+          <div class="options">
+            <div>A. Rp180.000,00</div>
+            <div>B. Rp192.000,00</div>
+            <div>C. Rp200.000,00</div>
+            <div>D. Rp220.000,00</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>18.</b> Jumlah dua bilangan cacah adalah 40 dan selisihnya adalah
+            14. Hasil kali kedua bilangan tersebut adalah ....
+          </div>
+          <div class="options">
+            <div>A. 341</div>
+            <div>B. 351</div>
+            <div>C. 361</div>
+            <div>D. 371</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>19.</b> Pecahan $\frac{A}{B}$ adalah pecahan paling sederhana.
+            Jika pembilang ditambah 3, nilai pecahan menjadi $\frac{2}{3}$. Jika
+            penyebut dikurangi 1, nilai pecahan menjadi $\frac{1}{2}$. Nilai $A
+            + B$ adalah ....
+          </div>
+          <div class="options">
+            <div>A. 22</div>
+            <div>B. 24</div>
+            <div>C. 26</div>
+            <div>D. 28</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL HALAMAN 6 (20-22) - ADA GAMBAR -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>20.</b> Banyaknya bilangan prima antara 10 dan 50 disimbolkan
+            dengan $x$. Banyaknya bilangan kuadrat antara 10 dan 50 disimbolkan
+            dengan $y$. Nilai dari $x + y$ adalah ....
+          </div>
+          <div class="options">
+            <div>A. 14</div>
+            <div>B. 15</div>
+            <div>C. 16</div>
+            <div>D. 17</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>21.</b> Sebuah bus berangkat dari kota A ke kota B dengan
+            kecepatan rata-rata 60 km/jam. Bus tersebut kembali dari kota B ke
+            kota A melalui jalan yang sama dengan kecepatan rata-rata 40 km/jam.
+            Kecepatan rata-rata bus untuk seluruh perjalanan (pergi dan pulang)
+            adalah ... km/jam.
+          </div>
+          <div class="options">
+            <div>A. 48</div>
+            <div>B. 50</div>
+            <div>C. 52</div>
+            <div>D. 54</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>22.</b> Pada gambar berikut, ABCD adalah persegi dengan sisi 14
+            cm. Di dalam persegi tersebut terdapat sebuah lingkaran terbesar
+            yang mungkin digambar. Luas daerah yang diarsir (di dalam persegi
+            namun di luar lingkaran) adalah ... cm$^2$. ($\pi = \frac{22}{7}$)
+          </div>
+          <div class="svg-container">
+            <svg width="150" height="150" viewBox="0 0 120 120">
+              <rect
+                x="20"
+                y="20"
+                width="80"
+                height="80"
+                fill="#cfd8dc"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <circle
+                cx="60"
+                cy="60"
+                r="40"
+                fill="white"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <text x="15" y="20" font-size="12" font-weight="bold">D</text>
+              <text x="100" y="20" font-size="12" font-weight="bold">C</text>
+              <text x="15" y="110" font-size="12" font-weight="bold">A</text>
+              <text x="100" y="110" font-size="12" font-weight="bold">B</text>
+            </svg>
+          </div>
+          <div class="options">
+            <div>A. 38</div>
+            <div>B. 40</div>
+            <div>C. 42</div>
+            <div>D. 44</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL HALAMAN 7 (23-26) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="kategori-soal">
+          Bagian 3: Pemecahan Masalah Lanjut (Sulit)
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>23.</b> Diberikan operasi bilangan $a \star b = (a \times b) + (a
+            - b)$.<br />
+            Nilai dari $5 \star (4 \star 2)$ adalah ....
+          </div>
+          <div class="options">
+            <div>A. 43</div>
+            <div>B. 45</div>
+            <div>C. 53</div>
+            <div>D. 55</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>24.</b> Sebuah buku memiliki 200 halaman bernomor 1 sampai 200.
+            Berapa kali angka 1 muncul pada penomoran halaman buku tersebut?
+          </div>
+          <div class="options">
+            <div>A. 130</div>
+            <div>B. 135</div>
+            <div>C. 140</div>
+            <div>D. 145</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>25.</b> Pada sebuah pertemuan, setiap orang berjabat tangan tepat
+            satu kali dengan setiap orang lainnya. Jika total terjadi 66 jabat
+            tangan, maka banyaknya orang yang hadir dalam pertemuan tersebut
+            adalah ....
+          </div>
+          <div class="options">
+            <div>A. 10</div>
+            <div>B. 11</div>
+            <div>C. 12</div>
+            <div>D. 13</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>26.</b> Bilangan 2024 dapat dinyatakan sebagai penjumlahan
+            beberapa bilangan asli berurutan. Contoh: $10 = 1+2+3+4$. Jika 2024
+            dinyatakan sebagai penjumlahan dari 16 bilangan asli berurutan,
+            bilangan terkecil dari deret tersebut adalah ....
+          </div>
+          <div class="options">
+            <div>A. 118</div>
+            <div>B. 119</div>
+            <div>C. 120</div>
+            <div>D. 121</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- SOAL HALAMAN 8 (27-30) - ADA GAMBAR -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>27.</b> Sebuah balok kayu berukuran $96 \text{ cm} \times 72
+            \text{ cm} \times 60 \text{ cm}$ akan dipotong-potong menjadi
+            kubus-kubus kecil dengan ukuran sama besar (ukuran rusuk bilangan
+            bulat) tanpa sisa. Agar diperoleh jumlah kubus paling sedikit,
+            berapa banyak kubus yang terbentuk?
+          </div>
+          <div class="options">
+            <div>A. 240</div>
+            <div>B. 480</div>
+            <div>C. 520</div>
+            <div>D. 1920</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>28.</b> Diketahui persegi panjang ABCD dengan luas 180 cm$^2$.
+            Titik E terletak pada sisi AB sehingga $AE : EB = 1 : 2$. Titik F
+            terletak pada sisi BC sehingga $BF : FC = 2 : 1$. Luas daerah
+            segitiga DEF (daerah yang diarsir) adalah ... cm$^2$.
+          </div>
+          <div class="svg-container">
+            <svg width="240" height="140" viewBox="0 0 240 140">
+              <rect
+                x="20"
+                y="20"
+                width="200"
+                height="100"
+                fill="white"
+                stroke="#333"
+                stroke-width="2"
+              />
+              <polygon
+                points="20,120 86.66,20 220,86.66"
+                fill="#cfd8dc"
+                stroke="#1b5e20"
+                stroke-width="2"
+              />
+              <text x="15" y="15" font-size="12" font-weight="bold">A</text>
+              <text x="225" y="15" font-size="12" font-weight="bold">B</text>
+              <text x="225" y="135" font-size="12" font-weight="bold">C</text>
+              <text x="15" y="135" font-size="12" font-weight="bold">D</text>
+              <text x="86" y="15" font-size="12" font-weight="bold">E</text>
+              <text x="225" y="86" font-size="12" font-weight="bold">F</text>
+            </svg>
+          </div>
+          <div class="options">
+            <div>A. 70</div>
+            <div>B. 75</div>
+            <div>C. 80</div>
+            <div>D. 85</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>29.</b> Angka satuan dari hasil $3^{2024} + 2^{2024}$ adalah ....
+          </div>
+          <div class="options">
+            <div>A. 3</div>
+            <div>B. 5</div>
+            <div>C. 7</div>
+            <div>D. 9</div>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <div class="soal-konten">
+            <b>30.</b> Dalam sebuah kotak terdapat 5 bola berwarna: Merah,
+            Kuning, Hijau, Biru, dan Ungu. Budi akan mengambil 3 bola sekaligus
+            secara acak. Ada berapa banyak kemungkinan kombinasi warna bola yang
+            terambil jika bola Merah WAJIB terpilih?
+          </div>
+          <div class="options">
+            <div>A. 4</div>
+            <div>B. 6</div>
+            <div>C. 8</div>
+            <div>D. 10</div>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- KUNCI JAWABAN -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Kunci Jawaban</h1>
+        <div
+          style="
+            column-count: 2;
+            column-gap: 60px;
+            font-size: 12pt;
+            margin-top: 30px;
+          "
+        >
+          <ol>
+            <li>A</li>
+            <li>C</li>
+            <li>C</li>
+            <li>C</li>
+            <li>A</li>
+            <li>A</li>
+            <li>D</li>
+            <li>B</li>
+            <li>B</li>
+            <li>B</li>
+            <li>C</li>
+            <li>B</li>
+            <li>B</li>
+            <li>C</li>
+            <li>A</li>
+            <li>B</li>
+            <li>C</li>
+            <li>B</li>
+            <li>A</li>
+            <li>B</li>
+            <li>A</li>
+            <li>C</li>
+            <li>B</li>
+            <li>C</li>
+            <li>C</li>
+            <li>B</li>
+            <li>A</li>
+            <li>C</li>
+            <li>C</li>
+            <li>B</li>
+          </ol>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN PAGE 1 (1-5) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Kemampuan Dasar</h1>
+
+        <div class="soal-latihan">
+          <b>1. Jawaban: A</b>
+          <div class="pembahasan">
+            <ul>
+              <li>Kerjakan dalam kurung: $15 + 25 = 40$.</li>
+              <li>
+                Perkalian & Pembagian (kiri ke kanan): $12 \times 40 = 480$,
+                lalu $480 : 5 = 96$.
+              </li>
+              <li>Pengurangan: $96 - 14 = 82$.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>2. Jawaban: C</b>
+          <div class="pembahasan">
+            Faktorisasi Prima:<br />
+            $48 = 2^4 \times 3$<br />
+            $72 = 2^3 \times 3^2$<br />
+            $96 = 2^5 \times 3$<br />
+            FPB diambil faktor sama pangkat terkecil: $2^3 \times 3 = 8 \times 3
+            = 24$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>3. Jawaban: C</b>
+          <div class="pembahasan">
+            Keliling Taman $= 2 \times (26 + 12) = 2 \times 38 = 76$ meter.<br />
+            Banyak pohon $= \text{Keliling} : \text{Jarak} = 76 : 2 = 38$ pohon.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>4. Jawaban: C</b>
+          <div class="pembahasan">
+            Pola barisan aritmatika dengan beda 4 (3, 7, 11, ...).<br />
+            Rumus $U_n = a + (n-1)b$.<br />
+            $U_{20} = 3 + (19 \times 4) = 3 + 76 = 79$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>5. Jawaban: A</b>
+          <div class="pembahasan">
+            Total gula $= 2,5 + 1,75 = 4,25$ kg.<br />
+            Sisa gula $= 4,25 - 3,25 = 1,00$ kg.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN PAGE 2 (6-8) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>6. Jawaban: A</b>
+          <div class="pembahasan">
+            Pukul 03.30.<br />
+            Jarum panjang di angka 6 ($180^\circ$).<br />
+            Jarum pendek di $3 + \frac{30}{60}$ (setengah jalan ke 4).<br />
+            Posisi jarum pendek $= 3,5 \times 30^\circ = 105^\circ$.<br />
+            Selisih $= 180^\circ - 105^\circ = 75^\circ$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>7. Jawaban: D</b>
+          <div class="pembahasan">
+            Total nilai 9 siswa $= 9 \times 78 = 702$.<br />
+            Total nilai 10 siswa (dengan Budi) $= 10 \times 79 = 790$.<br />
+            Nilai Budi $= 790 - 702 = 88$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>8. Jawaban: B</b>
+          <div class="pembahasan">
+            1,2 ton = 1200 kg.<br />
+            7,5 kuintal = 750 kg.<br />
+            Sisa $= 1200 - 750 = 450$ kg.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN PAGE 3 (9-12) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <h1>Pembahasan: Kemampuan Analisis</h1>
+
+        <div class="soal-latihan">
+          <b>9. Jawaban: B</b>
+          <div class="pembahasan">
+            Cari KPK dari 6, 8, dan 12.<br />
+            KPK = 24.<br />
+            Maka lampu berkedip bersama lagi 24 detik kemudian, yaitu pukul
+            08.00 lewat 24 detik.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>10. Jawaban: B</b>
+          <div class="pembahasan">
+            Misal umur Budi $= B$, umur Ayah $= A$.<br />
+            Saat ini: $A = 4B$.<br />
+            5 tahun lagi: $A + 5 = 3(B + 5)$.<br />
+            Substitusi $A$:<br />
+            $4B + 5 = 3B + 15$<br />
+            $B = 10$ tahun.<br />
+            Maka $A = 4 \times 10 = 40$ tahun.<br />
+            Selisih $= 40 - 10 = 30$ tahun.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>11. Jawaban: C</b>
+          <div class="pembahasan">
+            Cari bilangan $<100$ yang jika dibagi 7 bersisa 2: 93, 86, 79,
+            ...<br />
+            Cek 93: $93 : 5 = 18$ sisa 3. (Memenuhi).<br />
+            Jadi $N = 93$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>12. Jawaban: B</b>
+          <div class="pembahasan">
+            Volume total $= 80 \times 60 \times 50 = 240.000$ cm$^3 = 240$
+            liter.<br />
+            Air terisi $\frac{2}{3}$, berarti kurang $\frac{1}{3}$.<br />
+            Air yang perlu ditambah $= \frac{1}{3} \times 240 = 80$ liter.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN PAGE 4 (13-16) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>13. Jawaban: B</b>
+          <div class="pembahasan">
+            Keliling persegi besar $= 40$ cm $\to$ Sisi $= 10$ cm.<br />
+            Dipotong 4 irisan sejajar, maka panjang tetap 10 cm, lebar menjadi
+            $10 : 4 = 2,5$ cm.<br />
+            Keliling satu persegi panjang kecil $= 2 \times (10 + 2,5) = 25$ cm.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>14. Jawaban: C</b>
+          <div class="pembahasan">
+            Digit 1-9 (9 bilangan $\times$ 1 digit) = 9 digit.<br />
+            Sisa digit yang dicari $= 100 - 9 = 91$ digit.<br />
+            Bilangan selanjutnya 2 digit (10, 11, ...).<br />
+            $91 : 2 = 45$ sisa 1.<br />
+            Berarti melewati 45 bilangan penuh (10 s.d. 54).<br />
+            Bilangan ke-46 adalah 55. Karena sisa 1, kita ambil digit pertamanya
+            yaitu <b>5</b>.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>15. Jawaban: A</b>
+          <div class="pembahasan">
+            Jumlah 5 bilangan $= 15 \times 5 = 75$.<br />
+            Agar bilangan pertama ($x_1$) sekecil mungkin, bilangan lainnya
+            harus sebesar mungkin.<br />
+            $x_5 = 25$ (diketahui).<br />
+            Bilangan harus berbeda: $x_4=24, x_3=23, x_2=2$.<br />
+            Cek jumlah sementara: $25+24+23 = 72$. Sisa $= 75 - 72 = 3$.<br />
+            Sisa 3 bisa dibagi menjadi 1 dan 2. Karena harus berbeda, maka
+            $x_1=1$ dan $x_2=2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>16. Jawaban: B</b>
+          <div class="pembahasan">
+            Main 10 kali: Menang 6, Seri 1, Kalah 3.<br />
+            Skor $= (6 \times 3) + (1 \times 1) + (3 \times -1)$<br />
+            $= 18 + 1 - 3 = 16$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN PAGE 5 (17-21) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>17. Jawaban: C</b>
+          <div class="pembahasan">
+            Harga setelah diskon adalah 80% dari harga awal.<br />
+            Harga Awal $= \frac{100}{80} \times 160.000 = 200.000$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>18. Jawaban: B</b>
+          <div class="pembahasan">
+            $a + b = 40$<br />
+            $a - b = 14$<br />
+            Jumlahkan: $2a = 54 \to a = 27$.<br />
+            Maka $b = 13$.<br />
+            Hasil kali $= 27 \times 13 = 351$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>19. Jawaban: A</b>
+          <div class="pembahasan">
+            $\frac{A+3}{B} = \frac{2}{3} \implies 3A+9=2B$.<br />
+            $\frac{A}{B-1} = \frac{1}{2} \implies 2A=B-1 \implies B=2A+1$.<br />
+            Substitusi: $3A+9 = 2(2A+1) \implies 3A+9=4A+2 \implies A=7$.<br />
+            $B = 15$. $A+B = 22$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>20. Jawaban: B</b>
+          <div class="pembahasan">
+            Prima (11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47) $\to x=11$.<br />
+            Kuadrat (16, 25, 36, 49) $\to y=4$.<br />
+            $x+y=15$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>21. Jawaban: A</b>
+          <div class="pembahasan">
+            Kec. Harmonik = $\frac{2 \cdot v_1 \cdot v_2}{v_1 + v_2} = \frac{2
+            \cdot 60 \cdot 40}{100} = 48$ km/jam.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN PAGE 6 (22-26) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>22. Jawaban: C</b>
+          <div class="pembahasan">
+            Luas Persegi $= 14^2 = 196$.<br />
+            Luas Lingkaran ($r=7$) = $\frac{22}{7} \times 49 = 154$.<br />
+            Arsiran $= 196 - 154 = 42$.
+          </div>
+        </div>
+
+        <h1>Pembahasan: Pemecahan Masalah</h1>
+
+        <div class="soal-latihan">
+          <b>23. Jawaban: B</b>
+          <div class="pembahasan">
+            Kerjakan dalam kurung dulu: $4 \star 2 = (4 \times 2) + (4 - 2) = 8
+            + 2 = 10$.<br />
+            Lalu: $5 \star 10 = (5 \times 10) + (5 - 10) = 50 + (-5) = 45$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>24. Jawaban: C</b>
+          <div class="pembahasan">
+            Satuan (1-200): 20 kali.<br />
+            Puluhan (10-19, 110-119): 20 kali.<br />
+            Ratusan (100-199): 100 kali.<br />
+            Total = 140.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>25. Jawaban: C</b>
+          <div class="pembahasan">
+            Rumus jabat tangan: $\frac{n(n-1)}{2} = 66$.<br />
+            $n(n-1) = 132$.<br />
+            $12 \times 11 = 132$. Jadi $n=12$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>26. Jawaban: B</b>
+          <div class="pembahasan">
+            Deret aritmatika 16 bilangan. Jumlah = 2024.<br />
+            $\frac{16}{2} (2a + 15) = 2024 \implies 8(2a+15) = 2024$.<br />
+            $2a+15 = 253 \implies 2a = 238 \implies a = 119$.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+
+    <!-- PEMBAHASAN PAGE 7 (27-30) -->
+    <section class="page">
+      <div class="content-wrapper">
+        <div class="soal-latihan">
+          <b>27. Jawaban: A</b>
+          <div class="pembahasan">
+            Cari FPB dari ukuran balok (96, 72, 60) untuk rusuk kubus terbesar
+            agar jumlah kubus paling sedikit.<br />
+            FPB(96, 72, 60) $= 12$ cm.<br />
+            Banyak kubus $= (96:12) \times (72:12) \times (60:12)$<br />
+            $= 8 \times 6 \times 5 = 240$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>28. Jawaban: C</b>
+          <div class="pembahasan">
+            Gunakan metode pengurangan luas.<br />
+            Luas ABCD $= 180$.<br />
+            Luas $\Delta EBF = \frac{1}{2} \times EB \times BF = \frac{1}{2}
+            \times (\frac{2}{3}p) \times (\frac{2}{3}l) = \frac{2}{9} \times 180
+            = 40$.<br />
+            Luas $\Delta FCD = \frac{1}{2} \times FC \times CD = \frac{1}{2}
+            \times (\frac{1}{3}l) \times p = \frac{1}{6} \times 180 = 30$.<br />
+            Luas $\Delta DAE = \frac{1}{2} \times DA \times AE = \frac{1}{2}
+            \times l \times (\frac{1}{3}p) = \frac{1}{6} \times 180 = 30$.<br />
+            Luas Arsiran (DEF) $= 180 - (40 + 30 + 30) = 80$ cm$^2$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>29. Jawaban: C</b>
+          <div class="pembahasan">
+            Pola satuan $3^n$: 3, 9, 7, 1 (berulang tiap 4). $2024$ habis dibagi
+            4, maka satuan $= 1$.<br />
+            Pola satuan $2^n$: 2, 4, 8, 6 (berulang tiap 4). $2024$ habis dibagi
+            4, maka satuan $= 6$.<br />
+            Jumlah satuan $= 1 + 6 = 7$.
+          </div>
+        </div>
+
+        <div class="soal-latihan">
+          <b>30. Jawaban: B</b>
+          <div class="pembahasan">
+            Total 5 bola. Ambil 3 bola. Merah WAJIB.<br />
+            Berarti tinggal memilih 2 bola lagi dari 4 sisa bola (Kuning, Hijau,
+            Biru, Ungu).<br />
+            Kombinasi $C(4,2) = \frac{4 \times 3}{2} = 6$ cara.
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+        <i
+          >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+          Indonesia.</i
+        >
+      </footer>
+    </section>
+  </body>
+</html>
